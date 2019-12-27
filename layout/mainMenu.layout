@@ -1,0 +1,19 @@
+FrameWidgetClass rootFrame {
+ position 33.0045 25.7399
+ size 935.42603 504.39499
+ hexactpos 1
+ vexactpos 1
+ hexactsize 1
+ vexactsize 1
+ {
+  ButtonWidgetClass cancel {
+   position 349.04602 403.54401
+   size 248.987 48
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   text "#cancel"
+  }
+ }
+}
