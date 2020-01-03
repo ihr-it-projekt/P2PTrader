@@ -1,5 +1,5 @@
 FrameWidgetClass rootFrame {
- position 33.0045 25.7399
+ position 34.2153 20.8969
  size 935.42603 504.39499
  hexactpos 1
  vexactpos 1
@@ -7,7 +7,16 @@ FrameWidgetClass rootFrame {
  vexactsize 1
  {
   ButtonWidgetClass cancel {
-   position 349.04602 403.54401
+   position 116.58 408.38696
+   size 248.987 48
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   text "#cancel"
+  }
+  ButtonWidgetClass createOffer {
+   position 650.526 419.28299
    size 248.987 48
    hexactpos 1
    vexactpos 1

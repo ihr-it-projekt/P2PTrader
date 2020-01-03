@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="38e3db7b-7fcb-43a5-b02c-ad5d49ff5534" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/scripts/5_Mission/Models/P2PTraderPlayerInventory.c" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/5_Mission/Models/P2PTraderPlayerInventory.c" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="D:\DayZProjects\unpacked\P2PTrader\.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1VYsMiK2Djun2Z6xMZJcqptYccB" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="38e3db7b-7fcb-43a5-b02c-ad5d49ff5534" name="Default Changelist" comment="" />
+      <created>1577441316813</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1577441316813</updated>
+      <workItem from="1577441318064" duration="628000" />
+      <workItem from="1577876213179" duration="36000" />
+    </task>
+    <task id="LOCAL-00001" summary="initial">
+      <created>1577441345244</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1577441345244</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="initial" />
+    <option name="LAST_COMMIT_MESSAGE" value="initial" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="915" y="1195" key="CommitChangelistDialog2" timestamp="1577441344611">
+      <screen x="330" y="1080" width="1920" height="1040" />
+    </state>
+    <state x="915" y="1195" key="CommitChangelistDialog2/330.1080.1920.1040/0.0.2560.1040@330.1080.1920.1040" timestamp="1577441344611" />
+    <state x="882" y="1334" key="Vcs.Push.Dialog.v2" timestamp="1577441346891">
+      <screen x="330" y="1080" width="1920" height="1040" />
+    </state>
+    <state x="882" y="1334" key="Vcs.Push.Dialog.v2/330.1080.1920.1040/0.0.2560.1040@330.1080.1920.1040" timestamp="1577441346891" />
+  </component>
+</project>

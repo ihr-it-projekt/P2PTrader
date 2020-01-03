@@ -3,6 +3,13 @@ class P2PTraderMenu extends UIScriptedMenu
 	private DayZPlayer player;
     private ButtonWidget cancel;
 	private P2PTraderConfig config;
+	private ButtonWidget buttonCreateOffer;
+	private ButtonWidget buttonSearchOffer;
+	private ButtonWidget buttonCloaseCreateOffer;
+	private UIActionEditableText inputSearchOffer;
+	private TextListboxWidget tradeableItems;
+	private ref ItemService itemService;
+	private Widget createOfferWidget;
 	bool isMenuOpen = false;
 	
 	void SetConfig(P2PTraderConfig configExt) {
@@ -27,9 +34,34 @@ class P2PTraderMenu extends UIScriptedMenu
         layoutRoot = GetGame().GetWorkspace().CreateWidgets("P2PTrader/layouts/mainMenu.layout");
 
         cancel = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "cancel" ));
+        buttonCreateOffer = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonCreateOffer" ));
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(cancel,  this, "OnClick");
-
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCreateOffer,  this, "OnClick");
+		
+		createOfferWidget = GetGame().GetWorkspace().CreateWidgets("P2PTrader/layouts/offer.layout");
+		createOfferWidget.Show(false);
+		
+		
+		//Start offer widget
+        tradeableItems = TextListboxWidget.Cast(createOfferWidget.FindAnyWidget("tradeableItems"));
+		
+        buttonCloaseCreateOffer = ButtonWidget.Cast(createOfferWidget.FindAnyWidget("buttonCloaseCreateOffer"));
+        buttonSearchOffer = ButtonWidget.Cast(createOfferWidget.FindAnyWidget("buttonSearchOffer"));
+		
+        inputSearchOffer = UIActionEditableText.Cast(createOfferWidget.FindAnyWidget("inputSearchOffer"));
+		
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCloaseCreateOffer,  this, "OnClick");
+        buttonSearchOffer.GetInstance().RegisterOnMouseButtonDown(buttonCloaseCreateOffer,  this, "OnClick");
+		
+		
+		layoutRoot.AddChild(createOfferWidget);
+		//End offer widget
+		
         layoutRoot.Show(false);
+		
+		itemService = new ItemService;
+		itemService.AddTradeableItemsToWidget(tradeableItems, "All", "");
+		
 
         return layoutRoot;
     }
@@ -39,13 +71,15 @@ class P2PTraderMenu extends UIScriptedMenu
 
         if (actionRuns) {
             return actionRuns;
-        }
-
-        if (w == cancel){
+        } else if (w == cancel){
             DebugMessageP2PTrader("click cancel");
             CloseMenu();
             return true;
-        }
+        } else if(w == buttonCreateOffer) {
+			createOfferWidget.Show(true);
+		} else if(w == buttonCloaseCreateOffer) {
+			createOfferWidget.Show(false);
+		}
 
         return false;
     }
