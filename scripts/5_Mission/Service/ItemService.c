@@ -2,9 +2,11 @@ class ItemService
 {
 	private ref P2PTraderPlayerInventory inventory;
 	private ref TStringArray configs;
-	private ref array<string> itemsFromConfig;
+	private P2PTraderConfig config;
+	private ref array<ref P2PTraderItem> itemsFromConfig;
 	
-	void ItemService() {
+	void ItemService(P2PTraderConfig config) {
+		this.config = config;
 		inventory = new P2PTraderPlayerInventory;
 		
 		configs = new TStringArray;
@@ -12,69 +14,122 @@ class ItemService
 		configs.Insert( CFG_WEAPONSPATH );
 		configs.Insert( CFG_MAGAZINESPATH );
 		configs.Insert( "CfgNonAIVehicles" );
+		configs.Insert( "CfgAmmo" );
 		
-		itemsFromConfig = new array<string>;
+		itemsFromConfig = new array<ref P2PTraderItem>;
 		
-		foreach (string configName: configs){
-			int countChildren = g_Game.ConfigGetChildrenCount(configName);
-
-			for (int i = 0; i < countChildren; ++i){
-				string strName;
-				GetGame().ConfigGetChildName(configName, i, strName);
-
-				int scope = GetGame().ConfigGetInt( configName + " " + strName + " scope" );
-
-				if (scope == 0 ){
-					continue;
-				}
-
-				string strNameLower = strName;
-
-				strNameLower.ToLower();
-
-				if (strName != "ItemOptics"){
-					itemsFromConfig.Insert(strName);
-				}
+		DebugMessageP2PTrader("Has got Items from config: " + config.traderItemsConfig.items.Count().ToString());
+		
+		foreach (string itemName: config.traderItemsConfig.items){
+			//DebugMessageP2PTrader("Add tradeable item type " + itemName);
+			P2PTraderItem item = new P2PTraderItem(itemName);
+			item.SetTranslation(GetItemDisplayName(itemName));
+			itemsFromConfig.Insert(item);
+		}
+	}
+	
+	void MoveItemFromListWidgetToListWidget(TextListboxWidget source, TextListboxWidget target = null, bool move = true) {
+		int markedPos = source.GetSelectedRow();
+		P2PTraderItem item;
+		source.GetItemData(markedPos, 0, item);
+		
+		if (item) {
+			if (target) {
+				target.AddItem(item.translatedName, item, 0);
+			}
+			
+			if (move) {
+				source.RemoveRow(markedPos);
 			}
 		}
 	}
 	
-	array<EntityAI> GetPlayerItemList(DayZPlayer player) {
-		return inventory.GetPlayerItems(player);
+	TextListboxWidget GetPlayerItemList(TextListboxWidget widget, array<ref P2PTraderItem> playerItems) {
+		widget.ClearItems();
+		
+		foreach(P2PTraderItem item: playerItems) {
+			if (item) {
+				DebugMessageP2PTrader("Add inventory type " + item.name);
+				
+				item.SetTranslation(GetItemDisplayName(item.name));
+				
+				widget.AddItem(item.translatedName, item, 0);
+			}
+		}
+		
+		return widget;
 	}
 	
-	void AddTradeableItemsToWidget(TextListboxWidget widget, string currentType, string search) {		
+	void AddTradeableItemsToWidget(TextListboxWidget widget, string search) {		
 		widget.ClearItems();
 		
 		search.ToLower();
 
-		foreach (string itemName: itemsFromConfig){
-				string strNameLower = itemName;
+		foreach (P2PTraderItem item: itemsFromConfig){
+			if (search != "" && !item.translatedNameLower.Contains(search)){
+				continue;
+			}
+			
+			widget.AddItem(item.translatedName, item, 0);
+		}
+	}
 
-				strNameLower.ToLower();
-
-				if ((currentType == "All" || GetGame().IsKindOf(strNameLower, currentType))){
-					if (search != "" && !strNameLower.Contains(search)){
-						continue;
-					}
-					widget.AddItem(itemName, NULL, 0);
-				}
+	void CreateOffer(DayZPlayer player, TextListboxWidget offer, TextListboxWidget wanted) {
+		int countOfferItems = offer.GetNumItems();
+		int countWantedItems = wanted.GetNumItems();
+		
+		DebugMessageP2PTrader("has count items" + countOfferItems.ToString() + " " + countWantedItems.ToString());
+		
+		ref array<ref P2PTraderItem> offerItems = new array<ref P2PTraderItem>;
+		ref array<ref P2PTraderItem> wantedItems = new array<ref P2PTraderItem>;
+		P2PTraderItem item;
+		int x;
+		
+		DebugMessageP2PTrader("itterate offer");
+		for(x = 0; x < countOfferItems; x++) {
+			item = null;
+			offer.GetItemData(x, 0, item);
+			if (item) {
+				DebugMessageP2PTrader("add offer" + item.name);
+				offerItems.Insert(item);
 			}
 		}
-	}
-	
-	void MoveItemToPlayer(DayZPlayer player, string itemName) {
-		
-	}
-	
-	void MoveItemToTrader(DayZPlayer player, int pos) {
-		ItemBase item = inventory.GetPlayerItem(player, pos);
-		if (item) {
-			
+		DebugMessageP2PTrader("itterate wanted");
+		for(x = 0; x < countWantedItems; x++) {
+			item = null;
+			wanted.GetItemData(x, 0, item);
+			if (item) {
+				wantedItems.Insert(item);
+			}
 		}
+		DebugMessageP2PTrader("try send P2P_TRADER_EVENT_NEW_OFFER to server");
+		GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_NEW_OFFER, new Param3<DayZPlayer, ref array<ref P2PTraderItem>, ref array<ref P2PTraderItem>>(player, offerItems, wantedItems), true);
+		DebugMessageP2PTrader("try send P2P_TRADER_EVENT_NEW_OFFER to server");
 	}
 	
 	
+	string GetItemDisplayName(string itemClassname){
+		string cfg;
+		string displayName;
+		
+		foreach (string itemName: configs){
+			cfg = itemName + " " + itemClassname + " displayName";
+
+	    	GetGame().ConfigGetText(cfg, displayName);
+			
+			if (displayName != ""){
+				displayName.Replace("$UNT$", "");
+			
+				break;
+			}
+		}
+		
+		if (displayName == "") {
+			displayName = itemClassname;
+		}
+	
+	    return displayName;
+	}
 	
 	
 }

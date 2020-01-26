@@ -1,28 +1,62 @@
 FrameWidgetClass rootFrame {
- position 34.2153 20.8969
- size 935.42603 504.39499
+ position 189.769 9.69697
+ size 1890 1057.5
  hexactpos 1
  vexactpos 1
  hexactsize 1
  vexactsize 1
  {
-  ButtonWidgetClass cancel {
-   position 116.58 408.38696
-   size 248.987 48
+  PanelWidgetClass PanelWidget10 {
+   ignorepointer 1
+   color 0 0 0 0.651
+   position 121.99599 39.253
+   size 243.993 60
+   halign center_ref
+   valign bottom_ref
    hexactpos 1
    vexactpos 1
    hexactsize 1
    vexactsize 1
-   text "#cancel"
+   style UIDefaultPanel
+   {
+    ButtonWidgetClass buttonCreateOffer {
+     color 0.502 1 0 1
+     position 8.96266 8.96264
+     size 226.06799 42.0747
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style MenuDefault
+     text "Erstellen"
+    }
+   }
   }
-  ButtonWidgetClass createOffer {
-   position 650.526 419.28299
-   size 248.987 48
+  PanelWidgetClass PanelWidget11 {
+   ignorepointer 1
+   color 0 0 0 0.651
+   position -133.24699 39.253
+   size 243.993 60
+   halign center_ref
+   valign bottom_ref
    hexactpos 1
    vexactpos 1
    hexactsize 1
    vexactsize 1
-   text "#cancel"
+   style UIDefaultPanel
+   {
+    ButtonWidgetClass cancel {
+     color 0.502 1 0 1
+     position 8.96266 8.96264
+     size 226.06799 42.0747
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style MenuDefault
+     text "#close"
+    }
+   }
   }
  }
 }

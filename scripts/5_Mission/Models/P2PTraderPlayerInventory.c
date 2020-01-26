@@ -33,7 +33,8 @@ class P2PTraderPlayerInventory
     {
         DebugMessageP2PTrader("GetPlayerItem");
         array<EntityAI> itemsArray = new array<EntityAI>;
-        player.GetInventory().EnumerateInventory(InventoryTraversalType.PREORDER, itemsArray);
+        player.GetInventory().EnumerateInventory(InventoryTraversalType.INORDER, itemsArray);
+		
 
         return itemsArray;
     }
@@ -52,8 +53,9 @@ class P2PTraderPlayerInventory
 		item.SetHealth(health);
     }
 
-    void Remove(ItemBase item) {
-		item.SetQuantity(0);
+    void Remove(ItemBase item, DayZPlayer player) {
+		GetGame().ObjectDelete(item);
+		
         DebugMessageP2PTrader("destroy item " + item.GetName());
     }
 };

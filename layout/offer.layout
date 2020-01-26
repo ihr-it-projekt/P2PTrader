@@ -1,18 +1,19 @@
 FrameWidgetClass rootFrame {
- position 0 0.00003
- size 1681.76001 946.76001
+ position 10.9341 6.03812
+ size 1868.13 1045.42004
  halign center_ref
  valign center_ref
  hexactpos 1
  vexactpos 1
  hexactsize 1
  vexactsize 1
+ scaled 1
  {
   PanelWidgetClass PanelWidget0 {
    ignorepointer 1
    color 0 0 0 1
-   position 0 0.00005
-   size 1665.76001 930.76001
+   position 0.00093 0
+   size 1845.63 1022.92004
    halign center_ref
    valign center_ref
    hexactpos 1
@@ -20,376 +21,437 @@ FrameWidgetClass rootFrame {
    hexactsize 1
    vexactsize 1
    style editor_selection
-  }
-  ImageWidgetClass ImageWidget1 {
-   ignorepointer 1
-   keepsafezone 1
-   color 1 1 1 0.3922
-   position 16.965 16.9625
-   size 1647.83008 912.83502
-   hexactpos 1
-   vexactpos 1
-   hexactsize 1
-   vexactsize 1
-   imageTexture "{50B29A4D48AF3D2D}AuktionsMenu/dayz1.edds"
-   mode blend
-   stretch 1
-   nocache 0
    {
-    PanelWidgetClass PanelWidget13 {
-     disabled 0
-     inheritalpha 0
+    ImageWidgetClass ImageWidget1 {
      ignorepointer 1
-     keepsafezone 0
-     color 0 0 0 0.651
-     position 0.00002 350.41699
-     size 500 60
-     halign center_ref
-     valign center_ref
+     keepsafezone 1
+     color 1 1 1 0.3922
+     position 11.25 11.25
+     size 1826.27991 1007.13
      hexactpos 1
      vexactpos 1
      hexactsize 1
      vexactsize 1
-     draggable 0
-     style UIDefaultPanel
+     imageTexture "{6546FEB46946F160}P2PTrader/layout/dayz1.edds"
+     mode blend
+     stretch 1
+     nocache 0
      {
-      XComboBoxWidgetClass XComboBoxWidget0 {
-       position 382.93201 8.96267
-       size 108.105 42.0747
-       hexactpos 1
-       vexactpos 1
-       hexactsize 1
-       vexactsize 1
-       style Default
-       items "1;2;3;4;5;6;7;8;9;10;11;12;13;14"
-      }
-      TextWidgetClass TextWidget3 {
-       clipchildren 1
+      PanelWidgetClass PanelWidget13 {
+       disabled 0
        inheritalpha 0
        ignorepointer 1
-       keepsafezone 1
-       position 8.96265 8.96269
-       size 365.00699 42.0747
+       keepsafezone 0
+       color 0 0 0 0.651
+       position -5.14844 397.332
+       size 505.38397 51.1542
+       halign center_ref
+       valign center_ref
        hexactpos 1
        vexactpos 1
        hexactsize 1
        vexactsize 1
-       scaled 1
        draggable 0
-       style None
-       text "Auktionsdauer in Tagen"
-       "exact text" 0
-       text_proportion 0.7
-       "size to text h" 0
-       "size to text v" 0
-       "text halign" center
-       "text valign" center
+       style UIDefaultPanel
+       {
+        TextWidgetClass TextWidget3 {
+         clipchildren 1
+         inheritalpha 0
+         ignorepointer 1
+         keepsafezone 1
+         position 12 11.25
+         size 260.37997 32.8729
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         draggable 0
+         style None
+         text "#duration"
+         "exact text" 0
+         text_proportion 0.7
+         "size to text h" 0
+         "size to text v" 0
+         "text halign" center
+         "text valign" center
+        }
+        PanelWidgetClass boarderNumber {
+         ignorepointer 1
+         color 0 0 0 0.7843
+         position 279.41 8.43755
+         size 216.132 38.4979
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style editor_selection
+         {
+          ButtonWidgetClass sub10Number {
+           position 12.6563 9.84375
+           size 39.5626 23.0292
+           hexactpos 1
+           vexactpos 1
+           hexactsize 1
+           vexactsize 1
+           text "<<"
+           text_proportion 0.5
+          }
+          ButtonWidgetClass add10Number {
+           position 171.17401 8.4375
+           size 28.3125 23.8579
+           hexactpos 1
+           vexactpos 1
+           hexactsize 1
+           vexactsize 1
+           text ">>"
+           text_proportion 0.5
+          }
+          ButtonWidgetClass sub1Number {
+           position 57.8439 9.84375
+           size 25.5 21.6229
+           hexactpos 1
+           vexactpos 1
+           hexactsize 1
+           vexactsize 1
+           text "<"
+           text_proportion 0.5
+          }
+          ButtonWidgetClass add1Number {
+           position 135.83 8.4375
+           size 29.7188 23.8579
+           hexactpos 1
+           vexactpos 1
+           hexactsize 1
+           vexactsize 1
+           text ">"
+           text_proportion 0.5
+          }
+          TextWidgetClass number {
+           ignorepointer 1
+           position 88.9693 8.4375
+           size 41.237 23.8579
+           hexactpos 1
+           vexactpos 1
+           hexactsize 1
+           vexactsize 1
+           "text halign" center
+           "text valign" center
+          }
+         }
+        }
+       }
       }
-     }
-    }
-    PanelWidgetClass PanelWidget12 {
-     ignorepointer 1
-     color 0 0 0 0.651
-     position 693.92102 8
-     size 243.993 60
-     halign center_ref
-     valign bottom_ref
-     hexactpos 1
-     vexactpos 1
-     hexactsize 1
-     vexactsize 1
-     style UIDefaultPanel
-     {
-      ButtonWidgetClass ButtonWidget3 {
-       color 1 0 0 1
-       position 8.96266 8.96267
-       size 226.06799 42.0747
-       hexactpos 1
-       vexactpos 1
-       hexactsize 1
-       vexactsize 1
-       style MenuDefault
-       text "Verlassen"
-       switch once
-      }
-     }
-    }
-    PanelWidgetClass PanelWidget11 {
-     ignorepointer 1
-     color 0 0 0 0.651
-     position 126.956 8
-     size 243.993 60
-     halign center_ref
-     valign bottom_ref
-     hexactpos 1
-     vexactpos 1
-     hexactsize 1
-     vexactsize 1
-     style UIDefaultPanel
-     {
-      ButtonWidgetClass ButtonWidget2 {
-       color 1 0 0 1
-       position 8.96266 8.96267
-       size 226.06799 42.0747
-       hexactpos 1
-       vexactpos 1
-       hexactsize 1
-       vexactsize 1
-       style MenuDefault
-       text "Abbrechen"
-       switch once
-      }
-     }
-    }
-    PanelWidgetClass PanelWidget10 {
-     ignorepointer 1
-     color 0 0 0 0.651
-     position -126 8
-     size 243.993 60
-     halign center_ref
-     valign bottom_ref
-     hexactpos 1
-     vexactpos 1
-     hexactsize 1
-     vexactsize 1
-     style UIDefaultPanel
-     {
-      ButtonWidgetClass ButtonWidget1 {
-       color 0.502 1 0 1
-       position 8.96266 8.96264
-       size 226.06799 42.0747
-       hexactpos 1
-       vexactpos 1
-       hexactsize 1
-       vexactsize 1
-       style MenuDefault
-       text "Erstellen"
-      }
-     }
-    }
-    PanelWidgetClass PanelWidget9 {
-     ignorepointer 1
-     color 0 0 0 0.651
-     position 0 -27.38
-     size 360 60
-     halign center_ref
-     valign center_ref
-     hexactpos 1
-     vexactpos 1
-     hexactsize 1
-     vexactsize 1
-     style UIDefaultPanel
-     {
-      TextWidgetClass TextWidget2 {
+      PanelWidgetClass PanelWidget11 {
        ignorepointer 1
-       position -0.00006 0.00003
-       size 342.07501 42.0747
+       color 0 0 0 0.651
+       position -137.25 8.00017
+       size 243.993 60
        halign center_ref
-       valign center_ref
+       valign bottom_ref
        hexactpos 1
        vexactpos 1
        hexactsize 1
        vexactsize 1
-       style None
-       text "Ich moechte"
-       "text halign" center
-       "text valign" center
+       style UIDefaultPanel
+       {
+        ButtonWidgetClass buttonCloseCreateOffer {
+         color 1 0 0 1
+         position 8.96266 8.96267
+         size 226.06799 42.0747
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "Abbrechen"
+         switch once
+        }
+       }
       }
-     }
-    }
-    PanelWidgetClass PanelWidget8 {
-     ignorepointer 1
-     keepsafezone 0
-     color 0 0 0 0.651
-     position -0.00005 8.96266
-     size 360 60
-     halign center_ref
-     hexactpos 1
-     vexactpos 1
-     hexactsize 1
-     vexactsize 1
-     style UIDefaultPanel
-     "no focus" 0
-     {
-      TextWidgetClass TextWidget1 {
+      PanelWidgetClass PanelWidget10 {
        ignorepointer 1
-       position -0.00004 0.00001
-       size 342.07501 42.0747
+       color 0 0 0 0.651
+       position 121.99599 8.00011
+       size 243.993 60
        halign center_ref
-       valign center_ref
+       valign bottom_ref
        hexactpos 1
        vexactpos 1
        hexactsize 1
        vexactsize 1
-       style None
-       text "Ich biete"
-       "text halign" center
-       "text valign" center
+       style UIDefaultPanel
+       {
+        ButtonWidgetClass buttonCreateCreateOffer {
+         color 0.502 1 0 1
+         position 8.96266 8.96264
+         size 226.06799 42.0747
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "Erstellen"
+        }
+       }
       }
-     }
-    }
-    PanelWidgetClass PanelWidget7 {
-     ignorepointer 1
-     color 0 0 0 0.651
-     position 0.00002 161.45399
-     size 500 300
-     halign center_ref
-     valign center_ref
-     hexactpos 1
-     vexactpos 1
-     hexactsize 1
-     vexactsize 1
-     style DayZDefaultPanel
-    }
-    PanelWidgetClass PanelWidget6 {
-     ignorepointer 1
-     color 0 0 0 0.651
-     position 0.00002 -230.41699
-     size 500 300
-     halign center_ref
-     valign center_ref
-     hexactpos 1
-     vexactpos 1
-     hexactsize 1
-     vexactsize 1
-     style DayZDefaultPanel
-    }
-    PanelWidgetClass PanelWidget5 {
-     inheritalpha 0
-     ignorepointer 1
-     keepsafezone 0
-     color 0 0 0 0.651
-     position 8.96 -30.4173
-     size 497.18298 700
-     valign center_ref
-     hexactpos 1
-     vexactpos 1
-     hexactsize 1
-     vexactsize 1
-     style DayZDefaultPanel
-     {
-      TextListboxWidgetClass TextListboxWidget1 {
-       color 1 1 1 0.651
-       position 8.96266 8.96265
-       size 479.258 682.07501
-       hexactpos 1
-       vexactpos 1
-       hexactsize 1
-       vexactsize 1
-       style Editor
-      }
-     }
-    }
-    PanelWidgetClass PanelWidget4 {
-     ignorepointer 1
-     color 0 0 0 0.651
-     position 8 8
-     size 500 60
-     hexactpos 1
-     vexactpos 1
-     hexactsize 1
-     vexactsize 1
-     style UIDefaultPanel
-     {
-      TextWidgetClass TextWidget0 {
+      PanelWidgetClass PanelWidget9 {
        ignorepointer 1
-       position 0.0001 0
-       size 482.07501 42.0747
+       color 0 0 0 0.651
+       position -5.14816 2.13277
+       size 508.19601 61.1365
        halign center_ref
        valign center_ref
        hexactpos 1
        vexactpos 1
        hexactsize 1
        vexactsize 1
-       style None
-       text "Mein Inventar"
-       "text halign" center
-       "text valign" center
+       style UIDefaultPanel
+       {
+        TextWidgetClass TextWidget2 {
+         ignorepointer 1
+         position 0.00002 0.71947
+         size 408.76102 34.7947
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style None
+         text "#i_will"
+         "text halign" center
+         "text valign" center
+        }
+       }
       }
-     }
-    }
-    PanelWidgetClass PanelWidget3 {
-     ignorepointer 1
-     color 0 0 0 0.651
-     position 1141.76001 80
-     size 500 700
-     hexactpos 1
-     vexactpos 1
-     hexactsize 1
-     vexactsize 1
-     style DayZDefaultPanel
-     {
-      TextListboxWidgetClass TextListboxWidget0 {
-       color 1 1 1 0.651
-       position -0.00011 -0.00008
-       size 482.07501 682.07501
-       halign center_ref
-       valign center_ref
-       hexactpos 1
-       vexactpos 1
-       hexactsize 1
-       vexactsize 1
-       style Editor
-       colums ""
-      }
-     }
-    }
-    PanelWidgetClass PanelWidget2 {
-     ignorepointer 1
-     color 0 0 0 0.651
-     position 7.99997 8
-     size 500 60
-     halign right_ref
-     hexactpos 1
-     vexactpos 1
-     hexactsize 1
-     vexactsize 1
-     style UIDefaultPanel
-     {
-      ImageWidgetClass ImageWidget0 {
-       visible 1
+      PanelWidgetClass PanelWidget8 {
        ignorepointer 1
        keepsafezone 0
-       position 8 0
-       size 42 42
-       halign right_ref
+       color 0 0 0 0.651
+       position 0.47787 11.25
+       size 519.44897 65.569
+       halign center_ref
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style UIDefaultPanel
+       "no focus" 0
+       {
+        TextWidgetClass TextWidget1 {
+         ignorepointer 1
+         position -0.00003 0
+         size 496.94901 43.069
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style None
+         text "#i_give"
+         "text halign" center
+         "text valign" center
+        }
+       }
+      }
+      PanelWidgetClass PanelWidget7 {
+       ignorepointer 1
+       color 0 0 0 0.651
+       position -5.14824 203.634
+       size 508.19699 319.366
+       halign center_ref
        valign center_ref
        hexactpos 1
        vexactpos 1
        hexactsize 1
        vexactsize 1
-       imageTexture "{3FB39188D9B47ADB}AuktionsMenu/Suchen.edds"
-       mode opaque
-       "src alpha" 0
-       "no wrap" 0
-       stretch 1
-       "flip u" 0
-       "flip v" 0
-       nocache 0
+       style DayZDefaultPanel
+       {
+        TextListboxWidgetClass playerWhantToHaveOffer {
+         color 1 1 1 0.651
+         position -0.00002 0.00002
+         size 485.69699 296.866
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Editor
+         "title visible" 0
+         colums ""
+        }
+       }
       }
-      ButtonWidgetClass ButtonWidget0 {
-       ignorepointer 0
-       keepsafezone 0
-       position 8 0
-       size 42 42
-       halign right_ref
+      PanelWidgetClass PanelWidget6 {
+       ignorepointer 1
+       color 0 0 0 0.651
+       position -5.14815 -227.591
+       size 508.19601 375.811
+       halign center_ref
        valign center_ref
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style DayZDefaultPanel
+       {
+        TextListboxWidgetClass playerItemsOfferOffer {
+         color 1 1 1 0.651
+         position -0.00003 -0.00001
+         size 485.69601 353.311
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Editor
+         colums ""
+        }
+       }
+      }
+      PanelWidgetClass PanelWidget5 {
+       inheritalpha 0
+       ignorepointer 1
+       keepsafezone 0
+       color 0 0 0 0.651
+       position 11.25 38.4097
+       size 631.39301 907.81
+       valign center_ref
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style DayZDefaultPanel
+       {
+        TextListboxWidgetClass playerInventoryItemsOffer {
+         color 1 1 1 0.651
+         position 8.96266 8.96265
+         size 611.17999 887.59705
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Editor
+        }
+       }
+      }
+      PanelWidgetClass PanelWidget4 {
+       ignorepointer 1
+       color 0 0 0 0.651
+       position 11.25 11.25
+       size 631.39301 65.569
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style UIDefaultPanel
+       {
+        TextWidgetClass TextWidget0 {
+         ignorepointer 1
+         position 0 0
+         size 608.89301 43.069
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style None
+         text "#my_inventorry"
+         "text halign" center
+         "text valign" center
+        }
+       }
+      }
+      PanelWidgetClass PanelWidget3 {
+       ignorepointer 1
+       color 0 0 0 0.651
+       position 1173.34009 88.069
+       size 641.69 907.81097
        hexactpos 1
        vexactpos 1
        hexactsize 1
        vexactsize 1
        scaled 1
-       style Default
+       style DayZDefaultPanel
+       {
+        TextListboxWidgetClass tradeableItemsOffer {
+         color 1 1 1 0.651
+         position -0.00021 -0.00005
+         size 619.19098 885.31097
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Editor
+         colums ""
+        }
+       }
       }
-      EditBoxWidgetClass EditBoxWidget0 {
-       position 8 0
-       size 433.03699 42
-       valign center_ref
+      PanelWidgetClass PanelWidget2 {
+       ignorepointer 1
+       color 0 0 0 0.651
+       position 9.69662 11.25
+       size 643.24097 63.6095
+       halign right_ref
        hexactpos 1
        vexactpos 1
        hexactsize 1
        vexactsize 1
-       style Editor
+       style UIDefaultPanel
+       {
+        ImageWidgetClass ImageWidget0 {
+         visible 1
+         ignorepointer 1
+         keepsafezone 0
+         position 9.69697 0.55388
+         size 40.303 43.1078
+         halign right_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         imageTexture "{6A53660726F263A6}P2PTrader/layout/Suchen.edds"
+         mode opaque
+         "src alpha" 0
+         "no wrap" 0
+         stretch 1
+         "flip u" 0
+         "flip v" 0
+         nocache 0
+        }
+        ButtonWidgetClass buttonSearchOffer {
+         ignorepointer 0
+         keepsafezone 0
+         position 9.69697 0.55388
+         size 40.303 43.1078
+         halign right_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         style Default
+        }
+        EditBoxWidgetClass inputSearchOffer {
+         position 9.69699 0
+         size 572.29407 44.2155
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Editor
+        }
+       }
       }
      }
     }

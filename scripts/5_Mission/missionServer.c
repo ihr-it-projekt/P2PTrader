@@ -1,10 +1,18 @@
 modded class MissionServer {
 	
 	private ref P2PTraderConfig config;
+	private ref P2PTraderItemsConfig itemConfig;
+	private ref P2PTraderStock traderStock;
+	private ref P2PTraderOfferEventHandler offerEventHandler;
+	private ref P2PTraderPlayerItemEventHandler playerItemEventHandler;
 	
 	void MissionServer()
 	{
-		config = new P2PTraderConfig;
+		config = new P2PTraderConfig();
+		DebugMessageP2PTrader("Has load Items from config: " + config.traderItemsConfig.items.Count().ToString());
+		traderStock = new P2PTraderStock();
+		offerEventHandler = new P2PTraderOfferEventHandler(traderStock);
+		playerItemEventHandler = new P2PTraderPlayerItemEventHandler();
 		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
 		DebugMessageP2PTrader("loaded");
 	}

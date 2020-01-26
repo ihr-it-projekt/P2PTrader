@@ -11,7 +11,7 @@ modded class MissionGameplay
 		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
         Param1<DayZPlayer> paramGetConfig = new Param1<DayZPlayer>(GetGame().GetPlayer());
 	    GetGame().RPCSingleParam(paramGetConfig.param1, P2P_TRADER_EVENT_GET_CONFIG, paramGetConfig, true);
-		player = GetGame().GetPlayer();
+		
 		localInput = GetUApi().GetInputByName("UAInputOpenP2PTrader");	
 	}
 	
@@ -25,27 +25,28 @@ modded class MissionGameplay
 			Param1 <ref P2PTraderConfig> configParam;
 			if (ctx.Read(configParam)){
 				config = configParam.param1;
-				DebugMessageP2PTrader("player load config");
+				DebugMessageP2PTrader("player has load config");
 
 			}
-		} else {
-            DebugMessageP2PTrader("NO event handler registered");
 		}
 	}
 	
 	override void OnUpdate(float timeslice)
 	{
 		super.OnUpdate(timeslice);
+		player = GetGame().GetPlayer();
 		
 		if(localInput.LocalClick() && player && player.IsAlive()) {
-			if (GetGame().GetUIManager().GetMenu() == null && !traderMenu) {
+			DebugMessageP2PTrader("try open menu");
+			if (GetGame().GetUIManager().GetMenu() == null && !traderMenu && config) {
+				DebugMessageP2PTrader("Create and show trader menue");
 				traderMenu = new P2PTraderMenu;
+				traderMenu.SetConfig(config);
 				traderMenu.Init();
 				traderMenu.OnShow();
-			} else if (!traderMenu.isMenuOpen) {
+			} else if (traderMenu && !traderMenu.isMenuOpen && config) {
+				DebugMessageP2PTrader("show trader menue");
 				traderMenu.OnShow();
-			} else if (traderMenu.isMenuOpen) {
-				traderMenu.CloseMenu();
 			}
 		}	
 	}
@@ -55,9 +56,7 @@ modded class MissionGameplay
 		super.OnKeyRelease(key);
 		
 		if (traderMenu){
-			DebugMessageP2PTrader("Has trader menu");
-			switch ( key )
-			{
+			switch (key){
 				case KeyCode.KC_ESCAPE:
 					DebugMessageP2PTrader("press esc ");
 					traderMenu.CloseMenu();
