@@ -74,7 +74,7 @@ class ItemService
 		}
 	}
 
-	void CreateOffer(DayZPlayer player, TextListboxWidget offer, TextListboxWidget wanted) {
+	string CreateOffer(DayZPlayer player, TextListboxWidget offer, TextListboxWidget wanted, string offerText) {
 		int countOfferItems = offer.GetNumItems();
 		int countWantedItems = wanted.GetNumItems();
 		
@@ -85,7 +85,7 @@ class ItemService
 		P2PTraderItem item;
 		int x;
 		
-		DebugMessageP2PTrader("itterate offer");
+		DebugMessageP2PTrader("iterate offer");
 		for(x = 0; x < countOfferItems; x++) {
 			item = null;
 			offer.GetItemData(x, 0, item);
@@ -94,7 +94,7 @@ class ItemService
 				offerItems.Insert(item);
 			}
 		}
-		DebugMessageP2PTrader("itterate wanted");
+		DebugMessageP2PTrader("iterate wanted");
 		for(x = 0; x < countWantedItems; x++) {
 			item = null;
 			wanted.GetItemData(x, 0, item);
@@ -102,9 +102,39 @@ class ItemService
 				wantedItems.Insert(item);
 			}
 		}
+
+		if (wantedItem.Count() == 0 && offerItems.Count() == 0) {
+		    return "you_can_not_make_an_empty_offer"
+		}
+
 		DebugMessageP2PTrader("try send P2P_TRADER_EVENT_NEW_OFFER to server");
-		GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_NEW_OFFER, new Param3<DayZPlayer, ref array<ref P2PTraderItem>, ref array<ref P2PTraderItem>>(player, offerItems, wantedItems), true);
+		GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_NEW_OFFER, new Param4<DayZPlayer, ref array<ref P2PTraderItem>, ref array<ref P2PTraderItem>, string>(player, offerItems, wantedItems, offerText), true);
 		DebugMessageP2PTrader("try send P2P_TRADER_EVENT_NEW_OFFER to server");
+		return "";
+	}
+
+	string CreateOfferToPlayer(DayZPlayer player, TextListboxWidget offer, int offerId, string offerText) {
+        int countOfferItems = offer.GetNumItems();
+        DebugMessageP2PTrader("has count items" + countOfferItems.ToString());
+
+        ref array<ref P2PTraderItem> offerItems = new array<ref P2PTraderItem>;
+        DebugMessageP2PTrader("iterate offer");
+        for(int x = 0; x < countOfferItems; x++) {
+            P2PTraderItem item = null;
+            offer.GetItemData(x, 0, item);
+            if (item) {
+                DebugMessageP2PTrader("add offer" + item.name);
+                offerItems.Insert(item);
+            }
+        }
+
+        if (offerItems.Count() == 0) {
+            return "you_can_not_make_an_empty_offer"
+        }
+
+        DebugMessageP2PTrader("try send P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER to server");
+        GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER, new Param4<DayZPlayer, ref array<ref P2PTraderItem>, int, string>(player, offerItems, offerId, offerText), true);
+        DebugMessageP2PTrader("try send P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER to server");
 	}
 	
 	

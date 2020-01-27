@@ -3,3 +3,6 @@
 "i_will","","","Ich möchte"
 "i_give","","","Ich gebe"
 "my_inventorry","","","Mein Inventar"
+"you_can_not_make_yourself_an_offer","","","Du kannst dir nicht selber ein Angebot machen!"
+"you_can_not_make_an_empty_offer","","","Du kannst kein leeres Angebot erstellen!"
+"offer_not_exists","","","Das Angebot existiert nicht (mehr)."

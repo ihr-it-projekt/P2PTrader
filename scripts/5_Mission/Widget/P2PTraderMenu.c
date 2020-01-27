@@ -7,13 +7,21 @@ class P2PTraderMenu extends UIScriptedMenu
 	private ButtonWidget buttonSearchOffer;
 	private ButtonWidget buttonCloseCreateOffer;
 	private ButtonWidget buttonCreateCreateOffer;
+	private ButtonWidget buttonCreateClosePlayerOffer;
+	private ButtonWidget buttonCreateCreatePlayerOffer;
 	private EditBoxWidget inputSearchOffer;
 	private TextListboxWidget tradeableItemsOffer;
 	private TextListboxWidget playerWhantToHaveOffer;
 	private TextListboxWidget playerInventoryItemsOffer;
 	private TextListboxWidget playerItemsOfferOffer;
+	private TextListboxWidget playerInventoryItemsPlayerOffer;
+	private TextListboxWidget playerItemsOfferPlayerOffer;
+	private EditBoxWidget playerTextOffer;
+	private EditBoxWidget playerTextPlayerOffer;
+	private MultilineTextWidget message;
 	private ref ItemService itemService;
 	private Widget createOfferWidget;
+	private Widget createPlayerOfferWidget;
 	bool isMenuOpen = false;
 	
 	void SetConfig(P2PTraderConfig configExt) {
@@ -47,35 +55,47 @@ class P2PTraderMenu extends UIScriptedMenu
 		
 		createOfferWidget = GetGame().GetWorkspace().CreateWidgets("P2PTrader/layout/offer.layout");
 		createOfferWidget.Show(false);
-		
+        createPlayerOfferWidget = GetGame().GetWorkspace().CreateWidgets("P2PTrader/layout/playerOffer.layout");
+        createPlayerOfferWidget.Show(false);
 		
 		//Start offer widget
         tradeableItemsOffer = TextListboxWidget.Cast(createOfferWidget.FindAnyWidget("tradeableItemsOffer"));
         playerWhantToHaveOffer = TextListboxWidget.Cast(createOfferWidget.FindAnyWidget("playerWhantToHaveOffer"));
         playerInventoryItemsOffer = TextListboxWidget.Cast(createOfferWidget.FindAnyWidget("playerInventoryItemsOffer"));
         playerItemsOfferOffer = TextListboxWidget.Cast(createOfferWidget.FindAnyWidget("playerItemsOfferOffer"));
-	
-		
+        playerTextOffer = EditBoxWidget.Cast(createOfferWidget.FindAnyWidget("playerTextOffer"));
+        message = MultilineTextWidget.Cast(createOfferWidget.FindAnyWidget("message"));
+
         buttonCloseCreateOffer = ButtonWidget.Cast(createOfferWidget.FindAnyWidget("buttonCloseCreateOffer"));
         buttonCreateCreateOffer = ButtonWidget.Cast(createOfferWidget.FindAnyWidget("buttonCreateCreateOffer"));
         buttonSearchOffer = ButtonWidget.Cast(createOfferWidget.FindAnyWidget("buttonSearchOffer"));
-		
+
         inputSearchOffer = EditBoxWidget.Cast(createOfferWidget.FindAnyWidget("inputSearchOffer"));
-		
+
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCloseCreateOffer,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonSearchOffer,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCreateCreateOffer,  this, "OnClick");
-		
+
         WidgetEventHandler.GetInstance().RegisterOnDoubleClick(tradeableItemsOffer,  this, "OnDoubleClick");
         WidgetEventHandler.GetInstance().RegisterOnDoubleClick(playerWhantToHaveOffer,  this, "OnDoubleClick");
         WidgetEventHandler.GetInstance().RegisterOnDoubleClick(playerInventoryItemsOffer,  this, "OnDoubleClick");
         WidgetEventHandler.GetInstance().RegisterOnDoubleClick(playerItemsOfferOffer,  this, "OnDoubleClick");
-		
-		
-		
+
 		layoutRoot.AddChild(createOfferWidget);
 		//End offer widget
-		
+		//start player offer widget
+        buttonCreateCreatePlayerOffer = ButtonWidget.Cast(createPlayerOfferWidget.FindAnyWidget("buttonCreateCreatePlayerOffer"));
+        buttonCreateClosePlayerOffer = ButtonWidget.Cast(createPlayerOfferWidget.FindAnyWidget("buttonCreateClosePlayerOffer"));
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCreateCreatePlayerOffer,  this, "OnClick");
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCreateClosePlayerOffer,  this, "OnClick");
+        playerTextPlayerOffer = EditBoxWidget.Cast(createPlayerOfferWidget.FindAnyWidget("playerTextPlayerOffer"));
+        playerInventoryItemsPlayerOffer = TextListboxWidget.Cast(createPlayerOfferWidget.FindAnyWidget("playerInventoryItemsPlayerOffer"));
+        playerItemsOfferPlayerOffer = TextListboxWidget.Cast(createPlayerOfferWidget.FindAnyWidget("playerItemsOfferPlayerOffer"));
+        WidgetEventHandler.GetInstance().RegisterOnDoubleClick(playerInventoryItemsPlayerOffer,  this, "OnDoubleClick");
+        WidgetEventHandler.GetInstance().RegisterOnDoubleClick(playerItemsOfferPlayerOffer,  this, "OnDoubleClick");
+
+        //End player offer widget
+
         layoutRoot.Show(false);
 		
 		itemService.AddTradeableItemsToWidget(tradeableItemsOffer, "");
@@ -85,6 +105,7 @@ class P2PTraderMenu extends UIScriptedMenu
 
     override bool OnClick( Widget w, int x, int y, int button )	{
         bool actionRuns = super.OnClick(w, x, y, button);
+        string messageText;
 
         if (actionRuns) {
             return actionRuns;
@@ -97,12 +118,29 @@ class P2PTraderMenu extends UIScriptedMenu
 		} else if(w == buttonSearchOffer) {
 			itemService.AddTradeableItemsToWidget(tradeableItemsOffer, inputSearchOffer.GetText());
 		} else if(w == buttonCreateCreateOffer) {
-			//TODO display message "offer created"
 			DebugMessageP2PTrader("Click on create offer");
-			itemService.CreateOffer(player, playerItemsOfferOffer, playerWhantToHaveOffer);
-			createOfferWidget.Show(false);
+			messageText = itemService.CreateOffer(player, playerItemsOfferOffer, playerWhantToHaveOffer, playerTextOffer.GetText());
+
+			if (messageText != "") {
+			    message.SetText(messageText);
+			} else {
+			    createOfferWidget.Show(false);
+			}
+
+		} else if(w == buttonCreateCreateOffer) {
+			DebugMessageP2PTrader("Click on create player offer");
+			messageText = itemService.CreateOfferToPlayer(player, playerItemsOfferPlayerOffer, playerTextPlayerOffer.GetText());
+
+			if (messageText != "") {
+			    message.SetText(messageText);
+			} else {
+			    createOfferWidget.Show(false);
+			}
+
 		} else if(w == buttonCloseCreateOffer) {
 			createOfferWidget.Show(false);
+		} else if(w == buttonCreateClosePlayerOffer) {
+            createPlayerOfferWidget.Show(false);
 		}
 
         return false;
@@ -131,6 +169,16 @@ class P2PTraderMenu extends UIScriptedMenu
             DebugMessageP2PTrader("double click playerItemsOfferOffer");
 			itemService.MoveItemFromListWidgetToListWidget(playerItemsOfferOffer, playerInventoryItemsOffer);
 			
+            return true;
+        } else if (w == playerInventoryItemsPlayerOffer){
+            DebugMessageP2PTrader("double click playerInventoryItemsPlayerOffer");
+			itemService.MoveItemFromListWidgetToListWidget(playerInventoryItemsPlayerOffer, playerItemsOfferPlayerOffer);
+
+            return true;
+        } else if (w == playerItemsOfferPlayerOffer){
+            DebugMessageP2PTrader("double click playerItemsOfferPlayerOffer");
+			itemService.MoveItemFromListWidgetToListWidget(playerItemsOfferPlayerOffer, playerInventoryItemsPlayerOffer);
+
             return true;
         }
 		
@@ -183,8 +231,6 @@ class P2PTraderMenu extends UIScriptedMenu
 
 		SetFocus(layoutRoot);
 		
-		
-		
 		layoutRoot.Show(true);
 
 		GetGame().GetMission().PlayerControlDisable(INPUT_EXCLUDE_INVENTORY);
@@ -206,6 +252,7 @@ class P2PTraderMenu extends UIScriptedMenu
             if (ctx.Read(parameterPlayerItems)) {
                 array<ref P2PTraderItem> playerItems = parameterPlayerItems.param1;
 				itemService.GetPlayerItemList(playerInventoryItemsOffer, playerItems);
+				itemService.GetPlayerItemList(playerInventoryItemsPlayerOffer, playerItems);
 			}
 		}
 	}

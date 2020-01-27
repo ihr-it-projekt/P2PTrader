@@ -29,6 +29,16 @@ class P2PTraderStock
 		
 		Save();
 	}
+
+    P2PTraderPlayerMarketOffer GetPlayerToMarketOfferById(int id) {
+        foreach(P2PTraderPlayerMarketOffer offer: stock) {
+            if (id == offer.GetId()) {
+                return offer;
+            }
+        }
+
+        return null;
+    }
 	
 	void RemovePlayerToMarketOffer(P2PTraderPlayerMarketOffer offerToRemove) {
 		foreach(int index, P2PTraderPlayerMarketOffer stockOffer: stock) {
