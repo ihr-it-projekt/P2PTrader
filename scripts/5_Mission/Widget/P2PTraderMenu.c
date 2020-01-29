@@ -185,8 +185,6 @@ class P2PTraderMenu extends UIScriptedMenu
 		return false;
 	}
 	
-	
-	
 	override void OnHide()
 	{
 		if (!isMenuOpen) {

@@ -43,7 +43,7 @@ class P2PTraderStock
 	void RemovePlayerToMarketOffer(P2PTraderPlayerMarketOffer offerToRemove) {
 		foreach(int index, P2PTraderPlayerMarketOffer stockOffer: stock) {
 			if (offerToRemove.GetId() == stockOffer.GetId()) {
-				stock.RemoveOrdered(index);
+				stock.Remove(index);
 				array<P2PTraderPlayerPlayerOffer> playerPlayerOffers = GetPlayerPlayerOfferForPlayerMarkertOffers(offerToRemove);
 				foreach(P2PTraderPlayerPlayerOffer playerPlayerOffer: playerPlayerOffers) {
 					playerPlayerOffer.SetPlayerMarketOfferInactive();
