@@ -18,7 +18,7 @@ class P2PTraderPlayerItemEventHandler
         }
 
         if (rpc_type == P2P_TRADER_EVENT_GET_PLAYER_ITEMS) {
-			DebugMessageP2PTrader("recive P2P_TRADER_EVENT_GET_PLAYER_ITEMS");
+			DebugMessageP2PTrader("receive P2P_TRADER_EVENT_GET_PLAYER_ITEMS");
             Param1<DayZPlayer> parameterPlayerItems;
             if (ctx.Read(parameterPlayerItems)) {
                 DayZPlayer player = parameterPlayerItems.param1;

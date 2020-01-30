@@ -6,6 +6,7 @@ class P2PTraderStock
 	private ref array<ref P2PTraderPlayerMarketOffer> stock;
 	private ref array<ref P2PTraderPlayerPlayerOffer> playerOffers;
 	private ref array<ref P2PTraderPlayerPlayerOffer> playerOffersInactive;
+	private ref array<ref P2PTraderPlayerPlayerOffer> acceptedPlayerOffers;
 	private int idCounter = 1;
 
     void P2PTraderStock()
@@ -15,6 +16,7 @@ class P2PTraderStock
 			stock = new array<ref P2PTraderPlayerMarketOffer>;
 			playerOffers = new array<ref P2PTraderPlayerPlayerOffer>;
 			playerOffersInactive = new array<ref P2PTraderPlayerPlayerOffer>;
+            acceptedPlayerOffers = new array<ref P2PTraderPlayerPlayerOffer>;
 			Save();
 		} else {
 			Load();
@@ -67,7 +69,7 @@ class P2PTraderStock
 		bool mustSave = false;
 		foreach(int index, P2PTraderPlayerPlayerOffer playerOffer: playerOffers) {
 			if (offerToRemove.GetId() == playerOffer.GetId()) {
-				playerOffers.RemoveOrdered(index);
+				playerOffers.Remove(index);
 				mustSave = true;
 			}
 		}
@@ -80,7 +82,16 @@ class P2PTraderStock
 	void RemovePlayerToPlayerOfferInactive(P2PTraderPlayerPlayerOffer offerToRemove) {
 		foreach(int index, P2PTraderPlayerPlayerOffer playerOffer: playerOffersInactive) {
 			if (offerToRemove.GetId() == playerOffer.GetId()) {
-				playerOffers.RemoveOrdered(index);
+				playerOffers.Remove(index);
+				Save();
+				return;
+			}
+		}
+	}
+	void RemoveExecptedPlayerToPlayerOffer(P2PTraderPlayerPlayerOffer offerToRemove) {
+		foreach(int index, P2PTraderPlayerPlayerOffer playerOffer: acceptedPlayerOffers) {
+			if (offerToRemove.GetId() == playerOffer.GetId()) {
+				playerOffers.Remove(index);
 				Save();
 				return;
 			}
