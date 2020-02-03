@@ -28,6 +28,14 @@ class ItemService
 		}
 	}
 	
+	P2PTraderPlayerMarketOffer GetSelectedMarketOffer(TextListboxWidget source) {
+		int markedPos = source.GetSelectedRow();
+		P2PTraderPlayerMarketOffer item;
+		source.GetItemData(markedPos, 0, item);
+		
+		return item;
+	}
+	
 	void MoveItemFromListWidgetToListWidget(TextListboxWidget source, TextListboxWidget target = null, bool move = true) {
 		int markedPos = source.GetSelectedRow();
 		P2PTraderItem item;
@@ -42,6 +50,46 @@ class ItemService
 				source.RemoveRow(markedPos);
 			}
 		}
+	}
+	
+	TextListboxWidget GetMarketItemList(TextListboxWidget widget, array<ref P2PTraderPlayerMarketOffer> marketItems, string search) {
+		widget.ClearItems();
+		search.ToLower();
+		
+		foreach(P2PTraderPlayerMarketOffer offer: marketItems) {
+			if (search == "" || (search != "" && !offer.ContainsItemType(search))) {
+				string itemNames;
+				foreach(P2PTraderStockItem item: offer.GetOfferItems()) {
+					if (item) {
+						
+						
+						itemNames = itemNames + item.GetTranslation();
+					}
+				}
+				widget.AddItem(itemNames, offer, 0);
+			}
+		}
+		
+		return widget;
+	}
+	
+	TextListboxWidget GetMarketItemListInit(TextListboxWidget widget, array<ref P2PTraderPlayerMarketOffer> marketItems) {
+		widget.ClearItems();
+		
+		foreach(P2PTraderPlayerMarketOffer offer: marketItems) {
+			string itemNames;
+			foreach(P2PTraderStockItem item: offer.GetOfferItems()) {
+				if (item) {
+					item.SetTranslation(GetItemDisplayName(item.GetType()));
+					
+					itemNames = itemNames + item.GetTranslation();
+					
+				}
+			}
+			widget.AddItem(itemNames, offer, 0);
+		}
+		
+		return widget;
 	}
 	
 	TextListboxWidget GetPlayerItemList(TextListboxWidget widget, array<ref P2PTraderItem> playerItems) {
@@ -103,8 +151,8 @@ class ItemService
 			}
 		}
 
-		if (wantedItem.Count() == 0 && offerItems.Count() == 0) {
-		    return "you_can_not_make_an_empty_offer"
+		if (wantedItems.Count() == 0 && offerItems.Count() == 0) {
+		    return "you_can_not_make_an_empty_offer";
 		}
 
 		DebugMessageP2PTrader("try send P2P_TRADER_EVENT_NEW_OFFER to server");
@@ -129,12 +177,13 @@ class ItemService
         }
 
         if (offerItems.Count() == 0) {
-            return "you_can_not_make_an_empty_offer"
+            return "you_can_not_make_an_empty_offer";
         }
 
         DebugMessageP2PTrader("try send P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER to server");
         GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER, new Param4<DayZPlayer, ref array<ref P2PTraderItem>, int, string>(player, offerItems, offerId, offerText), true);
         DebugMessageP2PTrader("try send P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER to server");
+		return "";
 	}
 	
 	
@@ -160,6 +209,5 @@ class ItemService
 	
 	    return displayName;
 	}
-	
 	
 }

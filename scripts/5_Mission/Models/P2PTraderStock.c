@@ -110,6 +110,10 @@ class P2PTraderStock
 		return playerPlayerOffers;
 	}
 	
+	array<ref P2PTraderPlayerMarketOffer> GetStock() {
+		return stock;
+	}
+	
     private void Load() 
     {
         if (IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGSFOLDERP2P + SETTINGSFILE)) {

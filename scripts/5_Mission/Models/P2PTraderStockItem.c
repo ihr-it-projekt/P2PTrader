@@ -4,6 +4,9 @@ class P2PTraderStockItem {
 	string type;
 	float quantity;
 	ref array<ref P2PTraderStockItem> attached;
+	private string translatedName;
+	private string translatedNameLower;
+	private string lowerCaseName;;
 	
 	void P2PTraderStockItem() {
 		attached = new array<ref P2PTraderStockItem>;
@@ -11,7 +14,7 @@ class P2PTraderStockItem {
 	
 	void SetItem(EntityAI item) {
 		health = item.GetHealth();
-		type = item.GetType();
+		SetType(item.GetType());
 		
 		ItemBase itemCast = ItemBase.Cast(item);
 		
@@ -42,11 +45,23 @@ class P2PTraderStockItem {
 	}
 	
 	void SetType(string type) {
+		this.lowerCaseName = type;
+		this.lowerCaseName.ToLower();
 		this.type = type;
 	}
 	
 	string GetType() {
 		return type;
+	}
+	
+	void SetTranslation(string translated) {
+		this.translatedName = translated + " (" + type + ")";
+		this.translatedNameLower = translated;
+		this.translatedNameLower.ToLower();
+	}
+	
+	string GetTranslation() {
+		return this.translatedName;
 	}
 	
 	

@@ -1,15 +1,20 @@
 class P2PTraderMenu extends UIScriptedMenu
 {
 	private DayZPlayer player;
+	private P2PTraderPlayerMarketOffer selectedItem;
     private ButtonWidget cancel;
 	private P2PTraderConfig config;
 	private ButtonWidget buttonCreateOffer;
 	private ButtonWidget buttonSearchOffer;
+	private ButtonWidget buttonSearchMarket;
 	private ButtonWidget buttonCloseCreateOffer;
 	private ButtonWidget buttonCreateCreateOffer;
+	private ButtonWidget buttonDetailOffer;
 	private ButtonWidget buttonCreateClosePlayerOffer;
 	private ButtonWidget buttonCreateCreatePlayerOffer;
 	private EditBoxWidget inputSearchOffer;
+	private EditBoxWidget inputSearchMarket;
+	private TextListboxWidget stockItems;
 	private TextListboxWidget tradeableItemsOffer;
 	private TextListboxWidget playerWhantToHaveOffer;
 	private TextListboxWidget playerInventoryItemsOffer;
@@ -20,6 +25,7 @@ class P2PTraderMenu extends UIScriptedMenu
 	private EditBoxWidget playerTextPlayerOffer;
 	private MultilineTextWidget message;
 	private ref ItemService itemService;
+	private ref array<ref P2PTraderPlayerMarketOffer> marketItems;
 	private Widget createOfferWidget;
 	private Widget createPlayerOfferWidget;
 	bool isMenuOpen = false;
@@ -50,8 +56,15 @@ class P2PTraderMenu extends UIScriptedMenu
 
         cancel = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "cancel" ));
         buttonCreateOffer = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonCreateOffer" ));
+        buttonDetailOffer = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonDetailOffer" ));
+        buttonSearchMarket = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonSearchMarket" ));
+        stockItems = TextListboxWidget.Cast( layoutRoot.FindAnyWidget( "stockItems" ));
+		inputSearchMarket = EditBoxWidget.Cast(layoutRoot.FindAnyWidget("inputSearchMarket"));
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(cancel,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCreateOffer,  this, "OnClick");
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonSearchMarket,  this, "OnClick");
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonDetailOffer,  this, "OnClick");
+        WidgetEventHandler.GetInstance().RegisterOnDoubleClick(stockItems,  this, "OnClick");
 		
 		createOfferWidget = GetGame().GetWorkspace().CreateWidgets("P2PTrader/layout/offer.layout");
 		createOfferWidget.Show(false);
@@ -117,6 +130,8 @@ class P2PTraderMenu extends UIScriptedMenu
 			createOfferWidget.Show(true);
 		} else if(w == buttonSearchOffer) {
 			itemService.AddTradeableItemsToWidget(tradeableItemsOffer, inputSearchOffer.GetText());
+		} else if(w == buttonSearchMarket) {
+			itemService.GetMarketItemList(stockItems, marketItems, inputSearchMarket.GetText());
 		} else if(w == buttonCreateCreateOffer) {
 			DebugMessageP2PTrader("Click on create offer");
 			messageText = itemService.CreateOffer(player, playerItemsOfferOffer, playerWhantToHaveOffer, playerTextOffer.GetText());
@@ -127,9 +142,10 @@ class P2PTraderMenu extends UIScriptedMenu
 			    createOfferWidget.Show(false);
 			}
 
-		} else if(w == buttonCreateCreateOffer) {
+		} else if(w == buttonCreateCreatePlayerOffer) {
 			DebugMessageP2PTrader("Click on create player offer");
-			messageText = itemService.CreateOfferToPlayer(player, playerItemsOfferPlayerOffer, playerTextPlayerOffer.GetText());
+			
+			messageText = itemService.CreateOfferToPlayer(player, playerItemsOfferPlayerOffer, selectedItem.GetId(), playerTextPlayerOffer.GetText());
 
 			if (messageText != "") {
 			    message.SetText(messageText);
@@ -141,6 +157,12 @@ class P2PTraderMenu extends UIScriptedMenu
 			createOfferWidget.Show(false);
 		} else if(w == buttonCreateClosePlayerOffer) {
             createPlayerOfferWidget.Show(false);
+		} else if(w == buttonDetailOffer || w == stockItems) {
+			selectedItem = itemService.GetSelectedMarketOffer(stockItems);
+			if(selectedItem) {
+				createPlayerOfferWidget.Show(true);
+			}
+			
 		}
 
         return false;
@@ -220,6 +242,7 @@ class P2PTraderMenu extends UIScriptedMenu
 		
 		Param1<DayZPlayer> paramGetPlayerItems = new Param1<DayZPlayer>(GetGame().GetPlayer());
 	    GetGame().RPCSingleParam(paramGetPlayerItems.param1, P2P_TRADER_EVENT_GET_PLAYER_ITEMS, paramGetPlayerItems, true);
+	    GetGame().RPCSingleParam(paramGetPlayerItems.param1, P2P_TRADER_EVENT_GET_STOCK, paramGetPlayerItems, true);
 		
 		super.OnShow();
 				
@@ -242,15 +265,21 @@ class P2PTraderMenu extends UIScriptedMenu
 	 void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
         if (IsServerP2PTrader()) {
             return;
-        }
-
-        if (rpc_type == P2P_TRADER_EVENT_GET_PLAYER_ITEMS_RESPONSE) {
+        } 
+		if (rpc_type == P2P_TRADER_EVENT_GET_PLAYER_ITEMS_RESPONSE) {
 			DebugMessageP2PTrader("recive P2P_TRADER_EVENT_GET_PLAYER_ITEMS_RESPONSE");
             Param1<ref array<ref P2PTraderItem>> parameterPlayerItems;
             if (ctx.Read(parameterPlayerItems)) {
                 array<ref P2PTraderItem> playerItems = parameterPlayerItems.param1;
 				itemService.GetPlayerItemList(playerInventoryItemsOffer, playerItems);
 				itemService.GetPlayerItemList(playerInventoryItemsPlayerOffer, playerItems);
+			}
+		} else if (rpc_type == P2P_TRADER_EVENT_GET_STOCK_RESPONSE) {
+			DebugMessageP2PTrader("recive P2P_TRADER_EVENT_GET_STOCK_RESPONSE");
+            Param1<ref array<ref P2PTraderPlayerMarketOffer>> parameterStock;
+            if (ctx.Read(parameterStock)) {
+                marketItems = parameterStock.param1;
+				itemService.GetMarketItemListInit(stockItems, marketItems);
 			}
 		}
 	}

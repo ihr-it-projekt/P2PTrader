@@ -26,7 +26,7 @@ class P2PTraderOfferCreateEventHandler
                 DayZPlayer player = parameterOffer.param1;
 				ref array<ref P2PTraderItem> offerItems = parameterOffer.param2;
 				ref array<ref P2PTraderItem> wantedItems = parameterOffer.param3;
-				string offerMessage = parameterOffer.param4
+				string offerMessage = parameterOffer.param4;
                 DebugMessageP2PTrader("Check Player has items");
 				
 				array<EntityAI> items = inventory.GetPlayerItems(player);
@@ -50,7 +50,7 @@ class P2PTraderOfferCreateEventHandler
 				}
 
 				if (offer.IsEmpty()) {
-                    GetGame().RPCSingleParam(offerPlayer, P2P_TRADER_EVENT_NEW_OFFER_RESPONSE_ERROR, new Param1<string>("#you_can_not_make_an_empty_offer"), true, offerPlayer.GetIdentity());
+                    GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_NEW_OFFER_RESPONSE_ERROR, new Param1<string>("#you_can_not_make_an_empty_offer"), true, player.GetIdentity());
                     DebugMessageP2PTrader("send P2P_TRADER_EVENT_NEW_OFFER_RESPONSE_ERROR to player: owner is same then ");
                     return;
 				}
@@ -63,12 +63,12 @@ class P2PTraderOfferCreateEventHandler
             }
         } else if (rpc_type == P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER) {
 			DebugMessageP2PTrader("receive P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER");
-            Param4<DayZPlayer, ref array<ref P2PTraderItem>, int, string> parameterOffer;
-            if (ctx.Read(parameterOffer)) {
-                DayZPlayer offerPlayer = parameterOffer.param1;
-				ref array<ref P2PTraderItem> offerPlayerItems = parameterOffer.param2;
-				int offerId = parameterOffer.param3;
-				string offerPlayerMessage = parameterOffer.param4
+            Param4<DayZPlayer, ref array<ref P2PTraderItem>, int, string> parameterPlayerOffer;
+            if (ctx.Read(parameterPlayerOffer)) {
+                DayZPlayer offerPlayer = parameterPlayerOffer.param1;
+				ref array<ref P2PTraderItem> offerPlayerItems = parameterPlayerOffer.param2;
+				int offerId = parameterPlayerOffer.param3;
+				string offerPlayerMessage = parameterPlayerOffer.param4;
                 DebugMessageP2PTrader("Check Player has items");
 
 				array<EntityAI> itemsPlayer = inventory.GetPlayerItems(offerPlayer);
@@ -79,7 +79,7 @@ class P2PTraderOfferCreateEventHandler
                     GetGame().RPCSingleParam(offerPlayer, P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE_ERROR, new Param1<string>("#offer_not_exists"), true, offerPlayer.GetIdentity());
                     DebugMessageP2PTrader("send P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE_ERROR to player: no offer found");
                     return;
-				} else if (!P2P_TRADER_DEBUG && playerMarketOffer.GetOwnerId == offerPlayer.GetIdentity().GetPlainId()) {
+				} else if (!P2P_TRADER_DEBUG && playerMarketOffer.GetOwnerId() == offerPlayer.GetIdentity().GetPlainId()) {
                     GetGame().RPCSingleParam(offerPlayer, P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE_ERROR, new Param1<string>("#you_can_not_make_yourself_an_offer"), true, offerPlayer.GetIdentity());
                     DebugMessageP2PTrader("send P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE_ERROR to player: owner is same then ");
                     return;
@@ -89,11 +89,11 @@ class P2PTraderOfferCreateEventHandler
 
 				DebugMessageP2PTrader("have offer items" + offerPlayerItems.Count().ToString());
 
-				foreach(EntityAI item: itemsPlayer) {
-					ItemBase itemPlayerCast = ItemBase.Cast(item);
-					foreach(P2PTraderItem offerItem: offerPlayerItems) {
-						if (itemPlayerCast && offerItem && offerItem.item && offerItem.item.GetHealth() == itemPlayerCast.GetHealth() && offerItem.item.GetType() == itemPlayerCast.GetType() && offerItem.item.GetQuantity() == itemPlayerCast.GetQuantity()) {
-                            offerFromPlayer.AddOfferItem(offerItem.item);
+				foreach(EntityAI itemX: itemsPlayer) {
+					ItemBase itemPlayerCast = ItemBase.Cast(itemX);
+					foreach(P2PTraderItem offerItemX: offerPlayerItems) {
+						if (itemPlayerCast && offerItemX && offerItemX.item && offerItemX.item.GetHealth() == itemPlayerCast.GetHealth() && offerItemX.item.GetType() == itemPlayerCast.GetType() && offerItemX.item.GetQuantity() == itemPlayerCast.GetQuantity()) {
+                            offerFromPlayer.AddOfferItem(offerItemX.item);
 							inventory.Remove(itemPlayerCast, offerPlayer);
 						}
 					}

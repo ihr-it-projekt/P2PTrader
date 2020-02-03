@@ -22,19 +22,19 @@ class P2PTraderPlayerInventory
             item = player.SpawnEntityOnGroundPos(itemInStock.type, player.GetPosition());
         }
 
-        addAttechmends(item, itemInStock.attached);
+        AddAttechmends(item, itemInStock.attached);
 
 		item.SetHealth(itemInStock.health);
-		item.SetQuantity(itemInStock.quantity);
+		ItemBase.Cast(item).SetQuantity(itemInStock.quantity);
     }
 
-    private void addAttechmend(EntityAi item, array<ref P2PTraderStockItem>attached) {
+    private void AddAttechmends(EntityAI item, array<ref P2PTraderStockItem>attached) {
         if(attached.Count() > 0) {
             foreach(P2PTraderStockItem itemInStock: attached) {
                 EntityAI newItem = item.GetInventory().CreateInInventory(itemInStock.type);
                 newItem.SetHealth(itemInStock.health);
-                newItem.SetQuantity(itemInStock.quantity);
-                addAttechmend(newItem, itemInStock.attached);
+                ItemBase.Cast(newItem).SetQuantity(itemInStock.quantity);
+                AddAttechmends(newItem, itemInStock.attached);
             }
         }
     }

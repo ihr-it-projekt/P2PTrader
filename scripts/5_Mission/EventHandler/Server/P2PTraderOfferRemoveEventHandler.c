@@ -18,25 +18,28 @@ class P2PTraderOfferRemoveEventHandler
         if (!IsServerP2PTrader()) {
             return;
         }
+		
+		int offerId;
+		P2PTraderPlayerMarketOffer playerMarketOffer;
 
         if (rpc_type == P2P_TRADER_EVENT_REMOVE_OFFER) {
 			DebugMessageP2PTrader("receive P2P_TRADER_EVENT_REMOVE_OFFER");
-            Param2<DayZPlayer, int>, string> parameterRemoveOffer;
+            Param2<DayZPlayer, int, string> parameterRemoveOffer;
             if (ctx.Read(parameterRemoveOffer)) {
                 DayZPlayer player = parameterRemoveOffer.param1;
-				int offerId = parameterRemoveOffer.param2;
+				offerId = parameterRemoveOffer.param2;
 
 				array<EntityAI> items = inventory.GetPlayerItems(player);
 				P2PTraderPlayerMarketOffer offer = new P2PTraderPlayerMarketOffer(player);
 
-                P2PTraderPlayerMarketOffer playerMarketOffer = traderStock.GetPlayerToMarketOfferById(offerId);
+                playerMarketOffer = traderStock.GetPlayerToMarketOfferById(offerId);
 
                 if (playerMarketOffer == null) {
-                    GetGame().RPCSingleParam(offerPlayer, P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE_ERROR, new Param1<string>("#offer_not_exists"), true, offerPlayer.GetIdentity());
+                    GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE_ERROR, new Param1<string>("#offer_not_exists"), true, player.GetIdentity());
                     DebugMessageP2PTrader("send P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE_ERROR to player: no offer found");
                     return;
-                } else if (playerMarketOffer.GetOwnerId != offerPlayer.GetIdentity().GetPlainId()) {
-                    GetGame().RPCSingleParam(offerPlayer, P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE_ERROR, new Param1<string>("#you_can_only_remove_your_own_order"), true, offerPlayer.GetIdentity());
+                } else if (playerMarketOffer.GetOwnerId() != player.GetIdentity().GetPlainId()) {
+                    GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE_ERROR, new Param1<string>("#you_can_only_remove_your_own_order"), true, player.GetIdentity());
                     DebugMessageP2PTrader("send P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE_ERROR to player: owner is same then ");
                     return;
                 }
@@ -52,19 +55,19 @@ class P2PTraderOfferRemoveEventHandler
             if (ctx.Read(parameterOffer)) {
                 DayZPlayer offerPlayer = parameterOffer.param1;
 				ref array<ref P2PTraderItem> offerPlayerItems = parameterOffer.param2;
-				int offerId = parameterOffer.param3;
-				string offerPlayerMessage = parameterOffer.param4
+				offerId = parameterOffer.param3;
+				string offerPlayerMessage = parameterOffer.param4;
                 DebugMessageP2PTrader("Check Player has items");
 
 				array<EntityAI> itemsPlayer = inventory.GetPlayerItems(offerPlayer);
 
-                P2PTraderPlayerMarketOffer playerMarketOffer = traderStock.GetPlayerToMarketOfferById(offerId);
+                playerMarketOffer = traderStock.GetPlayerToMarketOfferById(offerId);
 
 				if (playerMarketOffer == null) {
                     GetGame().RPCSingleParam(offerPlayer, P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE_ERROR, new Param1<string>("#offer_not_exists"), true, offerPlayer.GetIdentity());
                     DebugMessageP2PTrader("send P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE_ERROR to player: no offer found");
                     return;
-				} else if (!P2P_TRADER_DEBUG && playerMarketOffer.GetOwnerId == offerPlayer.GetIdentity().GetPlainId()) {
+				} else if (!P2P_TRADER_DEBUG && playerMarketOffer.GetOwnerId() == offerPlayer.GetIdentity().GetPlainId()) {
                     GetGame().RPCSingleParam(offerPlayer, P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE_ERROR, new Param1<string>("#you_can_not_make_yourself_an_offer"), true, offerPlayer.GetIdentity());
                     DebugMessageP2PTrader("send P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE_ERROR to player: owner is same then ");
                     return;

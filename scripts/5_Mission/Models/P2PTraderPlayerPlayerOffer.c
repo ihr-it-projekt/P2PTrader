@@ -20,7 +20,7 @@ class P2PTraderPlayerPlayerOffer
 	}
 
     string GetOwnerId() {
-        return ownerId
+        return ownerId;
     }
 	
 	int GetPlayerToMarketOfferId() {
@@ -31,11 +31,11 @@ class P2PTraderPlayerPlayerOffer
 		playerToMarketOfferId = 0;
 	}
 
-	boolean IsPlayerMarketOfferActive() {
+	bool IsPlayerMarketOfferActive() {
 	    return 0 != playerToMarketOfferId;
 	}
 
-    boolean IsEmpty() {
+    bool IsEmpty() {
         return offerItems.Count() == 0;
     }
 	

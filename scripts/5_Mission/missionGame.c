@@ -12,7 +12,7 @@ modded class MissionGameplay
         Param1<DayZPlayer> paramGetConfig = new Param1<DayZPlayer>(GetGame().GetPlayer());
 	    GetGame().RPCSingleParam(paramGetConfig.param1, P2P_TRADER_EVENT_GET_CONFIG, paramGetConfig, true);
 		
-		localInput = GetUApi().GetInputByName("UAInputOpenP2PTrader");	
+		localInput = GetUApi().GetInputByName("UAInputOpenP2PTrader");
 	}
 	
 	void ~MissionGameplay() {

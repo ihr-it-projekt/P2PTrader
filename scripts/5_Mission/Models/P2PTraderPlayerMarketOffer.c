@@ -1,7 +1,8 @@
 class P2PTraderPlayerMarketOffer
 {
 	private string ownerId;
-	private string offerMessage
+	private string ownerName;
+	private string offerMessage;
 	private int id;
 	private ref array <ref P2PTraderStockItem> offerItems;
 	private ref array <ref P2PTraderStockItem> wantedItems;
@@ -10,6 +11,7 @@ class P2PTraderPlayerMarketOffer
 	
 	void P2PTraderPlayerMarketOffer(DayZPlayer owner, string offerMessage = "") {
 		this.ownerId = owner.GetIdentity().GetPlainId();
+		this.ownerName = owner.GetIdentity().GetName();
 		this.offerMessage = offerMessage;
 		this.offerItems = new array<ref P2PTraderStockItem>;
 		this.wantedItems = new array<ref P2PTraderStockItem>;
@@ -39,17 +41,31 @@ class P2PTraderPlayerMarketOffer
 	void RemovePlayerOffer(P2PTraderPlayerPlayerOffer offer) {
 	    foreach(int index, int offerId: otherPlayerOffersIds) {
 	        if(offerId == offer.GetId()) {
-                otherPlayerOffersIds.remove(index);
+                otherPlayerOffersIds.Remove(index);
 	        }
 	    }
 	}
 
-	boolean IsEmpty() {
+	bool IsEmpty() {
 	    return offerItems.Count() == 0 && wantedItems.Count() == 0;
 	}
 
 	string GetOwnerId() {
-	    return ownerId
+	    return ownerId;
+	}
+	
+	string GetOwnerName() {
+	    return ownerName;
+	}
+	
+	bool ContainsItemType(string search) {
+		foreach(P2PTraderStockItem item: offerItems) {
+			if(item.GetTranslation().Contains(search)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
     array <ref P2PTraderStockItem> GetOfferItems() {
