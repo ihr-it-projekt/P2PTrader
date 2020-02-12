@@ -61,8 +61,6 @@ class ItemService
 				string itemNames;
 				foreach(P2PTraderStockItem item: offer.GetOfferItems()) {
 					if (item) {
-						
-						
 						itemNames = itemNames + item.GetTranslation();
 					}
 				}
@@ -80,7 +78,9 @@ class ItemService
 			string itemNames;
 			foreach(P2PTraderStockItem item: offer.GetOfferItems()) {
 				if (item) {
-					item.SetTranslation(GetItemDisplayName(item.GetType()));
+					if (!item.HasTranslation()) {
+						item.SetTranslation(GetItemDisplayName(item.GetType()));
+					}
 					
 					itemNames = itemNames + item.GetTranslation();
 					
@@ -90,6 +90,57 @@ class ItemService
 		}
 		
 		return widget;
+	}
+	
+	TextListboxWidget GetMarketOfferItemList(TextListboxWidget widget, P2PTraderPlayerMarketOffer marketItem) {
+		widget.ClearItems();
+		
+		array <ref P2PTraderStockItem> offerItems = marketItem.GetOfferItems();
+		
+		foreach(P2PTraderStockItem item: offerItems) {
+			if (item) {
+				if (!item.HasTranslation()) {
+					item.SetTranslation(GetItemDisplayName(item.GetType()));
+				}
+				
+				int pos = widget.AddItem(item.GetTranslation(), item, 0);
+				widget.SetItem(pos, "#healt" + item.GetHealth().ToString(), item, 1);
+			}
+		}
+		
+		return widget;
+	}
+	
+	TextListboxWidget GetMarketOfferItemAttachmentList(TextListboxWidget widget, P2PTraderStockItem offerItem, bool clearWidget = true) {
+		
+		if (clearWidget) {
+			widget.ClearItems();
+		}
+
+		array<ref P2PTraderStockItem> attachedItems = offerItem.GetAttached();
+		
+		foreach(P2PTraderStockItem item: attachedItems) {
+			if (item) {
+				if (!item.HasTranslation()) {
+					item.SetTranslation(GetItemDisplayName(item.GetType()));
+				}
+				
+				int pos = widget.AddItem(item.GetTranslation(), item, 0);
+				widget.SetItem(pos, "#healt" + item.GetHealth().ToString(), item, 1);
+				
+				GetMarketOfferItemAttachmentList(widget, item, false);
+			}
+		}
+		
+		return widget;
+	}
+	
+	P2PTraderStockItem GetSelectedMarketOfferItem(TextListboxWidget source) {
+		int markedPos = source.GetSelectedRow();
+		P2PTraderStockItem item;
+		source.GetItemData(markedPos, 0, item);
+		
+		return item;
 	}
 	
 	TextListboxWidget GetPlayerItemList(TextListboxWidget widget, array<ref P2PTraderItem> playerItems) {
@@ -184,6 +235,35 @@ class ItemService
         GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER, new Param4<DayZPlayer, ref array<ref P2PTraderItem>, int, string>(player, offerItems, offerId, offerText), true);
         DebugMessageP2PTrader("try send P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER to server");
 		return "";
+	}
+	
+	P2PTraderPlayerPlayerOffer GetPlayerOffer(P2PTraderPlayerMarketOffer offer, array<ref P2PTraderPlayerPlayerOffer> playerOffers) {
+		foreach(P2PTraderPlayerPlayerOffer offerPlayer: playerOffers) {
+			if (offer.HasPlayerOfferId(offerPlayer.GetId())) {
+				return offerPlayer;
+			}
+		}
+		
+		return null;
+	}
+	
+	TextListboxWidget GetPlayerOfferItemList(TextListboxWidget widget, P2PTraderPlayerPlayerOffer offerItem) {
+		widget.ClearItems();
+		
+		array <P2PTraderStockItem> offerItems = offerItem.GetOfferItems();
+		
+		foreach(P2PTraderStockItem item: offerItems) {
+			if (item) {
+				if (!item.HasTranslation()) {
+					item.SetTranslation(GetItemDisplayName(item.GetType()));
+				}
+				
+				int pos = widget.AddItem(item.GetTranslation(), item, 0);
+				widget.SetItem(pos, "#healt" + item.GetHealth().ToString(), item, 1);
+			}
+		}
+		
+		return widget;
 	}
 	
 	

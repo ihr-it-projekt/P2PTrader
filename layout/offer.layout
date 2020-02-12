@@ -418,7 +418,7 @@ FrameWidgetClass rootFrame {
          vexactpos 1
          hexactsize 1
          vexactsize 1
-         imageTexture "{6A53660726F263A6}P2PTrader/layout/Suchen.edds"
+         imageTexture "{6A53660726F263A6}P2PTrader/layout/search.edds"
          mode opaque
          "src alpha" 0
          "no wrap" 0

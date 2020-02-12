@@ -60,9 +60,16 @@ class P2PTraderStockItem {
 		this.translatedNameLower.ToLower();
 	}
 	
+	bool HasTranslation() {
+		return !!this.translatedName;
+	}
+	
 	string GetTranslation() {
 		return this.translatedName;
 	}
 	
+	array<ref P2PTraderStockItem> GetAttached() {
+		return attached;
+	}
 	
 }

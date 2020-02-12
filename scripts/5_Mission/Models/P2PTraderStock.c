@@ -114,6 +114,45 @@ class P2PTraderStock
 		return stock;
 	}
 	
+	array<ref P2PTraderPlayerPlayerOffer> GetOffersFromPlayer(PlayerIdentity player) {
+		string playerId = player.GetPlainId();
+		array<ref P2PTraderPlayerPlayerOffer> playerPlayerOffers = new array<ref P2PTraderPlayerPlayerOffer>;
+		
+		foreach (P2PTraderPlayerPlayerOffer playerOffer: playerOffers) {
+			if (playerId == playerOffer.GetOwnerId()){
+				playerPlayerOffers.Insert(playerOffer);
+			}
+		}
+		
+		return playerPlayerOffers; 
+	}
+	
+	array<ref P2PTraderPlayerPlayerOffer> GetInactiveOffersFromPlayer(PlayerIdentity player) {
+		string playerId = player.GetPlainId();
+		array<ref P2PTraderPlayerPlayerOffer> playerPlayerOffers = new array<ref P2PTraderPlayerPlayerOffer>;
+		
+		foreach (P2PTraderPlayerPlayerOffer playerOffer: playerOffersInactive) {
+			if (playerId == playerOffer.GetOwnerId()){
+				playerPlayerOffers.Insert(playerOffer);
+			}
+		}
+		
+		return playerPlayerOffers; 
+	}
+	
+	array<ref P2PTraderPlayerPlayerOffer> GetAcceptedOffersFromPlayer(PlayerIdentity player) {
+		string playerId = player.GetPlainId();
+		array<ref P2PTraderPlayerPlayerOffer> playerPlayerOffers = new array<ref P2PTraderPlayerPlayerOffer>;
+		
+		foreach (P2PTraderPlayerPlayerOffer playerOffer: acceptedPlayerOffers) {
+			if (playerId == playerOffer.GetOwnerId()){
+				playerPlayerOffers.Insert(playerOffer);
+			}
+		}
+		
+		return playerPlayerOffers; 
+	}
+	
     private void Load() 
     {
         if (IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGSFOLDERP2P + SETTINGSFILE)) {

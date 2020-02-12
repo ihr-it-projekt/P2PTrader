@@ -42,4 +42,8 @@ class P2PTraderPlayerPlayerOffer
 	void AddOfferItem(P2PTraderStockItem item) {
 		offerItems.Insert(item);
 	}
+	
+	array <P2PTraderStockItem> GetOfferItems() {
+		return offerItems;
+	}
 }

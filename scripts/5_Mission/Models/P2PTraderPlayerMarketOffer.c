@@ -45,6 +45,12 @@ class P2PTraderPlayerMarketOffer
 	        }
 	    }
 	}
+	
+	bool HasPlayerOfferId(int id){
+		int index = otherPlayerOffersIds.Find(id);
+		
+		return -1 != index;
+	}
 
 	bool IsEmpty() {
 	    return offerItems.Count() == 0 && wantedItems.Count() == 0;
