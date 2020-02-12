@@ -9,6 +9,12 @@ class P2PTraderPlayerInventory
 
         return itemsArray;
     }
+	
+	void AddCollection(DayZPlayer player, array <ref P2PTraderStockItem> stockPlayerOfferItems) {
+		foreach(P2PTraderStockItem stockPlayerOfferItem: stockPlayerOfferItems) {
+			this.Add(player, stockPlayerOfferItem);
+		}
+	}
 
     void Add(DayZPlayer player, P2PTraderStockItem itemInStock) {
 		EntityAI item;

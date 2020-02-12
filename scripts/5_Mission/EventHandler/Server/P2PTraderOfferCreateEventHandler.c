@@ -30,7 +30,7 @@ class P2PTraderOfferCreateEventHandler
                 DebugMessageP2PTrader("Check Player has items");
 				
 				array<EntityAI> items = inventory.GetPlayerItems(player);
-				P2PTraderPlayerMarketOffer offer = new P2PTraderPlayerMarketOffer(player);
+				P2PTraderPlayerMarketOffer offer = new P2PTraderPlayerMarketOffer(player, offerMessage);
 				
 				DebugMessageP2PTrader("have offer items" + offerItems.Count().ToString());
 				DebugMessageP2PTrader("have wanted items" + wantedItems.Count().ToString());
@@ -85,7 +85,7 @@ class P2PTraderOfferCreateEventHandler
                     return;
 				}
 
-                P2PTraderPlayerPlayerOffer offerFromPlayer = new P2PTraderPlayerPlayerOffer(offerPlayer, offerId);
+                P2PTraderPlayerPlayerOffer offerFromPlayer = new P2PTraderPlayerPlayerOffer(offerPlayer.GetIdentity().GetPlainId(), offerPlayer.GetIdentity().GetName(), offerId, offerPlayerMessage);
 
 				DebugMessageP2PTrader("have offer items" + offerPlayerItems.Count().ToString());
 

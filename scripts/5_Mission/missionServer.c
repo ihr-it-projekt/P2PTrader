@@ -4,7 +4,8 @@ modded class MissionServer {
 	private ref P2PTraderItemsConfig itemConfig;
 	private ref P2PTraderStock traderStock;
 	private ref P2PTraderOfferCreateEventHandler offerCreateEventHandler;
-	private ref P2PTraderOfferRemoveEventHandler offerRemoveEventHandler;
+	private ref P2PTraderMarketOfferEventHandler marketOfferEventHandler;
+	private ref P2PTraderPlayerOfferEventHandler playerOfferEventHandler;
 	private ref P2PTraderPlayerItemEventHandler playerItemEventHandler;
 	
 	void MissionServer()
@@ -13,7 +14,8 @@ modded class MissionServer {
 		DebugMessageP2PTrader("Has load Items from config: " + config.traderItemsConfig.items.Count().ToString());
 		traderStock = new P2PTraderStock();
 		offerCreateEventHandler = new P2PTraderOfferCreateEventHandler(traderStock);
-		offerRemoveEventHandler = new P2PTraderOfferRemoveEventHandler(traderStock);
+		marketOfferEventHandler = new P2PTraderMarketOfferEventHandler(traderStock);
+		playerOfferEventHandler = new P2PTraderPlayerOfferEventHandler(traderStock);
 		playerItemEventHandler = new P2PTraderPlayerItemEventHandler();
 		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
 		DebugMessageP2PTrader("loaded");
@@ -44,7 +46,7 @@ modded class MissionServer {
 		} else if (rpc_type == P2P_TRADER_EVENT_GET_MY_BID_OFFERS) {
 			DebugMessageP2PTrader("receive get stock");
 			autoptr Param1<PlayerBase> paramGetMyBidOffer;
-			if (ctx.Read(paramGetStock)){
+			if (ctx.Read(paramGetMyBidOffer)){
                 GetGame().RPCSingleParam(paramGetMyBidOffer.param1, P2P_TRADER_EVENT_GET_MY_BID_OFFERS_RESPONSE, new Param3<ref array<ref P2PTraderPlayerPlayerOffer>, ref array<ref P2PTraderPlayerPlayerOffer>, ref array<ref P2PTraderPlayerPlayerOffer>>(traderStock.GetOffersFromPlayer(sender), traderStock.GetInactiveOffersFromPlayer(sender), traderStock.GetAcceptedOffersFromPlayer(sender)), true, sender);
 			}
 		}

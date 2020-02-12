@@ -135,7 +135,7 @@ class ItemService
 		return widget;
 	}
 	
-	P2PTraderStockItem GetSelectedMarketOfferItem(TextListboxWidget source) {
+	P2PTraderStockItem GetSelectedStockItem(TextListboxWidget source) {
 		int markedPos = source.GetSelectedRow();
 		P2PTraderStockItem item;
 		source.GetItemData(markedPos, 0, item);
@@ -250,7 +250,7 @@ class ItemService
 	TextListboxWidget GetPlayerOfferItemList(TextListboxWidget widget, P2PTraderPlayerPlayerOffer offerItem) {
 		widget.ClearItems();
 		
-		array <P2PTraderStockItem> offerItems = offerItem.GetOfferItems();
+		array <ref P2PTraderStockItem> offerItems = offerItem.GetOfferItems();
 		
 		foreach(P2PTraderStockItem item: offerItems) {
 			if (item) {

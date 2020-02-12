@@ -30,9 +30,9 @@ class P2PTraderItemsConfig
 					}
 				}
 			}
-			Save(SETTINGSFILE);
+			Save();
 		} else {
-			Load(SETTINGSFILE);
+			Load();
 			
 		}
     }
@@ -134,14 +134,14 @@ class P2PTraderItemsConfig
 		return false;
 	}
 	
-    private void Load(string filename){
-        if (IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGSFOLDERP2P + filename)) {
+    private void Load(){
+        if (IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGSFOLDERP2P + SETTINGSFILE)) {
 			DebugMessageP2PTrader("load file");
 			JsonFileLoader<P2PTraderItemsConfig>.JsonLoadFile(CONFIGSFOLDERP2P + SETTINGSFILE, this);
         }
     }
 
-    private void Save(string filename){
+    private void Save(){
         if (IsServerAndMultiplayerP2PTrader()) {
 			if (!FileExist(CONFIGSFOLDERP2P)) {
                 MakeDirectory(CONFIGSFOLDERP2P);
