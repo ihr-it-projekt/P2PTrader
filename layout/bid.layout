@@ -216,8 +216,8 @@ FrameWidgetClass rootFrame {
        {
         TextListboxWidgetClass playerItemsOfferPlayerOffer {
          color 1 1 1 0.651
-         position -0.00002 -257.87997
-         size 485.69601 354.991
+         position -0.00002 -127.553
+         size 485.69601 615.64496
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -254,12 +254,29 @@ FrameWidgetClass rootFrame {
          }
         }
         EditBoxWidgetClass playerTextPlayerOffer {
-         position 30.2586 405.76801
-         size 447.84 365.51999
+         position 9.69695 308.845
+         size 500.56201 47.4926
+         valign center_ref
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
+         style Editor
+        }
+        TextWidgetClass TextWidget2 {
+         ignorepointer 1
+         position -0.00003 253.867
+         size 496.94901 43.069
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style None
+         text "#desc"
+         "text halign" center
+         "text valign" center
         }
        }
       }

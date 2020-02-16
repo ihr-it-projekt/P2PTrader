@@ -164,7 +164,7 @@ FrameWidgetClass rootFrame {
          scaled 1
          style Default
         }
-        EditBoxWidgetClass searchMarketInput {
+        EditBoxWidgetClass inputSearchMarket {
          position 8 0
          size 310 42
          valign center_ref
@@ -173,61 +173,6 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Editor
-        }
-       }
-      }
-      PanelWidgetClass PanelWidget10 {
-       ignorepointer 1
-       color 0 0 0 0.651
-       position 770.32098 28.4169
-       size 243.993 60
-       halign center_ref
-       valign bottom_ref
-       hexactpos 1
-       vexactpos 1
-       hexactsize 1
-       vexactsize 1
-       style UIDefaultPanel
-       {
-        ButtonWidgetClass buttonOpenCreateOffer {
-         color 0.502 1 0 1
-         position 8.96266 8.96264
-         size 226.06799 42.0747
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-         style MenuDefault
-         text "#create_offers"
-         text_proportion 0.8
-        }
-       }
-      }
-      PanelWidgetClass PanelWidget12 {
-       ignorepointer 1
-       color 0 0 0 0.651
-       position -797.12897 77.13689
-       size 243.993 60
-       halign center_ref
-       valign bottom_ref
-       hexactpos 1
-       vexactpos 1
-       hexactsize 1
-       vexactsize 1
-       style UIDefaultPanel
-       {
-        ButtonWidgetClass buttonMyOffers {
-         color 0.502 1 0 1
-         position 8.96254 8.96264
-         size 226.06799 42.0747
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-         style MenuDefault
-         text "#my_offers"
-         text_proportion 0.8
-         switch normal
         }
        }
       }
@@ -266,7 +211,7 @@ FrameWidgetClass rootFrame {
        ignorepointer 1
        keepsafezone 0
        color 0 0 0 0.651
-       position 204.09399 209.52501
+       position 201.791 201.12001
        size 1376.44006 572.15295
        halign center_ref
        hexactpos 1
@@ -306,7 +251,7 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass detailAttechment {
          color 1 1 1 0.651
-         position 406.40298 313.37698
+         position 406.40298 286.07602
          size 351.77203 232.75999
          hexactpos 1
          vexactpos 1
@@ -390,37 +335,9 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
         }
-        PanelWidgetClass PanelWidget11 {
-         ignorepointer 1
-         color 0 0 0 0.651
-         position 548.20404 11.279
-         size 243.993 60
-         halign center_ref
-         valign bottom_ref
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-         style UIDefaultPanel
-         {
-          ButtonWidgetClass buttonDeleteMyBid {
-           color 0.502 0 0 1
-           position 8.96254 8.96264
-           size 226.06799 42.0747
-           hexactpos 1
-           vexactpos 1
-           hexactsize 1
-           vexactsize 1
-           style MenuDefault
-           text "#delete_my_bid"
-           text_proportion 0.8
-           switch normal
-          }
-         }
-        }
         TextWidgetClass offerMyBidLabel {
          ignorepointer 1
-         position 275.40201 -255.342
+         position 292.79001 -253.039
          size 342.07501 42.0747
          halign center_ref
          valign center_ref
@@ -437,7 +354,7 @@ FrameWidgetClass rootFrame {
          "text halign" center
          "text valign" center
         }
-        TextListboxWidgetClass offerMyBidItems {
+        TextListboxWidgetClass offerPlayerBidItems {
          color 1 1 1 0.651
          position 794.09003 61.4688
          size 373.84 163.13901
@@ -447,9 +364,9 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style Editor
         }
-        TextListboxWidgetClass offerMyBidItemsAttachments {
+        TextListboxWidgetClass offerPlayerBidItemsAttachments {
          color 1 1 1 0.651
-         position 798.06799 321.20102
+         position 794.72406 286.07602
          size 372.57202 164.93599
          hexactpos 1
          vexactpos 1
@@ -459,7 +376,7 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerMyBidAttachmentLabel {
          ignorepointer 1
-         position 275.40201 -30.7344
+         position 292.79001 -33.0374
          size 342.07501 42.0747
          halign center_ref
          valign center_ref
@@ -476,69 +393,13 @@ FrameWidgetClass rootFrame {
          "text halign" center
          "text valign" center
         }
-        PanelWidgetClass PanelWidget16 {
-         ignorepointer 1
-         color 0 0 0 0.651
-         position 287.80399 9.59903
-         size 243.993 60
-         halign center_ref
-         valign bottom_ref
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-         style UIDefaultPanel
-         {
-          ButtonWidgetClass buttonDeleteMyOffer {
-           color 0.502 0 0 1
-           position 8.96254 8.96264
-           size 226.06799 42.0747
-           hexactpos 1
-           vexactpos 1
-           hexactsize 1
-           vexactsize 1
-           style MenuDefault
-           text "#delete_my_offer"
-           text_proportion 0.8
-           switch normal
-          }
-         }
-        }
-       }
-      }
-      PanelWidgetClass PanelWidget14 {
-       ignorepointer 1
-       color 0 0 0 0.651
-       position 227.839 47.014
-       size 243.993 60
-       halign center_ref
-       valign bottom_ref
-       hexactpos 1
-       vexactpos 1
-       hexactsize 1
-       vexactsize 1
-       style UIDefaultPanel
-       {
-        ButtonWidgetClass buttonOpenCreateMyBid {
-         color 0.502 1 0 1
-         position 8.00002 9.92529
-         size 226.06799 42.0747
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-         style MenuDefault
-         text "#create_bid"
-         text_proportion 0.8
-         switch normal
-        }
        }
       }
       PanelWidgetClass PanelWidget15 {
        ignorepointer 1
        color 0 0 0 0.651
-       position -795.44897 13.2969
-       size 243.993 60
+       position -11.48 18.384
+       size 1803.45007 116.954
        halign center_ref
        valign bottom_ref
        hexactpos 1
@@ -550,7 +411,7 @@ FrameWidgetClass rootFrame {
         ButtonWidgetClass buttonAllOffers {
          color 0.502 1 0 1
          position 8.96254 8.96264
-         size 226.06799 42.0747
+         size 367.09698 42.0747
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -560,31 +421,80 @@ FrameWidgetClass rootFrame {
          text_proportion 0.8
          switch normal
         }
-       }
-      }
-      PanelWidgetClass PanelWidget17 {
-       ignorepointer 1
-       color 0 0 0 0.651
-       position -34.241 47.014
-       size 243.993 60
-       halign center_ref
-       valign bottom_ref
-       hexactpos 1
-       vexactpos 1
-       hexactsize 1
-       vexactsize 1
-       style UIDefaultPanel
-       {
         ButtonWidgetClass buttonTakeOffer {
          color 0.502 1 0 1
-         position 8.00002 9.92529
-         size 226.06799 42.0747
+         position 1438.71997 12
+         size 352.72601 42.0747
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style MenuDefault
          text "#take_offer"
+         text_proportion 0.8
+         switch normal
+        }
+        ButtonWidgetClass buttonOpenCreateMyBid {
+         color 0.502 1 0 1
+         position 781.52002 12
+         size 299.10001 42.0747
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "#create_bid"
+         text_proportion 0.8
+         switch normal
+        }
+        ButtonWidgetClass buttonOpenCreateOffer {
+         color 0.502 1 0 1
+         position 1092.62 12
+         size 334.104 42.0747
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "#create_offers"
+         text_proportion 0.8
+        }
+        ButtonWidgetClass buttonMyOffers {
+         color 0.502 1 0 1
+         position 10.3178 55.0685
+         size 367.09799 42.0747
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "#my_offers"
+         text_proportion 0.8
+         switch normal
+        }
+        ButtonWidgetClass buttonDeleteMyOffer {
+         color 0.502 0 0 1
+         position 1438.71997 58.477
+         size 352.728 42.0747
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "#delete_my_offer"
+         text_proportion 0.8
+         switch normal
+        }
+        ButtonWidgetClass buttonDeleteMyBid {
+         color 0.502 0 0 1
+         position 782.83997 58.477
+         size 296.45999 42.0747
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "#delete_my_bid"
          text_proportion 0.8
          switch normal
         }

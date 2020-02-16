@@ -86,11 +86,12 @@ class P2PTraderStock
 		}
 	}
 	
-	void AddPlayerToPlayerOffer(P2PTraderPlayerPlayerOffer newOffer) {
+	P2PTraderPlayerPlayerOffer AddPlayerToPlayerOffer(P2PTraderPlayerPlayerOffer newOffer) {
 		idCounter++;
 		newOffer.SetId(idCounter);
 		playerOffers.Insert(newOffer);
 		Save();
+		return newOffer;
 	}
 	
 	void RemovePlayerToPlayerOffer(P2PTraderPlayerPlayerOffer offerToRemove, bool dontSave = false) {
@@ -142,6 +143,12 @@ class P2PTraderStock
 	
 	array<ref P2PTraderPlayerMarketOffer> GetStock() {
 		return stock;
+	}
+	
+	
+	
+	array<ref P2PTraderPlayerPlayerOffer> GetOffersFromAllPlayer() {
+		return playerOffers;
 	}
 	
 	array<ref P2PTraderPlayerPlayerOffer> GetOffersFromPlayer(PlayerIdentity player) {

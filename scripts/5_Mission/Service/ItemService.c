@@ -30,14 +30,28 @@ class ItemService
 	
 	P2PTraderPlayerMarketOffer GetSelectedMarketOffer(TextListboxWidget source) {
 		int markedPos = source.GetSelectedRow();
+		
+		DebugMessageP2PTrader("has pos: " + markedPos.ToString());
+		
+		if (markedPos == -1) {
+			return null;
+		}
+		
 		P2PTraderPlayerMarketOffer item;
+		
 		source.GetItemData(markedPos, 0, item);
+		DebugMessageP2PTrader("has item from: " + item.GetOwnerName());
 		
 		return item;
 	}
 	
 	void MoveItemFromListWidgetToListWidget(TextListboxWidget source, TextListboxWidget target = null, bool move = true) {
 		int markedPos = source.GetSelectedRow();
+		
+		if (markedPos == -1) {
+			return;
+		}
+		
 		P2PTraderItem item;
 		source.GetItemData(markedPos, 0, item);
 		
@@ -57,9 +71,10 @@ class ItemService
 		search.ToLower();
 		
 		foreach(P2PTraderPlayerMarketOffer offer: marketItems) {
-			if (search == "" || (search != "" && !offer.ContainsItemType(search))) {
+			if (offer && (search == "" || (search != "" && !offer.ContainsItemType(search)))) {
 				string itemNames;
-				foreach(P2PTraderStockItem item: offer.GetOfferItems()) {
+				array <ref P2PTraderStockItem> offerItems = offer.GetOfferItems();
+				foreach(P2PTraderStockItem item: offerItems) {
 					if (item) {
 						itemNames = itemNames + item.GetTranslation();
 					}
@@ -75,8 +90,19 @@ class ItemService
 		widget.ClearItems();
 		
 		foreach(P2PTraderPlayerMarketOffer offer: marketItems) {
+			if (!offer) {
+				DebugMessageP2PTrader("Item i null");
+				continue;
+			}
 			string itemNames;
-			foreach(P2PTraderStockItem item: offer.GetOfferItems()) {
+			array <ref P2PTraderStockItem> offerItems = offer.GetOfferItems();
+			
+			if (!offerItems) {
+				DebugMessageP2PTrader("offerItems i null");
+				continue;
+			}
+			
+			foreach(P2PTraderStockItem item: offerItems) {
 				if (item) {
 					if (!item.HasTranslation()) {
 						item.SetTranslation(GetItemDisplayName(item.GetType()));
@@ -95,18 +121,21 @@ class ItemService
 	TextListboxWidget GetMarketOfferItemList(TextListboxWidget widget, P2PTraderPlayerMarketOffer marketItem) {
 		widget.ClearItems();
 		
+		DebugMessageP2PTrader("try GetOfferItems");
 		array <ref P2PTraderStockItem> offerItems = marketItem.GetOfferItems();
-		
+		DebugMessageP2PTrader("has offerItems, count" + offerItems.Count().ToString());
 		foreach(P2PTraderStockItem item: offerItems) {
 			if (item) {
 				if (!item.HasTranslation()) {
 					item.SetTranslation(GetItemDisplayName(item.GetType()));
 				}
 				
-				int pos = widget.AddItem(item.GetTranslation(), item, 0);
-				widget.SetItem(pos, "#healt" + item.GetHealth().ToString(), item, 1);
+				widget.AddItem(item.GetTranslation(), item, 0);
+				
 			}
 		}
+		
+		DebugMessageP2PTrader("done adding items to widget.");
 		
 		return widget;
 	}
@@ -126,7 +155,6 @@ class ItemService
 				}
 				
 				int pos = widget.AddItem(item.GetTranslation(), item, 0);
-				widget.SetItem(pos, "#healt" + item.GetHealth().ToString(), item, 1);
 				
 				GetMarketOfferItemAttachmentList(widget, item, false);
 			}
@@ -203,7 +231,7 @@ class ItemService
 		}
 
 		if (wantedItems.Count() == 0 && offerItems.Count() == 0) {
-		    return "you_can_not_make_an_empty_offer";
+		    return "#you_can_not_make_an_empty_offer";
 		}
 
 		DebugMessageP2PTrader("try send P2P_TRADER_EVENT_NEW_OFFER to server");
@@ -259,7 +287,6 @@ class ItemService
 				}
 				
 				int pos = widget.AddItem(item.GetTranslation(), item, 0);
-				widget.SetItem(pos, "#healt" + item.GetHealth().ToString(), item, 1);
 			}
 		}
 		
@@ -288,6 +315,23 @@ class ItemService
 		}
 	
 	    return displayName;
+	}
+	
+	void GetPlayerBidsForMarketOffer(TextListboxWidget widget, P2PTraderPlayerMarketOffer marketOffer, array<ref P2PTraderPlayerPlayerOffer> playerOffers) {
+		widget.ClearItems();
+		int marketOfferId = marketOffer.GetId();
+		foreach(P2PTraderPlayerPlayerOffer playerOffer: playerOffers) {
+			if (playerOffer && playerOffer.GetPlayerToMarketOfferId() == marketOfferId) {
+				array <ref P2PTraderStockItem> items = playerOffer.GetOfferItems();
+				foreach(P2PTraderStockItem item: items) {
+					if (!item.HasTranslation()) {
+						item.SetTranslation(GetItemDisplayName(item.GetType()));
+					}
+					
+					widget.AddItem(item.GetTranslation(), item, 0);
+				}
+			}
+		}
 	}
 	
 }

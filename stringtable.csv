@@ -15,7 +15,7 @@
 "items","Items","Items","Gegenstände","","","","","","","","","","",""
 "player","Player","Player","Spieler","","","","","","","","","","",""
 "my_offers","My Offers","My Offers","Meine Angebote","","","","","","","","","","",""
-"all_offers","All Offers","All Offers","Alle ANgebote","","","","","","","","","","",""
+"all_offers","All Offers","All Offers","Alle Angebote","","","","","","","","","","",""
 "bid","Bid","Bid","Gebot","","","","","","","","","","",""
 "delete_my_offer","Delete my Offer","Delete my Offer","mein Angebot löschen","","","","","","","","","","",""
 "delete_my_bid","Delete my Bid","Delete my Bid","mein Gebot löschen","","","","","","","","","","",""
@@ -26,3 +26,4 @@
 "create","Create","Create","Erstellen","","","","","","","","","","",""
 "take_offer","Take offer","","Angebot annehmen","","","","","","","","","","",""
 "you_can_only_remove_your_own_offer","You can only remove your own offer.","You can only remove your own offer.","Du kannst nur deine Angebote löschen","","","","","","","","","","",""
+"desc","Description","Description","Beschreibung","","","","","","","","","","",""
