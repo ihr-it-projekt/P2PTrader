@@ -265,14 +265,15 @@ class ItemService
 		return "";
 	}
 	
-	P2PTraderPlayerPlayerOffer GetPlayerOffer(P2PTraderPlayerMarketOffer offer, array<ref P2PTraderPlayerPlayerOffer> playerOffers) {
+	array <ref P2PTraderPlayerPlayerOffer> GetPlayerOffersForMarketOffer(P2PTraderPlayerMarketOffer offer, array<ref P2PTraderPlayerPlayerOffer> playerOffers) {
+		array <ref P2PTraderPlayerPlayerOffer> returnPlayerOffers = new array <ref P2PTraderPlayerPlayerOffer>; 
 		foreach(P2PTraderPlayerPlayerOffer offerPlayer: playerOffers) {
-			if (offer.HasPlayerOfferId(offerPlayer.GetId())) {
-				return offerPlayer;
+			if (offer.GetId() == offerPlayer.GetPlayerToMarketOfferId()) {
+				returnPlayerOffers.Insert(offerPlayer);
 			}
 		}
 		
-		return null;
+		return returnPlayerOffers;
 	}
 	
 	TextListboxWidget GetPlayerOfferItemList(TextListboxWidget widget, P2PTraderPlayerPlayerOffer offerItem) {
@@ -287,6 +288,24 @@ class ItemService
 				}
 				
 				int pos = widget.AddItem(item.GetTranslation(), item, 0);
+			}
+		}
+		
+		return widget;
+	}
+	
+	TextListboxWidget GetPlayerOfferItemsList(TextListboxWidget widget, array <ref P2PTraderPlayerPlayerOffer> playerOffers) {
+		widget.ClearItems();
+		foreach (P2PTraderPlayerPlayerOffer playerOffer: playerOffers) {
+			array <ref P2PTraderStockItem> stockItems = playerOffer.GetOfferItems();
+			foreach(P2PTraderStockItem item: stockItems) {
+				if (item) {
+					if (!item.HasTranslation()) {
+						item.SetTranslation(GetItemDisplayName(item.GetType()));
+					}
+					
+					int pos = widget.AddItem(item.GetTranslation(), item, 0);
+				}
 			}
 		}
 		

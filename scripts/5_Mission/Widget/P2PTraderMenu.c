@@ -5,6 +5,7 @@ class P2PTraderMenu extends UIScriptedMenu
 	private string playerId;
 	private P2PTraderConfig config;
 	private P2PTraderPlayerMarketOffer selectedStockItem;
+	private array<ref P2PTraderPlayerPlayerOffer> selectedPlayerOffers;
 	private P2PTraderPlayerPlayerOffer selectedPlayerOffer;
 	private ref ItemService itemService;
 	private ref array<ref P2PTraderPlayerMarketOffer> marketItems;
@@ -278,7 +279,7 @@ class P2PTraderMenu extends UIScriptedMenu
 			Param2<DayZPlayer, int> paramRemovePlayerToMarketOffer = new Param2<DayZPlayer, int>(GetGame().GetPlayer(), selectedStockItem.GetId());
 			GetGame().RPCSingleParam(paramRemovePlayerToMarketOffer.param1, P2P_TRADER_EVENT_REMOVE_OFFER, paramRemovePlayerToMarketOffer, true);
 			buttonDeleteMyOffer.Show(false);
-		} else if(w == buttonTakeOffer && selectedPlayerOffer && selectedStockItem && (P2P_TRADER_DEBUG || selectedPlayerOffer.GetOwnerId() != selectedStockItem.GetOwnerId())) {
+		} else if(w == buttonTakeOffer && selectedPlayerOffer && selectedStockItem && (P2P_TRADER_DEBUG_BUTTON || selectedPlayerOffer.GetOwnerId() != selectedStockItem.GetOwnerId())) {
 			DebugMessageP2PTrader("click buttonTakeOffer");
 			Param3<DayZPlayer, int, int> paramTakePlayerToMarketOffer = new Param3<DayZPlayer, int, int>(GetGame().GetPlayer(), selectedPlayerOffer.GetId(), selectedStockItem.GetId());
 			GetGame().RPCSingleParam(paramTakePlayerToMarketOffer.param1, P2P_TRADER_EVENT_TAKE_OFFER, paramTakePlayerToMarketOffer, true);
@@ -307,11 +308,11 @@ class P2PTraderMenu extends UIScriptedMenu
 	
 	private void ShowHideMyOfferForItem() {
 		if (selectedStockItem) {
-			selectedPlayerOffer = itemService.GetPlayerOffer(selectedStockItem, allActiveOffers);
+			selectedPlayerOffers = itemService.GetPlayerOffersForMarketOffer(selectedStockItem, allActiveOffers);
 			DebugMessageP2PTrader("Select a offer");
 			
-			if (selectedPlayerOffer) {
-				itemService.GetPlayerOfferItemList(offerPlayerBidItems, selectedPlayerOffer);
+			if (selectedPlayerOffers) {
+				itemService.GetPlayerOfferItemsList(offerPlayerBidItems, selectedPlayerOffers);
 			}
 			offerPlayerBidItemsAttachments.ClearItems();
 			
@@ -319,25 +320,28 @@ class P2PTraderMenu extends UIScriptedMenu
 			offerMyBidAttachmentLabel.Show(true);
 			offerMyBidLabel.Show(true);
 			offerPlayerBidItemsAttachments.Show(true);
-			buttonDeleteMyBid.Show(true);
 			
-			if (P2P_TRADER_DEBUG) {
+			
+			if (P2P_TRADER_DEBUG_BUTTON) {
 				buttonOpenCreateMyBid.Show(true);
 				buttonDeleteMyOffer.Show(true);
-			} else if(selectedStockItem.GetOwnerId() != playerId) {
+				buttonDeleteMyBid.Show(true);
+			} else if(selectedStockItem.GetOwnerId() != GetGame().GetPlayer().GetIdentity().GetPlainId()) {
 				buttonOpenCreateMyBid.Show(true);
 				buttonDeleteMyOffer.Show(false);
+				buttonDeleteMyBid.Show(true);
 			}else {
 				buttonOpenCreateMyBid.Show(false);
 				buttonDeleteMyOffer.Show(true);
+				buttonDeleteMyBid.Show(false);
 			}
 		
 		} else {
-			buttonOpenCreateMyBid.Show(false);
 			offerPlayerBidItems.Show(false);
 			offerMyBidAttachmentLabel.Show(false);
 			offerMyBidLabel.Show(false);
 			offerPlayerBidItemsAttachments.Show(false);
+			buttonOpenCreateMyBid.Show(false);
 			buttonDeleteMyBid.Show(false);
 			buttonDeleteMyOffer.Show(false);
 		}
@@ -513,10 +517,6 @@ class P2PTraderMenu extends UIScriptedMenu
 				}
 				
 				itemService.GetMarketItemListInit(stockItems, marketItems);
-				
-				stockItems.Show(false);
-				stockItems.Show(true);
-				
 			}
 		} else if (rpc_type == P2P_TRADER_EVENT_GET_ALL_BID_OFFERS_RESPONSE) {
 			DebugMessageP2PTrader("recive P2P_TRADER_EVENT_GET_ALL_BID_OFFERS_RESPONSE");
@@ -524,21 +524,11 @@ class P2PTraderMenu extends UIScriptedMenu
             if (ctx.Read(parameterPlayerBids)) {
                 allActiveOffers = parameterPlayerBids.param1;
 			}
-		} else if (rpc_type == P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_RESPONSE || rpc_type == P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE|| rpc_type == P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE) {
-			DebugMessageP2PTrader("recive P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_RESPONSE");
-            Param1<bool> parameterPlayerDeleteMyBid;
-            if (ctx.Read(parameterPlayerDeleteMyBid)) {
-                bool hasDeleted = parameterPlayerDeleteMyBid.param1;
-				RefrechPlayerLists();
-			}
-		} else if (rpc_type == P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE && rpc_type == P2P_TRADER_EVENT_NEW_OFFER_RESPONSE) {
-			DebugMessageP2PTrader("recive P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE or P2P_TRADER_EVENT_NEW_OFFER_RESPONSE");
-            Param1<bool> parameterPlayerAcceptBid;
-            if (ctx.Read(parameterPlayerAcceptBid)) {
-                bool hasAccepted = parameterPlayerAcceptBid.param1;
-				RefrechPlayerLists();
-				RefrechStockLists();
-			}
+		} else if (rpc_type == P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_RESPONSE || rpc_type == P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE || rpc_type == P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_NEW_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE) {
+			DebugMessageP2PTrader("recive EVENT and Refresh lists");
+           	RefrechPlayerLists();
+			RefrechStockLists();
+			
 		} else if (rpc_type == P2P_TRADER_EVENT_RESPONSE_ERROR) {
 			DebugMessageP2PTrader("recive P2P_TRADER_EVENT_RESPONSE_ERROR");
             Param1<string> parameterError;
