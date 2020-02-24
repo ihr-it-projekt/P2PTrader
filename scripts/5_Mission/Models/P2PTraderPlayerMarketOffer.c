@@ -10,7 +10,7 @@ class P2PTraderPlayerMarketOffer
 	
 	
 	void P2PTraderPlayerMarketOffer(DayZPlayer owner, string offerMessage = "") {
-		this.ownerId = owner.GetIdentity().GetPlainId();
+		this.ownerId = owner.GetIdentity().GetId();
 		this.ownerName = owner.GetIdentity().GetName();
 		this.offerMessage = offerMessage;
 		this.offerItems = new array<ref P2PTraderStockItem>;

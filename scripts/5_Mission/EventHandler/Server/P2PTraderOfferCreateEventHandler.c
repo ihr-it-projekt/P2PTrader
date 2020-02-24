@@ -35,9 +35,9 @@ class P2PTraderOfferCreateEventHandler
 				DebugMessageP2PTrader("have offer items" + offerItems.Count().ToString());
 				DebugMessageP2PTrader("have wanted items" + wantedItems.Count().ToString());
 
-				foreach(EntityAI item: items) {
-					ItemBase itemCast = ItemBase.Cast(item);
-					foreach(P2PTraderItem offerItem: offerItems) {
+				foreach(P2PTraderItem offerItem: offerItems) {
+					foreach(EntityAI item: items) {
+						ItemBase itemCast = ItemBase.Cast(item);
 						if (itemCast && offerItem && offerItem.item.IsItem(itemCast)) {
 							offer.AddOfferItem(offerItem.item);
 							inventory.Remove(itemCast, player);
@@ -76,32 +76,34 @@ class P2PTraderOfferCreateEventHandler
 
                 P2PTraderPlayerMarketOffer playerMarketOffer = traderStock.GetPlayerToMarketOfferById(offerId);
 
-				if (playerMarketOffer == null) {
+                if (playerMarketOffer == null) {
                     GetGame().RPCSingleParam(offerPlayer, P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE_ERROR, new Param1<string>("#offer_not_exists"), true, offerPlayer.GetIdentity());
-                    DebugMessageP2PTrader("send P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE_ERROR to player: no offer found");
+                   DebugMessageP2PTrader("send P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE_ERROR to player: no offer found");
                     return;
-				} else if (!P2P_TRADER_DEBUG && playerMarketOffer.GetOwnerId() == offerPlayer.GetIdentity().GetPlainId()) {
+                } else if (!P2P_TRADER_DEBUG && playerMarketOffer.GetOwnerId() == offerPlayer.GetIdentity().GetId()) {
                     GetGame().RPCSingleParam(offerPlayer, P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE_ERROR, new Param1<string>("#you_can_not_make_yourself_an_offer"), true, offerPlayer.GetIdentity());
                     DebugMessageP2PTrader("send P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE_ERROR to player: owner is same then ");
                     return;
-				}
+                }
 
-                P2PTraderPlayerPlayerOffer offerFromPlayer = new P2PTraderPlayerPlayerOffer(offerPlayer.GetIdentity().GetPlainId(), offerPlayer.GetIdentity().GetName(), offerId, offerPlayerMessage);
+                P2PTraderPlayerPlayerOffer offerFromPlayer = new P2PTraderPlayerPlayerOffer(offerPlayer.GetIdentity().GetId(), offerPlayer.GetIdentity().GetName(), offerId, offerPlayerMessage);
 
-				DebugMessageP2PTrader("have offer items" + offerPlayerItems.Count().ToString());
+                DebugMessageP2PTrader("have offer items" + offerPlayerItems.Count().ToString());
 
-				foreach(EntityAI itemX: itemsPlayer) {
-					ItemBase itemPlayerCast = ItemBase.Cast(itemX);
-					foreach(P2PTraderItem offerItemX: offerPlayerItems) {
+				foreach(P2PTraderItem offerItemX: offerPlayerItems) {
+					foreach(EntityAI itemX: itemsPlayer) {
+						ItemBase itemPlayerCast = ItemBase.Cast(itemX);
 						if (itemPlayerCast && offerItemX && offerItemX.item && offerItemX.item.GetHealth() == itemPlayerCast.GetHealth() && offerItemX.item.GetType() == itemPlayerCast.GetType() && offerItemX.item.GetQuantity() == itemPlayerCast.GetQuantity()) {
                             offerFromPlayer.AddOfferItem(offerItemX.item);
 							inventory.Remove(itemPlayerCast, offerPlayer);
-						}
-					}
-				}
+							break;
+                        }
+                    }
+                }
 
-				DebugMessageP2PTrader("Create offer for player in stock");
-				offerFromPlayer = traderStock.AddPlayerToPlayerOffer(offerFromPlayer);
+                DebugMessageP2PTrader("Create offer for player in stock");
+                traderStock.AddPlayerToPlayerOffer(offerFromPlayer);
+                playerMarketOffer.AddPlayerOffer(offerFromPlayer);
 
                 GetGame().RPCSingleParam(offerPlayer, P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE, new Param1<bool>(true), true, offerPlayer.GetIdentity());
                 DebugMessageP2PTrader("send P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE to player");

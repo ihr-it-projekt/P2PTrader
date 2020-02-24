@@ -35,7 +35,7 @@ modded class MissionServer {
 			DebugMessageP2PTrader("receive get config");
 			autoptr Param1<PlayerBase> paramGetConfig;
 			if (ctx.Read(paramGetConfig)){
-                GetGame().RPCSingleParam(paramGetConfig.param1, P2P_TRADER_EVENT_GET_CONFIG_RESPONSE, new Param2<ref P2PTraderConfig, string>(config, sender.GetPlainId()), true, sender);
+                GetGame().RPCSingleParam(paramGetConfig.param1, P2P_TRADER_EVENT_GET_CONFIG_RESPONSE, new Param1<ref P2PTraderConfig>(config), true, sender);
 			}
 		} else if (rpc_type == P2P_TRADER_EVENT_GET_STOCK) {
 			DebugMessageP2PTrader("receive get stock");

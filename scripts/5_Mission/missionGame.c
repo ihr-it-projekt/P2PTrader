@@ -22,10 +22,9 @@ modded class MissionGameplay
 	void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
 		if (rpc_type == P2P_TRADER_EVENT_GET_CONFIG_RESPONSE) {
 			DebugMessageP2PTrader("player receive config");
-			Param2 <ref P2PTraderConfig, string> configParam;
+			Param1 <ref P2PTraderConfig> configParam;
 			if (ctx.Read(configParam)){
 				config = configParam.param1;
-				string playerId = configParam.param2;
 				DebugMessageP2PTrader("player has load config");
 
 			}

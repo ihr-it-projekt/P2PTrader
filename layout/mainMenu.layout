@@ -356,8 +356,8 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass offerPlayerBidItems {
          color 1 1 1 0.651
-         position 794.09003 61.4688
-         size 373.84 163.13901
+         position 798.72302 232.752
+         size 373.84 134.894
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -366,8 +366,8 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass offerPlayerBidItemsAttachments {
          color 1 1 1 0.651
-         position 794.72406 286.07602
-         size 372.57202 164.93599
+         position 800.276 439.17102
+         size 372.57202 103.128
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -376,7 +376,7 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerMyBidAttachmentLabel {
          ignorepointer 1
-         position 292.79001 -33.0374
+         position 281.54001 112.323
          size 342.07501 42.0747
          halign center_ref
          valign center_ref
@@ -392,6 +392,16 @@ FrameWidgetClass rootFrame {
          "size to text v" 0
          "text halign" center
          "text valign" center
+        }
+        TextListboxWidgetClass offerPlayerBidOffer {
+         color 1 1 1 0.651
+         position 798.72302 63.0218
+         size 373.84 134.894
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Editor
         }
        }
       }

@@ -18,15 +18,13 @@ class P2PTraderPlayerOfferEventHandler
         if (!IsServerP2PTrader()) {
             return;
         }
-		
-		int offerId;
-		
+				
         if (rpc_type == P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS) {
 			DebugMessageP2PTrader("receive P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS");
             Param2<DayZPlayer, int> parameterRemoveOffer;
             if (ctx.Read(parameterRemoveOffer)) {
                 DayZPlayer player = parameterRemoveOffer.param1;
-				offerId = parameterRemoveOffer.param2;
+				int offerId = parameterRemoveOffer.param2;
 				
 				P2PTraderPlayerPlayerOffer playerOffer = traderStock.GetPlayerOfferById(offerId);
 
@@ -34,7 +32,7 @@ class P2PTraderPlayerOfferEventHandler
                     GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_ERROR, new Param1<string>("#offer_not_exists"), true, player.GetIdentity());
                     DebugMessageP2PTrader("send P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_ERROR to player: no offer found");
                     return;
-                } else if (playerOffer.GetOwnerId() != player.GetIdentity().GetPlainId()) {
+                } else if (playerOffer.GetOwnerId() != player.GetIdentity().GetId()) {
                     GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_ERROR, new Param1<string>("#you_can_only_remove_your_own_offer"), true, player.GetIdentity());
                     DebugMessageP2PTrader("send P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_ERROR to player: owner is same then ");
                     return;

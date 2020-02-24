@@ -152,7 +152,7 @@ class P2PTraderStock
 	}
 	
 	array<ref P2PTraderPlayerPlayerOffer> GetOffersFromPlayer(PlayerIdentity player) {
-		string playerId = player.GetPlainId();
+		string playerId = player.GetId();
 		array<ref P2PTraderPlayerPlayerOffer> playerPlayerOffers = new array<ref P2PTraderPlayerPlayerOffer>;
 		
 		foreach (P2PTraderPlayerPlayerOffer playerOffer: playerOffers) {
@@ -188,7 +188,7 @@ class P2PTraderStock
 	}
 	
 	array<ref P2PTraderPlayerPlayerOffer> GetInactiveOffersFromPlayer(PlayerIdentity player) {
-		string playerId = player.GetPlainId();
+		string playerId = player.GetId();
 		array<ref P2PTraderPlayerPlayerOffer> playerPlayerOffers = new array<ref P2PTraderPlayerPlayerOffer>;
 		
 		foreach (P2PTraderPlayerPlayerOffer playerOffer: playerOffersInactive) {
@@ -201,7 +201,7 @@ class P2PTraderStock
 	}
 	
 	array<ref P2PTraderPlayerPlayerOffer> GetAcceptedOffersFromPlayer(PlayerIdentity player) {
-		string playerId = player.GetPlainId();
+		string playerId = player.GetId();
 		array<ref P2PTraderPlayerPlayerOffer> playerPlayerOffers = new array<ref P2PTraderPlayerPlayerOffer>;
 		
 		foreach (P2PTraderPlayerPlayerOffer playerOffer: acceptedPlayerOffers) {
