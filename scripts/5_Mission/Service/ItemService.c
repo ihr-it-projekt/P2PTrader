@@ -135,10 +135,31 @@ class ItemService
 				
 			}
 		}
-		
+
 		DebugMessageP2PTrader("done adding items to widget.");
-		
+
 		return widget;
+	}
+	
+	array <ref P2PTraderPlayerPlayerOffer> GetPlayerOffersForMarketOffer(P2PTraderPlayerMarketOffer marketOffer, array<ref P2PTraderPlayerPlayerOffer> allActiveOffers) {
+		array <ref P2PTraderPlayerPlayerOffer> offers = new array <ref P2PTraderPlayerPlayerOffer>;
+		foreach(P2PTraderPlayerPlayerOffer offer: allActiveOffers) {
+			if (marketOffer.GetId() == offer.GetPlayerToMarketOfferId()) {
+				offers.Insert(offer);
+			}
+		}
+		
+		return offers;
+	}
+
+	TextListboxWidget GetActiveOffersForStockItem(TextListboxWidget playerOffers, array <ref P2PTraderPlayerPlayerOffer> activeOffers) {
+		playerOffers.ClearItems();
+        foreach(P2PTraderPlayerPlayerOffer activeOffer: activeOffers) {
+			
+			playerOffers.AddItem(activeOffer.GetName(), activeOffer, 0);
+		}
+		
+		return playerOffers;
 	}
 	
 	TextListboxWidget GetMarketOfferItemAttachmentList(TextListboxWidget widget, P2PTraderStockItem offerItem, bool clearWidget = true) {
@@ -162,6 +183,14 @@ class ItemService
 		}
 		
 		return widget;
+	}
+	
+	P2PTraderStockItem GetSelectedItemPlayerOffer(TextListboxWidget source) {
+		int markedPos = source.GetSelectedRow();
+		P2PTraderStockItem item;
+		source.GetItemData(markedPos, 0, item);
+		
+		return item;
 	}
 	
 	P2PTraderPlayerPlayerOffer GetSelectedStockItem(TextListboxWidget source) {
@@ -265,17 +294,6 @@ class ItemService
 		return "";
 	}
 	
-	array <ref P2PTraderPlayerPlayerOffer> GetPlayerOffersForMarketOffer(P2PTraderPlayerMarketOffer offer, array<ref P2PTraderPlayerPlayerOffer> playerOffers) {
-		array <ref P2PTraderPlayerPlayerOffer> returnPlayerOffers = new array <ref P2PTraderPlayerPlayerOffer>; 
-		foreach(P2PTraderPlayerPlayerOffer offerPlayer: playerOffers) {
-			if (offer.GetId() == offerPlayer.GetPlayerToMarketOfferId()) {
-				returnPlayerOffers.Insert(offerPlayer);
-			}
-		}
-		
-		return returnPlayerOffers;
-	}
-	
 	ref P2PTraderPlayerPlayerOffer GetPlayerSingleOffersForMarketOffer(P2PTraderPlayerMarketOffer offer, array<ref P2PTraderPlayerPlayerOffer> playerOffers) {
 		foreach(P2PTraderPlayerPlayerOffer offerPlayer: playerOffers) {
 			if (offer.GetId() == offerPlayer.GetPlayerToMarketOfferId()) {
@@ -285,25 +303,6 @@ class ItemService
 		}
 		DebugMessageP2PTrader("No bid from player found for market offer");
 		return null;
-	}
-
-	
-	TextListboxWidget GetPlayerPlayerOfferList(TextListboxWidget widget, P2PTraderPlayerPlayerOffer offerItem) {
-		widget.ClearItems();
-		
-		array <ref P2PTraderStockItem> offerItems = offerItem.GetOfferItems();
-		
-		foreach(P2PTraderStockItem item: offerItems) {
-			if (item) {
-				if (!item.HasTranslation()) {
-					item.SetTranslation(GetItemDisplayName(item.GetType()));
-				}
-				
-				int pos = widget.AddItem(item.GetTranslation(), item, 0);
-			}
-		}
-		
-		return widget;
 	}
 	
 	TextListboxWidget GetPlayerOfferItemList(TextListboxWidget widget, P2PTraderPlayerPlayerOffer offerItem) {
@@ -317,25 +316,7 @@ class ItemService
 					item.SetTranslation(GetItemDisplayName(item.GetType()));
 				}
 				
-				int pos = widget.AddItem(item.GetTranslation(), item, 0);
-			}
-		}
-		
-		return widget;
-	}
-	
-	TextListboxWidget GetPlayerOfferItemsList(TextListboxWidget widget, array <ref P2PTraderPlayerPlayerOffer> playerOffers) {
-		widget.ClearItems();
-		foreach (P2PTraderPlayerPlayerOffer playerOffer: playerOffers) {
-			array <ref P2PTraderStockItem> stockItems = playerOffer.GetOfferItems();
-			foreach(P2PTraderStockItem item: stockItems) {
-				if (item) {
-					if (!item.HasTranslation()) {
-						item.SetTranslation(GetItemDisplayName(item.GetType()));
-					}
-					
-					int pos = widget.AddItem(item.GetTranslation(), playerOffer, 0);
-				}
+				widget.AddItem(item.GetTranslation(), item, 0);
 			}
 		}
 		
@@ -365,22 +346,4 @@ class ItemService
 	
 	    return displayName;
 	}
-	
-	void GetPlayerBidsForMarketOffer(TextListboxWidget widget, P2PTraderPlayerMarketOffer marketOffer, array<ref P2PTraderPlayerPlayerOffer> playerOffers) {
-		widget.ClearItems();
-		int marketOfferId = marketOffer.GetId();
-		foreach(P2PTraderPlayerPlayerOffer playerOffer: playerOffers) {
-			if (playerOffer && playerOffer.GetPlayerToMarketOfferId() == marketOfferId) {
-				array <ref P2PTraderStockItem> items = playerOffer.GetOfferItems();
-				foreach(P2PTraderStockItem item: items) {
-					if (!item.HasTranslation()) {
-						item.SetTranslation(GetItemDisplayName(item.GetType()));
-					}
-					
-					widget.AddItem(item.GetTranslation(), item, 0);
-				}
-			}
-		}
-	}
-	
 }

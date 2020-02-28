@@ -62,4 +62,14 @@ class P2PTraderPlayerPlayerOffer
 	string GetMessage() {
 		return message;
 	}
+	
+	string GetName() {
+		string name = "";
+		
+		foreach(P2PTraderStockItem item: offerItems) {
+			name += item.GetTranslation() + "; ";
+		}
+		
+		return name;
+	}
 }
