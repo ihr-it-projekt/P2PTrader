@@ -3,7 +3,7 @@ class P2PTraderMenu extends UIScriptedMenu
 	private DayZPlayer player;
 	private string playerId;
 	private P2PTraderConfig config;
-	private P2PTraderPlayerMarketOffer selectedStockItem;
+	private P2PTraderPlayerMarketOffer selectedMarketOffer;
 	private array<ref P2PTraderPlayerPlayerOffer> selectedPlayerOffers;
 	private P2PTraderPlayerPlayerOffer selectedPlayerOffer;
 	private ref ItemService itemService;
@@ -26,8 +26,8 @@ class P2PTraderMenu extends UIScriptedMenu
 	private ButtonWidget buttonOpenCreateOffer;
 	private ButtonWidget buttonSearchMarket;
 	private EditBoxWidget inputSearchMarket;
-	private TextListboxWidget marketOffer;
 	private TextListboxWidget marketOffers;
+	private TextListboxWidget marketOfferItems;
 	private TextListboxWidget marketOfferItemAtatmenchts;
 	private TextListboxWidget playerOfferItems;
 	private TextListboxWidget playerOffers;
@@ -97,8 +97,8 @@ class P2PTraderMenu extends UIScriptedMenu
         buttonTakeOffer = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonTakeOffer" ));
         buttonAllOffers = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonAllOffers" ));
         buttonOpenCreateMyBid = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonOpenCreateMyBid" ));
-        marketOffer = TextListboxWidget.Cast( layoutRoot.FindAnyWidget( "marketOffer" ));
         marketOffers = TextListboxWidget.Cast( layoutRoot.FindAnyWidget( "marketOffers" ));
+        marketOfferItems = TextListboxWidget.Cast( layoutRoot.FindAnyWidget( "marketOfferItems" ));
         marketOfferItemAtatmenchts = TextListboxWidget.Cast( layoutRoot.FindAnyWidget( "marketOfferItemAtatmenchts" ));
         playerOffers = TextListboxWidget.Cast( layoutRoot.FindAnyWidget( "playerOffers" ));
         playerOfferItems = TextListboxWidget.Cast( layoutRoot.FindAnyWidget( "playerOfferItems" ));
@@ -124,8 +124,8 @@ class P2PTraderMenu extends UIScriptedMenu
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonMyOffers,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonTakeOffer,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonOpenCreateMyBid,  this, "OnClick");
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(marketOffer,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(marketOffers,  this, "OnClick");
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(marketOfferItems,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(playerOfferItems,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(playerOffers,  this, "OnClick");
 		
@@ -197,15 +197,15 @@ class P2PTraderMenu extends UIScriptedMenu
             DebugMessageP2PTrader("click cancel");
             CloseMenu();
             return true;
-        } else if(w == buttonOpenCreateMyBid && selectedStockItem) {
+        } else if(w == buttonOpenCreateMyBid && selectedMarketOffer) {
 			DebugMessageP2PTrader("click buttonOpenCreateMyBid");
 			playerItemsOfferPlayerOffer.ClearItems();
 			
 			playerTextPlayerOffer.SetText("");
-			playerNameBidDetail.SetText(selectedStockItem.GetOwnerName());
-			playerOfferMessageDetailBid.SetText(selectedStockItem.GetOfferMessage());
+			playerNameBidDetail.SetText(selectedMarketOffer.GetOwnerName());
+			playerOfferMessageDetailBid.SetText(selectedMarketOffer.GetOfferMessage());
 			detailAttechmentBid.ClearItems();
-			itemService.GetMarketOfferItemList(offerDetailItemsBid, selectedStockItem);
+			itemService.GetMarketOfferItemList(offerDetailItemsBid, selectedMarketOffer);
 			createPlayerOfferWidget.Show(true);
 		} else if(w == buttonOpenCreateOffer) {
 			DebugMessageP2PTrader("click buttonOpenCreateOffer");
@@ -215,7 +215,7 @@ class P2PTraderMenu extends UIScriptedMenu
 			itemService.AddTradeableItemsToWidget(tradeableItemsOffer, inputSearchOffer.GetText());
 		} else if(w == buttonSearchMarket) {
 			DebugMessageP2PTrader("click buttonSearchMarket");
-			itemService.GetMarketItemList(marketOffer, marketItems, inputSearchMarket.GetText());
+			itemService.GetMarketItemList(marketOffers, marketItems, inputSearchMarket.GetText());
 		} else if(w == buttonCreateCreateOffer) {
 			DebugMessageP2PTrader("Click on create offer");
 			messageText = itemService.CreateOffer(player, playerItemsOfferOffer, playerWhantToHaveOffer, playerTextOffer.GetText());
@@ -223,7 +223,7 @@ class P2PTraderMenu extends UIScriptedMenu
 			createOfferWidget.Show(false);
 		} else if(w == buttonCreateCreatePlayerOffer) {
 			DebugMessageP2PTrader("Click on create player offer");
-			messageText = itemService.CreateOfferToPlayer(player, playerItemsOfferPlayerOffer, selectedStockItem.GetId(), playerTextPlayerOffer.GetText());
+			messageText = itemService.CreateOfferToPlayer(player, playerItemsOfferPlayerOffer, selectedMarketOffer.GetId(), playerTextPlayerOffer.GetText());
 
 			createPlayerOfferWidget.Show(false);
 		} else if(w == buttonCloseCreateOffer) {
@@ -232,18 +232,18 @@ class P2PTraderMenu extends UIScriptedMenu
 		} else if(w == buttonCreateClosePlayerOffer) {
 			DebugMessageP2PTrader("click buttonCreateClosePlayerOffer");
             createPlayerOfferWidget.Show(false);
-		} else if(w == marketOffer) {
-			DebugMessageP2PTrader("click marketOffer");
+		} else if(w == marketOffers) {
+			DebugMessageP2PTrader("click marketOffers");
 			DebugMessageP2PTrader("try get selected item");
-			selectedStockItem = itemService.GetSelectedMarketOffer(marketOffer);
+			selectedMarketOffer = itemService.GetSelectedMarketOffer(marketOffers);
 			
 			DebugMessageP2PTrader("config filds");
-			playerNameOfferDetail.SetText(selectedStockItem.GetOwnerName());
-			playerOfferMessageDetail.SetText(selectedStockItem.GetOfferMessage());
+			playerNameOfferDetail.SetText(selectedMarketOffer.GetOwnerName());
+			playerOfferMessageDetail.SetText(selectedMarketOffer.GetOfferMessage());
 			
 			DebugMessageP2PTrader("try set items to list");
-			itemService.GetMarketOfferItemList(marketOffers, selectedStockItem);
-			selectedPlayerOffers = itemService.GetPlayerOffersForMarketOffer(selectedStockItem, allActiveOffers);
+			itemService.GetMarketOfferItemList(marketOfferItems, selectedMarketOffer);
+			selectedPlayerOffers = itemService.GetPlayerOffersForMarketOffer(selectedMarketOffer, allActiveOffers);
 		
 			if (selectedPlayerOffers && selectedPlayerOffers.Count() > 0) {
 				DebugMessageP2PTrader("offer is selected");
@@ -255,16 +255,16 @@ class P2PTraderMenu extends UIScriptedMenu
 			
 			offerMessageFromPlayerLabel.Show(true);
 			offerPlayerLabel.Show(true);
-			marketOffers.Show(true);
+			marketOfferItems.Show(true);
 			marketOfferItemAtatmenchts.Show(true);
 			offerItemLabel.Show(true);
 			marketOfferItemAtatmenchts.ClearItems();
 			offerItemAttachmentLabel.Show(true);
 			DebugMessageP2PTrader("try ShowHideMyOfferForItem");
 			ShowHideMyOfferForItem();
-		} else if(w == marketOffers) {
-			DebugMessageP2PTrader("click marketOffers");
-			P2PTraderPlayerMarketOffer currentStockItem = itemService.GetSelectedMarketOffer(marketOffers);
+		} else if(w == marketOfferItems) {
+			DebugMessageP2PTrader("click marketOfferItems");
+			P2PTraderPlayerMarketOffer currentStockItem = itemService.GetSelectedMarketOffer(marketOfferItems);
 			itemService.GetMarketOfferItemList(marketOfferItemAtatmenchts, currentStockItem);
 		} else if(w == playerOffers) {
 			DebugMessageP2PTrader("click playerOffers");
@@ -288,19 +288,19 @@ class P2PTraderMenu extends UIScriptedMenu
 			buttonDeleteMyBid.Show(false);
 		} else if(w == buttonDeleteMyOffer) {
 			DebugMessageP2PTrader("click buttonDeleteMyOffer");
-			if (!selectedStockItem) {
-				DebugMessageP2PTrader("no selected selectedStockItem");
+			if (!selectedMarketOffer) {
+				DebugMessageP2PTrader("no selected selectedMarketOffer");
 				return true;
 			}
 			
-			Param2<DayZPlayer, int> paramRemovePlayerToMarketOffer = new Param2<DayZPlayer, int>(GetGame().GetPlayer(), selectedStockItem.GetId());
+			Param2<DayZPlayer, int> paramRemovePlayerToMarketOffer = new Param2<DayZPlayer, int>(GetGame().GetPlayer(), selectedMarketOffer.GetId());
 			GetGame().RPCSingleParam(paramRemovePlayerToMarketOffer.param1, P2P_TRADER_EVENT_REMOVE_OFFER, paramRemovePlayerToMarketOffer, true);
-			selectedStockItem = null;
+			selectedMarketOffer = null;
 			ShowHideMyOfferForItem();
 			
-		} else if(w == buttonTakeOffer && selectedPlayerOffer && selectedStockItem && (P2P_TRADER_DEBUG_BUTTON || selectedPlayerOffer.GetOwnerId() != selectedStockItem.GetOwnerId())) {
+		} else if(w == buttonTakeOffer && selectedPlayerOffer && selectedMarketOffer && (P2P_TRADER_DEBUG_BUTTON || selectedPlayerOffer.GetOwnerId() != selectedMarketOffer.GetOwnerId())) {
 			DebugMessageP2PTrader("click buttonTakeOffer");
-			Param3<DayZPlayer, int, int> paramTakePlayerToMarketOffer = new Param3<DayZPlayer, int, int>(GetGame().GetPlayer(), selectedPlayerOffer.GetId(), selectedStockItem.GetId());
+			Param3<DayZPlayer, int, int> paramTakePlayerToMarketOffer = new Param3<DayZPlayer, int, int>(GetGame().GetPlayer(), selectedPlayerOffer.GetId(), selectedMarketOffer.GetId());
 			GetGame().RPCSingleParam(paramTakePlayerToMarketOffer.param1, P2P_TRADER_EVENT_TAKE_OFFER, paramTakePlayerToMarketOffer, true);
 			buttonDeleteMyOffer.Show(false);
 		} else if(w == buttonMyOffers) {
@@ -308,14 +308,14 @@ class P2PTraderMenu extends UIScriptedMenu
 			buttonMyOffers.Show(false);
 			buttonAllOffers.Show(true);
 			
-			itemService.GetMarketItemList(marketOffer, marketPlayerItems, inputSearchMarket.GetText());
+			itemService.GetMarketItemList(marketOffers, marketPlayerItems, inputSearchMarket.GetText());
 			
 		} else if(w == buttonAllOffers) {
 			DebugMessageP2PTrader("click buttonAllOffers");
 			buttonMyOffers.Show(true);
 			buttonAllOffers.Show(false);
 			
-			itemService.GetMarketItemList(marketOffer, marketItems, inputSearchMarket.GetText());
+			itemService.GetMarketItemList(marketOffers, marketItems, inputSearchMarket.GetText());
 		}
 		
 		if (messageText != "") {
@@ -327,14 +327,14 @@ class P2PTraderMenu extends UIScriptedMenu
     }
 	
 	private void ShowHideMyOfferForItem() {
-		if (selectedStockItem) {
+		if (selectedMarketOffer) {
 			
 			
-			if(selectedStockItem.GetOwnerId() != playerId) {
+			if(selectedMarketOffer.GetOwnerId() != playerId) {
 				buttonDeleteMyOffer.Show(false);
 				buttonTakeOffer.Show(false);
 				
-				playerOfferForSelectedStockItem = itemService.GetPlayerSingleOffersForMarketOffer(selectedStockItem, playerActiveOffers);
+				playerOfferForSelectedStockItem = itemService.GetPlayerSingleOffersForMarketOffer(selectedMarketOffer, playerActiveOffers);
 			
 				
 				if (playerOfferForSelectedStockItem) {
@@ -442,8 +442,8 @@ class P2PTraderMenu extends UIScriptedMenu
 		isMenuOpen = false;
 		GetDayZGame().Event_OnRPC.Remove(HandleEvents);
 		playerInventoryItemsOffer.ClearItems();
-		marketOffer.ClearItems();
 		marketOffers.ClearItems();
+		marketOfferItems.ClearItems();
 	 	marketOfferItemAtatmenchts.ClearItems();
 		playerOfferItems.ClearItems();
 		playerOfferItemAttachments.ClearItems();
@@ -457,7 +457,7 @@ class P2PTraderMenu extends UIScriptedMenu
 		allActiveOffers.Clear();
 		marketPlayerItems.Clear();
 		marketItems.Clear();
-		selectedStockItem = null;
+		selectedMarketOffer = null;
 		selectedPlayerOffer = null;
 		ShowHideMyOfferForItem();
 		buttonOpenCreateMyBid.Show(false);
@@ -491,7 +491,7 @@ class P2PTraderMenu extends UIScriptedMenu
 		buttonMyOffers.Show(true);
 		buttonTakeOffer.Show(false);
 		offerPlayerLabel.Show(false);
-		marketOffers.Show(false);
+		marketOfferItems.Show(false);
 		marketOfferItemAtatmenchts.Show(false);
 		playerOffers.Show(false);
 		playerOfferItems.Show(false);
@@ -543,10 +543,10 @@ class P2PTraderMenu extends UIScriptedMenu
 					}
 				}
 				
-				itemService.GetMarketItemListInit(marketOffer, marketItems);
+				itemService.GetMarketItemListInit(marketOffers, marketItems);
 				
 				if (!buttonMyOffers.IsVisible()) {
-					itemService.GetMarketItemList(marketOffer, marketPlayerItems, inputSearchMarket.GetText());
+					itemService.GetMarketItemList(marketOffers, marketPlayerItems, inputSearchMarket.GetText());
 				}
 			}
 		} else if (rpc_type == P2P_TRADER_EVENT_GET_ALL_BID_OFFERS_RESPONSE) {
@@ -568,7 +568,7 @@ class P2PTraderMenu extends UIScriptedMenu
            	RefrechPlayerLists();
 			RefrechStockLists();
 			if (rpc_type == P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE) {
-				selectedStockItem = null;
+				selectedMarketOffer = null;
 				selectedPlayerOffer = null;
 				selectedPlayerOffers = null;
 			}
