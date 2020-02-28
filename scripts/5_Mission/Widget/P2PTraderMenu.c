@@ -264,12 +264,12 @@ class P2PTraderMenu extends UIScriptedMenu
 			ShowHideMyOfferForItem();
 		} else if(w == marketOfferItems) {
 			DebugMessageP2PTrader("click marketOfferItems");
-			P2PTraderPlayerMarketOffer currentStockItem = itemService.GetSelectedMarketOffer(marketOfferItems);
-			itemService.GetMarketOfferItemList(marketOfferItemAtatmenchts, currentStockItem);
+			P2PTraderStockItem currentStockItem = itemService.GetSelectedItemPlayerOffer(marketOfferItems);
+			itemService.GetMarketOfferItemAttachmentList(marketOfferItemAtatmenchts, currentStockItem);
 		} else if(w == playerOffers) {
 			DebugMessageP2PTrader("click playerOffers");
-			P2PTraderPlayerPlayerOffer currentPlayerPlayerOffer = itemService.GetSelectedStockItem(playerOffers);
-			itemService.GetPlayerOfferItemList(detailAttechmentBid, currentPlayerPlayerOffer);
+			P2PTraderPlayerPlayerOffer selectedPlayerOffer = itemService.GetSelectedStockItem(playerOffers);
+			itemService.GetPlayerOfferItemList(playerOfferItems, selectedPlayerOffer);
 		} else if(w == playerOfferItems) {
 			DebugMessageP2PTrader("click playerOfferItems");
 			P2PTraderStockItem currentMyBidItem = itemService.GetSelectedItemPlayerOffer(playerOfferItems);
