@@ -45,13 +45,13 @@ class P2PTraderStockItem {
 		return false;
 	}
 	
-	private bool CompareAttached(P2PTraderStockItem stockItems, ItemBase item) {
+	private bool CompareAttached(P2PTraderStockItem marketOffer, ItemBase item) {
 		array<EntityAI> itemsArray = new array<EntityAI>;
 		item.GetInventory().EnumerateInventory(InventoryTraversalType.INORDER, itemsArray);
 		
 		bool hasAllFound = true;
 		
-		foreach(P2PTraderStockItem stockItem: stockItems.attached) {
+		foreach(P2PTraderStockItem stockItem: marketOffer.attached) {
 			bool hasFound = false;
 			foreach(EntityAI itemAtteched: itemsArray) {
 				ItemBase itemCast = ItemBase.Cast(itemAtteched);

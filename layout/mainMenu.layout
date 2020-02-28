@@ -367,7 +367,7 @@ FrameWidgetClass rootFrame {
         TextListboxWidgetClass playerOfferItemAttachments {
          color 1 1 1 0.651
          position 795.19299 437.95999
-         size 386.56299 103.128
+         size 377.84 103.128
          hexactpos 1
          vexactpos 1
          hexactsize 1

@@ -61,16 +61,16 @@ class P2PTraderStock
 		}
 	}
 	
-	void AcceptPlayerToPlayerOffer(P2PTraderPlayerMarketOffer marketOffer, P2PTraderPlayerPlayerOffer playerOffer) {
+	void AcceptPlayerToPlayerOffer(P2PTraderPlayerMarketOffer marketOfferItems, P2PTraderPlayerPlayerOffer playerOffer) {
 		foreach(int index, P2PTraderPlayerMarketOffer stockOffer: stock) {
-			if (marketOffer.GetId() == stockOffer.GetId()) {
-				array<P2PTraderPlayerPlayerOffer> playerPlayerOffers = GetPlayerPlayerOfferForPlayerMarkertOffers(marketOffer);
+			if (marketOfferItems.GetId() == stockOffer.GetId()) {
+				array<P2PTraderPlayerPlayerOffer> playerPlayerOffers = GetPlayerPlayerOfferForPlayerMarkertOffers(marketOfferItems);
 				foreach(P2PTraderPlayerPlayerOffer playerPlayerOffer: playerPlayerOffers) {
 					if (playerOffer.GetId() == playerPlayerOffer.GetId()) {
-						ref P2PTraderPlayerPlayerOffer acceptedOffer = new P2PTraderPlayerPlayerOffer(playerOffer.GetOwnerId(), playerOffer.GetOwnerName(), marketOffer.GetId());
+						ref P2PTraderPlayerPlayerOffer acceptedOffer = new P2PTraderPlayerPlayerOffer(playerOffer.GetOwnerId(), playerOffer.GetOwnerName(), marketOfferItems.GetId());
 						idCounter++;
 						acceptedOffer.SetId(idCounter);
-						acceptedOffer.SetOfferItems(marketOffer.GetOfferItems());
+						acceptedOffer.SetOfferItems(marketOfferItems.GetOfferItems());
 						acceptedPlayerOffers.Insert(acceptedOffer);
 						RemovePlayerToPlayerOffer(playerPlayerOffer, true);
 					} else {

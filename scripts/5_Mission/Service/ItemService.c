@@ -141,10 +141,10 @@ class ItemService
 		return widget;
 	}
 	
-	array <ref P2PTraderPlayerPlayerOffer> GetPlayerOffersForMarketOffer(P2PTraderPlayerMarketOffer marketOffer, array<ref P2PTraderPlayerPlayerOffer> allActiveOffers) {
+	array <ref P2PTraderPlayerPlayerOffer> GetPlayerOffersForMarketOffer(P2PTraderPlayerMarketOffer marketOfferItems, array<ref P2PTraderPlayerPlayerOffer> allActiveOffers) {
 		array <ref P2PTraderPlayerPlayerOffer> offers = new array <ref P2PTraderPlayerPlayerOffer>;
 		foreach(P2PTraderPlayerPlayerOffer offer: allActiveOffers) {
-			if (marketOffer.GetId() == offer.GetPlayerToMarketOfferId()) {
+			if (marketOfferItems.GetId() == offer.GetPlayerToMarketOfferId()) {
 				offers.Insert(offer);
 			}
 		}
