@@ -223,7 +223,7 @@ FrameWidgetClass rootFrame {
        {
         TextWidgetClass offerMessageFromPlayerLabel {
          ignorepointer 1
-         position -432.345 -21.7177
+         position -431.492 -148.95
          size 342.07501 42.0747
          halign center_ref
          valign center_ref
@@ -242,8 +242,8 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass playerOfferMessageDetail {
          ignorepointer 1
-         position 16.6626 315.229
-         size 357.30899 124.267
+         position 17.516 165.588
+         size 357.30899 72.6561
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -416,6 +416,35 @@ FrameWidgetClass rootFrame {
          scaled 1
          style Normal
          text "#bid"
+         "exact text" 0
+         "size to text h" 0
+         "size to text v" 0
+         "text halign" center
+         "text valign" center
+        }
+        TextListboxWidgetClass marketOfferWantToHave {
+         color 1 1 1 0.651
+         position 17.516 321.32697
+         size 366.44501 194.302
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Editor
+        }
+        TextWidgetClass marketOfferWantToHaveLabel {
+         ignorepointer 1
+         position -431.491 -4.68015
+         size 342.07501 42.0747
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         style Normal
+         text "#player_want_to_have"
          "exact text" 0
          "size to text h" 0
          "size to text v" 0

@@ -316,11 +316,9 @@ class ItemService
 		return null;
 	}
 	
-	TextListboxWidget GetPlayerOfferItemList(TextListboxWidget widget, P2PTraderPlayerPlayerOffer offerItem) {
+	TextListboxWidget GetTraderStockItemList(TextListboxWidget widget, array <ref P2PTraderStockItem> offerItems) {
 		widget.ClearItems();
-		
-		array <ref P2PTraderStockItem> offerItems = offerItem.GetOfferItems();
-		
+				
 		foreach(P2PTraderStockItem item: offerItems) {
 			if (item) {
 				if (!item.HasTranslation()) {

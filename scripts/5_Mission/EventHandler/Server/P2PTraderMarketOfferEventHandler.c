@@ -28,8 +28,8 @@ class P2PTraderMarketOfferEventHandler
             Param3<DayZPlayer, int, int> parameterTakeOffer;
             if (ctx.Read(parameterTakeOffer)) {
                 player = parameterTakeOffer.param1;
-				offerId = parameterTakeOffer.param2;
-				int playerOfferId = parameterTakeOffer.param3;
+				int playerOfferId = parameterTakeOffer.param2;
+				offerId = parameterTakeOffer.param3;
 				
 				DebugMessageP2PTrader("offer id: " + offerId.ToString() + "player offer id" + playerOfferId.ToString());
 
