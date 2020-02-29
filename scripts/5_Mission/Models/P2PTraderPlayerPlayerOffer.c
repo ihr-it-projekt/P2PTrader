@@ -63,13 +63,4 @@ class P2PTraderPlayerPlayerOffer
 		return message;
 	}
 	
-	string GetName() {
-		string name = "";
-		
-		foreach(P2PTraderStockItem item: offerItems) {
-			name += item.GetTranslation() + "; ";
-		}
-		
-		return name;
-	}
 }

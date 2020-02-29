@@ -28,21 +28,15 @@ class P2PTraderPlayerInventory
             item = player.SpawnEntityOnGroundPos(itemInStock.type, player.GetPosition());
         }
 
-        AddAttechmends(item, itemInStock.attached);
+		if(itemInStock.attached.Count() > 0) {
+            foreach(P2PTraderStockItem itemAttached: itemInStock.attached) {
+                Add(player, itemAttached);
+            }
+        }
+       
 
 		item.SetHealth(itemInStock.health);
 		ItemBase.Cast(item).SetQuantity(itemInStock.quantity);
-    }
-
-    private void AddAttechmends(EntityAI item, array<ref P2PTraderStockItem>attached) {
-        if(attached.Count() > 0) {
-            foreach(P2PTraderStockItem itemInStock: attached) {
-                EntityAI newItem = item.GetInventory().CreateInInventory(itemInStock.type);
-                newItem.SetHealth(itemInStock.health);
-                ItemBase.Cast(newItem).SetQuantity(itemInStock.quantity);
-                AddAttechmends(newItem, itemInStock.attached);
-            }
-        }
     }
 
     void Remove(ItemBase item, DayZPlayer player) {

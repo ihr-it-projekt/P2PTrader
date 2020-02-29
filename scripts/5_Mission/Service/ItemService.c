@@ -141,10 +141,11 @@ class ItemService
 		return widget;
 	}
 	
-	array <ref P2PTraderPlayerPlayerOffer> GetPlayerOffersForMarketOffer(P2PTraderPlayerMarketOffer selectedMarketOfferItems, array<ref P2PTraderPlayerPlayerOffer> allActiveOffers) {
-		array <ref P2PTraderPlayerPlayerOffer> offers = new array <ref P2PTraderPlayerPlayerOffer>;
+	ref array <ref P2PTraderPlayerPlayerOffer> GetPlayerOffersForMarketOffer(P2PTraderPlayerMarketOffer selectedMarketOffer, array<ref P2PTraderPlayerPlayerOffer> allActiveOffers) {
+		ref array <ref P2PTraderPlayerPlayerOffer> offers = new array <ref P2PTraderPlayerPlayerOffer>;
 		foreach(P2PTraderPlayerPlayerOffer offer: allActiveOffers) {
-			if (selectedMarketOfferItems.GetId() == offer.GetPlayerToMarketOfferId()) {
+			DebugMessageP2PTrader("selectedMarketOffer.GetId():" + selectedMarketOffer.GetId().ToString() + " offer.GetPlayerToMarketOfferId():" + offer.GetPlayerToMarketOfferId().ToString());
+			if (selectedMarketOffer.GetId() == offer.GetPlayerToMarketOfferId()) {
 				offers.Insert(offer);
 			}
 		}
@@ -155,8 +156,18 @@ class ItemService
 	TextListboxWidget GetActiveOffersForStockItem(TextListboxWidget playerOffers, array <ref P2PTraderPlayerPlayerOffer> activeOffers) {
 		playerOffers.ClearItems();
         foreach(P2PTraderPlayerPlayerOffer activeOffer: activeOffers) {
-			
-			playerOffers.AddItem(activeOffer.GetName(), activeOffer, 0);
+			string name = "";
+		
+			array <ref P2PTraderStockItem> offerItems = activeOffer.GetOfferItems();
+			foreach(P2PTraderStockItem item: offerItems) {
+				if (!item.HasTranslation()) {
+					item.SetTranslation(GetItemDisplayName(item.GetType()));
+				}
+				
+				name += item.GetTranslation() + "; ";
+			}
+						
+			playerOffers.AddItem(name, activeOffer, 0);
 		}
 		
 		return playerOffers;
