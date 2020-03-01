@@ -2,6 +2,7 @@ class P2PTraderStock
 {
 	const static string INACTIVE_OFFER = "inactive";
 	const static string ACCEPTED_OFFER = "accepted";
+	const static string OPEN_OFFER = "open";
 	
     private const static string	SETTINGSFILE = "P2PTraderStock.json";
 	private const static string	CONFIGSFOLDERP2P = "$profile:P2PTrader\\";

@@ -36,6 +36,16 @@ modded class MissionGameplay
 		super.OnUpdate(timeslice);
 		player = GetGame().GetPlayer();
 		
+		if (casinoConfig.diceSettings.enabled) {
+			foreach(GamePosition position1: casinoConfig.diceSettings.gamePositions) {
+				if (vector.Distance(position1.pos, posPlayer) <= DAYZ_CASINO_DISTANCE_TO_GAME){
+					DebugMessageCasino("in near of bet dice");
+					
+					return GetBetDiceMenu();
+				}
+			}	
+		}  
+		
 		if(localInput.LocalClick() && player && player.IsAlive()) {
 			DebugMessageP2PTrader("try open menu");
 			if (GetGame().GetUIManager().GetMenu() == null && !traderMenu && config) {

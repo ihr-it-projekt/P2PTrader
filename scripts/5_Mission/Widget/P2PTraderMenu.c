@@ -6,6 +6,7 @@ class P2PTraderMenu extends UIScriptedMenu
 	private P2PTraderPlayerMarketOffer selectedMarketOffer;
 	private ref array<ref P2PTraderPlayerPlayerOffer> selectedPlayerOffers;
 	private P2PTraderPlayerPlayerOffer selectedPlayerOffer;
+	private P2PTraderPlayerPlayerOffer selectedPlayerOfferBidManagement;
 	private ref ItemService itemService;
 	private ref array<ref P2PTraderPlayerMarketOffer> marketItems;
 	private ref array<ref P2PTraderPlayerMarketOffer> marketPlayerItems;
@@ -17,6 +18,7 @@ class P2PTraderMenu extends UIScriptedMenu
 	private Widget createOfferWidget;
 	private Widget createPlayerOfferWidget;
 	private Widget bidManagementWidget;
+	private string bidFilterBidManagement = P2PTraderStock.OPEN_OFFER;
 	bool isMenuOpen = false;
 
     private ButtonWidget cancel;
@@ -27,6 +29,7 @@ class P2PTraderMenu extends UIScriptedMenu
 	private ButtonWidget buttonOpenCreateMyBid;
 	private ButtonWidget buttonOpenCreateOffer;
 	private ButtonWidget buttonSearchMarket;
+	private ButtonWidget buttonManageMyBids;
 	private EditBoxWidget inputSearchMarket;
 	private TextListboxWidget marketOffers;
 	private TextListboxWidget marketOfferItems;
@@ -72,6 +75,7 @@ class P2PTraderMenu extends UIScriptedMenu
 	private ButtonWidget buttonOpenBids;
 	private ButtonWidget buttonDeleteMyBid;
 	private ButtonWidget buttonTakeBid;
+	private ButtonWidget bidManagementCloseButton;
 	
 	private TextWidget bidManagementBidItemsLabel;
 	private TextWidget bidManagementBidItemAttachmentLabel;
@@ -81,6 +85,7 @@ class P2PTraderMenu extends UIScriptedMenu
 	private TextWidget bidManagementMarketOfferWantToHaveLabel;
 	private TextWidget bidManagementMarketOfferItemsLabel;
 	private TextWidget bidManagementMarketItemAttachmentLabel;
+	private TextWidget bidManagementBidHint;
 	
 	private MultilineTextWidget bidManagementMarketOfferMessage;
 	
@@ -119,6 +124,7 @@ class P2PTraderMenu extends UIScriptedMenu
         cancel = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "cancel" ));
         buttonOpenCreateOffer = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonOpenCreateOffer" ));
         buttonSearchMarket = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonSearchMarket" ));
+        buttonManageMyBids = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonManageMyBids" ));
         buttonDeleteMyOffer = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonDeleteMyOffer" ));
         buttonMyOffers = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonMyOffers" ));
         buttonTakeOffer = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonTakeOffer" ));
@@ -147,6 +153,7 @@ class P2PTraderMenu extends UIScriptedMenu
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(cancel,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonOpenCreateOffer,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonSearchMarket,  this, "OnClick");
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonManageMyBids,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonDeleteMyOffer,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonAllOffers,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonMyOffers,  this, "OnClick");
@@ -213,12 +220,14 @@ class P2PTraderMenu extends UIScriptedMenu
         buttonOpenBids = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget( "buttonOpenBids" ));
         buttonDeleteMyBid = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget( "buttonDeleteMyBid" ));
         buttonTakeBid = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget( "buttonTakeBid" ));
+        bidManagementCloseButton = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementCloseButton" ));
 
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonAcceptedBids,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCanceledBids,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonOpenBids,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonDeleteMyBid,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonTakeBid,  this, "OnClick");
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(bidManagementCloseButton,  this, "OnClick");
 
         bidManagementBidItemsLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementBidItemsLabel" ));
         bidManagementBidItemAttachmentLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementBidItemAttachmentLabel" ));
@@ -228,6 +237,7 @@ class P2PTraderMenu extends UIScriptedMenu
         bidManagementMarketOfferWantToHaveLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferWantToHaveLabel" ));
         bidManagementMarketOfferItemsLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferItemsLabel" ));
         bidManagementMarketItemAttachmentLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketItemAttachmentLabel" ));
+        bidManagementBidHint = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementBidHint" ));
 
         bidManagementMarketOfferMessage = MultilineTextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferMessage" ));
 
@@ -241,6 +251,8 @@ class P2PTraderMenu extends UIScriptedMenu
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(bidManagementBids,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(bidManagementMarketOfferDetailItemsBid,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(bidManagementBidItems,  this, "OnClick");
+		
+		bidManagementWidget.Show(false);
 		//end player offers layout
 
         layoutRoot.Show(false);
@@ -306,7 +318,6 @@ class P2PTraderMenu extends UIScriptedMenu
 			DebugMessageP2PTrader("try get selected item");
 			selectedMarketOffer = itemService.GetSelectedMarketOffer(marketOffers);
 			
-			playerOfferForSelectedStockItem = null;
 			playerOfferForSelectedStockItem = itemService.GetPlayerSingleOffersForMarketOffer(selectedMarketOffer, playerActiveOffers);
 			
 			DebugMessageP2PTrader("config filds");
@@ -349,6 +360,7 @@ class P2PTraderMenu extends UIScriptedMenu
 		} else if(w == marketOfferItems) {
 			DebugMessageP2PTrader("click marketOfferItems");
 			P2PTraderStockItem currentStockItem = itemService.GetSelectedItemPlayerOffer(marketOfferItems);
+
 			itemService.GetMarketOfferItemAttachmentList(marketOfferItemAtatmenchts, currentStockItem);
 		} else if(w == offerDetailItemsBid) {
 			DebugMessageP2PTrader("click offerDetailItemsBid");
@@ -365,16 +377,22 @@ class P2PTraderMenu extends UIScriptedMenu
 			P2PTraderStockItem currentMyBidItem = itemService.GetSelectedItemPlayerOffer(playerOfferItems);
 			itemService.GetMarketOfferItemAttachmentList(playerOfferItemAttachments, currentMyBidItem);
 			
-		} else if(w == buttonDeleteMyBid) {
+		} else if(w == buttonDeleteMyBid || w == buttonTakeBid) {
 			DebugMessageP2PTrader("click buttonDeleteMyBid 1");
-			if (!playerOfferForSelectedStockItem) {
+			if (!selectedPlayerOfferBidManagement) {
 				DebugMessageP2PTrader("no selected offer");
 				return true;
 			}
 			DebugMessageP2PTrader("click buttonDeleteMyBid 2");
-			Param2<DayZPlayer, int> paramRemovePlayerToPlayerOffer = new Param2<DayZPlayer, int>(GetGame().GetPlayer(), playerOfferForSelectedStockItem.GetId());
+			Param2<DayZPlayer, int> paramRemovePlayerToPlayerOffer = new Param2<DayZPlayer, int>(GetGame().GetPlayer(), selectedPlayerOfferBidManagement.GetId());
 			GetGame().RPCSingleParam(paramRemovePlayerToPlayerOffer.param1, P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS, paramRemovePlayerToPlayerOffer, true);
 			buttonDeleteMyBid.Show(false);
+			buttonTakeBid.Show(false);
+			selectedPlayerOfferBidManagement = null;
+			bidManagementBidItems.ClearItems();
+			bidManagementBidItemAttachment.ClearItems();
+			bidManagementBids.ClearItems();
+			RefreshPlayerLists();
 		} else if(w == buttonDeleteMyOffer) {
 			DebugMessageP2PTrader("click buttonDeleteMyOffer");
 			if (!selectedMarketOffer) {
@@ -417,6 +435,115 @@ class P2PTraderMenu extends UIScriptedMenu
 			buttonAllOffers.Show(false);
 			
 			itemService.GetMarketItemList(marketOffers, marketItems, inputSearchMarket.GetText());
+		} else if(w == buttonManageMyBids && playerActiveOffers) {
+			selectedPlayerOfferBidManagement = null;
+			bidManagementWidget.Show(true);
+			if(playerActiveOffers.Count() == 0) {
+				bidManagementBidHint.Show(true);
+				bidManagementBids.Show(false);
+			} else {
+				itemService.GetActiveOffersForStockItem(bidManagementBids, playerActiveOffers);
+				bidManagementBidHint.Show(false);
+				bidManagementBids.Show(true);
+			}
+			
+			bidFilterBidManagement = P2PTraderStock.OPEN_OFFER;
+			
+			ShowHideBidManagementButtons();
+		} else if(w == buttonCanceledBids) {
+			selectedPlayerOfferBidManagement = null;
+			bidManagementBidItemAttachment.ClearItems();
+			bidManagementBidItems.ClearItems();
+			playerOfferItemAttachments.ClearItems();
+			
+			if(!playerInactiveOffers || playerInactiveOffers.Count() == 0) {
+				bidManagementBidHint.Show(true);
+				bidManagementBids.Show(false);
+			} else {
+				itemService.GetActiveOffersForStockItem(bidManagementBids, playerInactiveOffers);
+				bidManagementBidHint.Show(false);
+				bidManagementBids.Show(true);
+			}
+			bidFilterBidManagement = P2PTraderStock.INACTIVE_OFFER;
+			
+			ShowHideBidManagementButtons();
+		} else if(w == buttonAcceptedBids) {
+			selectedPlayerOfferBidManagement = null;
+			bidManagementBidItemAttachment.ClearItems();
+			bidManagementBidItems.ClearItems();
+			playerOfferItemAttachments.ClearItems();
+			
+			if(!playerAcceptedOffers || playerAcceptedOffers.Count() == 0) {
+				bidManagementBidHint.Show(true);
+				bidManagementBids.Show(false);
+			} else {
+				itemService.GetActiveOffersForStockItem(bidManagementBids, playerAcceptedOffers);
+				bidManagementBidHint.Show(false);
+				bidManagementBids.Show(true);
+			}
+			
+			bidFilterBidManagement = P2PTraderStock.ACCEPTED_OFFER;
+			
+			ShowHideBidManagementButtons();
+		} else if(w == buttonOpenBids) {
+			bidManagementBidItemAttachment.ClearItems();
+			bidManagementBidItems.ClearItems();
+			playerOfferItemAttachments.ClearItems();
+			selectedPlayerOfferBidManagement = null;
+			if(!playerActiveOffers || playerActiveOffers.Count() == 0) {
+				bidManagementBidHint.Show(true);
+				bidManagementBids.Show(false);
+			} else {
+				itemService.GetActiveOffersForStockItem(bidManagementBids, playerActiveOffers);
+				bidManagementBidHint.Show(false);
+				bidManagementBids.Show(true);
+			}
+			
+			bidFilterBidManagement = P2PTraderStock.OPEN_OFFER;
+			
+			ShowHideBidManagementButtons();
+		} else if(w == bidManagementCloseButton) {
+			bidManagementWidget.Show(false);
+			bidManagementBids.ClearItems();
+			bidManagementMarketOfferWantToHave.ClearItems();
+			bidManagementMarketOfferDetailItemsBid.ClearItems();
+			bidManagementMarketOfferDetailAttachmentBid.ClearItems();
+			bidManagementBidItems.ClearItems();
+			bidManagementBidItemAttachment.ClearItems();
+		} else if(w == bidManagementBidItems) {
+			P2PTraderStockItem selectedBidItemBidManagement = itemService.GetSelectedItemPlayerOffer(bidManagementBidItems);
+			if (selectedBidItemBidManagement) {
+				itemService.GetMarketOfferItemAttachmentList(bidManagementBidItemAttachment, selectedBidItemBidManagement);
+			}
+			ShowHideBidManagementButtons();
+		} else if(w == bidManagementBids) {
+			selectedPlayerOfferBidManagement = itemService.GetSelectedStockItem(bidManagementBids);
+			P2PTraderPlayerMarketOffer selectedMarketOfferBitManagement;
+			if (selectedPlayerOfferBidManagement) {
+				foreach(P2PTraderPlayerMarketOffer marketOfferItems: marketItems) {
+					if (selectedPlayerOfferBidManagement.GetPlayerToMarketOfferId() == marketOfferItems.GetId()) {
+						selectedMarketOfferBitManagement = marketOfferItems;
+						break;
+					}
+				}
+				
+				itemService.GetTraderStockItemList(bidManagementBidItems, selectedPlayerOfferBidManagement.GetOfferItems());
+			}
+			
+			if (selectedMarketOfferBitManagement) {
+				bidManagementMarketOfferPlayer.SetText(selectedMarketOfferBitManagement.GetOwnerName());
+				bidManagementMarketOfferMessage.SetText(selectedMarketOfferBitManagement.GetOfferMessage());
+				
+				bidManagementMarketOfferWantToHave.ClearItems();
+			
+				if(selectedMarketOfferBitManagement.GetWantedItems().Count() > 0) {
+					itemService.GetTraderStockItemList(bidManagementMarketOfferWantToHave, selectedMarketOfferBitManagement.GetWantedItems());
+				}
+				
+				itemService.GetMarketOfferItemList(bidManagementMarketOfferDetailItemsBid, selectedMarketOfferBitManagement);
+			
+			}
+			ShowHideBidManagementButtons();
 		}
 		
 		if (messageText != "") {
@@ -426,6 +553,79 @@ class P2PTraderMenu extends UIScriptedMenu
 
         return false;
     }
+	
+	private void ShowHideBidManagementButtons() {
+		
+		if (selectedPlayerOfferBidManagement) {
+			if (P2PTraderStock.OPEN_OFFER == bidFilterBidManagement) {
+				bidManagementMarketOfferPlayerLabel.Show(true);
+				bidManagementMarketOfferPlayer.Show(true);
+				bidManagementMessageFromPlayerLabel.Show(true);
+				bidManagementMarketOfferMessage.Show(true);
+				bidManagementMarketOfferWantToHaveLabel.Show(true);
+				bidManagementMarketOfferWantToHave.Show(true);
+				bidManagementMarketOfferItemsLabel.Show(true);
+				bidManagementMarketOfferDetailItemsBid.Show(true);
+				bidManagementMarketItemAttachmentLabel.Show(true);
+				bidManagementMarketOfferDetailAttachmentBid.Show(true);
+				buttonTakeBid.Show(false);
+				buttonDeleteMyBid.Show(true);
+			} else {
+				bidManagementMarketOfferPlayerLabel.Show(false);
+                bidManagementMarketOfferPlayer.Show(false);
+                bidManagementMessageFromPlayerLabel.Show(false);
+                bidManagementMarketOfferMessage.Show(false);
+                bidManagementMarketOfferWantToHaveLabel.Show(false);
+                bidManagementMarketOfferWantToHave.Show(false);
+                bidManagementMarketOfferItemsLabel.Show(false);
+                bidManagementMarketOfferDetailItemsBid.Show(false);
+                bidManagementMarketItemAttachmentLabel.Show(false);
+                bidManagementMarketOfferDetailAttachmentBid.Show(false);
+				buttonTakeBid.Show(true);
+				buttonDeleteMyBid.Show(false);
+			}
+			
+			bidManagementBidItemsLabel.Show(true);
+			bidManagementBidItems.Show(true);
+			bidManagementBidItemAttachmentLabel.Show(true);
+			bidManagementBidItemAttachment.Show(true);
+			
+		
+		} else {
+			bidManagementMarketOfferPlayerLabel.Show(false);
+            bidManagementMarketOfferPlayer.Show(false);
+            bidManagementMessageFromPlayerLabel.Show(false);
+            bidManagementMarketOfferMessage.Show(false);
+            bidManagementMarketOfferWantToHaveLabel.Show(false);
+            bidManagementMarketOfferWantToHave.Show(false);
+            bidManagementMarketOfferItemsLabel.Show(false);
+            bidManagementMarketOfferDetailItemsBid.Show(false);
+            bidManagementMarketItemAttachmentLabel.Show(false);
+            bidManagementMarketOfferDetailAttachmentBid.Show(false);
+			
+			bidManagementBidItemsLabel.Show(false);
+			bidManagementBidItems.Show(false);
+			bidManagementBidItemAttachmentLabel.Show(false);
+			bidManagementBidItemAttachment.Show(false);
+			buttonTakeBid.Show(false);
+			buttonDeleteMyBid.Show(false);
+		}
+		
+		if (P2PTraderStock.OPEN_OFFER == bidFilterBidManagement) {
+			buttonAcceptedBids.Show(true);
+			buttonCanceledBids.Show(true);
+			buttonOpenBids.Show(false);
+		} else if (P2PTraderStock.ACCEPTED_OFFER == bidFilterBidManagement) {
+			buttonAcceptedBids.Show(false);
+			buttonCanceledBids.Show(true);
+			buttonOpenBids.Show(true);
+		} else if (P2PTraderStock.INACTIVE_OFFER == bidFilterBidManagement) {
+			buttonAcceptedBids.Show(true);
+			buttonCanceledBids.Show(false);
+			buttonOpenBids.Show(true);
+		}
+	
+	}
 	
 	private void ShowHideMyOfferForItem() {
 		if (selectedMarketOffer) {
@@ -607,6 +807,8 @@ class P2PTraderMenu extends UIScriptedMenu
 		createOfferWidget.Show(false);
 		marketOfferWantToHave.Show(false);
 		layoutRoot.Show(true);
+		bidManagementWidget.Show(false);
+		buttonManageMyBids.Show(false);
 
 		GetGame().GetMission().PlayerControlDisable(INPUT_EXCLUDE_INVENTORY);
 		GetGame().GetUIManager().ShowUICursor(true);
@@ -665,6 +867,17 @@ class P2PTraderMenu extends UIScriptedMenu
 				}
 			}
 			
+			if(bidManagementWidget.IsVisible() && playerActiveOffers.Count() == 0 && P2PTraderStock.INACTIVE_OFFER == bidFilterBidManagement) {
+						bidManagementBidHint.Show(true);
+						bidManagementBids.Show(false);
+			} else if(bidManagementWidget.IsVisible() && playerActiveOffers.Count() > 0 && P2PTraderStock.INACTIVE_OFFER == bidFilterBidManagement){
+				itemService.GetActiveOffersForStockItem(bidManagementBids, playerActiveOffers);
+				bidManagementBidHint.Show(false);
+				bidManagementBids.Show(true);
+			}
+			
+			buttonManageMyBids.Show(true);
+			
 		} else if (rpc_type == P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_RESPONSE || rpc_type == P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE || rpc_type == P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_NEW_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE) {
 			DebugMessageP2PTrader("recive EVENT and Refresh lists");
            	RefreshPlayerLists();
@@ -690,6 +903,37 @@ class P2PTraderMenu extends UIScriptedMenu
             if (ctx.Read(parameterOffers)) {
 				playerInactiveOffers = parameterOffers.param1;
 				playerAcceptedOffers = parameterOffers.param2;
+				
+				if (playerInactiveOffers) {
+					DebugMessageP2PTrader("playerInactiveOffers == null");
+				} else {
+					DebugMessageP2PTrader("playerInactiveOffers:" + playerInactiveOffers.Count());
+				}
+				if (playerAcceptedOffers) {
+					DebugMessageP2PTrader("playerAcceptedOffers == null");
+				} else {
+					DebugMessageP2PTrader("playerAcceptedOffers:" + playerAcceptedOffers.Count());
+				}
+								
+				if (bidManagementWidget.IsVisible()) {
+					if((!playerInactiveOffers || playerInactiveOffers.Count() == 0) && P2PTraderStock.INACTIVE_OFFER == bidFilterBidManagement) {
+						bidManagementBidHint.Show(true);
+						bidManagementBids.Show(false);
+					} else if(playerInactiveOffers && playerInactiveOffers.Count() > 0 && P2PTraderStock.INACTIVE_OFFER == bidFilterBidManagement){
+						itemService.GetActiveOffersForStockItem(bidManagementBids, playerInactiveOffers);
+						bidManagementBidHint.Show(false);
+						bidManagementBids.Show(true);
+					}else if((!playerAcceptedOffers || playerAcceptedOffers.Count() == 0) && P2PTraderStock.ACCEPTED_OFFER == bidFilterBidManagement) {
+						bidManagementBidHint.Show(true);
+						bidManagementBids.Show(false);
+					} else if(playerAcceptedOffers && playerAcceptedOffers.Count() > 0 && P2PTraderStock.ACCEPTED_OFFER == bidFilterBidManagement){
+						itemService.GetActiveOffersForStockItem(bidManagementBids, playerAcceptedOffers);
+						bidManagementBidHint.Show(false);
+						bidManagementBids.Show(true);
+					}
+					ShowHideBidManagementButtons();
+				}
+				
 			}
 		}
 	}
@@ -701,7 +945,9 @@ class P2PTraderMenu extends UIScriptedMenu
 				createOfferWidget.Show(false);
 			} else if(createPlayerOfferWidget.IsVisible()) {
 				createPlayerOfferWidget.Show(false);
-			}else {
+			} else if(bidManagementWidget.IsVisible()) {
+				bidManagementWidget.Show(false);
+			} else {
 				DebugMessageP2PTrader("try close menu");
 				SetFocus(NULL);
 				OnHide();

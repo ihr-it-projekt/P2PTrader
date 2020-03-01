@@ -46,7 +46,7 @@ FrameWidgetClass rootFrame {
        vexactsize 1
        style UIDefaultPanel
        {
-        ButtonWidgetClass cancel {
+        ButtonWidgetClass bidManagementCloseButton {
          color 1 0 0 1
          position 8.96266 8.96267
          size 30.2918 36.1867
@@ -104,8 +104,8 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass bidManagementMarketOfferDetailItemsBid {
          color 1 1 1 0.651
-         position 53.5621 675.88501
-         size 358.07501 133.64799
+         position 53.5621 497.89297
+         size 356.82898 114.416
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -150,34 +150,15 @@ FrameWidgetClass rootFrame {
          "text halign" center
          "text valign" center
         }
-        TextListboxWidgetClass bidManagementMarketOfferDetailAttechmentBid {
+        TextListboxWidgetClass bidManagementMarketOfferDetailAttachmentBid {
          color 1 1 1 0.651
-         position 57.562 513.44098
-         size 350.07501 86.501
+         position 53.5621 669.14496
+         size 354.07501 150.349
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style Editor
-        }
-        TextWidgetClass bidManagementPlayerLabel {
-         ignorepointer 1
-         position 5.34903 -371.67801
-         size 342.07501 42.0747
-         halign center_ref
-         valign center_ref
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-         scaled 1
-         style Normal
-         text "#player"
-         "exact text" 0
-         "size to text h" 0
-         "size to text v" 0
-         "text halign" center
-         "text valign" center
         }
         TextWidgetClass bidManagementMarketOfferPlayer {
          ignorepointer 1
@@ -190,7 +171,7 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass bidManagementMarketOfferPlayerLabel {
          ignorepointer 1
-         position 5.34903 -371.67801
+         position 4.72606 -358.21902
          size 342.07501 42.0747
          halign center_ref
          valign center_ref
@@ -254,7 +235,7 @@ FrameWidgetClass rootFrame {
        {
         ButtonWidgetClass buttonDeleteMyBid {
          color 0.502 0 0 1
-         position 389.64001 422.93298
+         position 391.07401 481.74902
          size 323.03601 42.0747
          hexactpos 1
          vexactpos 1
@@ -267,18 +248,19 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass bidManagementBids {
          color 1 1 1 0.651
-         position 27.0531 38.837
+         position 27.053 86.1559
          size 358.58698 604.94098
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style Editor
+         "title visible" 0
         }
         ButtonWidgetClass buttonAcceptedBids {
          color 0.502 1 0 1
-         position 22.5421 663.32501
-         size 367.09799 42.0747
+         position 22.7976 15.0438
+         size 457.698 42.0747
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -290,8 +272,8 @@ FrameWidgetClass rootFrame {
         }
         ButtonWidgetClass buttonCanceledBids {
          color 0.502 1 0 1
-         position 23.0531 709.40002
-         size 367.09799 42.0747
+         position 484.496 15.0438
+         size 409.14902 42.0747
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -303,8 +285,8 @@ FrameWidgetClass rootFrame {
         }
         ButtonWidgetClass buttonOpenBids {
          color 0.502 1 0 1
-         position 23.0531 755.47504
-         size 367.09799 42.0747
+         position 897.64496 15.0438
+         size 394.88199 42.0747
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -316,7 +298,7 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass bidManagementBidItems {
          color 1 1 1 0.651
-         position 392.021 98.305
+         position 391.38998 144.209
          size 889.85699 109.609
          hexactpos 1
          vexactpos 1
@@ -326,7 +308,7 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass bidManagementBidItemAttachment {
          color 1 1 1 0.651
-         position 389.64001 265.48898
+         position 391.38998 322.94998
          size 890.63702 131.35301
          hexactpos 1
          vexactpos 1
@@ -336,7 +318,7 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass bidManagementBidItemsLabel {
          ignorepointer 1
-         position 188.57901 -355.974
+         position 184.263 -308.862
          size 882.48804 42.0747
          halign center_ref
          valign center_ref
@@ -355,7 +337,7 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass bidManagementBidItemAttachmentLabel {
          ignorepointer 1
-         position 181.70399 -176.64101
+         position 189.07301 -130.56599
          size 888.23804 42.0747
          halign center_ref
          valign center_ref
@@ -374,7 +356,7 @@ FrameWidgetClass rootFrame {
         }
         ButtonWidgetClass buttonTakeBid {
          color 0.502 1 0 1
-         position 908.00598 422.93298
+         position 918.14893 481.74902
          size 367.09799 42.0747
          hexactpos 1
          vexactpos 1
@@ -384,6 +366,25 @@ FrameWidgetClass rootFrame {
          text "#take_to_inventory"
          text_proportion 0.8
          switch normal
+        }
+        TextWidgetClass bidManagementBidHint {
+         ignorepointer 1
+         position -125.738 -176.64101
+         size 556.50598 42.0747
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         style Normal
+         text "#no_bids"
+         "exact text" 0
+         "size to text h" 0
+         "size to text v" 0
+         "text halign" center
+         "text valign" center
         }
        }
       }

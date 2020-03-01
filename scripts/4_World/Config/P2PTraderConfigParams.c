@@ -5,11 +5,16 @@ class P2PTraderConfigParams
 
     int maxOffersPerPlayer = 3;
     int maxBidsPerPlayer = 3;
+	ref array<ref P2PTraderGamePosition> positions;
+
+	string traderObjectType =  "StreetLamp";
 
     void P2PTraderConfigParams()
     {
   		if (!FileExist(CONFIGSFOLDERP2P + SETTINGSFILE))
 		{
+			positions = new array<ref P2PTraderGamePosition>;
+			positions.Add(new P2PTraderGamePosition("8349.769531 293.181458 5976.001953", "49.000000 0.000000 0.000000"));
 			Save();
 		} else {
 			Load();

@@ -543,6 +543,19 @@ FrameWidgetClass rootFrame {
          text_proportion 0.8
          switch normal
         }
+        ButtonWidgetClass buttonManageMyBids {
+         color 0.502 1 0 1
+         position 453.64401 8.96265
+         size 299.10001 42.0747
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "#manage_my_bid"
+         text_proportion 0.8
+         switch normal
+        }
        }
       }
       PanelWidgetClass detailLabel0 {

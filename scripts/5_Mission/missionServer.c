@@ -1,7 +1,6 @@
 modded class MissionServer {
 	
 	private ref P2PTraderConfig config;
-	private ref P2PTraderItemsConfig itemConfig;
 	private ref P2PTraderStock traderStock;
 	private ref P2PTraderOfferCreateEventHandler offerCreateEventHandler;
 	private ref P2PTraderMarketOfferEventHandler marketOfferEventHandler;
@@ -18,6 +17,7 @@ modded class MissionServer {
 		playerOfferEventHandler = new P2PTraderPlayerOfferEventHandler(traderStock);
 		playerItemEventHandler = new P2PTraderPlayerItemEventHandler();
 		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
+		SpawnHouse(config.traderConfigParams.possitionOfTrader, config.traderConfigParams.orientationOfTrader, config.traderConfigParams.traderObjectType);
 		DebugMessageP2PTrader("loaded");
 	}
 	
@@ -51,6 +51,23 @@ modded class MissionServer {
 			}
 		}
 	}
+	
+	private House SpawnHouse(vector position, vector orientation, string gameObjectName) {
+        House house = GetGame().CreateObject(gameObjectName, position);
+        if (!house) {
+            return house;
+        }
+        house.SetPosition(position);
+        house.SetOrientation(orientation);
+        house.SetOrientation(house.GetOrientation()); //Collision fix
+        house.Update();
+        house.SetAffectPathgraph(true, false);
+        if(house.CanAffectPathgraph()) {
+            GetGame().GetCallQueue( CALL_CATEGORY_SYSTEM ).CallLater( GetGame().UpdatePathgraphRegionByObject, 100, false, house );
+        }
+
+        return house;
+    }
 
 
 };
