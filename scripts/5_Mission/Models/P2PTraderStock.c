@@ -1,5 +1,8 @@
 class P2PTraderStock
 {
+	const static string INACTIVE_OFFER = "inactive";
+	const static string ACCEPTED_OFFER = "accepted";
+	
     private const static string	SETTINGSFILE = "P2PTraderStock.json";
 	private const static string	CONFIGSFOLDERP2P = "$profile:P2PTrader\\";
 	
@@ -151,17 +154,24 @@ class P2PTraderStock
 		return playerOffers;
 	}
 	
-	array<ref P2PTraderPlayerPlayerOffer> GetOffersFromPlayer(PlayerIdentity player) {
+	ref array<ref P2PTraderPlayerPlayerOffer> GetOffersFromPlayer(PlayerIdentity player, string offerType) {
 		string playerId = player.GetId();
 		array<ref P2PTraderPlayerPlayerOffer> playerPlayerOffers = new array<ref P2PTraderPlayerPlayerOffer>;
 		
-		foreach (P2PTraderPlayerPlayerOffer playerOffer: playerOffers) {
+		array<ref P2PTraderPlayerPlayerOffer> offerToCheck = playerOffersInactive;
+		
+		if (offerType == ACCEPTED_OFFER) {
+			offerToCheck = acceptedPlayerOffers;
+		}
+		
+		foreach (P2PTraderPlayerPlayerOffer playerOffer: offerToCheck) {
 			if (playerId == playerOffer.GetOwnerId()){
 				playerPlayerOffers.Insert(playerOffer);
 			}
 		}
 		
-		return playerPlayerOffers; 
+		
+		return playerPlayerOffers;
 	}
 	
 	P2PTraderPlayerPlayerOffer GetPlayerOfferById(int id) {

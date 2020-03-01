@@ -11,16 +11,18 @@ class P2PTraderMenu extends UIScriptedMenu
 	private ref array<ref P2PTraderPlayerMarketOffer> marketPlayerItems;
 	private ref array<ref P2PTraderPlayerPlayerOffer> allActiveOffers;
 	private ref array<ref P2PTraderPlayerPlayerOffer> playerActiveOffers;
+	private ref array<ref P2PTraderPlayerPlayerOffer> playerInactiveOffers;
+	private ref array<ref P2PTraderPlayerPlayerOffer> playerAcceptedOffers;
 	private P2PTraderPlayerPlayerOffer playerOfferForSelectedStockItem;
 	private Widget createOfferWidget;
 	private Widget createPlayerOfferWidget;
+	private Widget bidManagementWidget;
 	bool isMenuOpen = false;
 
     private ButtonWidget cancel;
 	private ButtonWidget buttonMyOffers;
 	private ButtonWidget buttonTakeOffer;
 	private ButtonWidget buttonAllOffers;
-	private ButtonWidget buttonDeleteMyBid;
 	private ButtonWidget buttonDeleteMyOffer;
 	private ButtonWidget buttonOpenCreateMyBid;
 	private ButtonWidget buttonOpenCreateOffer;
@@ -65,6 +67,30 @@ class P2PTraderMenu extends UIScriptedMenu
 	private MultilineTextWidget playerOfferMessageDetailBid;
 	
 	
+	private ButtonWidget buttonAcceptedBids;
+	private ButtonWidget buttonCanceledBids;
+	private ButtonWidget buttonOpenBids;
+	private ButtonWidget buttonDeleteMyBid;
+	private ButtonWidget buttonTakeBid;
+	
+	private TextWidget bidManagementBidItemsLabel;
+	private TextWidget bidManagementBidItemAttachmentLabel;
+	private TextWidget bidManagementMarketOfferPlayerLabel;
+	private TextWidget bidManagementMarketOfferPlayer;
+	private TextWidget bidManagementMessageFromPlayerLabel;
+	private TextWidget bidManagementMarketOfferWantToHaveLabel;
+	private TextWidget bidManagementMarketOfferItemsLabel;
+	private TextWidget bidManagementMarketItemAttachmentLabel;
+	
+	private MultilineTextWidget bidManagementMarketOfferMessage;
+	
+	private TextListboxWidget bidManagementBids;
+	private TextListboxWidget bidManagementMarketOfferWantToHave;
+	private TextListboxWidget bidManagementMarketOfferDetailItemsBid;
+	private TextListboxWidget bidManagementMarketOfferDetailAttachmentBid;
+	private TextListboxWidget bidManagementBidItems;
+	private TextListboxWidget bidManagementBidItemAttachment;
+	
 	void SetConfig(P2PTraderConfig configExt) {
         config = configExt;
 	}
@@ -93,7 +119,6 @@ class P2PTraderMenu extends UIScriptedMenu
         cancel = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "cancel" ));
         buttonOpenCreateOffer = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonOpenCreateOffer" ));
         buttonSearchMarket = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonSearchMarket" ));
-        buttonDeleteMyBid = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonDeleteMyBid" ));
         buttonDeleteMyOffer = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonDeleteMyOffer" ));
         buttonMyOffers = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonMyOffers" ));
         buttonTakeOffer = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonTakeOffer" ));
@@ -122,7 +147,6 @@ class P2PTraderMenu extends UIScriptedMenu
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(cancel,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonOpenCreateOffer,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonSearchMarket,  this, "OnClick");
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonDeleteMyBid,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonDeleteMyOffer,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonAllOffers,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonMyOffers,  this, "OnClick");
@@ -135,6 +159,7 @@ class P2PTraderMenu extends UIScriptedMenu
 		
 		createOfferWidget = GetGame().GetWorkspace().CreateWidgets("P2PTrader/layout/offer.layout");
 		createPlayerOfferWidget = GetGame().GetWorkspace().CreateWidgets("P2PTrader/layout/bid.layout");
+		bidManagementWidget = GetGame().GetWorkspace().CreateWidgets("P2PTrader/layout/bidManagement.layout");
         
 		
 		//Start offer widget
@@ -181,6 +206,42 @@ class P2PTraderMenu extends UIScriptedMenu
         WidgetEventHandler.GetInstance().RegisterOnDoubleClick(playerItemsOfferPlayerOffer,  this, "OnDoubleClick");
 
         //End player bid widget
+		//start player offers layout
+		
+        buttonAcceptedBids = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget( "buttonAcceptedBids" ));
+        buttonCanceledBids = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget( "buttonCanceledBids" ));
+        buttonOpenBids = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget( "buttonOpenBids" ));
+        buttonDeleteMyBid = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget( "buttonDeleteMyBid" ));
+        buttonTakeBid = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget( "buttonTakeBid" ));
+
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonAcceptedBids,  this, "OnClick");
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCanceledBids,  this, "OnClick");
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonOpenBids,  this, "OnClick");
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonDeleteMyBid,  this, "OnClick");
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonTakeBid,  this, "OnClick");
+
+        bidManagementBidItemsLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementBidItemsLabel" ));
+        bidManagementBidItemAttachmentLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementBidItemAttachmentLabel" ));
+        bidManagementMarketOfferPlayerLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferPlayerLabel" ));
+        bidManagementMarketOfferPlayer = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferPlayer" ));
+        bidManagementMessageFromPlayerLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMessageFromPlayerLabel" ));
+        bidManagementMarketOfferWantToHaveLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferWantToHaveLabel" ));
+        bidManagementMarketOfferItemsLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferItemsLabel" ));
+        bidManagementMarketItemAttachmentLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketItemAttachmentLabel" ));
+
+        bidManagementMarketOfferMessage = MultilineTextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferMessage" ));
+
+        bidManagementBids = TextListboxWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementBids" ));
+        bidManagementMarketOfferWantToHave = TextListboxWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferWantToHave" ));
+        bidManagementMarketOfferDetailItemsBid = TextListboxWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferDetailItemsBid" ));
+        bidManagementMarketOfferDetailAttachmentBid = TextListboxWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferDetailAttachmentBid" ));
+        bidManagementBidItems = TextListboxWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementBidItems" ));
+        bidManagementBidItemAttachment = TextListboxWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementBidItemAttachment" ));
+
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(bidManagementBids,  this, "OnClick");
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(bidManagementMarketOfferDetailItemsBid,  this, "OnClick");
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(bidManagementBidItems,  this, "OnClick");
+		//end player offers layout
 
         layoutRoot.Show(false);
 
@@ -274,7 +335,6 @@ class P2PTraderMenu extends UIScriptedMenu
 			
 			playerOfferItemAttachments.ClearItems();
 			
-			
 			offerMessageFromPlayerLabel.Show(true);
 			offerPlayerLabel.Show(true);
 			marketOfferWantToHaveLabel.Show(true);
@@ -337,6 +397,9 @@ class P2PTraderMenu extends UIScriptedMenu
 			marketOfferItems.ClearItems();
 			marketOfferItemAtatmenchts.ClearItems();
 			playerOffers.ClearItems();
+			playerOfferItems.ClearItems();
+			playerOfferItemAttachments.ClearItems();
+			marketOfferWantToHave.ClearItems();
 			Param3<DayZPlayer, int, int> paramTakePlayerToMarketOffer = new Param3<DayZPlayer, int, int>(GetGame().GetPlayer(), selectedPlayerOffer.GetId(), selectedMarketOffer.GetId());
 			GetGame().RPCSingleParam(paramTakePlayerToMarketOffer.param1, P2P_TRADER_EVENT_TAKE_OFFER, paramTakePlayerToMarketOffer, true);
 			
@@ -511,7 +574,7 @@ class P2PTraderMenu extends UIScriptedMenu
 		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
 		
 		RefrechStockLists();
-		RefrechPlayerLists();
+		RefreshPlayerLists();
 		
 		super.OnShow();
 				
@@ -604,7 +667,7 @@ class P2PTraderMenu extends UIScriptedMenu
 			
 		} else if (rpc_type == P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_RESPONSE || rpc_type == P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE || rpc_type == P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_NEW_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE) {
 			DebugMessageP2PTrader("recive EVENT and Refresh lists");
-           	RefrechPlayerLists();
+           	RefreshPlayerLists();
 			RefrechStockLists();
 			if (rpc_type == P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE) {
 				selectedMarketOffer = null;
@@ -620,6 +683,13 @@ class P2PTraderMenu extends UIScriptedMenu
 				message.SetText(parameterError.param1);
 				createOfferWidget.Show(false);
 				createPlayerOfferWidget.Show(false);
+			}
+		} else if (rpc_type == P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS_RESPONSE) {
+			DebugMessageP2PTrader("recive P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS_RESPONSE");
+            Param2<ref array<ref P2PTraderPlayerPlayerOffer>, ref array<ref P2PTraderPlayerPlayerOffer>> parameterOffers;
+            if (ctx.Read(parameterOffers)) {
+				playerInactiveOffers = parameterOffers.param1;
+				playerAcceptedOffers = parameterOffers.param2;
 			}
 		}
 	}
@@ -647,10 +717,11 @@ class P2PTraderMenu extends UIScriptedMenu
 		return !!layoutRoot;
 	}
 	
-	private void RefrechPlayerLists() {
+	private void RefreshPlayerLists() {
 		Param1<DayZPlayer> paramGetPlayerItems = new Param1<DayZPlayer>(player);
 	    GetGame().RPCSingleParam(paramGetPlayerItems.param1, P2P_TRADER_EVENT_GET_PLAYER_ITEMS, paramGetPlayerItems, true);
 	    GetGame().RPCSingleParam(paramGetPlayerItems.param1, P2P_TRADER_EVENT_GET_ALL_BID_OFFERS, paramGetPlayerItems, true);
+	    GetGame().RPCSingleParam(paramGetPlayerItems.param1, P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS, paramGetPlayerItems, true);
 	}
 	
 	private void RefrechStockLists() {

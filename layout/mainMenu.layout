@@ -211,7 +211,7 @@ FrameWidgetClass rootFrame {
        ignorepointer 1
        keepsafezone 0
        color 0 0 0 0.651
-       position 224.091 193.12001
+       position 208.85901 196.92799
        size 1232.08997 569.37701
        halign center_ref
        hexactpos 1
@@ -494,7 +494,7 @@ FrameWidgetClass rootFrame {
         }
         ButtonWidgetClass buttonOpenCreateMyBid {
          color 0.502 1 0 1
-         position 781.52002 12
+         position 968.59204 8
          size 299.10001 42.0747
          hexactpos 1
          vexactpos 1
@@ -507,8 +507,8 @@ FrameWidgetClass rootFrame {
         }
         ButtonWidgetClass buttonOpenCreateOffer {
          color 0.502 1 0 1
-         position 1092.62 12
-         size 334.104 42.0747
+         position 10.4438 58.477
+         size 364.88797 42.0747
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -519,7 +519,7 @@ FrameWidgetClass rootFrame {
         }
         ButtonWidgetClass buttonMyOffers {
          color 0.502 1 0 1
-         position 10.3178 55.0685
+         position 10.3178 7.70845
          size 367.09799 42.0747
          hexactpos 1
          vexactpos 1
@@ -540,19 +540,6 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style MenuDefault
          text "#delete_my_offer"
-         text_proportion 0.8
-         switch normal
-        }
-        ButtonWidgetClass buttonDeleteMyBid {
-         color 0.502 0 0 1
-         position 782.83997 58.477
-         size 296.45999 42.0747
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-         style MenuDefault
-         text "#delete_my_bid"
          text_proportion 0.8
          switch normal
         }

@@ -1,0 +1,426 @@
+FrameWidgetClass rootFrame {
+ visible 1
+ position 0.00004 -8.68306
+ size 1876.52002 1043.23999
+ halign center_ref
+ valign center_ref
+ hexactpos 1
+ vexactpos 1
+ hexactsize 1
+ vexactsize 1
+ {
+  PanelWidgetClass PanelWidget0 {
+   ignorepointer 1
+   color 0 0 0 1
+   position 3.99994 17.439
+   size 1868.52002 952.37598
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   style editor_selection
+   {
+    ImageWidgetClass ImageWidget0 {
+     ignorepointer 1
+     position 4 11.68
+     size 1850.41003 929.01599
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     imageTexture "{6546FEB46946F160}P2PTrader/layout/dayz1.edds"
+     mode additive
+     "src alpha" 0
+     stretch 1
+     {
+      PanelWidgetClass PanelWidget1 {
+       ignorepointer 1
+       color 0 0 0 0.651
+       position 892.31799 870.90405
+       size 48.2138 54.112
+       halign center_ref
+       valign bottom_ref
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style UIDefaultPanel
+       {
+        ButtonWidgetClass cancel {
+         color 1 0 0 1
+         position 8.96266 8.96267
+         size 30.2918 36.1867
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "x"
+         switch once
+        }
+       }
+      }
+      PanelWidgetClass PanelWidget2 {
+       ignorepointer 1
+       keepsafezone 0
+       color 0 0 0 0.651
+       position 636.961 62.112
+       size 454.50101 833.12897
+       halign center_ref
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style UIDefaultPanel
+       "no focus" 0
+       {
+        TextWidgetClass bidManagementMessageFromPlayerLabel {
+         ignorepointer 1
+         position 1.34909 -228.397
+         size 342.07501 42.0747
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         style Normal
+         text "#message_from_player"
+         "exact text" 0
+         "size to text h" 0
+         "size to text v" 0
+         "text halign" center
+         "text valign" center
+        }
+        MultilineTextWidgetClass bidManagementMarketOfferMessage {
+         ignorepointer 1
+         position 61.562 225.757
+         size 357.30899 68.055
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+        }
+        TextListboxWidgetClass bidManagementMarketOfferDetailItemsBid {
+         color 1 1 1 0.651
+         position 53.5621 675.88501
+         size 358.07501 133.64799
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Editor
+        }
+        TextWidgetClass bidManagementMarketItemAttachmentLabel {
+         ignorepointer 1
+         position 1.34902 220.782
+         size 342.07501 42.0747
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         style Normal
+         text "#attachments"
+         "exact text" 0
+         "size to text h" 0
+         "size to text v" 0
+         "text halign" center
+         "text valign" center
+        }
+        TextWidgetClass bidManagementMarketOfferItemsLabel {
+         ignorepointer 1
+         position -2.65089 56.291
+         size 342.07501 42.0747
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         style Normal
+         text "#items"
+         "exact text" 0
+         "size to text h" 0
+         "size to text v" 0
+         "text halign" center
+         "text valign" center
+        }
+        TextListboxWidgetClass bidManagementMarketOfferDetailAttechmentBid {
+         color 1 1 1 0.651
+         position 57.562 513.44098
+         size 350.07501 86.501
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Editor
+        }
+        TextWidgetClass bidManagementPlayerLabel {
+         ignorepointer 1
+         position 5.34903 -371.67801
+         size 342.07501 42.0747
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         style Normal
+         text "#player"
+         "exact text" 0
+         "size to text h" 0
+         "size to text v" 0
+         "text halign" center
+         "text valign" center
+        }
+        TextWidgetClass bidManagementMarketOfferPlayer {
+         ignorepointer 1
+         position 61.562 96.461
+         size 344.82898 43.8403
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+        }
+        TextWidgetClass bidManagementMarketOfferPlayerLabel {
+         ignorepointer 1
+         position 5.34903 -371.67801
+         size 342.07501 42.0747
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         style Normal
+         text "#player"
+         "exact text" 0
+         "size to text h" 0
+         "size to text v" 0
+         "text halign" center
+         "text valign" center
+        }
+        TextListboxWidgetClass bidManagementMarketOfferWantToHave {
+         color 1 1 1 0.651
+         position 53.5621 362.99399
+         size 360.465 74.702
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Editor
+        }
+        TextWidgetClass bidManagementMarketOfferWantToHaveLabel {
+         ignorepointer 1
+         position 1.34903 -91.76409
+         size 342.07501 42.0747
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         style Normal
+         text "#player_want_to_have"
+         "exact text" 0
+         "size to text h" 0
+         "size to text v" 0
+         "text halign" center
+         "text valign" center
+        }
+       }
+      }
+      PanelWidgetClass PanelWidget7 {
+       ignorepointer 1
+       keepsafezone 0
+       color 0 0 0 0.651
+       position -260.375 63.9115
+       size 1304.10999 834.185
+       halign center_ref
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style UIDefaultPanel
+       "no focus" 0
+       {
+        ButtonWidgetClass buttonDeleteMyBid {
+         color 0.502 0 0 1
+         position 389.64001 422.93298
+         size 323.03601 42.0747
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "#delete_my_bid"
+         text_proportion 0.8
+         switch normal
+        }
+        TextListboxWidgetClass bidManagementBids {
+         color 1 1 1 0.651
+         position 27.0531 38.837
+         size 358.58698 604.94098
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Editor
+        }
+        ButtonWidgetClass buttonAcceptedBids {
+         color 0.502 1 0 1
+         position 22.5421 663.32501
+         size 367.09799 42.0747
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "#accepted_bids"
+         text_proportion 0.8
+         switch normal
+        }
+        ButtonWidgetClass buttonCanceledBids {
+         color 0.502 1 0 1
+         position 23.0531 709.40002
+         size 367.09799 42.0747
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "#not_accepted_bids"
+         text_proportion 0.8
+         switch normal
+        }
+        ButtonWidgetClass buttonOpenBids {
+         color 0.502 1 0 1
+         position 23.0531 755.47504
+         size 367.09799 42.0747
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "#open_bids"
+         text_proportion 0.8
+         switch normal
+        }
+        TextListboxWidgetClass bidManagementBidItems {
+         color 1 1 1 0.651
+         position 392.021 98.305
+         size 889.85699 109.609
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Editor
+        }
+        TextListboxWidgetClass bidManagementBidItemAttachment {
+         color 1 1 1 0.651
+         position 389.64001 265.48898
+         size 890.63702 131.35301
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Editor
+        }
+        TextWidgetClass bidManagementBidItemsLabel {
+         ignorepointer 1
+         position 188.57901 -355.974
+         size 882.48804 42.0747
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         style Normal
+         text "#items"
+         "exact text" 0
+         "size to text h" 0
+         "size to text v" 0
+         "text halign" center
+         "text valign" center
+        }
+        TextWidgetClass bidManagementBidItemAttachmentLabel {
+         ignorepointer 1
+         position 181.70399 -176.64101
+         size 888.23804 42.0747
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         style Normal
+         text "#attachments"
+         "exact text" 0
+         "size to text h" 0
+         "size to text v" 0
+         "text halign" center
+         "text valign" center
+        }
+        ButtonWidgetClass buttonTakeBid {
+         color 0.502 1 0 1
+         position 908.00598 422.93298
+         size 367.09799 42.0747
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "#take_to_inventory"
+         text_proportion 0.8
+         switch normal
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+  PanelWidgetClass PanelWidget4 {
+   ignorepointer 1
+   keepsafezone 0
+   color 0 0 0 1
+   position -30.912 27.136
+   size 376 60
+   halign center_ref
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   style UIDefaultPanel
+   "no focus" 0
+   {
+    TextWidgetClass TextWidget0 {
+     ignorepointer 1
+     position 0.00008 -0.00001
+     size 342.07501 42.0747
+     halign center_ref
+     valign center_ref
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style None
+     text "#bid_management"
+     "text halign" center
+     "text valign" center
+    }
+   }
+  }
+ }
+}

@@ -45,6 +45,18 @@ class P2PTraderPlayerOfferEventHandler
 				GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_RESPONSE, new Param1<bool>(true), true, player.GetIdentity());
                 DebugMessageP2PTrader("send P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_RESPONSE to player");
             }
+        } else if (rpc_type == P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS) {
+			DebugMessageP2PTrader("receive P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS");
+            Param<DayZPlayer> parameterGetAIOffers;
+            if (ctx.Read(parameterGetAIOffers)) {
+                DayZPlayer playerAllAI = parameterRemoveOffer.param1;
+				
+				ref array<ref P2PTraderPlayerPlayerOffer> playerAcceptedOffer = traderStock.GetOffersFromPlayer(player.GetIdentity(), P2PTraderStock.ACCEPTED_OFFER);
+				ref array<ref P2PTraderPlayerPlayerOffer> playerInactiveOffer = traderStock.GetOffersFromPlayer(player.GetIdentity(), P2PTraderStock.INACTIVE_OFFER);
+
+                GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS_RESPONSE, new Param2<ref array<ref P2PTraderPlayerPlayerOffer>, ref array<ref P2PTraderPlayerPlayerOffer>>(playerInactiveOffer, playerAcceptedOffer), true, player.GetIdentity());
+                DebugMessageP2PTrader("send P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS_RESPONSE to player");
+            }
         }
     }
 };
