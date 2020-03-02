@@ -2,11 +2,13 @@ class P2PTraderOfferCreateEventHandler
 {
 	private ref P2PTraderPlayerInventory inventory;
 	private P2PTraderStock traderStock;
+	private P2PTraderConfigParams config;
 	
-    void P2PTraderOfferCreateEventHandler(P2PTraderStock traderStock) {
+    void P2PTraderOfferCreateEventHandler(P2PTraderStock traderStock, P2PTraderConfigParams config) {
 		this.traderStock = traderStock;
         DebugMessageP2PTrader("Register P2PTraderOfferCreateEventHandler");
         inventory = new P2PTraderPlayerInventory;
+		this.config = config;
 		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
     }
 
@@ -23,7 +25,13 @@ class P2PTraderOfferCreateEventHandler
 			DebugMessageP2PTrader("receive P2P_TRADER_EVENT_NEW_OFFER");
             Param4<DayZPlayer, ref array<ref P2PTraderItem>, ref array<ref P2PTraderItem>, string> parameterOffer;
             if (ctx.Read(parameterOffer)) {
-                DayZPlayer player = parameterOffer.param1;
+				DayZPlayer player = parameterOffer.param1;
+				if (config.maxMarketOffersPerPlayer == traderStock.GetMarketOffersFromPlayer(player).Count()) {
+                    GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_NEW_OFFER_RESPONSE_ERROR, new Param1<string>("#you_reach_max_market_offers_per_player"), true, player.GetIdentity());
+                    DebugMessageP2PTrader("send P2P_TRADER_EVENT_NEW_OFFER_RESPONSE_ERROR to player: reach max market offer per player^");
+                    return;
+				}
+				
 				ref array<ref P2PTraderItem> offerItems = parameterOffer.param2;
 				ref array<ref P2PTraderItem> wantedItems = parameterOffer.param3;
 				string offerMessage = parameterOffer.param4;
@@ -67,6 +75,13 @@ class P2PTraderOfferCreateEventHandler
             Param4<DayZPlayer, ref array<ref P2PTraderItem>, int, string> parameterPlayerOffer;
             if (ctx.Read(parameterPlayerOffer)) {
                 DayZPlayer offerPlayer = parameterPlayerOffer.param1;
+				DebugMessageP2PTrader("Check Player has not to many offers");
+				if (config.maxBidsPerPlayer == traderStock.GetCountPlayerOffers(offerPlayer)) {
+                    GetGame().RPCSingleParam(offerPlayer, P2P_TRADER_EVENT_NEW_OFFER_RESPONSE_ERROR, new Param1<string>("#you_reach_max_bid_offers_per_player"), true, offerPlayer.GetIdentity());
+                    DebugMessageP2PTrader("send P2P_TRADER_EVENT_NEW_OFFER_RESPONSE_ERROR to player: reach max market offer per player^");
+                    return;
+				}
+				
 				ref array<ref P2PTraderItem> offerPlayerItems = parameterPlayerOffer.param2;
 				int offerId = parameterPlayerOffer.param3;
 				string offerPlayerMessage = parameterPlayerOffer.param4;

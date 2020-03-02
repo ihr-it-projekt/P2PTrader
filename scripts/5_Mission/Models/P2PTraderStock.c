@@ -149,7 +149,19 @@ class P2PTraderStock
 		return stock;
 	}
 	
-	
+	ref array<P2PTraderPlayerMarketOffer> GetMarketOffersFromPlayer(DayZPlayer player) {
+		string playerId = player.GetIdentity().GetId();
+		
+		ref array<P2PTraderPlayerMarketOffer> playerStockOffers = new array<P2PTraderPlayerMarketOffer>;
+		
+		foreach(P2PTraderPlayerMarketOffer stockOffer: stock) {
+			if (stockOffer.GetOwnerId() == playerId) {
+				playerStockOffers.Insert(stockOffer);
+			}
+		}
+		
+		return playerStockOffers;
+	}
 	
 	array<ref P2PTraderPlayerPlayerOffer> GetOffersFromAllPlayer() {
 		return playerOffers;
@@ -163,6 +175,8 @@ class P2PTraderStock
 		
 		if (offerType == ACCEPTED_OFFER) {
 			offerToCheck = acceptedPlayerOffers;
+		}else if (offerType == OPEN_OFFER) {
+			offerToCheck = playerOffers;
 		}
 		
 		foreach (P2PTraderPlayerPlayerOffer playerOffer: offerToCheck) {
@@ -173,6 +187,23 @@ class P2PTraderStock
 		
 		
 		return playerPlayerOffers;
+	}
+	
+	int GetCountPlayerOffers(DayZPlayer player) {
+		PlayerIdentity playerIdent = player.GetIdentity();
+		
+		int count = 0;
+		
+		DebugMessageP2PTrader("Check OPEN_OFFER");
+		count = count + this.GetOffersFromPlayer(playerIdent, OPEN_OFFER).Count();
+		
+		DebugMessageP2PTrader("Check INACTIVE_OFFER count is: " + count.ToString());
+		count = count + this.GetOffersFromPlayer(playerIdent, INACTIVE_OFFER).Count();
+		
+		DebugMessageP2PTrader("Check ACCEPTED_OFFER count is: " + count.ToString());
+		count = count + this.GetOffersFromPlayer(playerIdent, ACCEPTED_OFFER).Count();
+		
+		return count;
 	}
 	
 	P2PTraderPlayerPlayerOffer GetPlayerOfferById(int id) {

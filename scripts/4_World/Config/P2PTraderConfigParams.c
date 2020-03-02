@@ -2,19 +2,21 @@ class P2PTraderConfigParams
 {
     private const static string	SETTINGSFILE = "P2PTraderConfigParams.json";
 	private const static string	CONFIGSFOLDERP2P = "$profile:P2PTrader\\";
+	
 
-    int maxOffersPerPlayer = 3;
+    int maxMarketOffersPerPlayer = 3;
     int maxBidsPerPlayer = 3;
-	ref array<ref P2PTraderGamePosition> positions;
-
-	string traderObjectType =  "StreetLamp";
+	bool traderCanOpenFromEveryware = false;
+	bool playerCanTradeFromEveryware = false;
+	ref array<ref P2PTraderPosition> traderPositions;
+	
 
     void P2PTraderConfigParams()
     {
   		if (!FileExist(CONFIGSFOLDERP2P + SETTINGSFILE))
 		{
-			positions = new array<ref P2PTraderGamePosition>;
-			positions.Add(new P2PTraderGamePosition("8349.769531 293.181458 5976.001953", "49.000000 0.000000 0.000000"));
+			traderPositions = new array<ref P2PTraderPosition>;
+			traderPositions.Insert(new P2PTraderPosition("6571.0 6.0 2450", "49.000000 0.000000 0.000000", "not_spawn"));
 			Save();
 		} else {
 			Load();

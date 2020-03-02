@@ -556,6 +556,28 @@ FrameWidgetClass rootFrame {
          text_proportion 0.8
          switch normal
         }
+        MultilineTextWidgetClass notInNearHint {
+         ignorepointer 1
+         position 116.468 14.8056
+         size 1129.13 42.0747
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         style DayZNormal
+         text "#can_not_tade_not_in_near"
+         "exact text" 0
+         "size to text h" 0
+         "size to text v" 0
+         "text halign" center
+         "text valign" center
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
+        }
        }
       }
       PanelWidgetClass detailLabel0 {
@@ -585,6 +607,9 @@ FrameWidgetClass rootFrame {
          style None
          "text halign" center
          "text valign" center
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
         }
        }
       }

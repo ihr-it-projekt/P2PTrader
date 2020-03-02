@@ -2,6 +2,7 @@ modded class MissionGameplay
 {
 	private ref P2PTraderConfig config;
 	private ref P2PTraderMenu traderMenu;
+	private ref P2PTraderHint traderHintMenu;
 	private DayZPlayer player;
 	private UAInput localInput;
 	
@@ -35,30 +36,35 @@ modded class MissionGameplay
 	{
 		super.OnUpdate(timeslice);
 		player = GetGame().GetPlayer();
-		
-		if (casinoConfig.diceSettings.enabled) {
-			foreach(GamePosition position1: casinoConfig.diceSettings.gamePositions) {
-				if (vector.Distance(position1.pos, posPlayer) <= DAYZ_CASINO_DISTANCE_TO_GAME){
-					DebugMessageCasino("in near of bet dice");
-					
-					return GetBetDiceMenu();
-				}
-			}	
-		}  
-		
+		bool isInNear = isInNearOfTrader();
 		if(localInput.LocalClick() && player && player.IsAlive()) {
-			DebugMessageP2PTrader("try open menu");
-			if (GetGame().GetUIManager().GetMenu() == null && !traderMenu && config) {
-				DebugMessageP2PTrader("Create and show trader menue");
-				traderMenu = new P2PTraderMenu;
-				traderMenu.SetConfig(config);
-				traderMenu.Init();
-				traderMenu.OnShow();
-			} else if (traderMenu && !traderMenu.isMenuOpen && config) {
-				DebugMessageP2PTrader("show trader menue");
-				traderMenu.OnShow();
+			if (config && config.traderConfigParams.traderCanOpenFromEveryware || isInNear) {
+				DebugMessageP2PTrader("try open menu");
+				bool canTrade = config.traderConfigParams.playerCanTradeFromEveryware || isInNear;
+				
+				if (GetGame().GetUIManager().GetMenu() == null && !traderMenu) {
+					DebugMessageP2PTrader("Create and show trader menue");
+					traderMenu = new P2PTraderMenu;
+					traderMenu.SetConfig(config);
+					traderMenu.Init();
+					traderMenu.SetCanTrade(canTrade);
+					traderMenu.OnShow();
+				} else if (traderMenu && !traderMenu.isMenuOpen) {
+					DebugMessageP2PTrader("show trader menue");
+					traderMenu.SetCanTrade(canTrade);
+					traderMenu.OnShow();
+				}
 			}
-		}	
+		}
+		if (isInNear && !traderHintMenu){
+			traderHintMenu = new P2PTraderHint;
+            traderHintMenu.Init();
+            traderHintMenu.OnShow();
+		} else if (isInNear && traderHintMenu) {
+            traderHintMenu.OnShow();
+		} else if(!isInNear && traderHintMenu) {
+            traderHintMenu.OnHide();
+		}
 	}
 
 	override void OnKeyRelease(int key)
@@ -75,7 +81,19 @@ modded class MissionGameplay
 				default:
 					break;
 			}
-		} 
-
+		}
+	}
+	
+	private bool isInNearOfTrader() {
+		vector playerPosition = GetGame().GetPlayer().GetPosition();
+		if (!playerPosition) {
+			return false;
+		}
+		foreach(P2PTraderPosition position: config.traderConfigParams.traderPositions) {
+			if (vector.Distance(position.position, playerPosition) <= MAX_DISTANCE_TO_TRADER){
+				return true;
+			}
+		}	
+		return false;
 	}
 }

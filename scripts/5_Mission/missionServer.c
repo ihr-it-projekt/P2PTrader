@@ -12,12 +12,16 @@ modded class MissionServer {
 		config = new P2PTraderConfig();
 		DebugMessageP2PTrader("Has load Items from config: " + config.traderItemsConfig.items.Count().ToString());
 		traderStock = new P2PTraderStock();
-		offerCreateEventHandler = new P2PTraderOfferCreateEventHandler(traderStock);
+		offerCreateEventHandler = new P2PTraderOfferCreateEventHandler(traderStock, config.traderConfigParams);
 		marketOfferEventHandler = new P2PTraderMarketOfferEventHandler(traderStock);
 		playerOfferEventHandler = new P2PTraderPlayerOfferEventHandler(traderStock);
 		playerItemEventHandler = new P2PTraderPlayerItemEventHandler();
 		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
-		SpawnHouse(config.traderConfigParams.possitionOfTrader, config.traderConfigParams.orientationOfTrader, config.traderConfigParams.traderObjectType);
+		
+		foreach(P2PTraderPosition position: config.traderConfigParams.traderPositions) {
+			SpawnHouse(position.position, position.orientation, position.gameObjectType);
+		}
+		
 		DebugMessageP2PTrader("loaded");
 	}
 	
@@ -53,6 +57,10 @@ modded class MissionServer {
 	}
 	
 	private House SpawnHouse(vector position, vector orientation, string gameObjectName) {
+	    if ("not_spawn" == gameObjectName) {
+	        return null;
+	    }
+		position[1] = GetGame().SurfaceY(position[0], position[2]);
         House house = GetGame().CreateObject(gameObjectName, position);
         if (!house) {
             return house;

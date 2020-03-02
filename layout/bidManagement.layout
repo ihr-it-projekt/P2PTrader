@@ -223,7 +223,7 @@ FrameWidgetClass rootFrame {
        ignorepointer 1
        keepsafezone 0
        color 0 0 0 0.651
-       position -260.375 63.9115
+       position -260.375 62.5921
        size 1304.10999 834.185
        halign center_ref
        hexactpos 1
@@ -385,6 +385,28 @@ FrameWidgetClass rootFrame {
          "size to text v" 0
          "text halign" center
          "text valign" center
+        }
+        MultilineTextWidgetClass bidManagementNotInNearHint {
+         ignorepointer 1
+         position 187.056 142.787
+         size 898.23102 163.45999
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         style DayZNormal
+         text "#can_not_tade_not_in_near"
+         "exact text" 0
+         "size to text h" 0
+         "size to text v" 0
+         "text halign" center
+         "text valign" center
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
         }
        }
       }
