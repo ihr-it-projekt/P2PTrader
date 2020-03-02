@@ -280,9 +280,10 @@ FrameWidgetClass rootFrame {
          vexactpos 1
          hexactsize 1
          vexactsize 1
-         style Editor
+         style Default
          "title visible" 0
          colums ""
+         lines 12
         }
        }
       }
@@ -309,8 +310,9 @@ FrameWidgetClass rootFrame {
          vexactpos 1
          hexactsize 1
          vexactsize 1
-         style Editor
+         style Default
          colums ""
+         lines 12
         }
        }
       }
@@ -336,7 +338,8 @@ FrameWidgetClass rootFrame {
          vexactpos 1
          hexactsize 1
          vexactsize 1
-         style Editor
+         style Default
+         lines 45
         }
         EditBoxWidgetClass playerTextOffer {
          position 9.69697 420.46201
@@ -415,8 +418,9 @@ FrameWidgetClass rootFrame {
          vexactpos 1
          hexactsize 1
          vexactsize 1
-         style Editor
+         style Default
          colums ""
+         lines 50
         }
        }
       }
