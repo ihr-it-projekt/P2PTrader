@@ -6,6 +6,7 @@ class P2PTraderConfigParams
 
     int maxMarketOffersPerPlayer = 3;
     int maxBidsPerPlayer = 3;
+	float maxDistanceToTrader = -1;
 	bool traderCanOpenFromEveryware = false;
 	bool playerCanTradeFromEveryware = false;
 	ref array<ref P2PTraderPosition> traderPositions;
@@ -20,6 +21,11 @@ class P2PTraderConfigParams
 			Save();
 		} else {
 			Load();
+			if (0.9 > maxDistanceToTrader) {
+				maxDistanceToTrader = 3;
+				Save();
+			}
+			
 		}
     }
 	

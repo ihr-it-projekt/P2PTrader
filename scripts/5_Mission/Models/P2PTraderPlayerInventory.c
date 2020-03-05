@@ -41,7 +41,7 @@ class P2PTraderPlayerInventory
         }
     }
 
-    void Remove(ItemBase item, DayZPlayer player) {
+    void Remove(ItemBase item) {
 		GetGame().ObjectDelete(item);
 		
         DebugMessageP2PTrader("destroy item " + item.GetName());

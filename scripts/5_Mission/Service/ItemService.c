@@ -198,6 +198,10 @@ class ItemService
 	
 	P2PTraderStockItem GetSelectedItemPlayerOffer(TextListboxWidget source) {
 		int markedPos = source.GetSelectedRow();
+		if (markedPos == -1) {
+		    return null;
+		}
+
 		P2PTraderStockItem item;
 		source.GetItemData(markedPos, 0, item);
 		

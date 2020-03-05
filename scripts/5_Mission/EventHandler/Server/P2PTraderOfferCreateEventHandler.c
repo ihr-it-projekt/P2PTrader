@@ -43,12 +43,13 @@ class P2PTraderOfferCreateEventHandler
 				DebugMessageP2PTrader("have offer items" + offerItems.Count().ToString());
 				DebugMessageP2PTrader("have wanted items" + wantedItems.Count().ToString());
 
-				foreach(P2PTraderItem offerItem: offerItems) {
-					foreach(EntityAI item: items) {
-						ItemBase itemCast = ItemBase.Cast(item);
+				foreach(EntityAI item: items) {
+					ItemBase itemCast = ItemBase.Cast(item);
+					foreach(int pos, P2PTraderItem offerItem: offerItems) {
 						if (itemCast && offerItem && offerItem.item.IsItem(itemCast)) {
 							offer.AddOfferItem(offerItem.item);
-							inventory.Remove(itemCast, player);
+							inventory.Remove(item);
+							offerItems.Remove(pos);
 							break;
 						}
 					}
@@ -105,12 +106,13 @@ class P2PTraderOfferCreateEventHandler
 
                 DebugMessageP2PTrader("have offer items" + offerPlayerItems.Count().ToString());
 
-				foreach(P2PTraderItem offerItemX: offerPlayerItems) {
-					foreach(EntityAI itemX: itemsPlayer) {
+				foreach(EntityAI itemX: itemsPlayer) {
+					foreach(int posX, P2PTraderItem offerItemX: offerPlayerItems) {
 						ItemBase itemPlayerCast = ItemBase.Cast(itemX);
 						if (itemPlayerCast && offerItemX && offerItemX.item && offerItemX.item.GetHealth() == itemPlayerCast.GetHealth() && offerItemX.item.GetType() == itemPlayerCast.GetType() && offerItemX.item.GetQuantity() == itemPlayerCast.GetQuantity()) {
                             offerFromPlayer.AddOfferItem(offerItemX.item);
-							inventory.Remove(itemPlayerCast, offerPlayer);
+							inventory.Remove(itemX);
+							offerPlayerItems.Remove(posX);
 							break;
                         }
                     }

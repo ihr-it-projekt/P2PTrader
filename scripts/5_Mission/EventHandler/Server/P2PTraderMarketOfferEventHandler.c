@@ -48,7 +48,7 @@ class P2PTraderMarketOfferEventHandler
                     GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE_ERROR, new Param1<string>("#you_can_only_use_your_own_order"), true, player.GetIdentity());
                     DebugMessageP2PTrader("send P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE_ERROR to player: is not owner of market offer");
                     return;
-                } else if (!P2P_TRADER_DEBUG && playerPlayerOffer.GetOwnerId() != player.GetIdentity().GetId()) {
+                } else if (playerPlayerOffer.GetOwnerId() == player.GetIdentity().GetId()) {
 					GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE_ERROR, new Param1<string>("#you_can_not_accept_your_own_order"), true, player.GetIdentity());
                     DebugMessageP2PTrader("send P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE_ERROR to player: is owner of player offer");
                     return;

@@ -21,6 +21,7 @@ class P2PTraderMenu extends UIScriptedMenu
 	private string bidFilterBidManagement = P2PTraderStock.OPEN_OFFER;
 	private bool canTrade = false;
 	bool isMenuOpen = false;
+	int refreshRuns = 0;
 
     private ButtonWidget cancel;
 	private ButtonWidget buttonMyOffers;
@@ -355,6 +356,7 @@ class P2PTraderMenu extends UIScriptedMenu
 			itemService.GetMarketOfferItemList(marketOfferItems, selectedMarketOffer);
 			selectedPlayerOffers = itemService.GetPlayerOffersForMarketOffer(selectedMarketOffer, allActiveOffers);
 			
+			marketOfferWantToHave.ClearItems();
 			playerOffers.ClearItems();
 			playerOfferItems.ClearItems();
 			playerOfferItemAttachments.ClearItems();
@@ -388,17 +390,26 @@ class P2PTraderMenu extends UIScriptedMenu
 		} else if(w == marketOfferItems) {
 			DebugMessageP2PTrader("click marketOfferItems");
 			P2PTraderStockItem currentStockItem = itemService.GetSelectedItemPlayerOffer(marketOfferItems);
+			if (!currentStockItem) {
+				return true;
+			}
 
 			itemService.GetMarketOfferItemAttachmentList(marketOfferItemAtatmenchts, currentStockItem);
 			return true;
 		} else if(w == offerDetailItemsBid) {
 			DebugMessageP2PTrader("click offerDetailItemsBid");
 			P2PTraderStockItem currentOfferDetailItem = itemService.GetSelectedItemPlayerOffer(offerDetailItemsBid);
+			if (!currentOfferDetailItem) {
+				return true;
+			}
 			itemService.GetMarketOfferItemAttachmentList(detailAttechmentBid, currentOfferDetailItem);
 			return true;
 		} else if(w == playerOffers) {
 			DebugMessageP2PTrader("click playerOffers");
 			selectedPlayerOffer = itemService.GetSelectedStockItem(playerOffers);
+			if (!selectedPlayerOffer) {
+				return true;
+			}
 			itemService.GetTraderStockItemList(playerOfferItems, selectedPlayerOffer.GetOfferItems());
 			buttonTakeOffer.Show(true);
 			ShowHideMyOfferForItem();
@@ -406,6 +417,10 @@ class P2PTraderMenu extends UIScriptedMenu
 		} else if(w == playerOfferItems) {
 			DebugMessageP2PTrader("click playerOfferItems");
 			P2PTraderStockItem currentMyBidItem = itemService.GetSelectedItemPlayerOffer(playerOfferItems);
+			if (!currentMyBidItem) {
+				return true;
+			}
+			
 			itemService.GetMarketOfferItemAttachmentList(playerOfferItemAttachments, currentMyBidItem);
 			return true;
 		} else if(w == buttonDeleteMyBid || w == buttonTakeBid) {
@@ -826,6 +841,7 @@ class P2PTraderMenu extends UIScriptedMenu
 			DebugMessageP2PTrader("Menu is already open");
 			return;
 		}
+		refreshRuns = 0;
 		
 		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
 		
@@ -882,6 +898,7 @@ class P2PTraderMenu extends UIScriptedMenu
             return;
         } 
 		if (rpc_type == P2P_TRADER_EVENT_GET_PLAYER_ITEMS_RESPONSE) {
+			refreshRuns = refreshRuns - 1;
 			DebugMessageP2PTrader("recive P2P_TRADER_EVENT_GET_PLAYER_ITEMS_RESPONSE");
             Param1<ref array<ref P2PTraderItem>> parameterPlayerItems;
             if (ctx.Read(parameterPlayerItems)) {
@@ -913,6 +930,7 @@ class P2PTraderMenu extends UIScriptedMenu
 				}
 			}
 		} else if (rpc_type == P2P_TRADER_EVENT_GET_ALL_BID_OFFERS_RESPONSE) {
+			refreshRuns = refreshRuns - 1;
 			DebugMessageP2PTrader("recive P2P_TRADER_EVENT_GET_ALL_BID_OFFERS_RESPONSE");
             Param1<ref array<ref P2PTraderPlayerPlayerOffer>> parameterPlayerBids;
             if (ctx.Read(parameterPlayerBids)) {
@@ -957,6 +975,7 @@ class P2PTraderMenu extends UIScriptedMenu
 				createPlayerOfferWidget.Show(false);
 			}
 		} else if (rpc_type == P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS_RESPONSE) {
+			refreshRuns = refreshRuns - 1;
 			DebugMessageP2PTrader("recive P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS_RESPONSE");
             Param2<ref array<ref P2PTraderPlayerPlayerOffer>, ref array<ref P2PTraderPlayerPlayerOffer>> parameterOffers;
             if (ctx.Read(parameterOffers)) {
@@ -1027,6 +1046,7 @@ class P2PTraderMenu extends UIScriptedMenu
 	    GetGame().RPCSingleParam(paramGetPlayerItems.param1, P2P_TRADER_EVENT_GET_PLAYER_ITEMS, paramGetPlayerItems, true);
 	    GetGame().RPCSingleParam(paramGetPlayerItems.param1, P2P_TRADER_EVENT_GET_ALL_BID_OFFERS, paramGetPlayerItems, true);
 	    GetGame().RPCSingleParam(paramGetPlayerItems.param1, P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS, paramGetPlayerItems, true);
+		refreshRuns = 3;
 	}
 	
 	private void RefrechStockLists() {

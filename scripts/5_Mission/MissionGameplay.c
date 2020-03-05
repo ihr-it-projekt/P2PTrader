@@ -85,12 +85,15 @@ modded class MissionGameplay
 	}
 	
 	private bool isInNearOfTrader() {
-		vector playerPosition = GetGame().GetPlayer().GetPosition();
+		if (!player) {
+			return false;
+		}
+		vector playerPosition = player.GetPosition();
 		if (!playerPosition) {
 			return false;
 		}
 		foreach(P2PTraderPosition position: config.traderConfigParams.traderPositions) {
-			if (vector.Distance(position.position, playerPosition) <= MAX_DISTANCE_TO_TRADER){
+			if (vector.Distance(position.position, playerPosition) <= config.traderConfigParams.maxDistanceToTrader){
 				return true;
 			}
 		}	
