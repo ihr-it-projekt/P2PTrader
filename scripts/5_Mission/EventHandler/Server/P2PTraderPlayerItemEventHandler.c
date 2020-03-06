@@ -28,6 +28,15 @@ class P2PTraderPlayerItemEventHandler
 				foreach(EntityAI item: items) {
 					if (item && !item.GetType().Contains("Survivor")) {
 						//DebugMessageP2PTrader("Add inventory type " + item.GetType());
+						string type = item.GetType();
+						type.ToLower();
+						if (type.Contains("ammo") && !type.Contains("box")) {
+							continue;
+						}
+						
+						if (item.GetHealth() == 0) {
+							continue;
+						}
 					
 						P2PTraderItem traderItem = new P2PTraderItem(item.GetType(), item);
 						playerItems.Insert(traderItem);

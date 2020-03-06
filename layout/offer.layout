@@ -283,7 +283,7 @@ FrameWidgetClass rootFrame {
          style Default
          "title visible" 0
          colums ""
-         lines 12
+         lines 20
         }
        }
       }
@@ -312,7 +312,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style Default
          colums ""
-         lines 12
+         lines 22
         }
        }
       }

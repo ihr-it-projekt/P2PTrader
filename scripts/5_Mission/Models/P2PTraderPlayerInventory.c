@@ -32,6 +32,8 @@ class P2PTraderPlayerInventory
 		}
 			
        	SpawnOnGround(itemInStock, player, item);
+		
+		
 
 		if(itemInStock.attached.Count() > 0) {
             foreach(P2PTraderStockItem itemAttached: itemInStock.attached) {
@@ -48,20 +50,25 @@ class P2PTraderPlayerInventory
     }
 
 	private EntityAI SpawnOnGround(P2PTraderStockItem itemInStock, DayZPlayer player, EntityAI item = null) {
-		if (item) {
-			item.SetHealth(itemInStock.health);
-			ItemBase.Cast(item).SetQuantity(itemInStock.quantity);
-			DebugMessageP2PTrader("has spawned" + itemInStock.type);
-		} else {
+		if (!item) {
 			DebugMessageP2PTrader("spawn on ground" + itemInStock.type);
             item = player.SpawnEntityOnGroundPos(itemInStock.type, player.GetPosition());
 			if (!item) {
 				DebugMessageP2PTrader("item was not spawned" + itemInStock.type);
-			} else {
-				item.SetHealth(itemInStock.health);
-				ItemBase.Cast(item).SetQuantity(itemInStock.quantity);
+			} 
+			
+		}
+		
+		if (item) {
+			item.SetHealth(itemInStock.health);
+			ItemBase castItem;
+        	if (ItemBase.CastTo(castItem, item)) {
+				DebugMessageP2PTrader("set quantity: " + itemInStock.GetQuantity().ToString());
+				castItem.SetQuantity(itemInStock.GetQuantity(), true, true);
+				DebugMessageP2PTrader("has quantity: " + castItem.GetQuantity().ToString());
 			}
 			
+			DebugMessageP2PTrader("has spawned" + itemInStock.type);
 		}
 	
 		return item;

@@ -945,8 +945,8 @@ class P2PTraderMenu extends UIScriptedMenu
 			}
 			
 			if(bidManagementWidget.IsVisible() && playerActiveOffers.Count() == 0 && P2PTraderStock.INACTIVE_OFFER == bidFilterBidManagement) {
-						bidManagementBidHint.Show(true);
-						bidManagementBids.Show(false);
+				bidManagementBidHint.Show(true);
+				bidManagementBids.Show(false);
 			} else if(bidManagementWidget.IsVisible() && playerActiveOffers.Count() > 0 && P2PTraderStock.INACTIVE_OFFER == bidFilterBidManagement){
 				itemService.GetActiveOffersForStockItem(bidManagementBids, playerActiveOffers);
 				bidManagementBidHint.Show(false);

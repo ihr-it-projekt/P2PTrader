@@ -16,10 +16,13 @@ class P2PTraderStockItem {
 		health = item.GetHealth();
 		SetType(item.GetType());
 		
-		ItemBase itemCast = ItemBase.Cast(item);
+		ItemBase itemCast;
+        ItemBase.CastTo(itemCast, item);
 		
 		if (itemCast) {
 			quantity = itemCast.GetQuantity();
+			DebugMessageP2PTrader("P2PTraderStockItem: origin quantity:" + itemCast.GetQuantity().ToString());
+			DebugMessageP2PTrader("P2PTraderStockItem: quantity:" + quantity.ToString());
 		} else {
 			DebugMessageP2PTrader("P2PTraderStockItem: Can not cast " + item.GetType());
 		}
@@ -88,9 +91,13 @@ class P2PTraderStockItem {
 	}
 	
 	void SetTranslation(string translated) {
-		this.translatedName = translated + " (" + type + ")" + " #healt " + this.GetHealth().ToString();
+		this.translatedName = translated + " (" + type + ")" + " Healt " + this.GetHealth().ToString() + " Quantity: " + this.GetQuantity().ToString();
 		this.translatedNameLower = translated;
 		this.translatedNameLower.ToLower();
+	}
+	
+	string GetTranslatedNameLower() {
+		return this.translatedNameLower;
 	}
 	
 	bool HasTranslation() {

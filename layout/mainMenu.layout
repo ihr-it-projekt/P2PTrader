@@ -97,7 +97,7 @@ FrameWidgetClass rootFrame {
        keepsafezone 0
        color 0 0 0 0.651
        position 7.99998 68
-       size 376 515
+       size 491.20401 515
        valign center_ref
        hexactpos 1
        vexactpos 1
@@ -108,21 +108,21 @@ FrameWidgetClass rootFrame {
         TextListboxWidgetClass marketOffers {
          color 1 1 1 0.651
          position 8.00001 8.00002
-         size 360 499
+         size 472.42798 499
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style Default
-         lines 40
+         lines 45
         }
        }
       }
       PanelWidgetClass PanelWidget3 {
        ignorepointer 1
        color 0 0 0 0.651
-       position 1466.41003 199.64799
-       size 376 60
+       position 1345.97998 212.56799
+       size 492.07602 38.2
        halign right_ref
        hexactpos 1
        vexactpos 1
@@ -134,8 +134,8 @@ FrameWidgetClass rootFrame {
          visible 1
          ignorepointer 1
          keepsafezone 0
-         position 8 0
-         size 42 42
+         position 11.488 0.43601
+         size 31.536 25.432
          halign right_ref
          valign center_ref
          hexactpos 1
@@ -154,8 +154,8 @@ FrameWidgetClass rootFrame {
         ButtonWidgetClass buttonSearchMarket {
          ignorepointer 0
          keepsafezone 0
-         position 8 0
-         size 42 42
+         position 12.36 -0.07999
+         size 31.536 27.176
          halign right_ref
          valign center_ref
          hexactpos 1
@@ -166,8 +166,8 @@ FrameWidgetClass rootFrame {
          style Default
         }
         EditBoxWidgetClass inputSearchMarket {
-         position 8 0
-         size 310 42
+         position 8.356 0.39202
+         size 422.42798 30.896
          valign center_ref
          hexactpos 1
          vexactpos 1
