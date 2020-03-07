@@ -21,8 +21,6 @@ class P2PTraderStockItem {
 		
 		if (itemCast) {
 			quantity = itemCast.GetQuantity();
-			DebugMessageP2PTrader("P2PTraderStockItem: origin quantity:" + itemCast.GetQuantity().ToString());
-			DebugMessageP2PTrader("P2PTraderStockItem: quantity:" + quantity.ToString());
 		} else {
 			DebugMessageP2PTrader("P2PTraderStockItem: Can not cast " + item.GetType());
 		}
@@ -33,6 +31,14 @@ class P2PTraderStockItem {
 			if (!mag)
 				return;
 			quantity = mag.GetAmmoCount();
+		} else if(item.IsAmmoPile()) {
+			Ammunition_Base ammo = Ammunition_Base.Cast(item);
+			
+			if (!ammo) {
+				return;
+			}
+			
+			quantity = ammo.GetAmmoCount();
 		}
 		
 		array<EntityAI> itemsArray = new array<EntityAI>;
@@ -57,6 +63,14 @@ class P2PTraderStockItem {
 			}
 			
 			compareQuantity = mag.GetAmmoCount();
+		} else if(item.IsAmmoPile()) {
+			Ammunition_Base ammo = Ammunition_Base.Cast(item);
+			
+			if (!ammo) {
+				return false;
+			}
+			
+			compareQuantity = ammo.GetAmmoCount();
 		}
 		
 		if (item.GetHealth() == this.GetHealth() && item.GetType() == this.GetType() && compareQuantity == this.GetQuantity()) {

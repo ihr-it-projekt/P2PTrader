@@ -72,7 +72,15 @@ class P2PTraderPlayerInventory
 					
 				DebugMessageP2PTrader("set Ammo to mag: " + itemInStock.GetQuantity().ToString());
 				mag.ServerSetAmmoCount(itemInStock.GetQuantity());
-			}else if (ItemBase.CastTo(castItem, item)) {
+			} else if(item.IsAmmoPile()) {
+				Ammunition_Base ammo = Ammunition_Base.Cast(item);
+				
+				if (!ammo) {
+					return item;
+				}
+				DebugMessageP2PTrader("set Ammo count: " + itemInStock.GetQuantity().ToString());
+				ammo.ServerSetAmmoCount(itemInStock.GetQuantity());
+			} else if (ItemBase.CastTo(castItem, item)) {
 				DebugMessageP2PTrader("set quantity: " + itemInStock.GetQuantity().ToString());
 				castItem.SetQuantity(itemInStock.GetQuantity(), true, true);
 				DebugMessageP2PTrader("has quantity: " + castItem.GetQuantity().ToString());

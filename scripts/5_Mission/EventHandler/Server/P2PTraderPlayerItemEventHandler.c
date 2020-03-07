@@ -27,14 +27,6 @@ class P2PTraderPlayerItemEventHandler
 		
 				foreach(EntityAI item: items) {
 					if (item && !item.GetType().Contains("Survivor")) {
-						//DebugMessageP2PTrader("Add inventory type " + item.GetType());
-						string type = item.GetType();
-						type.ToLower();
-						if (type.Contains("ammo") && !type.Contains("box")) {
-							DebugMessageP2PTrader("Item contain ammo and not box" + item.GetType());
-							continue;
-						}
-						
 						if (item.GetHealth() == 0) {
 							DebugMessageP2PTrader("Item helth is zero" + item.GetType());
 							continue;
