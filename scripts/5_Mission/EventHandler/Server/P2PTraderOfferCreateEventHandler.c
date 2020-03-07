@@ -61,7 +61,7 @@ class P2PTraderOfferCreateEventHandler
 
 				if (offer.IsEmpty()) {
                     GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_NEW_OFFER_RESPONSE_ERROR, new Param1<string>("#you_can_not_make_an_empty_offer"), true, player.GetIdentity());
-                    DebugMessageP2PTrader("send P2P_TRADER_EVENT_NEW_OFFER_RESPONSE_ERROR to player: owner is empty ");
+                    DebugMessageP2PTrader("send P2P_TRADER_EVENT_NEW_OFFER_RESPONSE_ERROR to player: offer is empty ");
                     return;
 				}
 				

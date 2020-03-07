@@ -19,9 +19,9 @@ class P2PTraderItem {
 	}
 	
 	void SetTranslation(string translated) {
-		item.SetTranslation(translated);
-		this.translatedName = item.GetTranslation() ;
-		this.translatedNameLower = item.GetTranslatedNameLower();
+		this.translatedName = item.GetDisplayName(translated);
+		this.translatedNameLower = translated;
+		this.translatedNameLower.ToLower();
 	}
 	
 }

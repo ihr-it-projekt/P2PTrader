@@ -173,6 +173,7 @@ FrameWidgetClass rootFrame {
          vexactpos 1
          hexactsize 1
          vexactsize 1
+         scaled 1
          style Editor
         }
        }
@@ -308,7 +309,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Default
-         lines 8
+         lines 15
         }
         TextWidgetClass offerPlayerLabel {
          ignorepointer 1
@@ -436,7 +437,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Default
-         lines 8
+         lines 15
         }
         TextWidgetClass marketOfferWantToHaveLabel {
          ignorepointer 1

@@ -27,6 +27,14 @@ class P2PTraderStockItem {
 			DebugMessageP2PTrader("P2PTraderStockItem: Can not cast " + item.GetType());
 		}
 		
+		if(item.IsMagazine()) {
+			Magazine mag = Magazine.Cast(item);
+			
+			if (!mag)
+				return;
+			quantity = mag.GetAmmoCount();
+		}
+		
 		array<EntityAI> itemsArray = new array<EntityAI>;
         item.GetInventory().EnumerateInventory(InventoryTraversalType.INORDER, itemsArray);
 		
@@ -40,7 +48,18 @@ class P2PTraderStockItem {
 	}
 	
 	bool IsItem(ItemBase item) {
-		if (item.GetHealth() == this.GetHealth() && item.GetType() == this.GetType() && item.GetQuantity() == this.GetQuantity()) {
+		float compareQuantity = item.GetQuantity();
+		if(item.IsMagazine()) {
+			Magazine mag = Magazine.Cast(item);
+			
+			if (!mag) {
+				return false;
+			}
+			
+			compareQuantity = mag.GetAmmoCount();
+		}
+		
+		if (item.GetHealth() == this.GetHealth() && item.GetType() == this.GetType() && compareQuantity == this.GetQuantity()) {
 			DebugMessageP2PTrader("Is item at base level check now attachmends");
 			return CompareAttached(this, item);
 		}
@@ -58,7 +77,18 @@ class P2PTraderStockItem {
 			bool hasFound = false;
 			foreach(EntityAI itemAtteched: itemsArray) {
 				ItemBase itemCast = ItemBase.Cast(itemAtteched);
-				if (itemAtteched && stockItem && stockItem != itemAtteched && itemAtteched.GetHealth() == stockItem.GetHealth() && itemAtteched.GetType() == stockItem.GetType() && itemCast.GetQuantity() == stockItem.GetQuantity()) {
+				float compareQuantity = itemCast.GetQuantity();
+				if(itemAtteched.IsMagazine()) {
+					Magazine mag = Magazine.Cast(item);
+					
+					if (!mag) {
+						return false;
+					}
+					
+					compareQuantity = mag.GetAmmoCount();
+				}
+
+				if (itemAtteched && stockItem && stockItem != itemAtteched && itemAtteched.GetHealth() == stockItem.GetHealth() && itemAtteched.GetType() == stockItem.GetType() && compareQuantity == stockItem.GetQuantity()) {
 					DebugMessageP2PTrader("Is item at deeper level check now attachmends for attachmend: " + stockItem.GetType() + itemAtteched.GetType());
 					hasFound = CompareAttached(stockItem, itemCast);
 					DebugMessageP2PTrader("has found in deeper: " + hasFound.ToString());
@@ -91,9 +121,13 @@ class P2PTraderStockItem {
 	}
 	
 	void SetTranslation(string translated) {
-		this.translatedName = translated + " (" + type + ")" + " Healt " + this.GetHealth().ToString() + " Quantity: " + this.GetQuantity().ToString();
+		this.translatedName = GetDisplayName(translated);
 		this.translatedNameLower = translated;
 		this.translatedNameLower.ToLower();
+	}
+	
+	string GetDisplayName(string translated) {
+		return translated + " (" + type + ")" + " Healt " + this.GetHealth().ToString() + " Quantity: " + this.GetQuantity().ToString();
 	}
 	
 	string GetTranslatedNameLower() {

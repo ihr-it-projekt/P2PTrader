@@ -31,13 +31,15 @@ class P2PTraderPlayerItemEventHandler
 						string type = item.GetType();
 						type.ToLower();
 						if (type.Contains("ammo") && !type.Contains("box")) {
+							DebugMessageP2PTrader("Item contain ammo and not box" + item.GetType());
 							continue;
 						}
 						
 						if (item.GetHealth() == 0) {
+							DebugMessageP2PTrader("Item helth is zero" + item.GetType());
 							continue;
 						}
-					
+
 						P2PTraderItem traderItem = new P2PTraderItem(item.GetType(), item);
 						playerItems.Insert(traderItem);
 					}

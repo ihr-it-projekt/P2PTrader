@@ -61,8 +61,18 @@ class P2PTraderPlayerInventory
 		
 		if (item) {
 			item.SetHealth(itemInStock.health);
+			
 			ItemBase castItem;
-        	if (ItemBase.CastTo(castItem, item)) {
+			if(item.IsMagazine()) {
+				Magazine mag = Magazine.Cast(item);
+				
+				if (!mag) {
+					return item;
+				}
+					
+				DebugMessageP2PTrader("set Ammo to mag: " + itemInStock.GetQuantity().ToString());
+				mag.ServerSetAmmoCount(itemInStock.GetQuantity());
+			}else if (ItemBase.CastTo(castItem, item)) {
 				DebugMessageP2PTrader("set quantity: " + itemInStock.GetQuantity().ToString());
 				castItem.SetQuantity(itemInStock.GetQuantity(), true, true);
 				DebugMessageP2PTrader("has quantity: " + castItem.GetQuantity().ToString());
