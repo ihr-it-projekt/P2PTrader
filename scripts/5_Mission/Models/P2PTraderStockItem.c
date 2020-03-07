@@ -78,8 +78,8 @@ class P2PTraderStockItem {
 			foreach(EntityAI itemAtteched: itemsArray) {
 				ItemBase itemCast = ItemBase.Cast(itemAtteched);
 				float compareQuantity = itemCast.GetQuantity();
-				if(itemAtteched.IsMagazine()) {
-					Magazine mag = Magazine.Cast(item);
+				if(itemCast.IsMagazine()) {
+					Magazine mag = Magazine.Cast(itemCast);
 					
 					if (!mag) {
 						return false;

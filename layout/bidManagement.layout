@@ -104,13 +104,14 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass bidManagementMarketOfferDetailItemsBid {
          color 1 1 1 0.651
-         position 54.7729 497.89297
-         size 356.82898 114.416
+         position 11.2849 496.685
+         size 428.10101 114.416
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style Default
+         lines 7
         }
         TextWidgetClass bidManagementMarketItemAttachmentLabel {
          ignorepointer 1
@@ -152,14 +153,14 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass bidManagementMarketOfferDetailAttachmentBid {
          color 1 1 1 0.651
-         position 53.5621 669.14496
-         size 354.07501 150.349
+         position 14.9061 669.14496
+         size 422.931 150.349
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style Default
-         lines 6
+         lines 10
         }
         TextWidgetClass bidManagementMarketOfferPlayer {
          ignorepointer 1
@@ -191,14 +192,14 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass bidManagementMarketOfferWantToHave {
          color 1 1 1 0.651
-         position 53.5621 362.99399
-         size 360.465 74.702
+         position 14.9061 361.78601
+         size 426.905 74.702
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style Default
-         lines 4
+         lines 6
         }
         TextWidgetClass bidManagementMarketOfferWantToHaveLabel {
          ignorepointer 1

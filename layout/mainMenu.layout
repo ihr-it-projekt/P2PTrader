@@ -260,7 +260,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Default
-         lines 10
+         lines 15
         }
         TextWidgetClass offerItemAttachmentLabel {
          ignorepointer 1
@@ -367,17 +367,18 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Default
-         lines 6
+         lines 15
         }
         TextListboxWidgetClass playerOfferItemAttachments {
          color 1 1 1 0.651
-         position 795.19299 437.95999
+         position 795.19299 436.31998
          size 377.84 103.128
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style Default
+         lines 15
         }
         TextWidgetClass offerMyBidAttachmentLabel {
          ignorepointer 1
@@ -407,7 +408,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Default
-         lines 6
+         lines 15
         }
         TextWidgetClass offerMyBidLabel {
          ignorepointer 1

@@ -307,7 +307,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Default
-         lines 40
+         lines 45
         }
        }
       }
@@ -345,8 +345,8 @@ FrameWidgetClass rootFrame {
        ignorepointer 1
        keepsafezone 0
        color 0 0 0 0.651
-       position 671.13403 12.965
-       size 459.16 893.03302
+       position 578.43408 11.805
+       size 605.12 893.03302
        halign center_ref
        hexactpos 1
        vexactpos 1
@@ -376,7 +376,7 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass playerOfferMessageDetailBid {
          ignorepointer 1
-         position 53.623 180.82901
+         position 127.863 179.66901
          size 357.30899 124.267
          hexactpos 1
          vexactpos 1
@@ -385,19 +385,19 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass detailAttechmentBid {
          color 1 1 1 0.651
-         position 62.003 620.81702
-         size 351.77203 232.75999
+         position 66.643 616.177
+         size 514.172 232.75999
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style Default
-         lines 10
+         lines 18
         }
         TextWidgetClass offerItemAttachmentLabel {
          ignorepointer 1
-         position 13.349 132.226
-         size 342.07501 42.0747
+         position 17.509 127.586
+         size 440.47501 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -435,13 +435,13 @@ FrameWidgetClass rootFrame {
         TextListboxWidgetClass offerDetailItemsBid {
          color 1 1 1 0.651
          position 65.362 382.349
-         size 350.267 160.65302
+         size 513.82703 160.65302
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style Default
-         lines 7
+         lines 15
         }
         TextWidgetClass offerPlayerLabel {
          ignorepointer 1
@@ -464,7 +464,7 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass playerNameBidDetail {
          ignorepointer 1
-         position 60.156 66.509
+         position 126.59599 65.301
          size 344.82898 43.8403
          hexactpos 1
          vexactpos 1

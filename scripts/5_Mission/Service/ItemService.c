@@ -76,7 +76,19 @@ class ItemService
 				array <ref P2PTraderStockItem> offerItems = offer.GetOfferItems();
 				foreach(P2PTraderStockItem item: offerItems) {
 					if (item) {
+						DebugMessageP2PTrader("use item translation");
 						itemNames = itemNames + item.GetTranslation();
+					}
+				}
+				
+				if (offerItems.Count() == 0) {
+					itemNames = "*";
+					array <ref P2PTraderStockItem> wantedItems = offer.GetWantedItems();
+					foreach(P2PTraderStockItem itemWanted: wantedItems) {
+						if (itemWanted) {
+							DebugMessageP2PTrader("use itemWanted translation");
+							itemNames = itemNames + itemWanted.GetTranslation();
+						}
 					}
 				}
 				widget.AddItem(itemNames, offer, 0);
@@ -110,9 +122,22 @@ class ItemService
 					}
 					
 					itemNames = itemNames + item.GetTranslation();
-					
 				}
 			}
+			
+			if (offerItems.Count() == 0) {
+				array <ref P2PTraderStockItem> wantedItems = offer.GetWantedItems();
+				itemNames = "*";
+				foreach(P2PTraderStockItem itemWanted: wantedItems) {
+					if (itemWanted && !itemWanted.HasTranslation()) {
+						DebugMessageP2PTrader("add itemWanted translation");
+						itemWanted.SetTranslation(GetItemDisplayName(itemWanted.GetType()));
+					}
+					
+					itemNames = itemNames + itemWanted.GetTranslation();
+				}
+			}
+			
 			widget.AddItem(itemNames, offer, 0);
 		}
 		
