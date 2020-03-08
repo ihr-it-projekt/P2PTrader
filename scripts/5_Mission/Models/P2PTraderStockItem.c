@@ -141,7 +141,7 @@ class P2PTraderStockItem {
 	}
 	
 	string GetDisplayName(string translated) {
-		return translated + " (" + type + ")" + " Healt " + this.GetHealth().ToString() + " Quantity: " + this.GetQuantity().ToString();
+		return translated + " (" + type + ")" + " Health " + this.GetHealth().ToString() + " Quantity: " + this.GetQuantity().ToString();
 	}
 	
 	string GetTranslatedNameLower() {
