@@ -96,7 +96,7 @@ FrameWidgetClass rootFrame {
        ignorepointer 1
        keepsafezone 0
        color 0 0 0 0.651
-       position 7.99998 68
+       position 8.354 47.76
        size 491.20401 515
        valign center_ref
        hexactpos 1
@@ -182,7 +182,7 @@ FrameWidgetClass rootFrame {
        ignorepointer 1
        keepsafezone 0
        color 0 0 0 0.651
-       position -286.42899 129.12001
+       position -270.638 129.12001
        size 376 60
        halign center_ref
        hexactpos 1
@@ -225,8 +225,8 @@ FrameWidgetClass rootFrame {
        {
         TextWidgetClass offerMessageFromPlayerLabel {
          ignorepointer 1
-         position -461.48999 -148.95599
-         size 342.07501 42.0747
+         position -435.91501 -148.95599
+         size 393.224 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -250,11 +250,14 @@ FrameWidgetClass rootFrame {
          vexactpos 1
          hexactsize 1
          vexactsize 1
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
         }
         TextListboxWidgetClass marketOfferItemAtatmenchts {
          color 1 1 1 0.651
          position 444.11301 312.32797
-         size 404.79901 232.75999
+         size 409.539 232.75999
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -264,8 +267,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerItemAttachmentLabel {
          ignorepointer 1
-         position -16.0855 0.00001
-         size 342.07501 42.0747
+         position -8.77753 0.00001
+         size 409.539 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -283,8 +286,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerItemLabel {
          ignorepointer 1
-         position -42.6045 -255.342
-         size 342.07501 42.0747
+         position -8.82504 -255.342
+         size 409.634 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -303,7 +306,7 @@ FrameWidgetClass rootFrame {
         TextListboxWidgetClass marketOfferItems {
          color 1 1 1 0.651
          position 440.11301 83.38901
-         size 405.539 160.65302
+         size 412.79901 160.65302
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -313,8 +316,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerPlayerLabel {
          ignorepointer 1
-         position -469.668 -255.342
-         size 299.83499 42.0747
+         position -435.91501 -255.342
+         size 393.224 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -360,19 +363,19 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass playerOfferItems {
          color 1 1 1 0.651
-         position 872.05597 264.28699
-         size 400.79901 116.712
+         position 872.05499 215.211
+         size 400.79901 83.3931
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style Default
-         lines 15
+         lines 9
         }
         TextListboxWidgetClass playerOfferItemAttachments {
          color 1 1 1 0.651
-         position 876.05597 437.95999
-         size 400.21204 103.128
+         position 870.20203 348.67902
+         size 398.422 85.3671
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -382,7 +385,7 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerMyBidAttachmentLabel {
          ignorepointer 1
-         position 420.50201 128.23399
+         position 415.75299 38.953
          size 393.21802 42.0747
          halign center_ref
          valign center_ref
@@ -402,18 +405,18 @@ FrameWidgetClass rootFrame {
         TextListboxWidgetClass playerOffers {
          color 1 1 1 0.651
          position 868.05597 63.0218
-         size 408.79901 134.894
+         size 408.79901 97.7481
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style Default
-         lines 15
+         lines 10
         }
         TextWidgetClass offerMyBidLabel {
          ignorepointer 1
-         position 420.50201 -52.6865
-         size 393.21802 42.0747
+         position 420.79501 -94.515
+         size 404.79901 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -431,19 +434,19 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass marketOfferWantToHave {
          color 1 1 1 0.651
-         position 17.516 321.32697
-         size 401.97699 223.761
+         position 17.516 308.32797
+         size 401.97699 236.75999
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style Default
-         lines 15
+         lines 17
         }
         TextWidgetClass marketOfferWantToHaveLabel {
          ignorepointer 1
-         position -457.48999 -6.61173
-         size 342.07501 42.0747
+         position -440.62799 -15.6091
+         size 391.79901 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -453,6 +456,37 @@ FrameWidgetClass rootFrame {
          scaled 1
          style Normal
          text "#player_want_to_have"
+         "exact text" 0
+         "size to text h" 0
+         "size to text v" 0
+         "text halign" center
+         "text valign" center
+        }
+        MultilineTextWidgetClass playerOfferItemMessage {
+         ignorepointer 1
+         position 871.09705 491.96799
+         size 402.71503 57.1198
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
+        }
+        TextWidgetClass playerOfferItemMessageLabel {
+         ignorepointer 1
+         position 418.79401 174.395
+         size 397.04999 42.0747
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         style Normal
+         text "#message_from_player"
          "exact text" 0
          "size to text h" 0
          "size to text v" 0
@@ -604,6 +638,7 @@ FrameWidgetClass rootFrame {
        {
         MultilineTextWidgetClass message {
          ignorepointer 1
+         color 0.502 0 0 1
          position 0.83997 1.68
          size 931.755 42.0747
          halign center_ref

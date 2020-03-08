@@ -6,7 +6,7 @@ class P2PTraderStockItem {
 	ref array<ref P2PTraderStockItem> attached;
 	private string translatedName;
 	private string translatedNameLower;
-	private string lowerCaseName;;
+	private string lowerCaseName;
 	
 	void P2PTraderStockItem() {
 		attached = new array<ref P2PTraderStockItem>;

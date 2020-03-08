@@ -357,8 +357,8 @@ FrameWidgetClass rootFrame {
        {
         TextWidgetClass offerMessageFromPlayerLabel {
          ignorepointer 1
-         position 4.37704 -303.27701
-         size 342.07501 42.0747
+         position 14.298 -303.27701
+         size 516.43005 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -376,12 +376,15 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass playerOfferMessageDetailBid {
          ignorepointer 1
-         position 127.863 179.66901
-         size 357.30899 124.267
+         position 62.643 179.66901
+         size 503.86798 124.267
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
         }
         TextListboxWidgetClass detailAttechmentBid {
          color 1 1 1 0.651
@@ -415,8 +418,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerItemLabel {
          ignorepointer 1
-         position 4.94898 -104.142
-         size 342.07501 42.0747
+         position 16.4857 -104.142
+         size 512.80499 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -445,8 +448,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerPlayerLabel {
          ignorepointer 1
-         position 2.69705 -414.94202
-         size 342.07501 42.0747
+         position 6.36248 -414.94202
+         size 525.05096 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -464,8 +467,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass playerNameBidDetail {
          ignorepointer 1
-         position 126.59599 65.301
-         size 344.82898 43.8403
+         position 46.397 65.301
+         size 517.05096 43.8403
          hexactpos 1
          vexactpos 1
          hexactsize 1

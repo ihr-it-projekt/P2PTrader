@@ -211,8 +211,8 @@ FrameWidgetClass rootFrame {
        {
         TextWidgetClass TextWidget2 {
          ignorepointer 1
-         position 0.00002 0.71947
-         size 408.76102 34.7947
+         position 0.00004 -0.00004
+         size 408.76102 26.6827
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -242,8 +242,8 @@ FrameWidgetClass rootFrame {
        {
         TextWidgetClass TextWidget1 {
          ignorepointer 1
-         position -0.00003 0
-         size 496.94901 43.069
+         position 0.00003 -0
+         size 496.94901 32.253
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -342,8 +342,8 @@ FrameWidgetClass rootFrame {
          lines 45
         }
         EditBoxWidgetClass playerTextOffer {
-         position 9.69697 420.46201
-         size 611.99902 47.4926
+         position 9.697 421.814
+         size 611.99902 31.2686
          valign center_ref
          hexactpos 1
          vexactpos 1
@@ -353,8 +353,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass TextWidget4 {
          ignorepointer 1
-         position -1.55303 365.48398
-         size 608.89301 43.069
+         position 0.00001 377.65201
+         size 608.89301 29.549
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -382,7 +382,7 @@ FrameWidgetClass rootFrame {
         TextWidgetClass TextWidget0 {
          ignorepointer 1
          position 0 0
-         size 608.89301 43.069
+         size 608.89301 32.253
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -427,7 +427,7 @@ FrameWidgetClass rootFrame {
       PanelWidgetClass PanelWidget2 {
        ignorepointer 1
        color 0 0 0 0.651
-       position 9.69662 11.25
+       position 5.69663 12.2297
        size 643.24097 63.6095
        halign right_ref
        hexactpos 1
@@ -440,8 +440,8 @@ FrameWidgetClass rootFrame {
          visible 1
          ignorepointer 1
          keepsafezone 0
-         position 9.69697 0.55388
-         size 40.303 43.1078
+         position 22.8044 -0
+         size 27.7878 27.8549
          halign right_ref
          valign center_ref
          hexactpos 1
@@ -456,24 +456,26 @@ FrameWidgetClass rootFrame {
          "flip u" 0
          "flip v" 0
          nocache 0
-        }
-        ButtonWidgetClass buttonSearchOffer {
-         ignorepointer 0
-         keepsafezone 0
-         position 9.69697 0.55388
-         size 40.303 43.1078
-         halign right_ref
-         valign center_ref
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-         scaled 1
-         style Default
+         {
+          ButtonWidgetClass buttonSearchOffer {
+           ignorepointer 0
+           keepsafezone 0
+           position 1.45227 -0
+           size 24.8833 23.7886
+           halign right_ref
+           valign center_ref
+           hexactpos 1
+           vexactpos 1
+           hexactsize 1
+           vexactsize 1
+           scaled 1
+           style Default
+          }
+         }
         }
         EditBoxWidgetClass inputSearchOffer {
-         position 9.69699 -0.00004
-         size 572.29407 44.2155
+         position 9.69699 0.55389
+         size 572.29407 30.5845
          valign center_ref
          hexactpos 1
          vexactpos 1

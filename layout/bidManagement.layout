@@ -95,12 +95,15 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass bidManagementMarketOfferMessage {
          ignorepointer 1
-         position 61.562 225.757
-         size 357.30899 68.055
+         position 17.3433 225.757
+         size 419.45398 68.055
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
         }
         TextListboxWidgetClass bidManagementMarketOfferDetailItemsBid {
          color 1 1 1 0.651
