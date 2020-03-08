@@ -104,12 +104,12 @@ class P2PTraderOfferCreateEventHandler
 
                 P2PTraderPlayerPlayerOffer offerFromPlayer = new P2PTraderPlayerPlayerOffer(offerPlayer.GetIdentity().GetId(), offerPlayer.GetIdentity().GetName(), offerId, offerPlayerMessage);
 
-                DebugMessageP2PTrader("have offer items" + offerPlayerItems.Count().ToString());
+                DebugMessageP2PTrader("have offer items: " + offerPlayerItems.Count().ToString());
 
 				foreach(EntityAI itemX: itemsPlayer) {
 					foreach(int posX, P2PTraderItem offerItemX: offerPlayerItems) {
 						ItemBase itemPlayerCast = ItemBase.Cast(itemX);
-						if (itemPlayerCast && offerItemX && offerItemX.item && offerItemX.item.GetHealth() == itemPlayerCast.GetHealth() && offerItemX.item.GetType() == itemPlayerCast.GetType() && offerItemX.item.GetQuantity() == itemPlayerCast.GetQuantity()) {
+						if (itemPlayerCast && offerItemX.item.IsItem(itemPlayerCast)) {
                             offerFromPlayer.AddOfferItem(offerItemX.item);
 							inventory.Remove(itemX);
 							offerPlayerItems.Remove(posX);
@@ -117,6 +117,12 @@ class P2PTraderOfferCreateEventHandler
                         }
                     }
                 }
+				
+				if (offerFromPlayer.IsEmpty()) {
+                    GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE_ERROR, new Param1<string>("#you_can_not_make_an_empty_offer"), true, player.GetIdentity());
+                    DebugMessageP2PTrader("send P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE_ERROR to player: offer is empty ");
+                    return;
+				}
 
                 DebugMessageP2PTrader("Create offer for player in stock");
                 traderStock.AddPlayerToPlayerOffer(offerFromPlayer);

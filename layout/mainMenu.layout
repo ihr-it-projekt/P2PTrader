@@ -213,8 +213,8 @@ FrameWidgetClass rootFrame {
        ignorepointer 1
        keepsafezone 0
        color 0 0 0 0.651
-       position 208.85901 196.92799
-       size 1232.08997 569.37701
+       position 246.472 196.92799
+       size 1307.32007 569.37701
        halign center_ref
        hexactpos 1
        vexactpos 1
@@ -225,7 +225,7 @@ FrameWidgetClass rootFrame {
        {
         TextWidgetClass offerMessageFromPlayerLabel {
          ignorepointer 1
-         position -431.492 -148.95
+         position -461.48999 -148.95599
          size 342.07501 42.0747
          halign center_ref
          valign center_ref
@@ -245,7 +245,7 @@ FrameWidgetClass rootFrame {
         MultilineTextWidgetClass playerOfferMessageDetail {
          ignorepointer 1
          position 17.516 165.588
-         size 357.30899 72.6561
+         size 392.841 72.6561
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -253,8 +253,8 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass marketOfferItemAtatmenchts {
          color 1 1 1 0.651
-         position 406.40298 286.07602
-         size 351.77203 232.75999
+         position 444.11301 312.32797
+         size 404.79901 232.75999
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -264,7 +264,7 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerItemAttachmentLabel {
          ignorepointer 1
-         position -34.5095 -27.6491
+         position -16.0855 0.00001
          size 342.07501 42.0747
          halign center_ref
          valign center_ref
@@ -302,8 +302,8 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass marketOfferItems {
          color 1 1 1 0.651
-         position 406.40201 61.4688
-         size 350.267 160.65302
+         position 440.11301 83.38901
+         size 405.539 160.65302
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -313,7 +313,7 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerPlayerLabel {
          ignorepointer 1
-         position -448.61203 -255.342
+         position -469.668 -255.342
          size 299.83499 42.0747
          halign center_ref
          valign center_ref
@@ -332,8 +332,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass playerNameOfferDetail {
          ignorepointer 1
-         position 21.516 61.4688
-         size 344.82898 43.8403
+         position 21.1326 58.3839
+         size 393.521 43.8403
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -341,8 +341,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerMyBidsLabel {
          ignorepointer 1
-         position 350.186 -251.342
-         size 342.07501 42.0747
+         position 415.75299 -251.342
+         size 394.71503 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -360,8 +360,8 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass playerOfferItems {
          color 1 1 1 0.651
-         position 795.19299 262.97101
-         size 379.64102 116.712
+         position 872.05597 264.28699
+         size 400.79901 116.712
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -371,19 +371,19 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass playerOfferItemAttachments {
          color 1 1 1 0.651
-         position 795.19299 436.31998
-         size 377.84 103.128
+         position 876.05597 437.95999
+         size 400.21204 103.128
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style Default
-         lines 15
+         lines 13
         }
         TextWidgetClass offerMyBidAttachmentLabel {
          ignorepointer 1
-         position 350.186 128.23399
-         size 342.07501 42.0747
+         position 420.50201 128.23399
+         size 393.21802 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -401,8 +401,8 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass playerOffers {
          color 1 1 1 0.651
-         position 795.19299 63.0218
-         size 373.84 134.894
+         position 868.05597 63.0218
+         size 408.79901 134.894
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -412,8 +412,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerMyBidLabel {
          ignorepointer 1
-         position 350.186 -52.6864
-         size 342.07501 42.0747
+         position 420.50201 -52.6865
+         size 393.21802 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -432,7 +432,7 @@ FrameWidgetClass rootFrame {
         TextListboxWidgetClass marketOfferWantToHave {
          color 1 1 1 0.651
          position 17.516 321.32697
-         size 366.44501 194.302
+         size 401.97699 223.761
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -442,7 +442,7 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass marketOfferWantToHaveLabel {
          ignorepointer 1
-         position -431.491 -4.68015
+         position -457.48999 -6.61173
          size 342.07501 42.0747
          halign center_ref
          valign center_ref
