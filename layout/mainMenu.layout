@@ -430,13 +430,13 @@ FrameWidgetClass rootFrame {
         TextListboxWidgetClass marketOfferWantToHave {
          color 1 1 1 0.651
          position 17.048 207.38
-         size 400 180
+         size 400 90
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style Default
-         lines 28
+         lines 14
         }
         TextWidgetClass marketOfferWantToHaveLabel {
          ignorepointer 1
@@ -488,6 +488,15 @@ FrameWidgetClass rootFrame {
          "size to text v" 0
          "text halign" center
          "text valign" center
+        }
+        ItemPreviewWidgetClass mainMenuItemPreview {
+         ignorepointer 1
+         position 17.05 301.37997
+         size 400 180
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
         }
        }
       }

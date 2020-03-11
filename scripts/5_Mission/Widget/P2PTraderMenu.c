@@ -20,6 +20,7 @@ class P2PTraderMenu extends UIScriptedMenu
 	private Widget bidManagementWidget;
 	private string bidFilterBidManagement = P2PTraderStock.OPEN_OFFER;
 	private bool canTrade = false;
+	private EntityAI mainMenuPreviewItem;
 	bool isMenuOpen = false;
 	int refreshRuns = 0;
 
@@ -74,6 +75,7 @@ class P2PTraderMenu extends UIScriptedMenu
 	private MultilineTextWidget bidManagementNotInNearHint;
 	private MultilineTextWidget playerOfferMessageDetailBid;
 	private MultilineTextWidget playerOfferItemMessage;
+	private ItemPreviewWidget mainMenuItemPreview;
 	
 	
 	private ButtonWidget buttonAcceptedBids;
@@ -158,6 +160,7 @@ class P2PTraderMenu extends UIScriptedMenu
 		notInNearHint = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("notInNearHint"));
 		message = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("message"));
 		playerOfferItemMessage = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("playerOfferItemMessage"));
+		mainMenuItemPreview = ItemPreviewWidget.Cast(layoutRoot.FindAnyWidget("mainMenuItemPreview"));
 		
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(cancel,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonOpenCreateOffer,  this, "OnClick");

@@ -242,7 +242,7 @@ FrameWidgetClass rootFrame {
        {
         TextWidgetClass TextWidget1 {
          ignorepointer 1
-         position 0.00003 -0
+         position 0.00003 0
          size 496.94901 32.253
          halign center_ref
          valign center_ref
@@ -390,7 +390,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style None
-         text "#my_inventorry"
+         text "#my_inventory"
          "text halign" center
          "text valign" center
         }
@@ -440,7 +440,7 @@ FrameWidgetClass rootFrame {
          visible 1
          ignorepointer 1
          keepsafezone 0
-         position 22.8044 -0
+         position 22.8044 0
          size 27.7878 27.8549
          halign right_ref
          valign center_ref
@@ -460,7 +460,7 @@ FrameWidgetClass rootFrame {
           ButtonWidgetClass buttonSearchOffer {
            ignorepointer 0
            keepsafezone 0
-           position 1.45227 -0
+           position 1.45227 0
            size 24.8833 23.7886
            halign right_ref
            valign center_ref

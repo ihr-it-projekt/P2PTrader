@@ -61,7 +61,7 @@ modded class MissionServer {
 	        return null;
 	    }
 		position[1] = GetGame().SurfaceY(position[0], position[2]);
-        House house = GetGame().CreateObject(gameObjectName, position);
+        House house = House.Cast(GetGame().CreateObject(gameObjectName, position));
         if (!house) {
             return house;
         }

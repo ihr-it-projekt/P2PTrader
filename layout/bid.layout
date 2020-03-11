@@ -333,7 +333,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style None
-         text "#my_inventorry"
+         text "#my_inventory"
          "size to text h" 0
          "size to text v" 0
          "text halign" center

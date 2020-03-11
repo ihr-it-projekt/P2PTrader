@@ -48,7 +48,7 @@ class P2PTraderOfferCreateEventHandler
 					foreach(int pos, P2PTraderItem offerItem: offerItems) {
 						if (itemCast && offerItem && offerItem.item.IsItem(itemCast)) {
 							offer.AddOfferItem(offerItem.item);
-							inventory.Remove(item);
+							inventory.Remove(itemCast);
 							offerItems.Remove(pos);
 							break;
 						}
@@ -111,7 +111,7 @@ class P2PTraderOfferCreateEventHandler
 						ItemBase itemPlayerCast = ItemBase.Cast(itemX);
 						if (itemPlayerCast && offerItemX.item.IsItem(itemPlayerCast)) {
                             offerFromPlayer.AddOfferItem(offerItemX.item);
-							inventory.Remove(itemX);
+							inventory.Remove(itemPlayerCast);
 							offerPlayerItems.Remove(posX);
 							break;
                         }
