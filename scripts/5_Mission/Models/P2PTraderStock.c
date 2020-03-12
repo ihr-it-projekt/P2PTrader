@@ -6,6 +6,7 @@ class P2PTraderStock
 	
     private const static string	SETTINGSFILE = "P2PTraderStock.json";
 	private const static string	CONFIGSFOLDERP2P = "$profile:P2PTrader\\";
+	private const static string	CONFIGSBACKUPFOLDERP2P = "$profile:P2PTrader\\Backup\\";
 	
 	private ref array<ref P2PTraderPlayerMarketOffer> stock;
 	private ref array<ref P2PTraderPlayerPlayerOffer> playerOffers;
@@ -15,20 +16,25 @@ class P2PTraderStock
 
     void P2PTraderStock()
     {
-		if (!IsServerP2PTrader()) {
+		if (!IsServerP2PTrader()){
 			return;
 		}
-  		if (!FileExist(CONFIGSFOLDERP2P + SETTINGSFILE))
-		{
+  		if (!FileExist(CONFIGSFOLDERP2P + SETTINGSFILE)){
 			stock = new array<ref P2PTraderPlayerMarketOffer>;
 			playerOffers = new array<ref P2PTraderPlayerPlayerOffer>;
 			playerOffersInactive = new array<ref P2PTraderPlayerPlayerOffer>;
             acceptedPlayerOffers = new array<ref P2PTraderPlayerPlayerOffer>;
+			DebugMessageP2PTrader("Create stock file");
 			Save();
 		} else {
+			CreateBackup("backup-start-");
 			Load();
 		}
     }
+	
+	void ~P2PTraderStock(){
+		CreateBackup("backup-shout-down-");
+	}
 	
 	void AddPlayerToMarketOffer(ref P2PTraderPlayerMarketOffer newOffer) {
 		idCounter++;
@@ -263,16 +269,41 @@ class P2PTraderStock
         }
     }
 
-    private void Save()
-    {
+    private void Save(){
         if (IsServerAndMultiplayerP2PTrader()) {
 			if (!FileExist(CONFIGSFOLDERP2P)) {
                 MakeDirectory(CONFIGSFOLDERP2P);
                 DebugMessageP2PTrader("create folder");
             }
-			DebugMessageP2PTrader("save stock file");
-			JsonFileLoader<P2PTraderStock>.JsonSaveFile(CONFIGSFOLDERP2P + SETTINGSFILE, this);
+			
+			
+			DebugMessageP2PTrader("save stock file: " + CONFIGSFOLDERP2P +  SETTINGSFILE);
+			JsonFileLoader<P2PTraderStock>.JsonSaveFile(CONFIGSFOLDERP2P +  SETTINGSFILE, this);
 		}
     }
+	
+	private void CreateBackup(string suffix) {
+		static int hour;
+        static int minute;
+        static int second;
+        GetHourMinuteSecondUTC(hour, minute, second);
+
+        static int year;
+        static int month;
+        static int day;
+
+        GetYearMonthDay(year, month, day);
+
+        string time = hour.ToString() + "-" + minute.ToString() + "-" + second.ToString();
+        string date = year.ToString() + "-" + month.ToString() + "-" + day.ToString();
+		
+		if (!FileExist(CONFIGSBACKUPFOLDERP2P)) {
+            MakeDirectory(CONFIGSBACKUPFOLDERP2P);
+            DebugMessageP2PTrader("create backup folder");
+        }
+
+		string fileName = suffix + date + "-" + time +"-";	
+		CopyFile(CONFIGSFOLDERP2P + SETTINGSFILE , CONFIGSBACKUPFOLDERP2P + fileName + SETTINGSFILE);
+	}
 	
 }
