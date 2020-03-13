@@ -1,4 +1,5 @@
-class P2PTraderItem {
+class P2PTraderItem extends P2PTraderBaseItem
+{
 	string name;
 	string translatedName;
 	string translatedNameLower;
@@ -24,4 +25,12 @@ class P2PTraderItem {
 		this.translatedNameLower.ToLower();
 	}
 	
+	override P2PTraderStockItem GetItem() {
+		return item;
+	}
+	
+	override string GetType() {
+		return this.item.GetType();
+	}
+
 }

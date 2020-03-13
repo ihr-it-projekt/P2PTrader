@@ -1,4 +1,5 @@
-class P2PTraderStockItem {
+class P2PTraderStockItem extends P2PTraderBaseItem
+{
 
 	float health
 	string type;
@@ -10,6 +11,10 @@ class P2PTraderStockItem {
 	
 	void P2PTraderStockItem() {
 		attached = new array<ref P2PTraderStockItem>;
+	}
+	
+	override P2PTraderStockItem GetItem() {
+		return this;
 	}
 	
 	void SetItem(EntityAI item) {
@@ -130,7 +135,7 @@ class P2PTraderStockItem {
 		this.type = type;
 	}
 	
-	string GetType() {
+	override string GetType() {
 		return type;
 	}
 	
@@ -159,5 +164,7 @@ class P2PTraderStockItem {
 	array<ref P2PTraderStockItem> GetAttached() {
 		return attached;
 	}
+	
+	
 	
 }

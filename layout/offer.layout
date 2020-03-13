@@ -199,7 +199,7 @@ FrameWidgetClass rootFrame {
       PanelWidgetClass PanelWidget9 {
        ignorepointer 1
        color 0 0 0 0.651
-       position -5.14816 2.13277
+       position -8.00052 -154.06799
        size 508.19601 61.1365
        halign center_ref
        valign center_ref
@@ -260,8 +260,8 @@ FrameWidgetClass rootFrame {
       PanelWidgetClass PanelWidget7 {
        ignorepointer 1
        color 0 0 0 0.651
-       position -5.14824 203.634
-       size 508.19699 319.366
+       position -9.148 -14.2667
+       size 508.19699 210.47
        halign center_ref
        valign center_ref
        hexactpos 1
@@ -272,8 +272,8 @@ FrameWidgetClass rootFrame {
        {
         TextListboxWidgetClass playerWhantToHaveOffer {
          color 1 1 1 0.651
-         position -0.00002 0.00002
-         size 485.69699 296.866
+         position -0.00002 -1.23299
+         size 485.69699 200
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -283,15 +283,15 @@ FrameWidgetClass rootFrame {
          style Default
          "title visible" 0
          colums ""
-         lines 20
+         lines 12
         }
        }
       }
       PanelWidgetClass PanelWidget6 {
        ignorepointer 1
        color 0 0 0 0.651
-       position -5.14815 -227.591
-       size 508.19601 375.811
+       position -4.00049 -301.931
+       size 508.19601 217.21899
        halign center_ref
        valign center_ref
        hexactpos 1
@@ -302,8 +302,8 @@ FrameWidgetClass rootFrame {
        {
         TextListboxWidgetClass playerItemsOfferOffer {
          color 1 1 1 0.651
-         position -0.00003 -0.00001
-         size 485.69601 353.311
+         position -0.00001 0.00001
+         size 485.69601 200
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -312,7 +312,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style Default
          colums ""
-         lines 22
+         lines 12
         }
        }
       }
@@ -482,6 +482,43 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Editor
+        }
+       }
+      }
+      PanelWidgetClass PanelWidget1 {
+       ignorepointer 1
+       color 0 0 0 0.651
+       position -9.148 255.75301
+       size 508.19699 321.57001
+       halign center_ref
+       valign center_ref
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style DayZDefaultPanel
+       {
+        MultilineTextWidgetClass offerMenuItemPreviewText {
+         visible 1
+         ignorepointer 1
+         position 9.09846 238.313
+         size 490 71.3998
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
+        }
+        ItemPreviewWidgetClass offerMenuMenuItemPreview {
+         ignorepointer 1
+         position 9.61446 13.785
+         size 490 215.5
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
         }
        }
       }
