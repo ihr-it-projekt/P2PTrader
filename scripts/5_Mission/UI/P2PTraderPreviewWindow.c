@@ -3,9 +3,9 @@ class P2PTraderPreviewWindow
     private ItemPreviewWidget widget;
     private MultilineTextWidget description;
     private EntityAI previewItem;
-	private ItemService itemService;
+	private P2PItemService itemService;
 
-    void P2PTraderPreviewWindow(ItemPreviewWidget widget, MultilineTextWidget description, ItemService itemService) {
+    void P2PTraderPreviewWindow(ItemPreviewWidget widget, MultilineTextWidget description, P2PItemService itemService) {
         this.widget = widget;
         this.description = description;
 		this.itemService = itemService;

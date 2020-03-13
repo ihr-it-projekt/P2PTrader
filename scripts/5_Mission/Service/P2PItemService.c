@@ -1,11 +1,11 @@
-class ItemService
+class P2PItemService
 {
 	private ref P2PTraderPlayerInventory inventory;
 	private ref TStringArray configs;
 	private P2PTraderConfig config;
 	private ref array<ref P2PTraderItem> itemsFromConfig;
 	
-	void ItemService(P2PTraderConfig config) {
+	void P2PItemService(P2PTraderConfig config) {
 		this.config = config;
 		inventory = new P2PTraderPlayerInventory;
 		

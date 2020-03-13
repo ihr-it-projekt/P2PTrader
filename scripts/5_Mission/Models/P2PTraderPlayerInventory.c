@@ -49,14 +49,13 @@ class P2PTraderPlayerInventory
         DebugMessageP2PTrader("destroy item " + item.GetName());
     }
 
-	private EntityAI SpawnOnGround(P2PTraderStockItem itemInStock, DayZPlayer player, EntityAI item = null) {
-		if (!item) {
+	EntityAI SpawnOnGround(P2PTraderStockItem itemInStock, DayZPlayer player = null, EntityAI item = null) {
+		if (!item && !player) {
 			DebugMessageP2PTrader("spawn on ground" + itemInStock.type);
             item = player.SpawnEntityOnGroundPos(itemInStock.type, player.GetPosition());
 			if (!item) {
 				DebugMessageP2PTrader("item was not spawned" + itemInStock.type);
 			} 
-			
 		}
 		
 		if (item) {

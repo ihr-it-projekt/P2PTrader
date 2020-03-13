@@ -7,7 +7,7 @@ class P2PTraderMenu extends UIScriptedMenu
 	private ref array<ref P2PTraderPlayerPlayerOffer> selectedPlayerOffers;
 	private P2PTraderPlayerPlayerOffer selectedPlayerOffer;
 	private P2PTraderPlayerPlayerOffer selectedPlayerOfferBidManagement;
-	private ref ItemService itemService;
+	private ref P2PItemService itemService;
 	private ref array<ref P2PTraderPlayerMarketOffer> marketItems;
 	private ref array<ref P2PTraderPlayerMarketOffer> marketPlayerItems;
 	private ref array<ref P2PTraderPlayerPlayerOffer> allActiveOffers;
@@ -136,7 +136,7 @@ class P2PTraderMenu extends UIScriptedMenu
 
         super.Init();
 		
-		itemService = new ItemService(config);
+		itemService = new P2PItemService(config);
 		
 		player = GetGame().GetPlayer();
 		playerId = player.GetIdentity().GetId();

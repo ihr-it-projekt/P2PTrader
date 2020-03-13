@@ -1,4 +1,4 @@
-class P2PTraderPlayerMarketOffer
+class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer
 {
 	private string ownerId;
 	private string ownerName;
@@ -16,6 +16,7 @@ class P2PTraderPlayerMarketOffer
 		this.offerItems = new array<ref P2PTraderStockItem>;
 		this.wantedItems = new array<ref P2PTraderStockItem>;
 		this.otherPlayerOffersIds = new array<int>;
+		this.SetCreationDate();
 	}
 	
 	void SetId(int id){

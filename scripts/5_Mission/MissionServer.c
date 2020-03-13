@@ -6,6 +6,8 @@ modded class MissionServer {
 	private ref P2PTraderMarketOfferEventHandler marketOfferEventHandler;
 	private ref P2PTraderPlayerOfferEventHandler playerOfferEventHandler;
 	private ref P2PTraderPlayerItemEventHandler playerItemEventHandler;
+    private ref Timer exceededTimer;
+    private ref P2PStockChecker stockChecker;
 	
 	void MissionServer()
 	{
@@ -21,12 +23,23 @@ modded class MissionServer {
 		foreach(P2PTraderPosition position: config.traderConfigParams.traderPositions) {
 			SpawnHouse(position.position, position.orientation, position.gameObjectType);
 		}
-		
+
+		if (config.traderConfigParams.isEnabledExceededCheck) {
+			DebugMessageP2PTrader("create timer for exeeded check");
+			stockChecker = new P2PStockChecker(traderStock, config.traderConfigParams);
+			exceededTimer = new Timer;
+        	exceededTimer.Run((config.traderConfigParams.exceededTimeCheckInterval) * 60, stockChecker, "CheckForExpiredItems", null, true);
+		}
+        
+
 		DebugMessageP2PTrader("loaded");
 	}
 	
 	void ~MissionServer() {
 		GetDayZGame().Event_OnRPC.Remove(HandleEvents);
+		if (exceededTimer) {
+            exceededTimer.Stop();
+        }
 	}
 	
 	void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {

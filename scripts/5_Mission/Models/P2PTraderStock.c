@@ -7,7 +7,7 @@ class P2PTraderStock
     private const static string	SETTINGSFILE = "P2PTraderStock.json";
 	private const static string	CONFIGSFOLDERP2P = "$profile:P2PTrader\\";
 	private const static string	CONFIGSBACKUPFOLDERP2P = "$profile:P2PTrader\\Backup\\";
-	
+
 	private ref array<ref P2PTraderPlayerMarketOffer> stock;
 	private ref array<ref P2PTraderPlayerPlayerOffer> playerOffers;
 	private ref array<ref P2PTraderPlayerPlayerOffer> playerOffersInactive;
@@ -171,6 +171,12 @@ class P2PTraderStock
 	
 	array<ref P2PTraderPlayerPlayerOffer> GetOffersFromAllPlayer() {
 		return playerOffers;
+	}
+	array<ref P2PTraderPlayerPlayerOffer> GetAcceptedOffersFromAllPlayer() {
+		return acceptedPlayerOffers;
+	}
+	array<ref P2PTraderPlayerPlayerOffer> GetInactiveOffersFromAllPlayer() {
+		return playerOffersInactive;
 	}
 	
 	ref array<ref P2PTraderPlayerPlayerOffer> GetOffersFromPlayer(PlayerIdentity player, string offerType) {
