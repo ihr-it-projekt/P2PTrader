@@ -1,9 +1,10 @@
-class P2PTraderPreviewWindow
+class P2PTraderPreviewWindow extends Managed
 {
     private ItemPreviewWidget widget;
     private MultilineTextWidget description;
     private EntityAI previewItem;
 	private P2PItemService itemService;
+	private TextListboxWidget listBoxWidget;
 
     void P2PTraderPreviewWindow(ItemPreviewWidget widget, MultilineTextWidget description, P2PItemService itemService) {
         this.widget = widget;
@@ -12,29 +13,33 @@ class P2PTraderPreviewWindow
     }
 	
 	void ListenOnClick(TextListboxWidget listBoxWidget) {
+		this.listBoxWidget = listBoxWidget;
 		WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(listBoxWidget,  this, "OnClick");
 	}
 	
-	void OnClick(Widget widget, int x, int y, int button) {
-		DebugMessageP2PTrader("click on: " + widget.GetName());
+	bool OnClick() {
+		DebugMessageP2PTrader("click on: " + listBoxWidget.GetName());
 		if (previewItem) {
 			GetGame().ObjectDelete(previewItem);
 		}
 		
-		P2PTraderBaseItem item = itemService.GetSelectedItemPlayerOffer(widget);
-		
+		P2PTraderBaseItem item = itemService.GetSelectedItemPlayerOffer(listBoxWidget);
+		return UpdatePreview(item);
+	}
+	
+	bool UpdatePreview(P2PTraderBaseItem item) {
 		if (!item) {
 			DebugMessageP2PTrader("hide preview, no stock item");
 			widget.Show(false);
 			description.Show(false);
-			return;
+			return false;
 		}
 		
 		Object itemObject = GetGame().CreateObject(item.GetType(), "0 0 0", true);
 		
 		if (!itemObject) {
 			DebugMessageP2PTrader("hide preview, can not create item");
-			return;
+			return false;
 		}
 		
 		previewItem = EntityAI.Cast(itemObject);
@@ -43,10 +48,12 @@ class P2PTraderPreviewWindow
 			DebugMessageP2PTrader("hide preview, can not cast item");
 			widget.Show(false);
 			description.Show(false);
-			return;
+			return false;
 		}
 		
 		Update(previewItem);
+		
+		return false;
 	}
 	
 	private void Update(EntityAI previewItem){

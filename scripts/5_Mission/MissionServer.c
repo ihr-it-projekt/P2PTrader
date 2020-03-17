@@ -27,8 +27,10 @@ modded class MissionServer {
 		if (config.traderConfigParams.isEnabledExceededCheck) {
 			DebugMessageP2PTrader("create timer for exeeded check");
 			stockChecker = new P2PStockChecker(traderStock, config.traderConfigParams);
+			stockChecker.CheckForExpiredItems();
 			exceededTimer = new Timer;
         	exceededTimer.Run((config.traderConfigParams.exceededTimeCheckInterval) * 60, stockChecker, "CheckForExpiredItems", null, true);
+			traderStock.Save();
 		}
         
 

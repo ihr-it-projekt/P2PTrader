@@ -12,12 +12,12 @@ class P2PTraderStockItem extends P2PTraderBaseItem
 	void P2PTraderStockItem() {
 		attached = new array<ref P2PTraderStockItem>;
 	}
-	
+
 	override P2PTraderStockItem GetItem() {
-		return this;
-	}
+        return this;
+    }
 	
-	void SetItem(EntityAI item) {
+	void SetItem(EntityAI item, bool isAttached = false) {
 		health = item.GetHealth();
 		SetType(item.GetType());
 		
@@ -46,14 +46,17 @@ class P2PTraderStockItem extends P2PTraderBaseItem
 			quantity = ammo.GetAmmoCount();
 		}
 		
-		array<EntityAI> itemsArray = new array<EntityAI>;
-        item.GetInventory().EnumerateInventory(InventoryTraversalType.INORDER, itemsArray);
-		
-		foreach(EntityAI itemAtteched: itemsArray) {
-			if (itemAtteched !=item) {
-				P2PTraderStockItem stockItem = new P2PTraderStockItem();
-				stockItem.SetItem(itemAtteched);
-				attached.Insert(stockItem);
+
+		if (!isAttached) {
+			array<EntityAI> itemsArray = new array<EntityAI>;
+	        item.GetInventory().EnumerateInventory(InventoryTraversalType.INORDER, itemsArray);
+
+			foreach(EntityAI itemAtteched: itemsArray) {
+				if (itemAtteched !=item) {
+					P2PTraderStockItem stockItem = new P2PTraderStockItem();
+					stockItem.SetItem(itemAtteched, true);
+					attached.Insert(stockItem);
+				}
 			}
 		}
 	}
@@ -164,7 +167,5 @@ class P2PTraderStockItem extends P2PTraderBaseItem
 	array<ref P2PTraderStockItem> GetAttached() {
 		return attached;
 	}
-	
-	
 	
 }

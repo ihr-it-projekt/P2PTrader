@@ -21,10 +21,10 @@ class P2PTraderMenu extends UIScriptedMenu
 	private string bidFilterBidManagement = P2PTraderStock.OPEN_OFFER;
 	private bool canTrade = false;
 	private EntityAI mainMenuPreviewItem;
+	private ref P2PTraderItemListenerManger itemListenManager;
 	bool isMenuOpen = false;
 	int refreshRuns = 0;
 	
-	private ref P2PTraderPreviewWindow mainMenuPreview;
 	private ItemPreviewWidget mainMenuItemPreview;
 	private MultilineTextWidget mainMenuItemPreviewText;
 
@@ -63,8 +63,14 @@ class P2PTraderMenu extends UIScriptedMenu
 	private TextListboxWidget tradeableItemsOffer;
 	private ButtonWidget buttonCloseCreateOffer;
 	private ButtonWidget buttonCreateCreateOffer;
+	private ButtonWidget buttonMoveToGiveCreateMarketOffer;
+	private ButtonWidget buttonMoveToInventoryCreateMarketOffer;
+	private ButtonWidget buttonMoveToWillCreateMarketOffer;
+	private ButtonWidget buttonMoveFromWillCreateMarketOffer;
 	private ButtonWidget buttonCreateClosePlayerOffer;
 	private ButtonWidget buttonCreateCreatePlayerOffer;
+	private ButtonWidget buttonMoveToGiveCreateCreatePlayerOffer;
+	private ButtonWidget buttonMoveToInventoryCreatePlayerOffer;
 	private TextListboxWidget playerWhantToHaveOffer;
 	private TextListboxWidget playerInventoryItemsOffer;
 	private TextListboxWidget playerItemsOfferOffer;
@@ -80,10 +86,10 @@ class P2PTraderMenu extends UIScriptedMenu
 	private MultilineTextWidget playerOfferMessageDetailBid;
 	private MultilineTextWidget playerOfferItemMessage;
 	
-	private ref P2PTraderPreviewWindow offerMenuPreview;
 	private ItemPreviewWidget offerMenuMenuItemPreview;
 	private MultilineTextWidget offerMenuItemPreviewText;
 	
+
 	private ButtonWidget buttonAcceptedBids;
 	private ButtonWidget buttonCanceledBids;
 	private ButtonWidget buttonOpenBids;
@@ -110,11 +116,9 @@ class P2PTraderMenu extends UIScriptedMenu
 	private TextListboxWidget bidManagementBidItems;
 	private TextListboxWidget bidManagementBidItemAttachment;
 	
-	private ref P2PTraderPreviewWindow bidManagemenMenuPreview;
 	private ItemPreviewWidget bidManagemenMenuMenuItemPreview;
 	private MultilineTextWidget bidManagemenMenuItemPreviewText;
 
-	private ref P2PTraderPreviewWindow bidMenuPreview;
 	private ItemPreviewWidget bidMenuItemPreview;
 	private MultilineTextWidget bidMenuItemPreviewText;
 	
@@ -140,6 +144,7 @@ class P2PTraderMenu extends UIScriptedMenu
 		
 		player = GetGame().GetPlayer();
 		playerId = player.GetIdentity().GetId();
+		itemListenManager = new P2PTraderItemListenerManger;
 
         layoutRoot = GetGame().GetWorkspace().CreateWidgets("P2PTrader/layout/mainMenu.layout");
 		
@@ -177,12 +182,15 @@ class P2PTraderMenu extends UIScriptedMenu
 		
 		mainMenuItemPreview = ItemPreviewWidget.Cast(layoutRoot.FindAnyWidget("mainMenuItemPreview"));
 		mainMenuItemPreviewText = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("mainMenuItemPreviewText"));
-		mainMenuPreview = new P2PTraderPreviewWindow(mainMenuItemPreview, mainMenuItemPreviewText, itemService);
+		
+		P2PTraderPreviewWindow mainMenuPreview = new P2PTraderPreviewWindow(mainMenuItemPreview, mainMenuItemPreviewText, itemService);
 		mainMenuPreview.ListenOnClick(marketOfferWantToHave);
 		mainMenuPreview.ListenOnClick(marketOfferItems);
 		mainMenuPreview.ListenOnClick(marketOfferItemAtatmenchts);
 		mainMenuPreview.ListenOnClick(playerOfferItems);
 		mainMenuPreview.ListenOnClick(playerOfferItemAttachments);
+		itemListenManager.AddPreviewListener(mainMenuPreview);
+		
 
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(cancel,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonOpenCreateOffer,  this, "OnClick");
@@ -213,32 +221,31 @@ class P2PTraderMenu extends UIScriptedMenu
 
         buttonCloseCreateOffer = ButtonWidget.Cast(createOfferWidget.FindAnyWidget("buttonCloseCreateOffer"));
         buttonCreateCreateOffer = ButtonWidget.Cast(createOfferWidget.FindAnyWidget("buttonCreateCreateOffer"));
+        buttonMoveToGiveCreateMarketOffer = ButtonWidget.Cast(createOfferWidget.FindAnyWidget("buttonMoveToGiveCreateMarketOffer"));
+        buttonMoveToInventoryCreateMarketOffer = ButtonWidget.Cast(createOfferWidget.FindAnyWidget("buttonMoveToInventoryCreateMarketOffer"));
+        buttonMoveToWillCreateMarketOffer = ButtonWidget.Cast(createOfferWidget.FindAnyWidget("buttonMoveToWillCreateMarketOffer"));
+        buttonMoveFromWillCreateMarketOffer = ButtonWidget.Cast(createOfferWidget.FindAnyWidget("buttonMoveFromWillCreateMarketOffer"));
         buttonSearchOffer = ButtonWidget.Cast(createOfferWidget.FindAnyWidget("buttonSearchOffer"));
 
         inputSearchOffer = EditBoxWidget.Cast(createOfferWidget.FindAnyWidget("inputSearchOffer"));
 		
         offerMenuItemPreviewText = MultilineTextWidget.Cast(createOfferWidget.FindAnyWidget("offerMenuItemPreviewText"));
         offerMenuMenuItemPreview = ItemPreviewWidget.Cast(createOfferWidget.FindAnyWidget("offerMenuMenuItemPreview"));
-		offerMenuPreview = new P2PTraderPreviewWindow(offerMenuMenuItemPreview, offerMenuItemPreviewText, itemService);
-		offerMenuPreview.ListenOnClick(tradeableItemsOffer);
-		offerMenuPreview.ListenOnClick(playerWhantToHaveOffer);
-		offerMenuPreview.ListenOnClick(playerInventoryItemsOffer);
-		offerMenuPreview.ListenOnClick(playerItemsOfferOffer);
 
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCloseCreateOffer,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonSearchOffer,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCreateCreateOffer,  this, "OnClick");
 
-        WidgetEventHandler.GetInstance().RegisterOnDoubleClick(tradeableItemsOffer,  this, "OnDoubleClick");
-        WidgetEventHandler.GetInstance().RegisterOnDoubleClick(playerWhantToHaveOffer,  this, "OnDoubleClick");
-        WidgetEventHandler.GetInstance().RegisterOnDoubleClick(playerInventoryItemsOffer,  this, "OnDoubleClick");
-        WidgetEventHandler.GetInstance().RegisterOnDoubleClick(playerItemsOfferOffer,  this, "OnDoubleClick");
+		itemListenManager.AddItemMoveListener(buttonMoveToGiveCreateMarketOffer, buttonMoveToInventoryCreateMarketOffer, playerInventoryItemsOffer, playerItemsOfferOffer, true, offerMenuMenuItemPreview, offerMenuItemPreviewText, itemService);
+		itemListenManager.AddItemMoveListener(buttonMoveToWillCreateMarketOffer, buttonMoveFromWillCreateMarketOffer, tradeableItemsOffer, playerWhantToHaveOffer, false, offerMenuMenuItemPreview, offerMenuItemPreviewText, itemService);
 
 		layoutRoot.AddChild(createOfferWidget);
 		//End offer widget
 		//start player bid widget
         buttonCreateCreatePlayerOffer = ButtonWidget.Cast(createPlayerOfferWidget.FindAnyWidget("buttonCreateCreatePlayerOffer"));
         buttonCreateClosePlayerOffer = ButtonWidget.Cast(createPlayerOfferWidget.FindAnyWidget("buttonCreateClosePlayerOffer"));
+        buttonMoveToGiveCreateCreatePlayerOffer = ButtonWidget.Cast(createPlayerOfferWidget.FindAnyWidget("buttonMoveToGiveCreateCreatePlayerOffer"));
+        buttonMoveToInventoryCreatePlayerOffer = ButtonWidget.Cast(createPlayerOfferWidget.FindAnyWidget("buttonMoveToInventoryCreatePlayerOffer"));
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCreateCreatePlayerOffer,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCreateClosePlayerOffer,  this, "OnClick");
 		
@@ -251,16 +258,11 @@ class P2PTraderMenu extends UIScriptedMenu
         detailAttechmentBid = TextListboxWidget.Cast(createPlayerOfferWidget.FindAnyWidget("detailAttechmentBid"));
         offerDetailItemsBid = TextListboxWidget.Cast(createPlayerOfferWidget.FindAnyWidget("offerDetailItemsBid"));
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(offerDetailItemsBid,  this, "OnClick");
-        WidgetEventHandler.GetInstance().RegisterOnDoubleClick(playerInventoryItemsPlayerOffer,  this, "OnDoubleClick");
-        WidgetEventHandler.GetInstance().RegisterOnDoubleClick(playerItemsOfferPlayerOffer,  this, "OnDoubleClick");
-
-        bidMenuItemPreviewText = MultilineTextWidget.Cast(createPlayerOfferWidget.FindAnyWidget("offerMenuItemPreviewText"));
+		
+		bidMenuItemPreviewText = MultilineTextWidget.Cast(createPlayerOfferWidget.FindAnyWidget("offerMenuItemPreviewText"));
         bidMenuItemPreview = ItemPreviewWidget.Cast(createPlayerOfferWidget.FindAnyWidget("offerMenuMenuItemPreview"));
-        bidMenuPreview = new P2PTraderPreviewWindow(bidMenuItemPreview, bidMenuItemPreviewText, itemService);
-        bidMenuPreview.ListenOnClick(playerInventoryItemsPlayerOffer);
-        bidMenuPreview.ListenOnClick(playerItemsOfferPlayerOffer);
-        bidMenuPreview.ListenOnClick(offerDetailItemsBid);
-        bidMenuPreview.ListenOnClick(detailAttechmentBid);
+		
+		itemListenManager.AddItemMoveListener(buttonMoveToGiveCreateCreatePlayerOffer, buttonMoveToInventoryCreatePlayerOffer, playerInventoryItemsPlayerOffer, playerItemsOfferPlayerOffer, true, bidMenuItemPreview, bidMenuItemPreviewText, itemService);
 
         //End player bid widget
 		//start player offers layout
@@ -301,11 +303,12 @@ class P2PTraderMenu extends UIScriptedMenu
 
         bidManagemenMenuItemPreviewText = MultilineTextWidget.Cast(bidManagementWidget.FindAnyWidget("bidManagemenMenuItemPreviewText"));
         bidManagemenMenuMenuItemPreview = ItemPreviewWidget.Cast(bidManagementWidget.FindAnyWidget("bidManagemenMenuMenuItemPreview"));
-        bidManagemenMenuPreview = new P2PTraderPreviewWindow(bidManagemenMenuMenuItemPreview, bidManagemenMenuItemPreviewText, itemService);
+        P2PTraderPreviewWindow bidManagemenMenuPreview = new P2PTraderPreviewWindow(bidManagemenMenuMenuItemPreview, bidManagemenMenuItemPreviewText, itemService);
         bidManagemenMenuPreview.ListenOnClick(bidManagementBidItems);
         bidManagemenMenuPreview.ListenOnClick(bidManagementBidItemAttachment);
         bidManagemenMenuPreview.ListenOnClick(bidManagementMarketOfferDetailItemsBid);
         bidManagemenMenuPreview.ListenOnClick(bidManagementMarketOfferDetailAttachmentBid);
+		itemListenManager.AddPreviewListener(bidManagemenMenuPreview);
 
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(bidManagementBids,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(bidManagementMarketOfferDetailItemsBid,  this, "OnClick");
@@ -325,7 +328,7 @@ class P2PTraderMenu extends UIScriptedMenu
 		this.canTrade = canTrade;
 	}
 
-    override bool OnClick( Widget w, int x, int y, int button )	{
+    override bool OnClick(Widget w, int x, int y, int button)	{
         bool actionRuns = super.OnClick(w, x, y, button);
         string messageText;
 
@@ -818,45 +821,6 @@ class P2PTraderMenu extends UIScriptedMenu
 		}
 		
 		buttonOpenCreateOffer.Show(canTrade);
-	}
-	
-	override bool OnDoubleClick(Widget w, int x, int y, int button ) {
-		bool actionRuns = super.OnClick(w, x, y, button);
-		if (actionRuns) {
-            return actionRuns;
-        } else if (w == tradeableItemsOffer){
-            DebugMessageP2PTrader("double click tradeableItemsOffer");
-			itemService.MoveItemFromListWidgetToListWidget(tradeableItemsOffer, playerWhantToHaveOffer, false);
-			
-            return true;
-        } else if (w == playerWhantToHaveOffer){
-            DebugMessageP2PTrader("double click playerWhantToHaveOffer");
-			itemService.MoveItemFromListWidgetToListWidget(playerWhantToHaveOffer, null);
-			
-            return true;
-        } else if (w == playerInventoryItemsOffer){
-            DebugMessageP2PTrader("double click playerInventoryItemsOffer");
-			itemService.MoveItemFromListWidgetToListWidget(playerInventoryItemsOffer, playerItemsOfferOffer);
-			
-            return true;
-        } else if (w == playerItemsOfferOffer){
-            DebugMessageP2PTrader("double click playerItemsOfferOffer");
-			itemService.MoveItemFromListWidgetToListWidget(playerItemsOfferOffer, playerInventoryItemsOffer);
-			
-            return true;
-        } else if (w == playerInventoryItemsPlayerOffer){
-            DebugMessageP2PTrader("double click playerInventoryItemsPlayerOffer");
-			itemService.MoveItemFromListWidgetToListWidget(playerInventoryItemsPlayerOffer, playerItemsOfferPlayerOffer);
-
-            return true;
-        } else if (w == playerItemsOfferPlayerOffer){
-            DebugMessageP2PTrader("double click playerItemsOfferPlayerOffer");
-			itemService.MoveItemFromListWidgetToListWidget(playerItemsOfferPlayerOffer, playerInventoryItemsPlayerOffer);
-
-            return true;
-        }
-		
-		return false;
 	}
 	
 	override void OnHide()

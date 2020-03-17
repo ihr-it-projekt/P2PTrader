@@ -1,42 +1,33 @@
 class P2PTraderBaseOffer
 {
-	static int creationYear;
-	static int creationMonth;
-	static int creationDay;
-	static int creationHour;
-	static int creationMinute;
-	static int creationSecond;
+	ref P2PTraderDate creationDate;
 	
 	protected void SetCreationDate() {
-        GetHourMinuteSecondUTC(creationHour, creationMinute, creationSecond);
-        GetYearMonthDay(creationYear, creationMonth, creationDay);
+       	creationDate = new P2PTraderDate();
+		creationDate.SetDate();
+		creationDate.SetInSeconds();
 	}
 	
 	bool IsExceeded(P2PTraderExpiredDate date) {
-	    if (!creationYear) {
-	        return false;
-	    }
-
-        if (date.year > creationYear) {
-            return true;
-        }
-        if (date.month > creationMonth) {
-            return true;
-        }
-        if (date.day > creationDay) {
-            return true;
-        }
-
-        if (date.hour > creationHour) {
-            return true;
-        }
-        if (date.minute > creationMinute) {
-            return true;
-        }
-        if (date.second > creationSecond) {
-            return true;
-        }
-
+		if (!creationDate || creationDate.year == 0) {
+			creationDate = new P2PTraderDate();
+			creationDate.SetDate();
+			creationDate.SetInSeconds();
+			
+			DebugMessageP2PTrader("setDate: " + creationDate.ToMySqlDate());
+			false;
+		}
+		
+		if (date.year > creationDate.year) {
+			DebugMessageP2PTrader("exeedet: " + creationDate.ToMySqlDate());
+			return true;
+		}
+		
+	    if (date.inSeconds > creationDate.inSeconds) {
+			DebugMessageP2PTrader("exeedet: " + creationDate.ToMySqlDate());
+			return true;
+		}
+		DebugMessageP2PTrader("not exeedet: " + creationDate.ToMySqlDate());
         return false;
 	}
 }

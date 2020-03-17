@@ -37,112 +37,6 @@ FrameWidgetClass rootFrame {
      stretch 1
      nocache 0
      {
-      PanelWidgetClass PanelWidget13 {
-       visible 0
-       disabled 0
-       inheritalpha 0
-       ignorepointer 1
-       keepsafezone 0
-       color 0 0 0 0.651
-       position -5.14844 397.332
-       size 505.38397 51.1542
-       halign center_ref
-       valign center_ref
-       hexactpos 1
-       vexactpos 1
-       hexactsize 1
-       vexactsize 1
-       draggable 0
-       style UIDefaultPanel
-       {
-        TextWidgetClass TextWidget3 {
-         clipchildren 1
-         inheritalpha 0
-         ignorepointer 1
-         keepsafezone 1
-         position 12 11.25
-         size 260.37997 32.8729
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-         scaled 1
-         draggable 0
-         style None
-         text "#duration"
-         "exact text" 0
-         text_proportion 0.7
-         "size to text h" 0
-         "size to text v" 0
-         "text halign" center
-         "text valign" center
-        }
-        PanelWidgetClass boarderNumber {
-         ignorepointer 1
-         color 0 0 0 0.7843
-         position 279.41 8.43755
-         size 216.132 38.4979
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-         style editor_selection
-         {
-          ButtonWidgetClass sub10Number {
-           position 12.6563 9.84375
-           size 39.5626 23.0292
-           hexactpos 1
-           vexactpos 1
-           hexactsize 1
-           vexactsize 1
-           text "<<"
-           text_proportion 0.5
-          }
-          ButtonWidgetClass add10Number {
-           position 171.17401 8.4375
-           size 28.3125 23.8579
-           hexactpos 1
-           vexactpos 1
-           hexactsize 1
-           vexactsize 1
-           text ">>"
-           text_proportion 0.5
-          }
-          ButtonWidgetClass sub1Number {
-           position 57.8439 9.84375
-           size 25.5 21.6229
-           hexactpos 1
-           vexactpos 1
-           hexactsize 1
-           vexactsize 1
-           text "<"
-           text_proportion 0.5
-          }
-          ButtonWidgetClass add1Number {
-           position 135.83 8.4375
-           size 29.7188 23.8579
-           hexactpos 1
-           vexactpos 1
-           hexactsize 1
-           vexactsize 1
-           text ">"
-           text_proportion 0.5
-          }
-          TextWidgetClass number {
-           ignorepointer 1
-           position 88.9693 8.4375
-           size 41.237 23.8579
-           hexactpos 1
-           vexactpos 1
-           hexactsize 1
-           vexactsize 1
-           "text halign" center
-           "text valign" center
-          }
-         }
-        }
-       }
-      }
       PanelWidgetClass PanelWidget11 {
        ignorepointer 1
        color 0 0 0 0.651
@@ -204,12 +98,13 @@ FrameWidgetClass rootFrame {
         }
        }
       }
-      PanelWidgetClass PanelWidget6 {
+      PanelWidgetClass PanelWidget5 {
+       inheritalpha 0
        ignorepointer 1
+       keepsafezone 0
        color 0 0 0 0.651
-       position -0.00001 33.8502
-       size 519.96002 907
-       halign center_ref
+       position 11.2523 31.159
+       size 1166.08997 907.81
        valign center_ref
        hexactpos 1
        vexactpos 1
@@ -217,9 +112,21 @@ FrameWidgetClass rootFrame {
        vexactsize 1
        style DayZDefaultPanel
        {
+        TextListboxWidgetClass playerInventoryItemsPlayerOffer {
+         color 1 1 1 0.651
+         position 8.96266 8.96265
+         size 592.36401 884.68799
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Default
+         "title visible" 0
+         lines 55
+        }
         TextListboxWidgetClass playerItemsOfferPlayerOffer {
          color 1 1 1 0.651
-         position 0 -278.97699
+         position 329.405 -294.91299
          size 485.69601 300
          halign center_ref
          valign center_ref
@@ -231,34 +138,8 @@ FrameWidgetClass rootFrame {
          colums ""
          lines 18
         }
-        PanelWidgetClass PanelWidget10 {
-         ignorepointer 1
-         color 0 0 0 0.651
-         position 0.00001 364.70102
-         size 243.993 57.296
-         halign center_ref
-         valign bottom_ref
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-         style UIDefaultPanel
-         {
-          ButtonWidgetClass buttonCreateCreatePlayerOffer {
-           color 0.502 1 0 1
-           position 8.96266 8.96264
-           size 226.06799 42.0747
-           hexactpos 1
-           vexactpos 1
-           hexactsize 1
-           vexactsize 1
-           style MenuDefault
-           text "#create"
-          }
-         }
-        }
         EditBoxWidgetClass playerTextPlayerOffer {
-         position 9.12996 -38.61959
+         position 652.01703 -64.1032
          size 500.56201 47.4926
          valign center_ref
          hexactpos 1
@@ -269,7 +150,7 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass TextWidget2 {
          ignorepointer 1
-         position 1.6265 -93.5976
+         position 317.44699 -113.384
          size 496.94901 43.069
          halign center_ref
          valign center_ref
@@ -284,8 +165,8 @@ FrameWidgetClass rootFrame {
         }
         ItemPreviewWidgetClass bidMenuItemPreview {
          ignorepointer 1
-         position 13.13 575.83801
-         size 490 215.5
+         position 656.01703 488.35797
+         size 490 320.41998
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -294,7 +175,7 @@ FrameWidgetClass rootFrame {
         MultilineTextWidgetClass bidMenuItemPreviewText {
          visible 1
          ignorepointer 1
-         position 13.13 795.33801
+         position 656.01703 820.09003
          size 490 71.3998
          hexactpos 1
          vexactpos 1
@@ -304,33 +185,42 @@ FrameWidgetClass rootFrame {
          "condense whitespace" 1
          "strip newlines" 1
         }
-       }
-      }
-      PanelWidgetClass PanelWidget5 {
-       inheritalpha 0
-       ignorepointer 1
-       keepsafezone 0
-       color 0 0 0 0.651
-       position 11.25 33.8502
-       size 631.39301 907.81
-       valign center_ref
-       hexactpos 1
-       vexactpos 1
-       hexactsize 1
-       vexactsize 1
-       style DayZDefaultPanel
-       {
-        TextListboxWidgetClass playerInventoryItemsPlayerOffer {
-         color 1 1 1 0.651
-         position 8.96266 8.96265
-         size 611.17999 890
+        ButtonWidgetClass buttonCreateCreatePlayerOffer {
+         color 0.502 1 0 1
+         position 802.84894 432.86798
+         size 226.06799 42.0747
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
-         style Default
-         "title visible" 0
-         lines 55
+         style MenuDefault
+         text "#create"
+        }
+        ButtonWidgetClass buttonMoveToGiveCreateCreatePlayerOffer {
+         visible 0
+         disabled 0
+         color 0.502 1 0 1
+         position 611.85297 27.9789
+         size 36.1639 55
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "->"
+        }
+        ButtonWidgetClass buttonMoveToInventoryCreatePlayerOffer {
+         visible 0
+         disabled 0
+         color 0.502 1 0 1
+         position 611.85297 100.592
+         size 36.1639 55
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "<-"
         }
        }
       }
@@ -405,6 +295,8 @@ FrameWidgetClass rootFrame {
          vexactpos 1
          hexactsize 1
          vexactsize 1
+         "text halign" center
+         "text valign" center
          wrap 1
          "condense whitespace" 1
          "strip newlines" 1
@@ -496,6 +388,8 @@ FrameWidgetClass rootFrame {
          vexactpos 1
          hexactsize 1
          vexactsize 1
+         "text halign" center
+         "text valign" center
         }
        }
       }

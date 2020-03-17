@@ -13,11 +13,10 @@ class P2PStockChecker extends Managed
     void CheckForExpiredItems() {
 		P2PTraderExpiredDate date = new P2PTraderExpiredDate(config.offerWillExpireAfterDays);
 		
-		
 		array<ref P2PTraderPlayerMarketOffer> offers = stock.GetStock();
 		
 		foreach(P2PTraderPlayerMarketOffer offer: offers) {
-			if (offer.IsExceeded(date)) {
+			if (offer && offer.IsExceeded(date)) {
 				if (config.spawnExceededToGround) {
 					Spawn(offer.GetOfferItems());
 					
@@ -30,7 +29,7 @@ class P2PStockChecker extends Managed
 		array<ref P2PTraderPlayerPlayerOffer> pOffers = stock.GetOffersFromAllPlayer();
 		
 		foreach(P2PTraderPlayerPlayerOffer pOffer: pOffers) {
-			if (pOffer.IsExceeded(date)) {
+			if (pOffer && pOffer.IsExceeded(date)) {
 				if (config.spawnExceededToGround) {
 					Spawn(pOffer.GetOfferItems());
 					
@@ -43,7 +42,7 @@ class P2PStockChecker extends Managed
 		array<ref P2PTraderPlayerPlayerOffer> iOffers = stock.GetInactiveOffersFromAllPlayer();
 		
 		foreach(P2PTraderPlayerPlayerOffer iOffer: iOffers) {
-			if (iOffer.IsExceeded(date)) {
+			if (iOffer && iOffer.IsExceeded(date)) {
 				if (config.spawnExceededToGround) {
 					Spawn(iOffer.GetOfferItems());
 					
@@ -56,7 +55,7 @@ class P2PStockChecker extends Managed
 		array<ref P2PTraderPlayerPlayerOffer> aOffers = stock.GetAcceptedOffersFromAllPlayer();
 		
 		foreach(P2PTraderPlayerPlayerOffer aOffer: aOffers) {
-			if (aOffer.IsExceeded(date)) {
+			if (aOffer && aOffer.IsExceeded(date)) {
 				if (config.spawnExceededToGround) {
 					Spawn(aOffer.GetOfferItems());
 					

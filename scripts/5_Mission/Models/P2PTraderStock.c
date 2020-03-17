@@ -33,6 +33,7 @@ class P2PTraderStock
     }
 	
 	void ~P2PTraderStock(){
+		Save();
 		CreateBackup("backup-shout-down-");
 	}
 	
@@ -275,7 +276,7 @@ class P2PTraderStock
         }
     }
 
-    private void Save(){
+    void Save(){
         if (IsServerAndMultiplayerP2PTrader()) {
 			if (!FileExist(CONFIGSFOLDERP2P)) {
                 MakeDirectory(CONFIGSFOLDERP2P);

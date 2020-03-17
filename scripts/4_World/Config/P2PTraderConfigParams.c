@@ -10,9 +10,9 @@ class P2PTraderConfigParams
 	bool traderCanOpenFromEveryware = false;
 	bool playerCanTradeFromEveryware = false;
 	int exceededTimeCheckInterval = 1;
-	bool isEnabledExceededCheck = true;
-	bool spawnExceededToGround = true;
-	int offerWillExpireAfterDays = 408;
+	bool isEnabledExceededCheck = false;
+	bool spawnExceededToGround = false;
+	int offerWillExpireAfterDays = 30;
 	ref array<vector> spawnPositionExceededOffers;
 	ref array<ref P2PTraderPosition> traderPositions;
 	
@@ -35,9 +35,9 @@ class P2PTraderConfigParams
 
 			if (exceededTimeCheckInterval == 0) {
 			    exceededTimeCheckInterval = 1;
-                isEnabledExceededCheck = true;
-                spawnExceededToGround = true;
-                offerWillExpireAfterDays = 408;
+                isEnabledExceededCheck = false;
+                spawnExceededToGround = false;
+                offerWillExpireAfterDays = 30;
                 Save();
 			}
 

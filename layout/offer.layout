@@ -146,8 +146,8 @@ FrameWidgetClass rootFrame {
       PanelWidgetClass PanelWidget11 {
        ignorepointer 1
        color 0 0 0 0.651
-       position -137.25 8.00017
-       size 243.993 60
+       position 871.53302 933.09503
+       size 55.6529 60
        halign center_ref
        valign bottom_ref
        hexactpos 1
@@ -159,13 +159,13 @@ FrameWidgetClass rootFrame {
         ButtonWidgetClass buttonCloseCreateOffer {
          color 1 0 0 1
          position 8.96266 8.96267
-         size 226.06799 42.0747
+         size 39.1879 42.0747
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style MenuDefault
-         text "#close"
+         text "x"
          switch once
         }
        }
@@ -173,7 +173,7 @@ FrameWidgetClass rootFrame {
       PanelWidgetClass PanelWidget10 {
        ignorepointer 1
        color 0 0 0 0.651
-       position 121.99599 8.00011
+       position -0.00005 18.2201
        size 243.993 60
        halign center_ref
        valign bottom_ref
@@ -321,7 +321,7 @@ FrameWidgetClass rootFrame {
        ignorepointer 1
        keepsafezone 0
        color 0 0 0 0.651
-       position 11.25 38.4097
+       position 11.25 39.3645
        size 631.39301 907.81
        valign center_ref
        hexactpos 1
@@ -333,7 +333,7 @@ FrameWidgetClass rootFrame {
         TextListboxWidgetClass playerInventoryItemsOffer {
          color 1 1 1 0.651
          position 8.96266 8.96265
-         size 612.73303 758.83099
+         size 576.23303 758.83099
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -365,6 +365,32 @@ FrameWidgetClass rootFrame {
          text "#desc"
          "text halign" center
          "text valign" center
+        }
+        ButtonWidgetClass buttonMoveToGiveCreateMarketOffer {
+         visible 0
+         disabled 0
+         color 0.502 1 0 1
+         position 589.19598 41.1189
+         size 36.1639 55
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "->"
+        }
+        ButtonWidgetClass buttonMoveToInventoryCreateMarketOffer {
+         visible 0
+         disabled 0
+         color 0.502 1 0 1
+         position 589.19598 112.272
+         size 36.1639 55
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "<-"
         }
        }
       }
@@ -410,8 +436,8 @@ FrameWidgetClass rootFrame {
        {
         TextListboxWidgetClass tradeableItemsOffer {
          color 1 1 1 0.651
-         position -0.00021 -0.00005
-         size 619.19098 885.31097
+         position 18.4571 -0.00002
+         size 582.276 885.31097
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -422,13 +448,39 @@ FrameWidgetClass rootFrame {
          colums ""
          lines 50
         }
+        ButtonWidgetClass buttonMoveToWillCreateMarketOffer {
+         visible 0
+         disabled 0
+         color 0.502 1 0 1
+         position 7.99994 336.039
+         size 36.1639 55
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "<-"
+        }
+        ButtonWidgetClass buttonMoveFromWillCreateMarketOffer {
+         visible 0
+         disabled 0
+         color 0.502 1 0 1
+         position 7.99994 407.19202
+         size 36.1639 55
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "->"
+        }
        }
       }
       PanelWidgetClass PanelWidget2 {
        ignorepointer 1
        color 0 0 0 0.651
-       position 5.69663 12.2297
-       size 643.24097 63.6095
+       position 81.6167 12.2297
+       size 567.32098 63.6095
        halign right_ref
        hexactpos 1
        vexactpos 1
@@ -475,7 +527,7 @@ FrameWidgetClass rootFrame {
         }
         EditBoxWidgetClass inputSearchOffer {
          position 9.69699 0.55389
-         size 572.29407 30.5845
+         size 496.37399 30.5845
          valign center_ref
          hexactpos 1
          vexactpos 1

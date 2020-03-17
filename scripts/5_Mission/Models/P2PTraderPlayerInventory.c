@@ -50,7 +50,7 @@ class P2PTraderPlayerInventory
     }
 
 	EntityAI SpawnOnGround(P2PTraderStockItem itemInStock, DayZPlayer player = null, EntityAI item = null) {
-		if (!item && !player) {
+		if (!item && player) {
 			DebugMessageP2PTrader("spawn on ground" + itemInStock.type);
             item = player.SpawnEntityOnGroundPos(itemInStock.type, player.GetPosition());
 			if (!item) {
