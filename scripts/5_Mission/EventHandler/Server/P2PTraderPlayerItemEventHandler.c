@@ -1,8 +1,14 @@
 class P2PTraderPlayerItemEventHandler
 {
 	private ref P2PTraderPlayerInventory inventory;
+	private ref map<string, string> itemsMap = new map<string, string>();
 	
-    void P2PTraderPlayerItemEventHandler() {
+    void P2PTraderPlayerItemEventHandler(P2PTraderItemsConfig itemConfig) {
+		itemsMap = new map<string, string>();
+		foreach(string itemName: itemConfig.items) {
+			itemsMap.Insert(itemName, itemName);
+		}
+		
 		DebugMessageP2PTrader("Register OfferEventHandler");
         inventory = new P2PTraderPlayerInventory;
 		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
@@ -29,6 +35,9 @@ class P2PTraderPlayerItemEventHandler
 					if (item && !item.GetType().Contains("Survivor")) {
 						if (item.GetHealth() == 0) {
 							DebugMessageP2PTrader("Item helth is zero" + item.GetType());
+							continue;
+						}
+						if (item && !itemsMap.Get(item.GetType())) {
 							continue;
 						}
 

@@ -45,27 +45,6 @@ class P2PItemService
 		return item;
 	}
 	
-	void MoveItemFromListWidgetToListWidget(TextListboxWidget source, TextListboxWidget target = null, bool move = true) {
-		int markedPos = source.GetSelectedRow();
-		
-		if (markedPos == -1) {
-			return;
-		}
-		
-		P2PTraderItem item;
-		source.GetItemData(markedPos, 0, item);
-		
-		if (item) {
-			if (target) {
-				target.AddItem(item.translatedName, item, 0);
-			}
-			
-			if (move) {
-				source.RemoveRow(markedPos);
-			}
-		}
-	}
-	
 	TextListboxWidget GetMarketItemList(TextListboxWidget widget, array<ref P2PTraderPlayerMarketOffer> marketItems, string search) {
 		widget.ClearItems();
 		search.ToLower();
