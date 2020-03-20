@@ -8,4 +8,12 @@ class P2PTraderBaseItem {
 		return null;
 	}
 	
+	string GetTranslation() {
+		return "";
+	}
+	
+	string UpdateTranslation() {
+		return "";
+	}
+	
 }

@@ -436,8 +436,8 @@ FrameWidgetClass rootFrame {
        {
         TextListboxWidgetClass tradeableItemsOffer {
          color 1 1 1 0.651
-         position 18.4571 -0.00002
-         size 582.276 885.31097
+         position 25.707 -69.9055
+         size 582.276 760
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -446,7 +446,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style Default
          colums ""
-         lines 50
+         lines 45
         }
         ButtonWidgetClass buttonMoveToWillCreateMarketOffer {
          visible 0
@@ -473,6 +473,59 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style MenuDefault
          text "->"
+        }
+        EditBoxWidgetClass minHealthCreateMarketOffer {
+         position 338.82898 337.57202
+         size 189.82301 31.2686
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Editor
+         text "30"
+        }
+        TextWidgetClass TextWidget5 {
+         ignorepointer 1
+         position -179.078 337.57202
+         size 180.705 29.549
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style None
+         text "#min_health"
+         "text valign" center
+        }
+        TextWidgetClass TextWidget6 {
+         ignorepointer 1
+         position -149.67302 384.61102
+         size 239.517 29.549
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style None
+         text "#min_quantity"
+         "exact text" 0
+         "size to text h" 0
+         "size to text v" 0
+         "text valign" center
+        }
+        EditBoxWidgetClass minQuantityCreateMarketOffer {
+         position 338.82898 384.61102
+         size 189.82301 31.2686
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Editor
+         text "1"
         }
        }
       }

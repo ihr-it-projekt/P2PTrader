@@ -27,6 +27,8 @@ class P2PTraderMenu extends UIScriptedMenu
 	
 	private ItemPreviewWidget mainMenuItemPreview;
 	private MultilineTextWidget mainMenuItemPreviewText;
+	private MultilineTextWidget mainMenuItemPreviewHealth;
+	private MultilineTextWidget mainMenuItemPreviewQuantity;
 
     private ButtonWidget cancel;
 	private ButtonWidget buttonMyOffers;
@@ -80,6 +82,8 @@ class P2PTraderMenu extends UIScriptedMenu
 	private TextListboxWidget detailAttechmentBid;
 	private EditBoxWidget playerTextOffer;
 	private EditBoxWidget playerTextPlayerOffer;
+	private EditBoxWidget minQuantityCreateMarketOffer;
+	private EditBoxWidget minHealthCreateMarketOffer;
 	private MultilineTextWidget message;
 	private MultilineTextWidget notInNearHint;
 	private MultilineTextWidget bidManagementNotInNearHint;
@@ -182,6 +186,8 @@ class P2PTraderMenu extends UIScriptedMenu
 		
 		mainMenuItemPreview = ItemPreviewWidget.Cast(layoutRoot.FindAnyWidget("mainMenuItemPreview"));
 		mainMenuItemPreviewText = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("mainMenuItemPreviewText"));
+		mainMenuItemPreviewHealth = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("mainMenuItemPreviewHealth"));
+		mainMenuItemPreviewQuantity = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("mainMenuItemPreviewQuantity"));
 		
 		itemListenManager.AddPreviewListener(mainMenuItemPreviewText, mainMenuItemPreview, marketOfferWantToHave);
 		itemListenManager.AddPreviewListener(mainMenuItemPreviewText, mainMenuItemPreview, marketOfferItems);
@@ -215,8 +221,9 @@ class P2PTraderMenu extends UIScriptedMenu
         playerInventoryItemsOffer = TextListboxWidget.Cast(createOfferWidget.FindAnyWidget("playerInventoryItemsOffer"));
         playerItemsOfferOffer = TextListboxWidget.Cast(createOfferWidget.FindAnyWidget("playerItemsOfferOffer"));
         playerTextOffer = EditBoxWidget.Cast(createOfferWidget.FindAnyWidget("playerTextOffer"));
-        
-
+        minQuantityCreateMarketOffer = EditBoxWidget.Cast(createOfferWidget.FindAnyWidget("minQuantityCreateMarketOffer"));
+        minHealthCreateMarketOffer = EditBoxWidget.Cast(createOfferWidget.FindAnyWidget("minHealthCreateMarketOffer"));
+       
         buttonCloseCreateOffer = ButtonWidget.Cast(createOfferWidget.FindAnyWidget("buttonCloseCreateOffer"));
         buttonCreateCreateOffer = ButtonWidget.Cast(createOfferWidget.FindAnyWidget("buttonCreateCreateOffer"));
         buttonMoveToGiveCreateMarketOffer = ButtonWidget.Cast(createOfferWidget.FindAnyWidget("buttonMoveToGiveCreateMarketOffer"));
@@ -235,7 +242,7 @@ class P2PTraderMenu extends UIScriptedMenu
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCreateCreateOffer,  this, "OnClick");
 
 		itemListenManager.AddItemMoveListener(buttonMoveToGiveCreateMarketOffer, buttonMoveToInventoryCreateMarketOffer, playerInventoryItemsOffer, playerItemsOfferOffer, true, offerMenuMenuItemPreview, offerMenuItemPreviewText);
-		itemListenManager.AddItemMoveListener(buttonMoveToWillCreateMarketOffer, buttonMoveFromWillCreateMarketOffer, tradeableItemsOffer, playerWhantToHaveOffer, false, offerMenuMenuItemPreview, offerMenuItemPreviewText);
+		itemListenManager.AddItemMoveListener(buttonMoveToWillCreateMarketOffer, buttonMoveFromWillCreateMarketOffer, tradeableItemsOffer, playerWhantToHaveOffer, false, offerMenuMenuItemPreview, offerMenuItemPreviewText, minQuantityCreateMarketOffer, minHealthCreateMarketOffer);
 
 		layoutRoot.AddChild(createOfferWidget);
 		//End offer widget
@@ -495,6 +502,8 @@ class P2PTraderMenu extends UIScriptedMenu
 			bidManagementBidItems.ClearItems();
 			bidManagementBidItemAttachment.ClearItems();
 			bidManagementBids.ClearItems();
+			mainMenuItemPreview.Show(false);
+			mainMenuItemPreviewText.Show(false);
 			RefreshPlayerLists();
 			return true;
 		} else if(w == buttonDeleteMyOffer) {
@@ -513,6 +522,8 @@ class P2PTraderMenu extends UIScriptedMenu
 			playerOffers.ClearItems();
 			playerOfferItems.ClearItems();
 			playerOfferItemAttachments.ClearItems();
+			mainMenuItemPreview.Show(false);
+			mainMenuItemPreviewText.Show(false);
 			ShowHideMyOfferForItem();
 			return true;
 			
