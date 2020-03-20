@@ -51,12 +51,12 @@ class P2PTraderPreviewWindow extends Managed
 			return false;
 		}
 		
-		Update(previewItem);
+		Update(previewItem, item);
 		
 		return false;
 	}
 	
-	private void Update(EntityAI previewItem){
+	private void Update(EntityAI previewItem, P2PTraderBaseItem item){
 		DebugMessageP2PTrader("show preview, item is there");
 		
 		widget.SetItem(previewItem);
@@ -65,7 +65,7 @@ class P2PTraderPreviewWindow extends Managed
 		InventoryItem itemCast = InventoryItem.Cast(previewItem);
 
 		if (itemCast) {
-			this.description.SetText(itemCast.GetTooltip());
+			this.description.SetText(item.GetTranslation() + " "+ itemCast.GetTooltip());
 		} else {
 			this.description.SetText("");
 		}

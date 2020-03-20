@@ -25,6 +25,17 @@ class P2PTraderItem extends P2PTraderBaseItem
 		this.translatedNameLower.ToLower();
 	}
 	
+	override string GetTranslation() {
+		return this.translatedName;
+	}
+	
+	override string UpdateTranslation() {
+		if (item) {
+			this.translatedName = item.UpdateTranslation();
+		}
+		return this.translatedName;
+	}
+	
 	override P2PTraderStockItem GetItem() {
 		return item;
 	}

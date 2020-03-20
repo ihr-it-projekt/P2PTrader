@@ -10,8 +10,8 @@ class P2PTraderItemListenerManger
 		this.itemService = itemService;
 	}
 	
-	void AddItemMoveListener(ButtonWidget buttonSourceToTarget, ButtonWidget buttonTargetToSource, TextListboxWidget source, TextListboxWidget target, bool move, ItemPreviewWidget peviewWidget, MultilineTextWidget description) {
-		moveListener.Insert(new P2PTraderItemMoveListener(buttonSourceToTarget, buttonTargetToSource, source, target, move, peviewWidget, description, itemService));
+	void AddItemMoveListener(ButtonWidget buttonSourceToTarget, ButtonWidget buttonTargetToSource, TextListboxWidget source, TextListboxWidget target, bool move, ItemPreviewWidget peviewWidget, MultilineTextWidget description, EditBoxWidget minQuantity = null, EditBoxWidget minHealth = null) {
+		moveListener.Insert(new P2PTraderItemMoveListener(buttonSourceToTarget, buttonTargetToSource, source, target, move, peviewWidget, description, itemService, minQuantity, minHealth));
 	}
 	
 	void AddPreviewListener(MultilineTextWidget description, ItemPreviewWidget peviewWidget, TextListboxWidget source) {

@@ -4,16 +4,20 @@ class P2PTraderItemMoveListener extends Managed
 	ButtonWidget buttonTargetToSource;
 	TextListboxWidget source;
 	TextListboxWidget target;
+	EditBoxWidget minQuantity;
+	EditBoxWidget minHealth;
 	ref P2PTraderPreviewWindow previewWindow;
 	bool move;
 	
-	void P2PTraderItemMoveListener(ButtonWidget buttonSourceToTarget, ButtonWidget buttonTargetToSource, TextListboxWidget source, TextListboxWidget target, bool move, ItemPreviewWidget peviewWidget, MultilineTextWidget description, P2PItemService itemService) {
+	void P2PTraderItemMoveListener(ButtonWidget buttonSourceToTarget, ButtonWidget buttonTargetToSource, TextListboxWidget source, TextListboxWidget target, bool move, ItemPreviewWidget peviewWidget, MultilineTextWidget description, P2PItemService itemService, EditBoxWidget minQuantity = null, EditBoxWidget minHealth = null) {
 		DebugMessageP2PTrader("Create Move listener: " + buttonSourceToTarget.GetName());
 		this.buttonSourceToTarget = buttonSourceToTarget;
 		this.buttonTargetToSource = buttonTargetToSource;
 		this.source = source;
 		this.target = target;
 		this.move = move;
+		this.minQuantity = minQuantity;
+		this.minHealth = minHealth;
 		previewWindow = new P2PTraderPreviewWindow(peviewWidget, description,itemService);
 		WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonSourceToTarget, this, "MoveSourceToTarget");
 		WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonTargetToSource, this, "MoveTargetToSource");
@@ -78,6 +82,15 @@ class P2PTraderItemMoveListener extends Managed
 		sourceWidget.GetItemData(pos, 0, item);
 		
 		if (item) {
+			if (!mustMove && minHealth) {
+				item.GetItem().health = minHealth.GetText().ToFloat();
+			}
+			if (!mustMove && minQuantity) {
+				item.GetItem().quantity = minQuantity.GetText().ToFloat();
+			}
+			
+			item.UpdateTranslation();
+			
 			if (targetWidget) {
 				DebugMessageP2PTrader("Add item to target");
 				targetWidget.AddItem(item.translatedName, item, 0);
