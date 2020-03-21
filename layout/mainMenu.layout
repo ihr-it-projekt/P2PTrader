@@ -86,6 +86,9 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style None
          text "#market_offers"
+         "exact text" 0
+         "size to text h" 1
+         "size to text v" 1
          "text halign" center
          "text valign" center
         }
@@ -194,8 +197,8 @@ FrameWidgetClass rootFrame {
        {
         TextWidgetClass TextWidget2 {
          ignorepointer 1
-         position -0.00004 0.00001
-         size 342.07501 42.0747
+         position -1.60008 -0
+         size 356.47501 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -204,6 +207,8 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style None
          text "#detail"
+         "size to text h" 1
+         "size to text v" 1
          "text halign" center
          "text valign" center
         }
@@ -572,6 +577,7 @@ FrameWidgetClass rootFrame {
          text_proportion 0.8
         }
         ButtonWidgetClass buttonMyOffers {
+         visible 1
          color 0.502 1 0 1
          position 8.96204 8.96265
          size 367.09799 42.0747
