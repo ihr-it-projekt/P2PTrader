@@ -1,5 +1,8 @@
 class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer
 {
+    static string TYPE_ALL = "all";
+    static string TYPE_INSTANT_BUY = "instant_buy";
+    static string TYPE_AUCTION = "auction";
 	private string ownerId;
 	private string ownerName;
 	private string offerMessage;
@@ -7,9 +10,10 @@ class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer
 	private ref array <ref P2PTraderStockItem> offerItems;
 	private ref array <ref P2PTraderStockItem> wantedItems;
 	private ref array <int> otherPlayerOffersIds;
+	private string offerType;
 	
 	
-	void P2PTraderPlayerMarketOffer(DayZPlayer owner, string offerMessage = "") {
+	void P2PTraderPlayerMarketOffer(DayZPlayer owner, string offerType, string offerMessage = "") {
 		this.ownerId = owner.GetIdentity().GetId();
 		this.ownerName = owner.GetIdentity().GetName();
 		this.offerMessage = offerMessage;
@@ -17,6 +21,16 @@ class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer
 		this.wantedItems = new array<ref P2PTraderStockItem>;
 		this.otherPlayerOffersIds = new array<int>;
 		this.SetCreationDate();
+		this.offerType = offerType;
+		
+	}
+	
+	bool IsOfferType(string offerType) {
+	    if (!this.offerType || this.offerType == "") {
+	        this.offerType = this.TYPE_AUCTION;
+	    }
+
+		return this.offerType == offerType;
 	}
 	
 	void SetId(int id){
@@ -82,7 +96,7 @@ class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer
     array <ref P2PTraderStockItem> GetWantedItems() {
 	   return wantedItems;
 	}
-
+	
 	string GetOfferMessage() {
 	    return offerMessage;
 	}

@@ -15,6 +15,11 @@ class P2PTraderPlayerInventory
 			this.Add(player, stockPlayerOfferItem);
 		}
 	}
+	void AddCollectionNoRef(DayZPlayer player, array <P2PTraderStockItem> stockPlayerOfferItems) {
+		foreach(P2PTraderStockItem stockPlayerOfferItem: stockPlayerOfferItems) {
+			this.Add(player, stockPlayerOfferItem);
+		}
+	}
 
     void Add(DayZPlayer player, P2PTraderStockItem itemInStock, ref InventoryLocation inventoryLocation = null) {
 		EntityAI item;
@@ -32,8 +37,6 @@ class P2PTraderPlayerInventory
 		}
 			
        	SpawnOnGround(itemInStock, player, item);
-		
-		
 
 		if(itemInStock.attached.Count() > 0) {
             foreach(P2PTraderStockItem itemAttached: itemInStock.attached) {

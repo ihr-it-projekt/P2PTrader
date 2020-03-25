@@ -44,3 +44,13 @@
 "quantity","Quantity","Quantity","Anzahl","Množství","Количество","Ilość","Mennyiség","Quantità","Cantidad","Quantité","Quantidade","量","数量","數量",
 "min_health","min. health","min. health","min. Gesundheit","min. zdraví","минимум здоровье","min. zdrowie","min. Egészség","min. Salute","min. salud","min. santé","min. saúde","分 健康","分钟 健康","分鐘 健康",
 "min_quantity","min. quantity","min. quantity","min. Anzahl","min. Množství","минимум количество","min. Ilość","min. Mennyiség","min. quantità","min. cantidad","min. quantité","min. quantidade","分 量","分钟 数量","分鐘 數量",
+"show_only_direct_offers","Show only instant buy","Show only instant buy","Zeige nur Sofortkauf"
+"show_only_bid_offers","Show only auction","Show only auction","Zeige nur Auktionen"
+"show_all_offers_types","Show all offer types","Show all offer types","Zeige alle Angebotstypen"
+"offer_type","Offertype","Offertype","Angebotstype"
+"direct_offer","Instant buy","Instant buy","Sofortkauf"
+"auction","Auction","Auction","Auktionen"
+"filter","filter","filter","filter"
+"you_offer_to_less_items","You offer to less items.","You offer to less items.","Du hast zu wenig Gegenstände geboten."
+"you_offer_not_all_wanted_items","You offer not all wanted items.","You offer not all wanted items.","Du hast nicht alle gesuchten Gegenstände geboten."
+"you_have_to_add_one_wanted_item","You have to add one wanted item.","You have to add one wanted item.","Du musst mindestens ein gesuchten Gegenstand hinzufügen."

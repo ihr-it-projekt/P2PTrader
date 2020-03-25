@@ -99,8 +99,8 @@ FrameWidgetClass rootFrame {
        ignorepointer 1
        keepsafezone 0
        color 0 0 0 0.651
-       position 8.354 55.41
-       size 491.20401 615
+       position 5.79497 27.3685
+       size 491.20401 660.23999
        valign center_ref
        hexactpos 1
        vexactpos 1
@@ -111,7 +111,7 @@ FrameWidgetClass rootFrame {
         TextListboxWidgetClass marketOffers {
          color 1 1 1 0.651
          position 11.4 11.4
-         size 472.42798 590
+         size 472.42798 458.13602
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -119,57 +119,50 @@ FrameWidgetClass rootFrame {
          style Default
          lines 37
         }
-       }
-      }
-      PanelWidgetClass PanelWidget3 {
-       ignorepointer 1
-       color 0 0 0 0.651
-       position 1350.42004 200.98999
-       size 492.07602 38.2
-       halign right_ref
-       hexactpos 1
-       vexactpos 1
-       hexactsize 1
-       vexactsize 1
-       style UIDefaultPanel
-       {
-        ImageWidgetClass ImageWidget1 {
-         visible 1
+        PanelWidgetClass boarderType {
          ignorepointer 1
-         keepsafezone 0
-         position 11.488 0.43601
-         size 31.536 25.432
-         halign right_ref
-         valign center_ref
+         color 0 0 0 0.7843
+         position 45.602 558.85999
+         size 400 46
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
-         imageTexture "{6A53660726F263A6}P2PTrader/layout/search.edds"
-         mode opaque
-         "src alpha" 0
-         "no wrap" 0
-         stretch 1
-         "flip u" 0
-         "flip v" 0
-         nocache 0
+         style editor_selection
+         {
+          XComboBoxWidgetClass filterOfferType {
+           position 8.26001 8.26005
+           size 382 30
+           hexactpos 1
+           vexactpos 1
+           hexactsize 1
+           vexactsize 1
+          }
+         }
         }
-        ButtonWidgetClass buttonSearchMarket {
-         ignorepointer 0
-         keepsafezone 0
-         position 12.36 -0.07999
-         size 31.536 27.176
-         halign right_ref
-         valign center_ref
+        PanelWidgetClass boarderOffer {
+         ignorepointer 1
+         color 0 0 0 0.7843
+         position 45.602 508.85999
+         size 400 46
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
-         scaled 1
-         style Default
+         style editor_selection
+         {
+          XComboBoxWidgetClass filterOfferOwner {
+           position 8.26001 8.26005
+           size 382 30
+           hexactpos 1
+           vexactpos 1
+           hexactsize 1
+           vexactsize 1
+          }
+         }
         }
         EditBoxWidgetClass inputSearchMarket {
-         position 8.356 0.39202
+         position 35.32 159.79599
          size 422.42798 30.896
          valign center_ref
          hexactpos 1
@@ -178,6 +171,18 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          scaled 1
          style Editor
+        }
+        ButtonWidgetClass buttonSearchMarket {
+         color 0.502 1 0 1
+         position 61.0958 612.46405
+         size 364.88797 42.0747
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "#filter"
+         text_proportion 0.8
         }
        }
       }
@@ -197,7 +202,7 @@ FrameWidgetClass rootFrame {
        {
         TextWidgetClass TextWidget2 {
          ignorepointer 1
-         position -1.60008 -0
+         position -1.60008 0
          size 356.47501 42.0747
          halign center_ref
          valign center_ref
@@ -515,7 +520,7 @@ FrameWidgetClass rootFrame {
       PanelWidgetClass PanelWidget15 {
        ignorepointer 1
        color 0 0 0 0.651
-       position -1.34304 18.384
+       position -7.48999 18.046
        size 1831.02002 116.954
        halign center_ref
        valign bottom_ref
@@ -525,22 +530,9 @@ FrameWidgetClass rootFrame {
        vexactsize 1
        style UIDefaultPanel
        {
-        ButtonWidgetClass buttonAllOffers {
-         color 0.502 1 0 1
-         position 8.96254 8.96264
-         size 367.09698 42.0747
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-         style MenuDefault
-         text "#all_offers"
-         text_proportion 0.8
-         switch normal
-        }
         ButtonWidgetClass buttonTakeOffer {
          color 0.502 1 0 1
-         position 1438.71997 12
+         position 1438.71997 9
          size 352.72601 42.0747
          hexactpos 1
          vexactpos 1
@@ -553,7 +545,7 @@ FrameWidgetClass rootFrame {
         }
         ButtonWidgetClass buttonOpenCreateMyBid {
          color 0.502 1 0 1
-         position 968.59204 12
+         position 1132.05005 9
          size 299.10001 42.0747
          hexactpos 1
          vexactpos 1
@@ -576,20 +568,6 @@ FrameWidgetClass rootFrame {
          text "#create_offers"
          text_proportion 0.8
         }
-        ButtonWidgetClass buttonMyOffers {
-         visible 1
-         color 0.502 1 0 1
-         position 8.96204 8.96265
-         size 367.09799 42.0747
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-         style MenuDefault
-         text "#my_offers"
-         text_proportion 0.8
-         switch normal
-        }
         ButtonWidgetClass buttonDeleteMyOffer {
          color 0.502 0 0 1
          position 1438.71997 60
@@ -605,7 +583,7 @@ FrameWidgetClass rootFrame {
         }
         ButtonWidgetClass buttonManageMyBids {
          color 0.502 1 0 1
-         position 453.64401 12
+         position 1131.43018 60
          size 299.10001 42.0747
          hexactpos 1
          vexactpos 1
@@ -618,7 +596,7 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass notInNearHint {
          ignorepointer 1
-         position 0.00002 -0.00002
+         position 315.371 21.04
          size 1129.13 42.0747
          halign center_ref
          valign center_ref

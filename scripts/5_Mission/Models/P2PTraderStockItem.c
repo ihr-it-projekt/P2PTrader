@@ -174,5 +174,4 @@ class P2PTraderStockItem extends P2PTraderBaseItem
 	array<ref P2PTraderStockItem> GetAttached() {
 		return attached;
 	}
-	
 }

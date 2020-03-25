@@ -97,6 +97,22 @@ class P2PTraderStock
 		}
 	}
 	
+	void AcceptPlayerToMarketOffer(P2PTraderPlayerMarketOffer marketOffer, P2PTraderPlayerPlayerOffer playerOffer) {
+		foreach(int index, P2PTraderPlayerMarketOffer stockOffer: stock) {
+			if (marketOffer.GetId() == stockOffer.GetId()) {
+				ref P2PTraderPlayerPlayerOffer acceptedOffer = new P2PTraderPlayerPlayerOffer(marketOffer.GetOwnerId(), marketOffer.GetOwnerName(), marketOffer.GetId());
+				idCounter++;
+				acceptedOffer.SetId(idCounter);
+				acceptedOffer.SetOfferItems(playerOffer.GetOfferItems());
+				acceptedPlayerOffers.Insert(acceptedOffer);
+				RemovePlayerToPlayerOffer(playerOffer, true);
+				stock.Remove(index);
+				Save();
+				break;
+			}
+		}
+	}
+	
 	P2PTraderPlayerPlayerOffer AddPlayerToPlayerOffer(P2PTraderPlayerPlayerOffer newOffer) {
 		idCounter++;
 		newOffer.SetId(idCounter);

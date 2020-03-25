@@ -353,7 +353,7 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass TextWidget4 {
          ignorepointer 1
-         position 0.00001 377.65201
+         position -0.00001 387.405
          size 608.89301 29.549
          halign center_ref
          valign center_ref
@@ -391,6 +391,42 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style MenuDefault
          text "<-"
+        }
+        PanelWidgetClass boarderType {
+         ignorepointer 1
+         color 0 0 0 0.7843
+         position 219.826 776.53601
+         size 400 46
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style editor_selection
+         {
+          XComboBoxWidgetClass offerTypeCreateOffer {
+           position 8.99998 8.00001
+           size 382 30
+           hexactpos 1
+           vexactpos 1
+           hexactsize 1
+           vexactsize 1
+          }
+         }
+        }
+        TextWidgetClass TextWidget7 {
+         ignorepointer 1
+         position -202.15901 345.63101
+         size 204.576 29.549
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style None
+         text "#offer_type"
+         "text halign" center
+         "text valign" center
         }
        }
       }
