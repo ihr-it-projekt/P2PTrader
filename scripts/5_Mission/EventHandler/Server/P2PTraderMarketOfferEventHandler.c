@@ -58,7 +58,7 @@ class P2PTraderMarketOfferEventHandler
 				
 				traderStock.AcceptPlayerToPlayerOffer(playerMarketOffer, playerPlayerOffer);
 				
-				GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE, new Param1<bool>(true), true, player.GetIdentity());
+				GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE, new Param1<string>(""), true, player.GetIdentity());
                 DebugMessageP2PTrader("send P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE to player");
             }
         } else if (rpc_type == P2P_TRADER_EVENT_REMOVE_OFFER) {
@@ -83,7 +83,7 @@ class P2PTraderMarketOfferEventHandler
 				
 				traderStock.RemovePlayerToMarketOffer(playerMarketOffer);
 				
-				GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE, new Param1<bool>(true), true, player.GetIdentity());
+				GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE, new Param1<string>(""), true, player.GetIdentity());
                 DebugMessageP2PTrader("send P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE to player");
             }
         }

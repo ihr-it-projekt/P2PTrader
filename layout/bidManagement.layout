@@ -260,7 +260,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style MenuDefault
-         text "#accepted_bids"
+         text "#accepted"
          text_proportion 0.8
          switch normal
         }
@@ -273,7 +273,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style MenuDefault
-         text "#not_accepted_bids"
+         text "#not_accepted"
          text_proportion 0.8
          switch normal
         }
@@ -286,7 +286,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style MenuDefault
-         text "#open_bids"
+         text "#open"
          text_proportion 0.8
          switch normal
         }

@@ -64,4 +64,22 @@ class P2PTraderPlayerPlayerOffer extends P2PTraderBaseOffer
 		return message;
 	}
 	
+	array <P2PTraderStockItem> GetAllItems() {
+		array<P2PTraderStockItem> allItems = new array<P2PTraderStockItem>;
+		
+		if (offerItems.Count() > 0) {
+			foreach(P2PTraderStockItem item: offerItems) {
+				allItems.Insert(item);
+				array<ref P2PTraderStockItem> attachedItems = item.GetAttached();
+				if (attachedItems.Count() > 0) {
+					foreach(P2PTraderStockItem aItem: attachedItems) {
+						allItems.Insert(aItem);
+					}
+				}
+			}
+		}
+		
+		return allItems;
+	}
+	
 }

@@ -42,7 +42,7 @@ class P2PTraderPlayerOfferEventHandler
 				
 				traderStock.RemovePlayerToPlayerOffer(playerOffer);
 				
-				GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_RESPONSE, new Param1<bool>(true), true, player.GetIdentity());
+				GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_RESPONSE, new Param1<string>(""), true, player.GetIdentity());
                 DebugMessageP2PTrader("send P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_RESPONSE to player");
             }
         } else if (rpc_type == P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS) {
