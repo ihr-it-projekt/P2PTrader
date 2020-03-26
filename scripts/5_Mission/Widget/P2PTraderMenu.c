@@ -230,6 +230,7 @@ class P2PTraderMenu extends UIScriptedMenu
 
         offerTypeCreateOffer.AddItem("#direct_offer");
         offerTypeCreateOffer.AddItem("#auction");
+		offerTypeCreateOffer.SetCurrentItem(1);
 
         offerMenuItemPreviewText = MultilineTextWidget.Cast(createOfferWidget.FindAnyWidget("offerMenuItemPreviewText"));
         offerMenuMenuItemPreview = ItemPreviewWidget.Cast(createOfferWidget.FindAnyWidget("offerMenuMenuItemPreview"));
@@ -261,8 +262,8 @@ class P2PTraderMenu extends UIScriptedMenu
         offerDetailItemsBid = TextListboxWidget.Cast(createPlayerOfferWidget.FindAnyWidget("offerDetailItemsBid"));
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(offerDetailItemsBid,  this, "OnClick");
 		
-		bidMenuItemPreviewText = MultilineTextWidget.Cast(createPlayerOfferWidget.FindAnyWidget("offerMenuItemPreviewText"));
-        bidMenuItemPreview = ItemPreviewWidget.Cast(createPlayerOfferWidget.FindAnyWidget("offerMenuMenuItemPreview"));
+		bidMenuItemPreviewText = MultilineTextWidget.Cast(createPlayerOfferWidget.FindAnyWidget("bidMenuItemPreviewText"));
+        bidMenuItemPreview = ItemPreviewWidget.Cast(createPlayerOfferWidget.FindAnyWidget("bidMenuItemPreview"));
 		
 		itemListenManager.AddItemMoveListener(buttonMoveToGiveCreateCreatePlayerOffer, buttonMoveToInventoryCreatePlayerOffer, playerInventoryItemsPlayerOffer, playerItemsOfferPlayerOffer, true, bidMenuItemPreview, bidMenuItemPreviewText);
 
@@ -1001,6 +1002,10 @@ class P2PTraderMenu extends UIScriptedMenu
 				selectedMarketOffer = null;
 				selectedPlayerOffer = null;
 				selectedPlayerOffers = null;
+			}
+			Param1<string> parameterResponse;
+            if (ctx.Read(parameterResponse)) {
+				message.SetText(parameterResponse.param1);
 			}
 			ShowHideMyOfferForItem();
 			

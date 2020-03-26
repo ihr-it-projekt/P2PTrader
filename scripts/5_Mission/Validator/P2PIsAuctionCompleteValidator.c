@@ -13,7 +13,8 @@ class P2PIsAuctionCompleteValidator
 		array <ref P2PTraderStockItem> marketOfferItems = marketOffer.GetWantedItems();
 		array <P2PTraderStockItem> playerOfferItems = playerOffer.GetAllItems();
 		
-		if (marketOfferItems.Count() >  playerOfferItems.Count()) {
+		
+		if (playerOfferItems.Count() == 0 || marketOfferItems.Count() >  playerOfferItems.Count()) {
 			errorMessage = "#you_offer_to_less_items";
 			return false;
 		}
@@ -22,11 +23,11 @@ class P2PIsAuctionCompleteValidator
 			bool found = false;
 			foreach(int posP, P2PTraderStockItem itemP: playerOfferItems) {
 				if (usedItems.Get(posP)) {
-					
 					continue;
 				}
 				
 				if (itemM.GetType() == itemP.GetType() && itemM.GetHealth() <= itemP.GetHealth() && itemM.GetQuantity() <= itemP.GetQuantity()) {
+					DebugMessageP2PTrader("has found one item: " + itemP.GetType());
 					usedItems.Set(posP, itemP);
 				}
 			}
@@ -37,10 +38,10 @@ class P2PIsAuctionCompleteValidator
 					
 				continue;
 			}
-			usedItems.Set(posPU, itemPU);
+			unUsedItems.Set(posPU, itemPU);
 		}
 		
-		if (usedItems.Count() != marketOfferItems.Count()) {
+		if (usedItems.Count() == 0 || usedItems.Count() != marketOfferItems.Count()) {
 			errorMessage = "#you_offer_not_all_wanted_items";
 			return false;
 		}
@@ -52,7 +53,21 @@ class P2PIsAuctionCompleteValidator
 		return errorMessage;
 	}
 	
+	array <P2PTraderStockItem> GetUsedItems() {
+		array <P2PTraderStockItem> collection = new array <P2PTraderStockItem>;
+		foreach(P2PTraderStockItem item: usedItems) {
+			DebugMessageP2PTrader("used item: " + item.GetType());
+			collection.Insert(item);
+		}
+		return collection;
+	}
+	
 	array <P2PTraderStockItem> GetUnUsedItems() {
-		return unUsedItems.GetValueArray();
+		array <P2PTraderStockItem> collection = new array <P2PTraderStockItem>;
+		foreach(P2PTraderStockItem item: unUsedItems) {
+			DebugMessageP2PTrader("unused item: " + item.GetType());
+			collection.Insert(item);
+		}
+		return collection;
 	}
 }

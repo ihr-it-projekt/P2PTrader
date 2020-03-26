@@ -152,7 +152,7 @@ FrameWidgetClass rootFrame {
          style editor_selection
          {
           XComboBoxWidgetClass filterOfferOwner {
-           position 8.26001 8.26005
+           position 8.26001 7.04008
            size 382 30
            hexactpos 1
            vexactpos 1
@@ -596,7 +596,7 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass notInNearHint {
          ignorepointer 1
-         position 315.371 21.04
+         position -13.3011 -25.464
          size 1129.13 42.0747
          halign center_ref
          valign center_ref
