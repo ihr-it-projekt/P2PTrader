@@ -256,7 +256,7 @@ class P2PItemService
 		return widget;
 	}
 	
-	void AddTradeableItemsToWidget(TextListboxWidget widget, string search) {		
+	void AddTradableItemsToWidget(TextListboxWidget widget, string search) {
 		widget.ClearItems();
 		
 		search.ToLower();
