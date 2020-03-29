@@ -119,30 +119,30 @@ class P2PTraderMenu extends UIScriptedMenu
         layoutRoot = GetGame().GetWorkspace().CreateWidgets("P2PTrader/layout/mainMenu.layout");
 
 
-        cancel = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "cancel" ));
-        buttonOpenCreateOffer = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonOpenCreateOffer" ));
-        buttonManageMyBids = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonManageMyBids" ));
-        buttonDeleteMyOffer = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonDeleteMyOffer" ));
-        buttonTakeOffer = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonTakeOffer" ));
-        buttonOpenCreateMyBid = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "buttonOpenCreateMyBid" ));
-        marketOffers = TextListboxWidget.Cast( layoutRoot.FindAnyWidget( "marketOffers" ));
-        marketOfferItems = TextListboxWidget.Cast( layoutRoot.FindAnyWidget( "marketOfferItems" ));
-        marketOfferItemAtatmenchts = TextListboxWidget.Cast( layoutRoot.FindAnyWidget( "marketOfferItemAtatmenchts" ));
-        marketOfferWantToHave = TextListboxWidget.Cast( layoutRoot.FindAnyWidget( "marketOfferWantToHave" ));
-        playerOffers = TextListboxWidget.Cast( layoutRoot.FindAnyWidget( "playerOffers" ));
-        playerOfferItems = TextListboxWidget.Cast( layoutRoot.FindAnyWidget( "playerOfferItems" ));
-        playerOfferItemAttachments = TextListboxWidget.Cast( layoutRoot.FindAnyWidget( "playerOfferItemAttachments" ));
-        playerNameOfferDetail = TextWidget.Cast( layoutRoot.FindAnyWidget( "playerNameOfferDetail" ));
-        offerPlayerLabel = TextWidget.Cast( layoutRoot.FindAnyWidget( "offerPlayerLabel" ));
-        marketOfferWantToHaveLabel = TextWidget.Cast( layoutRoot.FindAnyWidget( "marketOfferWantToHaveLabel" ));
-        playerOfferItemMessageLabel = TextWidget.Cast( layoutRoot.FindAnyWidget( "playerOfferItemMessageLabel" ));
-        offerItemAttachmentLabel = TextWidget.Cast( layoutRoot.FindAnyWidget( "offerItemAttachmentLabel" ));
-        offerItemLabel = TextWidget.Cast( layoutRoot.FindAnyWidget( "offerItemLabel" ));
-        offerMessageFromPlayerLabel = TextWidget.Cast( layoutRoot.FindAnyWidget( "offerMessageFromPlayerLabel" ));
-        offerMyBidAttachmentLabel = TextWidget.Cast( layoutRoot.FindAnyWidget( "offerMyBidAttachmentLabel" ));
-        offerMyBidLabel = TextWidget.Cast( layoutRoot.FindAnyWidget( "offerMyBidLabel" ));
-        offerMyBidsLabel = TextWidget.Cast( layoutRoot.FindAnyWidget( "offerMyBidsLabel" ));
-        playerOfferMessageDetail = MultilineTextWidget.Cast( layoutRoot.FindAnyWidget( "playerOfferMessageDetail" ));
+        cancel = ButtonWidget.Cast( layoutRoot.FindAnyWidget("cancel"));
+        buttonOpenCreateOffer = ButtonWidget.Cast( layoutRoot.FindAnyWidget("buttonOpenCreateOffer"));
+        buttonManageMyBids = ButtonWidget.Cast( layoutRoot.FindAnyWidget("buttonManageMyBids"));
+        buttonDeleteMyOffer = ButtonWidget.Cast( layoutRoot.FindAnyWidget("buttonDeleteMyOffer"));
+        buttonTakeOffer = ButtonWidget.Cast( layoutRoot.FindAnyWidget("buttonTakeOffer"));
+        buttonOpenCreateMyBid = ButtonWidget.Cast( layoutRoot.FindAnyWidget("buttonOpenCreateMyBid"));
+        marketOffers = TextListboxWidget.Cast( layoutRoot.FindAnyWidget("marketOffers"));
+        marketOfferItems = TextListboxWidget.Cast( layoutRoot.FindAnyWidget("marketOfferItems"));
+        marketOfferItemAtatmenchts = TextListboxWidget.Cast( layoutRoot.FindAnyWidget("marketOfferItemAtatmenchts"));
+        marketOfferWantToHave = TextListboxWidget.Cast( layoutRoot.FindAnyWidget("marketOfferWantToHave"));
+        playerOffers = TextListboxWidget.Cast( layoutRoot.FindAnyWidget("playerOffers"));
+        playerOfferItems = TextListboxWidget.Cast( layoutRoot.FindAnyWidget("playerOfferItems"));
+        playerOfferItemAttachments = TextListboxWidget.Cast( layoutRoot.FindAnyWidget("playerOfferItemAttachments"));
+        playerNameOfferDetail = TextWidget.Cast( layoutRoot.FindAnyWidget("playerNameOfferDetail"));
+        offerPlayerLabel = TextWidget.Cast( layoutRoot.FindAnyWidget("offerPlayerLabel"));
+        marketOfferWantToHaveLabel = TextWidget.Cast( layoutRoot.FindAnyWidget("marketOfferWantToHaveLabel"));
+        playerOfferItemMessageLabel = TextWidget.Cast( layoutRoot.FindAnyWidget("playerOfferItemMessageLabel"));
+        offerItemAttachmentLabel = TextWidget.Cast( layoutRoot.FindAnyWidget("offerItemAttachmentLabel"));
+        offerItemLabel = TextWidget.Cast( layoutRoot.FindAnyWidget("offerItemLabel"));
+        offerMessageFromPlayerLabel = TextWidget.Cast( layoutRoot.FindAnyWidget("offerMessageFromPlayerLabel"));
+        offerMyBidAttachmentLabel = TextWidget.Cast( layoutRoot.FindAnyWidget("offerMyBidAttachmentLabel"));
+        offerMyBidLabel = TextWidget.Cast( layoutRoot.FindAnyWidget("offerMyBidLabel"));
+        offerMyBidsLabel = TextWidget.Cast( layoutRoot.FindAnyWidget("offerMyBidsLabel"));
+        playerOfferMessageDetail = MultilineTextWidget.Cast( layoutRoot.FindAnyWidget("playerOfferMessageDetail"));
 		notInNearHint = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("notInNearHint"));
 		message = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("message"));
 		playerOfferItemMessage = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("playerOfferItemMessage"));
@@ -178,12 +178,12 @@ class P2PTraderMenu extends UIScriptedMenu
 
 		//start player offers layout
 		
-        buttonAcceptedBids = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget( "buttonAcceptedBids" ));
-        buttonCanceledBids = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget( "buttonCanceledBids" ));
-        buttonOpenBids = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget( "buttonOpenBids" ));
-        buttonDeleteMyBid = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget( "buttonDeleteMyBid" ));
-        buttonTakeBid = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget( "buttonTakeBid" ));
-        bidManagementCloseButton = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementCloseButton" ));
+        buttonAcceptedBids = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget("buttonAcceptedBids"));
+        buttonCanceledBids = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget("buttonCanceledBids"));
+        buttonOpenBids = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget("buttonOpenBids"));
+        buttonDeleteMyBid = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget("buttonDeleteMyBid"));
+        buttonTakeBid = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget("buttonTakeBid"));
+        bidManagementCloseButton = ButtonWidget.Cast( bidManagementWidget.FindAnyWidget("bidManagementCloseButton"));
 
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonAcceptedBids,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCanceledBids,  this, "OnClick");
@@ -192,25 +192,25 @@ class P2PTraderMenu extends UIScriptedMenu
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonTakeBid,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(bidManagementCloseButton,  this, "OnClick");
 
-        bidManagementBidItemsLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementBidItemsLabel" ));
-        bidManagementBidItemAttachmentLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementBidItemAttachmentLabel" ));
-        bidManagementMarketOfferPlayerLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferPlayerLabel" ));
-        bidManagementMarketOfferPlayer = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferPlayer" ));
-        bidManagementMessageFromPlayerLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMessageFromPlayerLabel" ));
-        bidManagementMarketOfferWantToHaveLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferWantToHaveLabel" ));
-        bidManagementMarketOfferItemsLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferItemsLabel" ));
-        bidManagementMarketItemAttachmentLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketItemAttachmentLabel" ));
-        bidManagementBidHint = TextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementBidHint" ));
-        bidManagementNotInNearHint = MultilineTextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementNotInNearHint" ));
+        bidManagementBidItemsLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget("bidManagementBidItemsLabel"));
+        bidManagementBidItemAttachmentLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget("bidManagementBidItemAttachmentLabel"));
+        bidManagementMarketOfferPlayerLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget("bidManagementMarketOfferPlayerLabel"));
+        bidManagementMarketOfferPlayer = TextWidget.Cast( bidManagementWidget.FindAnyWidget("bidManagementMarketOfferPlayer"));
+        bidManagementMessageFromPlayerLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget("bidManagementMessageFromPlayerLabel"));
+        bidManagementMarketOfferWantToHaveLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget("bidManagementMarketOfferWantToHaveLabel"));
+        bidManagementMarketOfferItemsLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget("bidManagementMarketOfferItemsLabel"));
+        bidManagementMarketItemAttachmentLabel = TextWidget.Cast( bidManagementWidget.FindAnyWidget("bidManagementMarketItemAttachmentLabel"));
+        bidManagementBidHint = TextWidget.Cast( bidManagementWidget.FindAnyWidget("bidManagementBidHint"));
+        bidManagementNotInNearHint = MultilineTextWidget.Cast( bidManagementWidget.FindAnyWidget("bidManagementNotInNearHint"));
 
-        bidManagementMarketOfferMessage = MultilineTextWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferMessage" ));
+        bidManagementMarketOfferMessage = MultilineTextWidget.Cast( bidManagementWidget.FindAnyWidget("bidManagementMarketOfferMessage"));
 
-        bidManagementBids = TextListboxWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementBids" ));
-        bidManagementMarketOfferWantToHave = TextListboxWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferWantToHave" ));
-        bidManagementMarketOfferDetailItemsBid = TextListboxWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferDetailItemsBid" ));
-        bidManagementMarketOfferDetailAttachmentBid = TextListboxWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementMarketOfferDetailAttachmentBid" ));
-        bidManagementBidItems = TextListboxWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementBidItems" ));
-        bidManagementBidItemAttachment = TextListboxWidget.Cast( bidManagementWidget.FindAnyWidget( "bidManagementBidItemAttachment" ));
+        bidManagementBids = TextListboxWidget.Cast( bidManagementWidget.FindAnyWidget("bidManagementBids"));
+        bidManagementMarketOfferWantToHave = TextListboxWidget.Cast( bidManagementWidget.FindAnyWidget("bidManagementMarketOfferWantToHave"));
+        bidManagementMarketOfferDetailItemsBid = TextListboxWidget.Cast( bidManagementWidget.FindAnyWidget("bidManagementMarketOfferDetailItemsBid"));
+        bidManagementMarketOfferDetailAttachmentBid = TextListboxWidget.Cast( bidManagementWidget.FindAnyWidget("bidManagementMarketOfferDetailAttachmentBid"));
+        bidManagementBidItems = TextListboxWidget.Cast( bidManagementWidget.FindAnyWidget("bidManagementBidItems"));
+        bidManagementBidItemAttachment = TextListboxWidget.Cast( bidManagementWidget.FindAnyWidget("bidManagementBidItemAttachment"));
 
         bidManagemenMenuItemPreviewText = MultilineTextWidget.Cast(bidManagementWidget.FindAnyWidget("bidManagemenMenuItemPreviewText"));
         bidManagemenMenuMenuItemPreview = ItemPreviewWidget.Cast(bidManagementWidget.FindAnyWidget("bidManagemenMenuMenuItemPreview"));
