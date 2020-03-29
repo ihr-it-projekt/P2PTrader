@@ -222,24 +222,6 @@ FrameWidgetClass rootFrame {
          style MenuDefault
          text "<-"
         }
-        ItemPreviewWidgetClass bidMenuItemPreview0 {
-         ignorepointer 1
-         position 656.01703 488.35797
-         size 490 320.41998
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-        }
-        ItemPreviewWidgetClass bidMenuItemPreview1 {
-         ignorepointer 1
-         position 656.01703 488.35797
-         size 490 320.41998
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-        }
        }
       }
       PanelWidgetClass PanelWidget4 {
@@ -319,7 +301,7 @@ FrameWidgetClass rootFrame {
          "condense whitespace" 1
          "strip newlines" 1
         }
-        TextListboxWidgetClass detailAttechmentBid {
+        TextListboxWidgetClass detailAttachmentBid {
          color 1 1 1 0.651
          position 12.56 610.19702
          size 580 230
