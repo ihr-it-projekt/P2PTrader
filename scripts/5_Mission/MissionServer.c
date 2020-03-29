@@ -24,7 +24,7 @@ modded class MissionServer {
 		offerCreateEventHandler = new P2PTraderOfferCreateEventHandler(traderStock, config.traderConfigParams);
 		marketOfferEventHandler = new P2PTraderMarketOfferEventHandler(traderStock);
 		playerOfferEventHandler = new P2PTraderPlayerOfferEventHandler(traderStock);
-		playerItemEventHandler = new P2PTraderPlayerItemEventHandler(config.traderItemsConfig);
+		playerItemEventHandler = new P2PTraderPlayerItemEventHandler(config.traderConfigParams, config.traderItemsConfig);
 		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
 		
 		foreach(P2PTraderPosition position: config.traderConfigParams.traderPositions) {
