@@ -2,8 +2,10 @@ class P2PTraderPlayerItemEventHandler
 {
 	private ref P2PTraderPlayerInventory inventory;
 	private ref map<string, string> itemsMap = new map<string, string>();
+	private P2PTraderConfigParams config;
 	
-    void P2PTraderPlayerItemEventHandler(P2PTraderItemsConfig itemConfig) {
+    void P2PTraderPlayerItemEventHandler(P2PTraderConfigParams config, P2PTraderItemsConfig itemConfig) {
+		this.config = config;
 		itemsMap = new map<string, string>();
 		foreach(string itemName: itemConfig.items) {
 			itemsMap.Insert(itemName, itemName);
@@ -37,7 +39,8 @@ class P2PTraderPlayerItemEventHandler
 							DebugMessageP2PTrader("Item helth is zero" + item.GetType());
 							continue;
 						}
-						if (item && !itemsMap.Get(item.GetType())) {
+						
+						if (config.useItemsConfigForPlayerInventory && item && !itemsMap.Get(item.GetType())) {
 							continue;
 						}
 

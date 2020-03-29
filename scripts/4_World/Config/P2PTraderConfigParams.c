@@ -6,7 +6,7 @@ class P2PTraderConfigParams
 
     int maxMarketOffersPerPlayer = 3;
     int maxBidsPerPlayer = 3;
-	float maxDistanceToTrader = -1;
+	float maxDistanceToTrader = 3;
 	bool traderCanOpenFromEveryware = false;
 	bool playerCanTradeFromEveryware = false;
 	int exceededTimeCheckInterval = 1;
@@ -15,6 +15,8 @@ class P2PTraderConfigParams
 	int offerWillExpireAfterDays = 30;
 	ref array<vector> spawnPositionExceededOffers;
 	ref array<ref P2PTraderPosition> traderPositions;
+	bool useItemsConfigForPlayerInventory = false;
+	float versionConfig = 1.0;
 	
 
     void P2PTraderConfigParams()
@@ -28,26 +30,9 @@ class P2PTraderConfigParams
 			Save();
 		} else {
 			Load();
-			if (0.9 > maxDistanceToTrader) {
-				maxDistanceToTrader = 3;
-				Save();
-			}
-
-			if (exceededTimeCheckInterval == 0) {
-			    exceededTimeCheckInterval = 1;
-                isEnabledExceededCheck = false;
-                spawnExceededToGround = false;
-                offerWillExpireAfterDays = 30;
-                Save();
-			}
-
-			if (!spawnPositionExceededOffers || spawnPositionExceededOffers.Count() == 0) {
-				DebugMessageP2PTrader("spawnPositionExceededOffers not exists, will created");
-				spawnPositionExceededOffers = new array<vector>;
-				foreach(P2PTraderPosition position: traderPositions) {
-					position.position[0] = position.position[0] + 2;
-					spawnPositionExceededOffers.Insert(position.position);
-				}
+			if (!versionConfig) {
+				useItemsConfigForPlayerInventory = true;
+				versionConfig = 1.0;
 				Save();
 			}
 		}
