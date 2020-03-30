@@ -264,7 +264,7 @@ FrameWidgetClass rootFrame {
          "condense whitespace" 1
          "strip newlines" 1
         }
-        TextListboxWidgetClass marketOfferItemAtatmenchts {
+        TextListboxWidgetClass marketOfferItemAttachments {
          color 1 1 1 0.651
          position 460 162.38
          size 850 90

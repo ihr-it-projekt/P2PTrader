@@ -405,7 +405,7 @@ FrameWidgetClass rootFrame {
          "condense whitespace" 1
          "strip newlines" 1
         }
-        MultilineTextWidgetClass bidManagemenMenuItemPreviewText {
+        MultilineTextWidgetClass bidManagementMenuItemPreviewText {
          visible 1
          ignorepointer 1
          position 901.73004 458.30298
@@ -418,7 +418,7 @@ FrameWidgetClass rootFrame {
          "condense whitespace" 1
          "strip newlines" 1
         }
-        ItemPreviewWidgetClass bidManagemenMenuMenuItemPreview {
+        ItemPreviewWidgetClass bidManagementMenuMenuItemPreview {
          ignorepointer 1
          position 391.07401 458.30298
          size 490 215
