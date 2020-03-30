@@ -6,7 +6,7 @@ class P2PTraderPlayerBidWidget extends UIScriptedMenu
 	DayZPlayer player;
 	private P2PTraderPlayerMarketOffer selectedMarketOffer;
 	private ref array<ref P2PTraderItem> playerItems;
-	private P2PTraderPreviewWindow offerDetailItemsBidPreview;
+	private ref P2PTraderPreviewWindow offerDetailItemsBidPreview;
 
 	private TextListboxWidget playerInventoryItemsPlayerOffer;
 	private TextListboxWidget playerItemsOfferPlayerOffer;
