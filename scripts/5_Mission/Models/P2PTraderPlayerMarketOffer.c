@@ -81,7 +81,7 @@ class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer
 	
 	bool ContainsItemType(string search) {
 		foreach(P2PTraderStockItem item: offerItems) {
-			if(item.GetTranslation().Contains(search)) {
+			if(item.Contains(search)) {
 				return true;
 			}
 		}
