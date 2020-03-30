@@ -1,29 +1,29 @@
 class P2PTraderOfferWidget extends UIScriptedMenu
 {
-    Widget parentWidget;
-    P2PItemService itemService;
-    MultilineTextWidget message;
-	DayZPlayer player;
-	private array<ref P2PTraderItem> playerItems;
+    private Widget parentWidget;
+    private P2PItemService itemService;
+    private MultilineTextWidget message;
+	private DayZPlayer player;
+	private ref array<ref P2PTraderItem> playerItems;
 
 	private ButtonWidget buttonSearchOffer;
-	private EditBoxWidget inputSearchOffer;
-	private TextListboxWidget playerInventoryItemsOffer;
-	private XComboBoxWidget offerTypeCreateOffer
-	private EditBoxWidget playerTextOffer;
-	private TextListboxWidget playerWantToHaveOffer;
-	private TextListboxWidget playerItemsOfferOffer;
-	private ItemPreviewWidget offerMenuMenuItemPreview;
-	private MultilineTextWidget offerMenuItemPreviewText;
 	private ButtonWidget buttonCreateCreateOffer;
-	private TextListboxWidget tradableItemsOffer;
-	private EditBoxWidget minQuantityCreateMarketOffer;
-	private EditBoxWidget minHealthCreateMarketOffer;
 	private ButtonWidget buttonMoveToGiveCreateMarketOffer;
 	private ButtonWidget buttonMoveToInventoryCreateMarketOffer;
 	private ButtonWidget buttonMoveToWillCreateMarketOffer;
 	private ButtonWidget buttonMoveFromWillCreateMarketOffer;
 	private ButtonWidget buttonCloseCreateOffer;
+	private EditBoxWidget inputSearchOffer;
+	private EditBoxWidget playerTextOffer;
+	private EditBoxWidget minQuantityCreateMarketOffer;
+	private EditBoxWidget minHealthCreateMarketOffer;
+	private ItemPreviewWidget offerMenuMenuItemPreview;
+	private TextListboxWidget playerInventoryItemsOffer;
+	private TextListboxWidget playerWantToHaveOffer;
+	private TextListboxWidget playerItemsOfferOffer;
+	private TextListboxWidget tradableItemsOffer;
+	private XComboBoxWidget offerTypeCreateOffer
+	private MultilineTextWidget offerMenuItemPreviewText;
 
     void P2PTraderOfferWidget(DayZPlayer player, Widget parentWidget, P2PTraderItemListenerManger itemListenManager, P2PItemService itemService, MultilineTextWidget message) {
         this.player = player;
@@ -64,12 +64,12 @@ class P2PTraderOfferWidget extends UIScriptedMenu
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonSearchOffer, this, "OnClick");
 
         parentWidget.AddChild(layoutRoot);
-
-		itemService.AddTradableItemsToWidget(tradableItemsOffer, "");
     }
 
     override void OnShow() {
         itemService.GetPlayerItemList(playerInventoryItemsOffer, playerItems);
+        itemService.AddTradableItemsToWidget(tradableItemsOffer, "");
+        inputSearchOffer.SetText("");
         layoutRoot.Show(true);
     }
 

@@ -5,7 +5,8 @@ class P2PTraderPlayerBidWidget extends UIScriptedMenu
     MultilineTextWidget message;
 	DayZPlayer player;
 	private P2PTraderPlayerMarketOffer selectedMarketOffer;
-	private array<ref P2PTraderItem> playerItems;
+	private ref array<ref P2PTraderItem> playerItems;
+	private P2PTraderPreviewWindow offerDetailItemsBidPreview;
 
 	private TextListboxWidget playerInventoryItemsPlayerOffer;
 	private TextListboxWidget playerItemsOfferPlayerOffer;
@@ -22,7 +23,7 @@ class P2PTraderPlayerBidWidget extends UIScriptedMenu
 	
 	private ButtonWidget buttonCreateClosePlayerOffer;
 
-    void P2PTraderPlayerBidWidget(DayZPlayer player, Widget parentWidget, P2PTraderItemListenerManger itemListenManager, P2PItemService itemService, MultilineTextWidget message) {
+    void P2PTraderPlayerBidWidget(DayZPlayer player, Widget parentWidget, P2PTraderItemListenerManger itemListenerManager, P2PItemService itemService, MultilineTextWidget message) {
         this.player = player;
         this.parentWidget = parentWidget;
         this.itemService = itemService;
@@ -48,7 +49,10 @@ class P2PTraderPlayerBidWidget extends UIScriptedMenu
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCreateCreatePlayerOffer,this,"OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(offerDetailItemsBid,this,"OnClick");
 
-        itemListenManager.AddItemMoveListener(buttonMoveToGiveCreateCreatePlayerOffer, buttonMoveToInventoryCreatePlayerOffer, playerInventoryItemsPlayerOffer, playerItemsOfferPlayerOffer, true, bidMenuItemPreview, bidMenuItemPreviewText);
+        itemListenerManager.AddItemMoveListener(buttonMoveToGiveCreateCreatePlayerOffer, buttonMoveToInventoryCreatePlayerOffer, playerInventoryItemsPlayerOffer, playerItemsOfferPlayerOffer, true, bidMenuItemPreview, bidMenuItemPreviewText);
+        itemListenerManager.AddPreviewListener(bidMenuItemPreviewText, bidMenuItemPreview, detailAttachmentBid);
+
+        offerDetailItemsBidPreview = new P2PTraderPreviewWindow(bidMenuItemPreview, bidMenuItemPreviewText, itemService);
 
         parentWidget.AddChild(layoutRoot);
     }
@@ -69,6 +73,7 @@ class P2PTraderPlayerBidWidget extends UIScriptedMenu
     }
 
     void OnGetPlayerItems(array<ref P2PTraderItem> playerItems) {
+        DebugMessageP2PTrader("player items was set, count: " + playerItems.Count().ToString());
         this.playerItems = playerItems;
     }
 
@@ -90,6 +95,9 @@ class P2PTraderPlayerBidWidget extends UIScriptedMenu
             if (!currentOfferDetailItem) {
                 return true;
             }
+
+            offerDetailItemsBidPreview.UpdatePreview(currentOfferDetailItem);
+
             itemService.GetMarketOfferItemAttachmentList(detailAttachmentBid, currentOfferDetailItem);
             return true;
         } else if(w == buttonCreateClosePlayerOffer) {

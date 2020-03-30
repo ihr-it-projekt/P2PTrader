@@ -481,13 +481,13 @@ class P2PTraderMenu extends UIScriptedMenu
             return;
         } 
 		if (rpc_type == P2P_TRADER_EVENT_GET_PLAYER_ITEMS_RESPONSE) {
-			userListEventService.DownCountRefresh();
 			DebugMessageP2PTrader("recive P2P_TRADER_EVENT_GET_PLAYER_ITEMS_RESPONSE");
             Param1<ref array<ref P2PTraderItem>> parameterPlayerItems;
             if (ctx.Read(parameterPlayerItems)) {
                 offerWidget.OnGetPlayerItems(parameterPlayerItems.param1);
                 playerBidWidget.OnGetPlayerItems(parameterPlayerItems.param1);
 			}
+			userListEventService.DownCountRefresh();
 		} else if (rpc_type == P2P_TRADER_EVENT_GET_STOCK_RESPONSE) {
 			DebugMessageP2PTrader("recive P2P_TRADER_EVENT_GET_STOCK_RESPONSE");
             Param1<ref array<ref P2PTraderPlayerMarketOffer>> parameterStock;
@@ -517,7 +517,6 @@ class P2PTraderMenu extends UIScriptedMenu
 				mainMenuFilterListener.OnGetStockEvent(marketItems, marketPlayerItems);
 			}
 		} else if (rpc_type == P2P_TRADER_EVENT_GET_ALL_BID_OFFERS_RESPONSE) {
-			userListEventService.DownCountRefresh();
 			DebugMessageP2PTrader("recive P2P_TRADER_EVENT_GET_ALL_BID_OFFERS_RESPONSE");
             Param1<ref array<ref P2PTraderPlayerPlayerOffer>> parameterPlayerBids;
             if (ctx.Read(parameterPlayerBids)) {
@@ -530,10 +529,10 @@ class P2PTraderMenu extends UIScriptedMenu
 					playerActiveOffers.Insert(activeOffer);
 				}
 			}
-
 			bidManagementWidget.OnGetAllBidOffers(playerActiveOffers);
 
 			buttonManageMyBids.Show(true);
+			userListEventService.DownCountRefresh();
 			
 		} else if (rpc_type == P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_RESPONSE || rpc_type == P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE || rpc_type == P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_NEW_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE) {
 			DebugMessageP2PTrader("recive EVENT and Refresh lists");
@@ -563,8 +562,8 @@ class P2PTraderMenu extends UIScriptedMenu
           Param2<ref array<ref P2PTraderPlayerPlayerOffer>, ref array<ref P2PTraderPlayerPlayerOffer>> parameterOffers;
           if (ctx.Read(parameterOffers)) {
               bidManagementWidget.SetPlayerOffers(parameterOffers.param1, parameterOffers.param2);
-              userListEventService.DownCountRefresh();
           }
+          userListEventService.DownCountRefresh();
         }
 	}
 	

@@ -1,17 +1,16 @@
 class P2PTraderBidManagementWidget extends UIScriptedMenu
 {
-    Widget parentWidget;
-    P2PItemService itemService;
-    MultilineTextWidget message;
-    DayZPlayer player;
-    bool canTrade = false;
-    array<ref P2PTraderPlayerPlayerOffer> playerActiveOffers;
+    private Widget parentWidget;
+    private P2PItemService itemService;
+    private MultilineTextWidget message;
+    private DayZPlayer player;
+    private bool canTrade = false;
+    private ref array<ref P2PTraderPlayerPlayerOffer> playerActiveOffers;
 	private string bidFilterBidManagement = P2PTraderStock.OPEN_OFFER;
 	private P2PTraderPlayerPlayerOffer selectedPlayerOfferBidManagement;
 	private ref array<ref P2PTraderPlayerPlayerOffer> playerAcceptedOffers;
 	private ref array<ref P2PTraderPlayerPlayerOffer> playerInactiveOffers;
-	private array<ref P2PTraderPlayerMarketOffer> marketItems;
-
+	private ref array<ref P2PTraderPlayerMarketOffer> marketItems;
 	private P2PTraderUserListEventService userListEventService;
 
     private ButtonWidget buttonAcceptedBids;
@@ -44,7 +43,7 @@ class P2PTraderBidManagementWidget extends UIScriptedMenu
 
 	private MultilineTextWidget bidManagementNotInNearHint;
 
-     void P2PTraderBidManagementWidget(DayZPlayer player, Widget parentWidget, P2PTraderItemListenerManger itemListenManager, P2PItemService itemService, MultilineTextWidget message, P2PTraderUserListEventService userListEventService, array<ref P2PTraderPlayerMarketOffer> marketItems) {
+     void P2PTraderBidManagementWidget(DayZPlayer player, Widget parentWidget, P2PTraderItemListenerManger itemListenerManager, P2PItemService itemService, MultilineTextWidget message, P2PTraderUserListEventService userListEventService, array<ref P2PTraderPlayerMarketOffer> marketItems) {
         this.player = player;
         this.parentWidget = parentWidget;
         this.itemService = itemService;
@@ -83,10 +82,11 @@ class P2PTraderBidManagementWidget extends UIScriptedMenu
         bidManagementMenuItemPreviewText = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("bidManagementMenuItemPreviewText"));
         bidManagementMenuMenuItemPreview = ItemPreviewWidget.Cast(layoutRoot.FindAnyWidget("bidManagementMenuMenuItemPreview"));
 
-        itemListenManager.AddPreviewListener(bidManagementMenuItemPreviewText, bidManagementMenuMenuItemPreview, bidManagementBidItems);
-        itemListenManager.AddPreviewListener(bidManagementMenuItemPreviewText, bidManagementMenuMenuItemPreview, bidManagementBidItemAttachment);
-        itemListenManager.AddPreviewListener(bidManagementMenuItemPreviewText, bidManagementMenuMenuItemPreview, bidManagementMarketOfferDetailItemsBid);
-        itemListenManager.AddPreviewListener(bidManagementMenuItemPreviewText, bidManagementMenuMenuItemPreview, bidManagementMarketOfferDetailAttachmentBid);
+        itemListenerManager.AddPreviewListener(bidManagementMenuItemPreviewText, bidManagementMenuMenuItemPreview, bidManagementBidItems);
+        itemListenerManager.AddPreviewListener(bidManagementMenuItemPreviewText, bidManagementMenuMenuItemPreview, bidManagementBidItemAttachment);
+        itemListenerManager.AddPreviewListener(bidManagementMenuItemPreviewText, bidManagementMenuMenuItemPreview, bidManagementMarketOfferWantToHave);
+        itemListenerManager.AddPreviewListener(bidManagementMenuItemPreviewText, bidManagementMenuMenuItemPreview, bidManagementMarketOfferDetailItemsBid);
+        itemListenerManager.AddPreviewListener(bidManagementMenuItemPreviewText, bidManagementMenuMenuItemPreview, bidManagementMarketOfferDetailAttachmentBid);
 
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(bidManagementMarketOfferDetailItemsBid,  this, "OnClick");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(bidManagementBidItems,  this, "OnClick");

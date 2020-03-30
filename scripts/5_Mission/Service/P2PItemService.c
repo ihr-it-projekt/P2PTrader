@@ -245,10 +245,7 @@ class P2PItemService
 		
 		foreach(P2PTraderItem item: playerItems) {
 			if (item) {
-				//DebugMessageP2PTrader("Add inventory type " + item.name);
-				
 				item.SetTranslation(GetItemDisplayName(item.name));
-				
 				widget.AddItem(item.translatedName, item, 0);
 			}
 		}
@@ -258,16 +255,18 @@ class P2PItemService
 	
 	void AddTradableItemsToWidget(TextListboxWidget widget, string search) {
 		widget.ClearItems();
-		
 		search.ToLower();
 
+        int addedItems = 0;
 		foreach (P2PTraderItem item: itemsFromConfig){
-			if (search != "" && !item.translatedNameLower.Contains(search)){
+			if (!item.Contains(search)){
 				continue;
 			}
 			
-			widget.AddItem(item.translatedName, item, 0);
+			widget.AddItem(item.GetTranslation(), item, 0);
+			addedItems = addedItems + 1;
 		}
+		DebugMessageP2PTrader("Has added tradable items count: " + addedItems.ToString());
 	}
 
 	string CreateOffer(DayZPlayer player, TextListboxWidget offer, TextListboxWidget wanted, string offerText, string offerType) {

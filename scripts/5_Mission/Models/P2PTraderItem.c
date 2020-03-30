@@ -20,10 +20,23 @@ class P2PTraderItem extends P2PTraderBaseItem
 	}
 	
 	void SetTranslation(string translated) {
-		this.translatedName = item.GetDisplayName(translated);
-		this.translatedNameLower = translated;
+	    if (item) {
+	        this.translatedName = item.GetDisplayName(translated);
+	    } else {
+	        this.translatedName = translated;
+	    }
+
+		this.translatedNameLower = this.translatedName;
 		this.translatedNameLower.ToLower();
 	}
+
+	override bool Contains(string search) {
+		search.ToLower();
+	    if(search != "" && !item.GetTranslatedNameLower().Contains(search)) {
+			return false;
+		}
+		return true;
+    }
 	
 	override string GetTranslation() {
 		return this.translatedName;

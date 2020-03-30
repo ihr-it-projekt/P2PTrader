@@ -25,7 +25,7 @@ class P2PTraderUserListEventService
 	}
 	
 	bool RefreshFinished() {
-		return 0 == refreshRuns;
+		return 0 >= refreshRuns;
 	}
 
 	void ResetRefresh() {

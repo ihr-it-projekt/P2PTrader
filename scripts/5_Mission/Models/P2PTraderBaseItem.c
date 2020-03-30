@@ -15,5 +15,9 @@ class P2PTraderBaseItem {
 	string UpdateTranslation() {
 		return "";
 	}
+
+    bool Contains(string search) {
+        return false;
+    }
 	
 }

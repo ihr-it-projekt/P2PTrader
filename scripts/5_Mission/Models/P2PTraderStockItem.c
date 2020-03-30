@@ -153,6 +153,11 @@ class P2PTraderStockItem extends P2PTraderBaseItem
 		this.translatedName = GetDisplayName(translated);
 		return this.translatedName;
 	}
+
+	override bool Contains(string search) {
+		search.ToLower();
+        return !(search != "" && !translatedNameLower.Contains(search)));
+    }
 	
 	string GetDisplayName(string translated) {
 		this.translated = translated;
