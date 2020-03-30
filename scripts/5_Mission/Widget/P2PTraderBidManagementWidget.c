@@ -275,7 +275,7 @@ class P2PTraderBidManagementWidget extends UIScriptedMenu
     }
 
     int GetCountPlayerOffers() {
-        return playerInactiveOffers.Count() + playerAcceptedOffers.Count()
+        return playerInactiveOffers.Count() + playerAcceptedOffers.Count();
     }
 
     void SetPlayerOffers(array<ref P2PTraderPlayerPlayerOffer> playerInactiveOffers, ref array<ref P2PTraderPlayerPlayerOffer> playerAcceptedOffers) {

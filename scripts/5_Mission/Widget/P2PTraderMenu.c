@@ -535,7 +535,7 @@ class P2PTraderMenu extends UIScriptedMenu
 			userListEventService.DownCountRefresh();
 			
 		} else if (rpc_type == P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_RESPONSE || rpc_type == P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE || rpc_type == P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_NEW_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE) {
-			DebugMessageP2PTrader("recive EVENT and Refresh lists");
+			DebugMessageP2PTrader("receive EVENT and Refresh lists");
            	userListEventService.RefreshPlayerLists();
 			userListEventService.RefreshStockLists();
 			if (rpc_type == P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE) {
@@ -550,7 +550,7 @@ class P2PTraderMenu extends UIScriptedMenu
 			ShowHideMyOfferForItem();
 			
 		} else if (rpc_type == P2P_TRADER_EVENT_RESPONSE_ERROR) {
-			DebugMessageP2PTrader("recive P2P_TRADER_EVENT_RESPONSE_ERROR");
+			DebugMessageP2PTrader("receive P2P_TRADER_EVENT_RESPONSE_ERROR");
             Param1<string> parameterError;
             if (ctx.Read(parameterError)) {
 				message.SetText(parameterError.param1);
@@ -558,7 +558,7 @@ class P2PTraderMenu extends UIScriptedMenu
 				createPlayerOfferWidget.Show(false);
 			}
 		} if (rpc_type == P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS_RESPONSE) {
-          DebugMessageP2PTrader("recive P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS_RESPONSE");
+          DebugMessageP2PTrader("receive P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS_RESPONSE");
           Param2<ref array<ref P2PTraderPlayerPlayerOffer>, ref array<ref P2PTraderPlayerPlayerOffer>> parameterOffers;
           if (ctx.Read(parameterOffers)) {
               bidManagementWidget.SetPlayerOffers(parameterOffers.param1, parameterOffers.param2);
