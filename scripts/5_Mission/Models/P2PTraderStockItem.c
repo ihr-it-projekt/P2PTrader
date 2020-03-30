@@ -144,19 +144,26 @@ class P2PTraderStockItem extends P2PTraderBaseItem
 	}
 	
 	void SetTranslation(string translatedString) {
+	    this.translated = translatedString;
 		this.translatedName = GetDisplayName(translatedString);
 		this.translatedNameLower = translatedString;
 		this.translatedNameLower.ToLower();
 	}
 	
 	override string UpdateTranslation() {
-		this.translatedName = GetDisplayName(translated);
+		this.translatedName = GetDisplayName(this.translated);
+		this.translatedNameLower = this.translatedName;
+        this.translatedNameLower.ToLower();
 		return this.translatedName;
 	}
 
 	override bool Contains(string search) {
 		search.ToLower();
-        return !(search != "" && !translatedNameLower.Contains(search)));
+        if(search != "" && !translatedNameLower.Contains(search)){
+            return false;
+        }
+
+        return true;
     }
 	
 	string GetDisplayName(string translated) {
