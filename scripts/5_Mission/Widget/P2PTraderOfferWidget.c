@@ -1,10 +1,6 @@
-class P2PTraderOfferWidget extends UIScriptedMenu
+class P2PTraderOfferWidget extends P2PTraderBaseSubWidget
 {
-    private Widget parentWidget;
-    private P2PItemService itemService;
-    private MultilineTextWidget message;
-	private DayZPlayer player;
-	private ref array<ref P2PTraderItem> playerItems;
+    private ref array<ref P2PTraderItem> playerItems;
 
 	private ButtonWidget buttonSearchOffer;
 	private ButtonWidget buttonCreateCreateOffer;
@@ -25,51 +21,43 @@ class P2PTraderOfferWidget extends UIScriptedMenu
 	private XComboBoxWidget offerTypeCreateOffer
 	private MultilineTextWidget offerMenuItemPreviewText;
 
-    void P2PTraderOfferWidget(DayZPlayer player, Widget parentWidget, P2PTraderItemListenerManger itemListenManager, P2PItemService itemService, MultilineTextWidget message) {
-        this.player = player;
-		this.parentWidget = parentWidget;
-        this.itemService = itemService;
-        this.message = message;
+    override Widget Init() {
+        super.Init();
+        P2PTraderUIItemCreator uIItemCreator = new P2PTraderUIItemCreator("P2PTrader/layout/offer.layout");
+        layoutRoot = uIItemCreator.GetLayoutRoot();
 
-        layoutRoot = GetGame().GetWorkspace().CreateWidgets("P2PTrader/layout/offer.layout");
-
-        playerInventoryItemsOffer = TextListboxWidget.Cast(layoutRoot.FindAnyWidget("playerInventoryItemsOffer"));
-        offerTypeCreateOffer = XComboBoxWidget.Cast(layoutRoot.FindAnyWidget("offerTypeCreateOffer"));
-        tradableItemsOffer = TextListboxWidget.Cast(layoutRoot.FindAnyWidget("tradableItemsOffer"));
-        playerWantToHaveOffer = TextListboxWidget.Cast(layoutRoot.FindAnyWidget("playerWantToHaveOffer"));
-        playerItemsOfferOffer = TextListboxWidget.Cast(layoutRoot.FindAnyWidget("playerItemsOfferOffer"));
-        playerTextOffer = EditBoxWidget.Cast(layoutRoot.FindAnyWidget("playerTextOffer"));
-        minQuantityCreateMarketOffer = EditBoxWidget.Cast(layoutRoot.FindAnyWidget("minQuantityCreateMarketOffer"));
-        minHealthCreateMarketOffer = EditBoxWidget.Cast(layoutRoot.FindAnyWidget("minHealthCreateMarketOffer"));
-        offerMenuMenuItemPreview = ItemPreviewWidget.Cast(layoutRoot.FindAnyWidget("offerMenuMenuItemPreview"));
-        offerMenuItemPreviewText = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("offerMenuItemPreviewText"));
-        buttonCreateCreateOffer = ButtonWidget.Cast(layoutRoot.FindAnyWidget("buttonCreateCreateOffer"));
-        buttonSearchOffer = ButtonWidget.Cast(layoutRoot.FindAnyWidget("buttonSearchOffer"));
-		inputSearchOffer = EditBoxWidget.Cast(layoutRoot.FindAnyWidget("inputSearchOffer"));
-        buttonMoveToGiveCreateMarketOffer = ButtonWidget.Cast(layoutRoot.FindAnyWidget("buttonMoveToGiveCreateMarketOffer"));
-        buttonMoveToInventoryCreateMarketOffer = ButtonWidget.Cast(layoutRoot.FindAnyWidget("buttonMoveToInventoryCreateMarketOffer"));
-        buttonMoveToWillCreateMarketOffer = ButtonWidget.Cast(layoutRoot.FindAnyWidget("buttonMoveToWillCreateMarketOffer"));
-        buttonMoveFromWillCreateMarketOffer = ButtonWidget.Cast(layoutRoot.FindAnyWidget("buttonMoveFromWillCreateMarketOffer"));
-        buttonCloseCreateOffer = ButtonWidget.Cast(layoutRoot.FindAnyWidget("buttonCloseCreateOffer"));
+        playerInventoryItemsOffer = uIItemCreator.GetTextListboxWidget("playerInventoryItemsOffer");
+        playerWantToHaveOffer = uIItemCreator.GetTextListboxWidget("playerWantToHaveOffer");
+        tradableItemsOffer = uIItemCreator.GetTextListboxWidget("tradableItemsOffer");
+        playerItemsOfferOffer = uIItemCreator.GetTextListboxWidget("playerItemsOfferOffer");
+        offerTypeCreateOffer = uIItemCreator.GetXComboBoxWidget("offerTypeCreateOffer");
+        playerTextOffer = uIItemCreator.GetEditBoxWidget("playerTextOffer");
+        inputSearchOffer = uIItemCreator.GetEditBoxWidget("inputSearchOffer");
+        minQuantityCreateMarketOffer = uIItemCreator.GetEditBoxWidget("minQuantityCreateMarketOffer");
+        minHealthCreateMarketOffer = uIItemCreator.GetEditBoxWidget("minHealthCreateMarketOffer");
+        offerMenuMenuItemPreview = uIItemCreator.GetItemPreviewWidget("offerMenuMenuItemPreview");
+        offerMenuItemPreviewText = uIItemCreator.GetMultilineTextWidget("offerMenuItemPreviewText");
+        buttonCreateCreateOffer = uIItemCreator.GetButtonWidget("buttonCreateCreateOffer", this, "OnClick");
+        buttonSearchOffer = uIItemCreator.GetButtonWidget("buttonSearchOffer", this, "OnClick");
+        buttonCloseCreateOffer = uIItemCreator.GetButtonWidget("buttonCloseCreateOffer", this, "OnClick");
+        buttonMoveToGiveCreateMarketOffer = uIItemCreator.GetButtonWidget("buttonMoveToGiveCreateMarketOffer");
+        buttonMoveToInventoryCreateMarketOffer = uIItemCreator.GetButtonWidget("buttonMoveToInventoryCreateMarketOffer");
+        buttonMoveToWillCreateMarketOffer = uIItemCreator.GetButtonWidget("buttonMoveToWillCreateMarketOffer");
+        buttonMoveFromWillCreateMarketOffer = uIItemCreator.GetButtonWidget("buttonMoveFromWillCreateMarketOffer");
 
         offerTypeCreateOffer.AddItem("#direct_offer");
         offerTypeCreateOffer.AddItem("#auction");
         offerTypeCreateOffer.SetCurrentItem(1);
 
-        itemListenManager.AddItemMoveListener(buttonMoveToGiveCreateMarketOffer, buttonMoveToInventoryCreateMarketOffer, playerInventoryItemsOffer, playerItemsOfferOffer, true, offerMenuMenuItemPreview, offerMenuItemPreviewText);
-        itemListenManager.AddItemMoveListener(buttonMoveToWillCreateMarketOffer, buttonMoveFromWillCreateMarketOffer, tradableItemsOffer, playerWantToHaveOffer, false, offerMenuMenuItemPreview, offerMenuItemPreviewText, minQuantityCreateMarketOffer, minHealthCreateMarketOffer);
+        itemListenerManager.AddItemMoveListener(buttonMoveToGiveCreateMarketOffer, buttonMoveToInventoryCreateMarketOffer, playerInventoryItemsOffer, playerItemsOfferOffer, true, offerMenuMenuItemPreview, offerMenuItemPreviewText);
+        itemListenerManager.AddItemMoveListener(buttonMoveToWillCreateMarketOffer, buttonMoveFromWillCreateMarketOffer, tradableItemsOffer, playerWantToHaveOffer, false, offerMenuMenuItemPreview, offerMenuItemPreviewText, minQuantityCreateMarketOffer, minHealthCreateMarketOffer);
 
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCreateCreateOffer, this, "OnClick");
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCloseCreateOffer, this, "OnClick");
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonSearchOffer, this, "OnClick");
-
-        parentWidget.AddChild(layoutRoot);
+        return layoutRoot;
     }
 
     override void OnShow() {
         itemService.GetPlayerItemList(playerInventoryItemsOffer, playerItems);
-        itemService.AddTradableItemsToWidget(tradableItemsOffer, "");
-        inputSearchOffer.SetText("");
+        itemService.AddTradableItemsToWidget(tradableItemsOffer, inputSearchOffer.GetText());
         layoutRoot.Show(true);
     }
 
@@ -92,7 +80,6 @@ class P2PTraderOfferWidget extends UIScriptedMenu
     override bool OnClick(Widget w, int x, int y, int button)	{
         if(w == buttonCreateCreateOffer) {
             DebugMessageP2PTrader("Click on create offer");
-
             string offerType = P2PTraderPlayerMarketOffer.TYPE_AUCTION;
 
             if (0 == offerTypeCreateOffer.GetCurrentItem()) {

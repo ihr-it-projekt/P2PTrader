@@ -1,9 +1,5 @@
-class P2PTraderBidManagementWidget extends UIScriptedMenu
+class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
 {
-    private Widget parentWidget;
-    private P2PItemService itemService;
-    private MultilineTextWidget message;
-    private DayZPlayer player;
     private bool canTrade = false;
     private ref array<ref P2PTraderPlayerPlayerOffer> playerActiveOffers;
 	private string bidFilterBidManagement = P2PTraderStock.OPEN_OFFER;
@@ -32,6 +28,7 @@ class P2PTraderBidManagementWidget extends UIScriptedMenu
 
     private MultilineTextWidget bidManagementMenuItemPreviewText;
     private MultilineTextWidget bidManagementMarketOfferMessage;
+	private MultilineTextWidget bidManagementNotInNearHint;
 
 	private TextListboxWidget bidManagementBids;
     private TextListboxWidget bidManagementMarketOfferWantToHave;
@@ -40,46 +37,44 @@ class P2PTraderBidManagementWidget extends UIScriptedMenu
     private TextListboxWidget bidManagementBidItems;
     private TextListboxWidget bidManagementBidItemAttachment;
 
-	private MultilineTextWidget bidManagementNotInNearHint;
-
-     void P2PTraderBidManagementWidget(DayZPlayer player, Widget parentWidget, P2PTraderItemListenerManger itemListenerManager, P2PItemService itemService, MultilineTextWidget message, P2PTraderUserListEventService userListEventService, array<ref P2PTraderPlayerMarketOffer> marketItems) {
-        this.player = player;
-        this.parentWidget = parentWidget;
-        this.itemService = itemService;
-        this.message = message;
-        this.userListEventService = userListEventService;
+	void SetExtraInitDependencies(P2PTraderUserListEventService userListEventService, array<ref P2PTraderPlayerMarketOffer> marketItems) {
+	    this.userListEventService = userListEventService;
         this.marketItems = marketItems;
+	}
 
-        layoutRoot = GetGame().GetWorkspace().CreateWidgets("P2PTrader/layout/bidManagement.layout");
+     override Widget Init() {
+        super.Init();
+        P2PTraderUIItemCreator uIItemCreator = new P2PTraderUIItemCreator("P2PTrader/layout/bidManagement.layout");
+        layoutRoot = uIItemCreator.GetLayoutRoot();
 
-        buttonAcceptedBids = ButtonWidget.Cast(layoutRoot.FindAnyWidget("buttonAcceptedBids"));
-        buttonCanceledBids = ButtonWidget.Cast(layoutRoot.FindAnyWidget("buttonCanceledBids"));
-        buttonOpenBids = ButtonWidget.Cast(layoutRoot.FindAnyWidget("buttonOpenBids"));
-        buttonDeleteMyBid = ButtonWidget.Cast(layoutRoot.FindAnyWidget("buttonDeleteMyBid"));
-        buttonTakeBid = ButtonWidget.Cast(layoutRoot.FindAnyWidget("buttonTakeBid"));
-        bidManagementCloseButton = ButtonWidget.Cast(layoutRoot.FindAnyWidget("bidManagementCloseButton"));
-        bidManagementBids = TextListboxWidget.Cast(layoutRoot.FindAnyWidget("bidManagementBids"));
-        bidManagementBidHint = TextWidget.Cast(layoutRoot.FindAnyWidget("bidManagementBidHint"));
-        bidManagementBidItemsLabel = TextWidget.Cast(layoutRoot.FindAnyWidget("bidManagementBidItemsLabel"));
-        bidManagementBidItemAttachmentLabel = TextWidget.Cast(layoutRoot.FindAnyWidget("bidManagementBidItemAttachmentLabel"));
-        bidManagementMarketOfferPlayerLabel = TextWidget.Cast(layoutRoot.FindAnyWidget("bidManagementMarketOfferPlayerLabel"));
-        bidManagementMarketOfferPlayer = TextWidget.Cast(layoutRoot.FindAnyWidget("bidManagementMarketOfferPlayer"));
-        bidManagementMessageFromPlayerLabel = TextWidget.Cast(layoutRoot.FindAnyWidget("bidManagementMessageFromPlayerLabel"));
-        bidManagementMarketOfferWantToHaveLabel = TextWidget.Cast(layoutRoot.FindAnyWidget("bidManagementMarketOfferWantToHaveLabel"));
-        bidManagementMarketOfferItemsLabel = TextWidget.Cast(layoutRoot.FindAnyWidget("bidManagementMarketOfferItemsLabel"));
-        bidManagementMarketItemAttachmentLabel = TextWidget.Cast(layoutRoot.FindAnyWidget("bidManagementMarketItemAttachmentLabel"));
-        bidManagementNotInNearHint = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("bidManagementNotInNearHint"));
+        buttonAcceptedBids = uIItemCreator.GetButtonWidget("buttonAcceptedBids", this, "OnClick");
+        buttonCanceledBids = uIItemCreator.GetButtonWidget("buttonCanceledBids", this, "OnClick");
+        buttonOpenBids = uIItemCreator.GetButtonWidget("buttonOpenBids", this, "OnClick");
+        buttonDeleteMyBid = uIItemCreator.GetButtonWidget("buttonDeleteMyBid", this, "OnClick");
+        buttonTakeBid = uIItemCreator.GetButtonWidget("buttonTakeBid", this, "OnClick");
+        bidManagementCloseButton = uIItemCreator.GetButtonWidget("bidManagementCloseButton", this, "OnClick");
+        bidManagementBids = uIItemCreator.GetTextListboxWidget("bidManagementBids", this, "OnClick");
+        bidManagementBidHint = uIItemCreator.GetTextWidget("bidManagementBidHint");
+        bidManagementBidItemsLabel = uIItemCreator.GetTextWidget("bidManagementBidItemsLabel");
+        bidManagementBidItemAttachmentLabel = uIItemCreator.GetTextWidget("bidManagementBidItemAttachmentLabel");
+        bidManagementMarketOfferPlayerLabel = uIItemCreator.GetTextWidget("bidManagementMarketOfferPlayerLabel");
+        bidManagementMarketOfferPlayer = uIItemCreator.GetTextWidget("bidManagementMarketOfferPlayer");
+        bidManagementMessageFromPlayerLabel = uIItemCreator.GetTextWidget("bidManagementMessageFromPlayerLabel");
+        bidManagementMarketOfferWantToHaveLabel = uIItemCreator.GetTextWidget("bidManagementMarketOfferWantToHaveLabel");
+        bidManagementMarketOfferItemsLabel = uIItemCreator.GetTextWidget("bidManagementMarketOfferItemsLabel");
+        bidManagementMarketItemAttachmentLabel = uIItemCreator.GetTextWidget("bidManagementMarketItemAttachmentLabel");
+        bidManagementNotInNearHint = uIItemCreator.GetMultilineTextWidget("bidManagementNotInNearHint");
 
-        bidManagementMarketOfferMessage = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("bidManagementMarketOfferMessage"));
+        bidManagementMarketOfferMessage = uIItemCreator.GetMultilineTextWidget("bidManagementMarketOfferMessage");
 
-        bidManagementMarketOfferWantToHave = TextListboxWidget.Cast(layoutRoot.FindAnyWidget("bidManagementMarketOfferWantToHave"));
-        bidManagementMarketOfferDetailItemsBid = TextListboxWidget.Cast(layoutRoot.FindAnyWidget("bidManagementMarketOfferDetailItemsBid"));
-        bidManagementMarketOfferDetailAttachmentBid = TextListboxWidget.Cast(layoutRoot.FindAnyWidget("bidManagementMarketOfferDetailAttachmentBid"));
-        bidManagementBidItems = TextListboxWidget.Cast(layoutRoot.FindAnyWidget("bidManagementBidItems"));
-        bidManagementBidItemAttachment = TextListboxWidget.Cast(layoutRoot.FindAnyWidget("bidManagementBidItemAttachment"));
+        bidManagementMarketOfferWantToHave = uIItemCreator.GetTextListboxWidget("bidManagementMarketOfferWantToHave");
+        bidManagementMarketOfferDetailItemsBid = uIItemCreator.GetTextListboxWidget("bidManagementMarketOfferDetailItemsBid", this, "OnClick");
+        bidManagementMarketOfferDetailAttachmentBid = uIItemCreator.GetTextListboxWidget("bidManagementMarketOfferDetailAttachmentBid");
+        bidManagementBidItems = uIItemCreator.GetTextListboxWidget("bidManagementBidItems", this, "OnClick");
+        bidManagementBidItemAttachment = uIItemCreator.GetTextListboxWidget("bidManagementBidItemAttachment");
 
-        bidManagementMenuItemPreviewText = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("bidManagementMenuItemPreviewText"));
-        bidManagementMenuMenuItemPreview = ItemPreviewWidget.Cast(layoutRoot.FindAnyWidget("bidManagementMenuMenuItemPreview"));
+        bidManagementMenuItemPreviewText = uIItemCreator.GetMultilineTextWidget("bidManagementMenuItemPreviewText");
+        bidManagementMenuMenuItemPreview = uIItemCreator.GetItemPreviewWidget("bidManagementMenuMenuItemPreview");
 
         itemListenerManager.AddPreviewListener(bidManagementMenuItemPreviewText, bidManagementMenuMenuItemPreview, bidManagementBidItems);
         itemListenerManager.AddPreviewListener(bidManagementMenuItemPreviewText, bidManagementMenuMenuItemPreview, bidManagementBidItemAttachment);
@@ -87,19 +82,9 @@ class P2PTraderBidManagementWidget extends UIScriptedMenu
         itemListenerManager.AddPreviewListener(bidManagementMenuItemPreviewText, bidManagementMenuMenuItemPreview, bidManagementMarketOfferDetailItemsBid);
         itemListenerManager.AddPreviewListener(bidManagementMenuItemPreviewText, bidManagementMenuMenuItemPreview, bidManagementMarketOfferDetailAttachmentBid);
 
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(bidManagementMarketOfferDetailItemsBid,  this, "OnClick");
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(bidManagementBidItems,  this, "OnClick");
-
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonAcceptedBids,  this, "OnClick");
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCanceledBids,  this, "OnClick");
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonOpenBids,  this, "OnClick");
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonDeleteMyBid,  this, "OnClick");
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonTakeBid,  this, "OnClick");
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(bidManagementCloseButton,  this, "OnClick");
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(bidManagementBids,  this, "OnClick");
-
         layoutRoot.Show(false);
-        parentWidget.AddChild(layoutRoot);
+
+        return layoutRoot;
     }
 
 

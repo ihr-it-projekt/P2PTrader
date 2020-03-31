@@ -1,9 +1,5 @@
-class P2PTraderPlayerBidWidget extends UIScriptedMenu
+class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget
 {
-    Widget parentWidget;
-    P2PItemService itemService;
-    MultilineTextWidget message;
-	DayZPlayer player;
 	private P2PTraderPlayerMarketOffer selectedMarketOffer;
 	private ref array<ref P2PTraderItem> playerItems;
 	private ref P2PTraderPreviewWindow offerDetailItemsBidPreview;
@@ -20,41 +16,33 @@ class P2PTraderPlayerBidWidget extends UIScriptedMenu
 	private TextListboxWidget detailAttachmentBid;
 	private ButtonWidget buttonMoveToGiveCreateCreatePlayerOffer;
 	private ButtonWidget buttonMoveToInventoryCreatePlayerOffer;
-	
 	private ButtonWidget buttonCreateClosePlayerOffer;
 
-    void P2PTraderPlayerBidWidget(DayZPlayer player, Widget parentWidget, P2PTraderItemListenerManger itemListenerManager, P2PItemService itemService, MultilineTextWidget message) {
-        this.player = player;
-        this.parentWidget = parentWidget;
-        this.itemService = itemService;
-        this.message = message;
+    override Widget Init() {
+        super.Init();
+        P2PTraderUIItemCreator uIItemCreator = new P2PTraderUIItemCreator("P2PTrader/layout/bid.layout");
+        layoutRoot = uIItemCreator.GetLayoutRoot();
 
-        layoutRoot = GetGame().GetWorkspace().CreateWidgets("P2PTrader/layout/bid.layout");
-
-        playerInventoryItemsPlayerOffer = TextListboxWidget.Cast(layoutRoot.FindAnyWidget("playerInventoryItemsPlayerOffer"));
-        playerItemsOfferPlayerOffer = TextListboxWidget.Cast(layoutRoot.FindAnyWidget("playerItemsOfferPlayerOffer"));
-        playerTextPlayerOffer = EditBoxWidget.Cast(layoutRoot.FindAnyWidget("playerTextPlayerOffer"));
-        buttonCreateCreatePlayerOffer = ButtonWidget.Cast(layoutRoot.FindAnyWidget("buttonCreateCreatePlayerOffer"));
-        bidMenuItemPreview = ItemPreviewWidget.Cast(layoutRoot.FindAnyWidget("bidMenuItemPreview"));
-		bidMenuItemPreviewText = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("bidMenuItemPreviewText"));
-        playerNameBidDetail = TextWidget.Cast( layoutRoot.FindAnyWidget( "playerNameBidDetail" ));
-        playerOfferMessageDetailBid = MultilineTextWidget.Cast( layoutRoot.FindAnyWidget( "playerOfferMessageDetailBid" ));
-        offerDetailItemsBid = TextListboxWidget.Cast(layoutRoot.FindAnyWidget("offerDetailItemsBid"));
-        detailAttachmentBid = TextListboxWidget.Cast(layoutRoot.FindAnyWidget("detailAttachmentBid"));
-        buttonMoveToGiveCreateCreatePlayerOffer = ButtonWidget.Cast(layoutRoot.FindAnyWidget("buttonMoveToGiveCreateCreatePlayerOffer"));
-        buttonMoveToInventoryCreatePlayerOffer = ButtonWidget.Cast(layoutRoot.FindAnyWidget("buttonMoveToInventoryCreatePlayerOffer"));
-        buttonCreateClosePlayerOffer = ButtonWidget.Cast(layoutRoot.FindAnyWidget("buttonCreateClosePlayerOffer"));
-
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCreateClosePlayerOffer,this,"OnClick");
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonCreateCreatePlayerOffer,this,"OnClick");
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(offerDetailItemsBid,this,"OnClick");
+        playerInventoryItemsPlayerOffer = uIItemCreator.GetTextListboxWidget("playerInventoryItemsPlayerOffer");
+        playerItemsOfferPlayerOffer = uIItemCreator.GetTextListboxWidget("playerItemsOfferPlayerOffer");
+        playerTextPlayerOffer = uIItemCreator.GetEditBoxWidget("playerTextPlayerOffer");
+        bidMenuItemPreview = uIItemCreator.GetItemPreviewWidget("bidMenuItemPreview");
+		bidMenuItemPreviewText = uIItemCreator.GetMultilineTextWidget("bidMenuItemPreviewText");
+        playerNameBidDetail = uIItemCreator.GetTextWidget("playerNameBidDetail");
+        playerOfferMessageDetailBid = uIItemCreator.GetMultilineTextWidget("playerOfferMessageDetailBid");
+        offerDetailItemsBid = uIItemCreator.GetTextListboxWidget("offerDetailItemsBid", this, "OnClick");
+        detailAttachmentBid = uIItemCreator.GetTextListboxWidget("detailAttachmentBid");
+        buttonCreateCreatePlayerOffer = uIItemCreator.GetButtonWidget("buttonCreateCreatePlayerOffer", this, "OnClick");
+        buttonMoveToGiveCreateCreatePlayerOffer = uIItemCreator.GetButtonWidget("buttonMoveToGiveCreateCreatePlayerOffer");
+        buttonMoveToInventoryCreatePlayerOffer = uIItemCreator.GetButtonWidget("buttonMoveToInventoryCreatePlayerOffer");
+        buttonCreateClosePlayerOffer = uIItemCreator.GetButtonWidget("buttonCreateClosePlayerOffer", this, "OnClick");
 
         itemListenerManager.AddItemMoveListener(buttonMoveToGiveCreateCreatePlayerOffer, buttonMoveToInventoryCreatePlayerOffer, playerInventoryItemsPlayerOffer, playerItemsOfferPlayerOffer, true, bidMenuItemPreview, bidMenuItemPreviewText);
         itemListenerManager.AddPreviewListener(bidMenuItemPreviewText, bidMenuItemPreview, detailAttachmentBid);
 
         offerDetailItemsBidPreview = new P2PTraderPreviewWindow(bidMenuItemPreview, bidMenuItemPreviewText, itemService);
 
-        parentWidget.AddChild(layoutRoot);
+        return layoutRoot;
     }
 
     void SetMarketOfferDetails(P2PTraderPlayerMarketOffer selectedMarketOffer) {

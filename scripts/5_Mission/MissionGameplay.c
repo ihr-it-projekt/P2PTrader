@@ -49,7 +49,7 @@ modded class MissionGameplay
 					traderMenu.Init();
 					traderMenu.SetCanTrade(canTrade);
 					traderMenu.OnShow();
-				} else if (traderMenu && !traderMenu.isMenuOpen) {
+				} else if (traderMenu && !traderMenu.layoutRoot.IsVisible()) {
 					DebugMessageP2PTrader("show trader menue");
 					traderMenu.SetCanTrade(canTrade);
 					traderMenu.OnShow();
