@@ -489,7 +489,7 @@ class P2PTraderMenu extends UIScriptedMenu
 			}
 			userListEventService.DownCountRefresh();
 		} else if (rpc_type == P2P_TRADER_EVENT_GET_STOCK_RESPONSE) {
-			DebugMessageP2PTrader("recive P2P_TRADER_EVENT_GET_STOCK_RESPONSE");
+			DebugMessageP2PTrader("receive P2P_TRADER_EVENT_GET_STOCK_RESPONSE");
             Param1<ref array<ref P2PTraderPlayerMarketOffer>> parameterStock;
             if (ctx.Read(parameterStock)) {
 				DebugMessageP2PTrader("got market items: " + parameterStock.param1.Count().ToString());
