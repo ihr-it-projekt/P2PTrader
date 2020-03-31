@@ -34,7 +34,6 @@ class P2PTraderBidManagementWidget extends UIScriptedMenu
     private MultilineTextWidget bidManagementMarketOfferMessage;
 
 	private TextListboxWidget bidManagementBids;
-	private TextListboxWidget playerOfferItemAttachments;
     private TextListboxWidget bidManagementMarketOfferWantToHave;
     private TextListboxWidget bidManagementMarketOfferDetailItemsBid;
     private TextListboxWidget bidManagementMarketOfferDetailAttachmentBid;
@@ -120,12 +119,6 @@ class P2PTraderBidManagementWidget extends UIScriptedMenu
         ShowHideBidManagementButtons();
         selectedPlayerOfferBidManagement = null;
 
-        if (!canTrade) {
-            buttonDeleteMyBid.Show(false);
-        } else {
-            buttonDeleteMyBid.Show(true);
-        }
-
         if(playerActiveOffers.Count() == 0) {
             bidManagementBidHint.Show(true);
             bidManagementBids.Show(false);
@@ -143,6 +136,7 @@ class P2PTraderBidManagementWidget extends UIScriptedMenu
             bidManagementBidHint.Show(false);
             bidManagementBids.Show(true);
         }
+		buttonDeleteMyBid.Show(false);
 
         layoutRoot.Show(true);
     }
@@ -156,7 +150,6 @@ class P2PTraderBidManagementWidget extends UIScriptedMenu
             selectedPlayerOfferBidManagement = null;
             bidManagementBidItemAttachment.ClearItems();
             bidManagementBidItems.ClearItems();
-            playerOfferItemAttachments.ClearItems();
 
             if(!playerAcceptedOffers || playerAcceptedOffers.Count() == 0) {
                 bidManagementBidHint.Show(true);
@@ -175,7 +168,6 @@ class P2PTraderBidManagementWidget extends UIScriptedMenu
             selectedPlayerOfferBidManagement = null;
             bidManagementBidItemAttachment.ClearItems();
             bidManagementBidItems.ClearItems();
-            playerOfferItemAttachments.ClearItems();
 
             if(!playerInactiveOffers || playerInactiveOffers.Count() == 0) {
                 bidManagementBidHint.Show(true);
@@ -192,7 +184,6 @@ class P2PTraderBidManagementWidget extends UIScriptedMenu
         } else if(w == buttonOpenBids) {
             bidManagementBidItemAttachment.ClearItems();
             bidManagementBidItems.ClearItems();
-            playerOfferItemAttachments.ClearItems();
             selectedPlayerOfferBidManagement = null;
             if(!playerActiveOffers || playerActiveOffers.Count() == 0) {
                 bidManagementBidHint.Show(true);
