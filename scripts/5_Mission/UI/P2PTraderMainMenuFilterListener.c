@@ -28,12 +28,6 @@ class P2PTraderMainMenuFilterListener extends Managed
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(buttonSearchMarket, this, "OnClickFilterOwner");
     }
 
-    void OnShow() {
-		filterOfferType.SetCurrentItem(0);
-		filterOfferOwner.SetCurrentItem(0);
-		OnClickFilterOwner();
-    }
-
     void OnGetStockEvent(array<ref P2PTraderPlayerMarketOffer> marketItems, array<ref P2PTraderPlayerMarketOffer> marketPlayerItems) {
 		this.marketItems = marketItems;
         this.marketPlayerItems = marketPlayerItems;
