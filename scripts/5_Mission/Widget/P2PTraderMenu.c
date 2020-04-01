@@ -498,10 +498,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 						}
 						marketItems.Insert(marketOfferItems);
 					}
-				} else if (stock && stock.Count() == 0) {
-					DebugMessageP2PTrader("empty stock recived");
-				} else {
-					DebugMessageP2PTrader("no stock recived");
 				}
 				
 				itemService.InitMarketItems(marketItems);
