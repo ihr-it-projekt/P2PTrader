@@ -1,19 +1,18 @@
-class P2PIsAuctionCompleteValidator
+class P2PIsAuctionCompleteValidator extends P2PBaseValidator
 {
-	private string errorMessage = "";
 	private ref map <int, P2PTraderStockItem> usedItems
 	private ref map <int, P2PTraderStockItem> unUsedItems
+	private array <ref P2PTraderStockItem> marketOfferItems;
+	private array <P2PTraderStockItem> playerOfferItems;
 	
-	void P2PIsAuctionCompleteValidator() {
+	void P2PIsAuctionCompleteValidator(P2PTraderPlayerMarketOffer marketOffer, P2PTraderPlayerPlayerOffer playerOffer) {
 		usedItems = new map <int, P2PTraderStockItem>;
 		unUsedItems = new map <int, P2PTraderStockItem>;
+		marketOfferItems = marketOffer.GetWantedItems();
+        playerOfferItems = playerOffer.GetAllItems();
 	}
 	
-    bool IsValid(P2PTraderPlayerMarketOffer marketOffer, P2PTraderPlayerPlayerOffer playerOffer) {
-		array <ref P2PTraderStockItem> marketOfferItems = marketOffer.GetWantedItems();
-		array <P2PTraderStockItem> playerOfferItems = playerOffer.GetAllItems();
-		
-		
+    protected override bool DoValidate() {
 		if (playerOfferItems.Count() == 0 || marketOfferItems.Count() >  playerOfferItems.Count()) {
 			errorMessage = "#you_offer_to_less_items";
 			return false;
@@ -48,10 +47,6 @@ class P2PIsAuctionCompleteValidator
 		
 		return true;
     }
-	
-	string GetErrorMessage() {
-		return errorMessage;
-	}
 	
 	array <P2PTraderStockItem> GetUsedItems() {
 		array <P2PTraderStockItem> collection = new array <P2PTraderStockItem>;

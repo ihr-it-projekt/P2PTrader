@@ -36,26 +36,15 @@ class P2PTraderMarketOfferEventHandler
                 playerMarketOffer = traderStock.GetPlayerToMarketOfferById(offerId);
                 P2PTraderPlayerPlayerOffer playerPlayerOffer = traderStock.GetPlayerOfferById(playerOfferId);
 
-                if (playerMarketOffer == null) {
-                    GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE_ERROR, new Param1<string>("#offer_not_exists"), true, player.GetIdentity());
-                    DebugMessageP2PTrader("send P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE_ERROR to player: no market offer found");
+                P2PTakeOfferValidator takeOfferValidator = new P2PTakeOfferValidator(playerMarketOffer, playerPlayerOffer, player.GetIdentity().GetId());
+
+                if (!takeOfferValidator.IsValid()) {
+                    GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE_ERROR, new Param1<string>(takeOfferValidator.GetErrorMessage()), true, player.GetIdentity());
+                    DebugMessageP2PTrader("send P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE_ERROR to player: " + takeOfferValidator.GetErrorMessage());
                     return;
-                } else if (playerPlayerOffer == null) {
-                    GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE_ERROR, new Param1<string>("#player_offer_not_exists"), true, player.GetIdentity());
-                    DebugMessageP2PTrader("send P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE_ERROR to player: no player offer found");
-                    return;
-                } else if (playerMarketOffer.GetOwnerId() != player.GetIdentity().GetId()) {
-                    GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE_ERROR, new Param1<string>("#you_can_only_use_your_own_order"), true, player.GetIdentity());
-                    DebugMessageP2PTrader("send P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE_ERROR to player: is not owner of market offer");
-                    return;
-                } else if (playerPlayerOffer.GetOwnerId() == player.GetIdentity().GetId()) {
-					GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE_ERROR, new Param1<string>("#you_can_not_accept_your_own_order"), true, player.GetIdentity());
-                    DebugMessageP2PTrader("send P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE_ERROR to player: is owner of player offer");
-                    return;
-				}
+                }
 
 				inventory.AddCollection(player, playerPlayerOffer.GetOfferItems());
-				
 				traderStock.AcceptPlayerToPlayerOffer(playerMarketOffer, playerPlayerOffer);
 				
 				GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE, new Param1<string>(""), true, player.GetIdentity());

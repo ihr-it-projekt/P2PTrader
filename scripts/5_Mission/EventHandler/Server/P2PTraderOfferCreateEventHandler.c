@@ -149,8 +149,8 @@ class P2PTraderOfferCreateEventHandler
 	                GetGame().RPCSingleParam(offerPlayer, P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE, new Param1<string>(""), true, offerPlayer.GetIdentity());
 	                DebugMessageP2PTrader("send P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE to player");
 				} else {
-					P2PIsAuctionCompleteValidator isAuctionCompleteValidator = new P2PIsAuctionCompleteValidator();
-					if(isAuctionCompleteValidator.IsValid(playerMarketOffer, offerFromPlayer)) {
+					P2PIsAuctionCompleteValidator isAuctionCompleteValidator = new P2PIsAuctionCompleteValidator(playerMarketOffer, offerFromPlayer);
+					if(isAuctionCompleteValidator.IsValid()) {
 						array <P2PTraderStockItem> unUsedItems = isAuctionCompleteValidator.GetUnUsedItems();
 						
 						P2PTraderPlayerPlayerOffer validOfferFromPlayer = new P2PTraderPlayerPlayerOffer(offerPlayer.GetIdentity().GetId(), offerPlayer.GetIdentity().GetName(), offerId, offerPlayerMessage);
