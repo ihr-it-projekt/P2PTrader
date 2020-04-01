@@ -1,4 +1,4 @@
-class P2PTraderMenu extends UIScriptedMenu
+class P2PTraderMenu extends P2PTraderScriptedMenu
 {
 	private DayZPlayer player;
 	private string playerId;
@@ -6,7 +6,6 @@ class P2PTraderMenu extends UIScriptedMenu
 	private P2PTraderPlayerMarketOffer selectedMarketOffer;
 	private ref array<ref P2PTraderPlayerPlayerOffer> selectedPlayerOffers;
 	private P2PTraderPlayerPlayerOffer selectedPlayerOffer;
-	private ref P2PItemService itemService;
 	private ref array<ref P2PTraderPlayerMarketOffer> marketItems;
 	private ref array<ref P2PTraderPlayerMarketOffer> marketPlayerItems;
 	private ref array<ref P2PTraderPlayerPlayerOffer> allActiveOffers;
@@ -56,14 +55,23 @@ class P2PTraderMenu extends UIScriptedMenu
 	private MultilineTextWidget notInNearHint;
 	private MultilineTextWidget playerOfferItemMessage;
 
+    void ~P2PTraderMenu() {
+        DebugMessageP2PTrader("destroy trader menu");
+    }
+
 	void SetConfig(P2PTraderConfig configExt) {
-        config = configExt;
+        this.config = configExt;
+		itemService = new P2PItemService(configExt);
+		player = GetGame().GetPlayer();
+		playerId = player.GetIdentity().GetId();
+		itemListenerManager = new P2PTraderItemListenerManger(itemService);
+		marketItems = new ref array<ref P2PTraderPlayerMarketOffer>;
+		marketPlayerItems = new ref array<ref P2PTraderPlayerMarketOffer>;
 	}
 
     override Widget Init()
     {
-		
-        if (IsServerP2PTrader()){
+		if (IsServerP2PTrader()){
             DebugMessageP2PTrader("can not init, is server");
             return null;
         }
@@ -74,13 +82,6 @@ class P2PTraderMenu extends UIScriptedMenu
 
         super.Init();
 		
-		itemService = new P2PItemService(config);
-		player = GetGame().GetPlayer();
-		playerId = player.GetIdentity().GetId();
-		itemListenerManager = new P2PTraderItemListenerManger(itemService);
-		marketItems = new ref array<ref P2PTraderPlayerMarketOffer>;
-		marketPlayerItems = new ref array<ref P2PTraderPlayerMarketOffer>;
-
         P2PTraderUIItemCreator uIItemCreator = new P2PTraderUIItemCreator("P2PTrader/layout/mainMenu.layout");
         layoutRoot = uIItemCreator.GetLayoutRoot();
 
@@ -185,7 +186,6 @@ class P2PTraderMenu extends UIScriptedMenu
 			return true;
 		} else if(w == marketOffers) {
 			DebugMessageP2PTrader("click marketOffers");
-			DebugMessageP2PTrader("try get selected item");
 			selectedMarketOffer = itemService.GetSelectedMarketOffer(marketOffers);
 			
 			if (!selectedMarketOffer) {
