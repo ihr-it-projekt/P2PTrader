@@ -2,7 +2,6 @@ class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget
 {
 	private P2PTraderPlayerMarketOffer selectedMarketOffer;
 	private ref array<ref P2PTraderItem> playerItems;
-	private ref P2PTraderPreviewWindow offerDetailItemsBidPreview;
 
 	private TextListboxWidget playerInventoryItemsPlayerOffer;
 	private TextListboxWidget playerItemsOfferPlayerOffer;
@@ -38,11 +37,12 @@ class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget
         buttonCreateClosePlayerOffer = uIItemCreator.GetButtonWidget("buttonCreateClosePlayerOffer", this, "OnClick");
 
         itemListenerManager.AddItemMoveListener(buttonMoveToGiveCreateCreatePlayerOffer, buttonMoveToInventoryCreatePlayerOffer, playerInventoryItemsPlayerOffer, playerItemsOfferPlayerOffer, true, bidMenuItemPreview, bidMenuItemPreviewText);
-        itemListenerManager.AddPreviewListener(bidMenuItemPreviewText, bidMenuItemPreview, detailAttachmentBid);
+        
+		CreatePreview(bidMenuItemPreview, bidMenuItemPreviewText);
+		
+		itemListenerManager.AddPreviewListener(previewWindow, detailAttachmentBid);
 
-        offerDetailItemsBidPreview = new P2PTraderPreviewWindow(bidMenuItemPreview, bidMenuItemPreviewText, itemService);
-
-        return layoutRoot;
+		return layoutRoot;
     }
 
     void SetMarketOfferDetails(P2PTraderPlayerMarketOffer selectedMarketOffer) {
@@ -84,7 +84,7 @@ class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget
                 return true;
             }
 
-            offerDetailItemsBidPreview.UpdatePreview(currentOfferDetailItem);
+            UpdatePreview(currentOfferDetailItem);
 
             itemService.GetMarketOfferItemAttachmentList(detailAttachmentBid, currentOfferDetailItem);
             return true;

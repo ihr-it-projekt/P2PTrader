@@ -14,8 +14,7 @@ class P2PTraderItemListenerManger
 		moveListener.Insert(new P2PTraderItemMoveListener(buttonSourceToTarget, buttonTargetToSource, source, target, move, peviewWidget, description, itemService, minQuantity, minHealth));
 	}
 	
-	void AddPreviewListener(MultilineTextWidget description, ItemPreviewWidget previewWidget, TextListboxWidget source) {
-		P2PTraderPreviewWindow previewWindow = new P2PTraderPreviewWindow(previewWidget, description, itemService);
+	void AddPreviewListener(P2PTraderPreviewWindow previewWindow, TextListboxWidget source) {
 		previewWindow.ListenOnClick(source);
 		previewListener.Insert(previewWindow);
 	}

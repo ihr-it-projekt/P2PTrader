@@ -76,18 +76,17 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
         bidManagementMenuItemPreviewText = uIItemCreator.GetMultilineTextWidget("bidManagementMenuItemPreviewText");
         bidManagementMenuMenuItemPreview = uIItemCreator.GetItemPreviewWidget("bidManagementMenuMenuItemPreview");
 
-        itemListenerManager.AddPreviewListener(bidManagementMenuItemPreviewText, bidManagementMenuMenuItemPreview, bidManagementBidItems);
-        itemListenerManager.AddPreviewListener(bidManagementMenuItemPreviewText, bidManagementMenuMenuItemPreview, bidManagementBidItemAttachment);
-        itemListenerManager.AddPreviewListener(bidManagementMenuItemPreviewText, bidManagementMenuMenuItemPreview, bidManagementMarketOfferWantToHave);
-        itemListenerManager.AddPreviewListener(bidManagementMenuItemPreviewText, bidManagementMenuMenuItemPreview, bidManagementMarketOfferDetailItemsBid);
-        itemListenerManager.AddPreviewListener(bidManagementMenuItemPreviewText, bidManagementMenuMenuItemPreview, bidManagementMarketOfferDetailAttachmentBid);
+		CreatePreview(bidManagementMenuMenuItemPreview, bidManagementMenuItemPreviewText);
+        itemListenerManager.AddPreviewListener(previewWindow, bidManagementBidItems);
+        itemListenerManager.AddPreviewListener(previewWindow, bidManagementBidItemAttachment);
+        itemListenerManager.AddPreviewListener(previewWindow, bidManagementMarketOfferWantToHave);
+        itemListenerManager.AddPreviewListener(previewWindow, bidManagementMarketOfferDetailItemsBid);
+        itemListenerManager.AddPreviewListener(previewWindow, bidManagementMarketOfferDetailAttachmentBid);
 
         layoutRoot.Show(false);
 
         return layoutRoot;
     }
-
-
 
     void SetCanTrade(bool canTrade) {
         this.canTrade = canTrade;
@@ -96,7 +95,6 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
 
     void OnGetAllBidOffers(array<ref P2PTraderPlayerPlayerOffer> playerActiveOffers) {
         this.playerActiveOffers = playerActiveOffers;
-
     }
 
     override void OnShow() {
@@ -146,6 +144,8 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
             }
 
             bidFilterBidManagement = P2PTraderStock.ACCEPTED_OFFER;
+            bidManagementMenuItemPreviewText.Show(false);
+            bidManagementMenuMenuItemPreview.Show(false);
 
             ShowHideBidManagementButtons();
             return true;
@@ -242,6 +242,7 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
             P2PTraderStockItem selectedBidItemBidManagement = itemService.GetSelectedItemPlayerOffer(bidManagementBidItems);
             if (selectedBidItemBidManagement) {
                 itemService.GetMarketOfferItemAttachmentList(bidManagementBidItemAttachment, selectedBidItemBidManagement);
+                UpdatePreview(selectedBidItemBidManagement);
             }
             ShowHideBidManagementButtons();
             return true;

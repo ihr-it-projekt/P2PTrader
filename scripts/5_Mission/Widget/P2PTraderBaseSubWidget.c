@@ -1,6 +1,5 @@
-class P2PTraderBaseSubWidget extends UIScriptedMenu
+class P2PTraderBaseSubWidget extends P2PTraderScriptedMenu
 {
-    protected P2PItemService itemService;
     protected MultilineTextWidget message;
     protected DayZPlayer player;
     protected P2PTraderItemListenerManger itemListenerManager;

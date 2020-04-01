@@ -117,11 +117,11 @@ class P2PTraderMenu extends UIScriptedMenu
 		mainMenuItemPreviewHealth = uIItemCreator.GetMultilineTextWidget("mainMenuItemPreviewHealth");
 		mainMenuItemPreviewQuantity = uIItemCreator.GetMultilineTextWidget("mainMenuItemPreviewQuantity");
 
-		itemListenerManager.AddPreviewListener(mainMenuItemPreviewText, mainMenuItemPreview, marketOfferWantToHave);
-		itemListenerManager.AddPreviewListener(mainMenuItemPreviewText, mainMenuItemPreview, marketOfferItems);
-		itemListenerManager.AddPreviewListener(mainMenuItemPreviewText, mainMenuItemPreview, marketOfferItemAttachments);
-		itemListenerManager.AddPreviewListener(mainMenuItemPreviewText, mainMenuItemPreview, playerOfferItems);
-		itemListenerManager.AddPreviewListener(mainMenuItemPreviewText, mainMenuItemPreview, playerOfferItemAttachments);
+        CreatePreview(mainMenuItemPreview, mainMenuItemPreviewText);
+		itemListenerManager.AddPreviewListener(previewWindow, marketOfferWantToHave);
+		itemListenerManager.AddPreviewListener(previewWindow, marketOfferItems);
+		itemListenerManager.AddPreviewListener(previewWindow, marketOfferItemAttachments);
+		itemListenerManager.AddPreviewListener(previewWindow, playerOfferItemAttachments);
 
 		mainMenuFilterListener = new P2PTraderMainMenuFilterListener(layoutRoot, itemService, marketOffers);
         userListEventService = new P2PTraderUserListEventService(player);
@@ -240,6 +240,7 @@ class P2PTraderMenu extends UIScriptedMenu
 			if (!currentStockItem) {
 				return true;
 			}
+			UpdatePreview(currentStockItem);
 			itemService.GetMarketOfferItemAttachmentList(marketOfferItemAttachments, currentStockItem);
 			return true;
 		} else if(w == playerOffers) {
@@ -258,7 +259,7 @@ class P2PTraderMenu extends UIScriptedMenu
 			if (!currentMyBidItem) {
 				return true;
 			}
-			
+			UpdatePreview(currentMyBidItem);
 			itemService.GetMarketOfferItemAttachmentList(playerOfferItemAttachments, currentMyBidItem);
 			
 			return true;
@@ -408,6 +409,7 @@ class P2PTraderMenu extends UIScriptedMenu
 		selectedPlayerOffer = null;
 		ShowHideMyOfferForItem();
 		buttonOpenCreateMyBid.Show(false);
+		DebugMessageP2PTrader("hide action done");
 	}
 	
 		
