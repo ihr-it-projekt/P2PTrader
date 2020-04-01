@@ -431,7 +431,6 @@ class P2PTraderMenu extends UIScriptedMenu
 		PPEffects.SetBlurMenu(0.5);
 
 		SetFocus(layoutRoot);
-		mainMenuFilterListener.OnShow();
 		
 		offerMessageFromPlayerLabel.Show(false);
 		buttonOpenCreateMyBid.Show(false);
