@@ -164,6 +164,9 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
             }
             bidFilterBidManagement = P2PTraderStock.INACTIVE_OFFER;
 
+            bidManagementMenuItemPreviewText.Show(false);
+            bidManagementMenuMenuItemPreview.Show(false);
+
             ShowHideBidManagementButtons();
             return true;
         } else if(w == buttonOpenBids) {
@@ -180,6 +183,9 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
             }
 
             bidFilterBidManagement = P2PTraderStock.OPEN_OFFER;
+
+            bidManagementMenuItemPreviewText.Show(false);
+            bidManagementMenuMenuItemPreview.Show(false);
 
             ShowHideBidManagementButtons();
             return true;
