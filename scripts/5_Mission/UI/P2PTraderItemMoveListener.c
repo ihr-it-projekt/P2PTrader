@@ -93,7 +93,7 @@ class P2PTraderItemMoveListener extends Managed
 			
 			if (targetWidget) {
 				DebugMessageP2PTrader("Add item to target");
-				targetWidget.AddItem(item.translatedName, item, 0);
+				targetWidget.AddItem(item.GetTranslation(), item, 0);
 			}
 			
 			if (mustMove) {

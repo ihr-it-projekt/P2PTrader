@@ -41,9 +41,19 @@ class P2PTraderStock
 		idCounter++;
 		
 		newOffer.SetId(idCounter);
+		newOffer.ResetTranslation();
 		stock.Insert(newOffer);
 		
 		Save();
+	}
+	
+	P2PTraderPlayerPlayerOffer AddPlayerToPlayerOffer(P2PTraderPlayerPlayerOffer newOffer) {
+		idCounter++;
+		newOffer.SetId(idCounter);
+		newOffer.ResetTranslation();
+		playerOffers.Insert(newOffer);
+		Save();
+		return newOffer;
 	}
 
     P2PTraderPlayerMarketOffer GetPlayerToMarketOfferById(int id) {
@@ -111,14 +121,6 @@ class P2PTraderStock
 				break;
 			}
 		}
-	}
-	
-	P2PTraderPlayerPlayerOffer AddPlayerToPlayerOffer(P2PTraderPlayerPlayerOffer newOffer) {
-		idCounter++;
-		newOffer.SetId(idCounter);
-		playerOffers.Insert(newOffer);
-		Save();
-		return newOffer;
 	}
 	
 	void RemovePlayerToPlayerOffer(P2PTraderPlayerPlayerOffer offerToRemove, bool dontSave = false) {

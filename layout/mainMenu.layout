@@ -224,7 +224,7 @@ FrameWidgetClass rootFrame {
        keepsafezone 0
        color 0 0 0 0.651
        position 243.638 196.98999
-       size 1334.16003 664.57703
+       size 1334.16003 664.58002
        halign center_ref
        hexactpos 1
        vexactpos 1
@@ -255,7 +255,7 @@ FrameWidgetClass rootFrame {
         MultilineTextWidgetClass playerOfferMessageDetail {
          ignorepointer 1
          position 17.048 97.35351
-         size 400 75
+         size 400 44.526
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -264,7 +264,7 @@ FrameWidgetClass rootFrame {
          "condense whitespace" 1
          "strip newlines" 1
         }
-        TextListboxWidgetClass marketOfferItemAtatmenchts {
+        TextListboxWidgetClass marketOfferItemAttachments {
          color 1 1 1 0.651
          position 460 162.38
          size 850 90
@@ -514,6 +514,28 @@ FrameWidgetClass rootFrame {
          wrap 1
          "condense whitespace" 1
          "strip newlines" 1
+        }
+        TextWidgetClass offerPlayerTypeLabel {
+         ignorepointer 1
+         position -547.70703 -173.909
+         size 204.576 25
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style None
+         text "#offer_type"
+        }
+        TextWidgetClass offerPlayerType {
+         ignorepointer 1
+         position 225.66101 145.88
+         size 191.28101 25
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
         }
        }
       }

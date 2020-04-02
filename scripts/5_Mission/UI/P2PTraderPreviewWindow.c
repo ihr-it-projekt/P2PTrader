@@ -4,7 +4,6 @@ class P2PTraderPreviewWindow extends Managed
     private MultilineTextWidget description;
     private EntityAI previewItem;
 	private P2PItemService itemService;
-	private TextListboxWidget listBoxWidget;
 
     void P2PTraderPreviewWindow(ItemPreviewWidget widget, MultilineTextWidget description, P2PItemService itemService) {
         this.widget = widget;
@@ -13,17 +12,16 @@ class P2PTraderPreviewWindow extends Managed
     }
 	
 	void ListenOnClick(TextListboxWidget listBoxWidget) {
-		this.listBoxWidget = listBoxWidget;
 		WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(listBoxWidget,  this, "OnClick");
 	}
 	
-	bool OnClick() {
-		DebugMessageP2PTrader("click on: " + listBoxWidget.GetName());
+	bool OnClick(Widget widget, int x, int y, int button) {
+		DebugMessageP2PTrader("click on: " + widget.GetName());
 		if (previewItem) {
 			GetGame().ObjectDelete(previewItem);
 		}
 		
-		P2PTraderBaseItem item = itemService.GetSelectedItemPlayerOffer(listBoxWidget);
+		P2PTraderBaseItem item = itemService.GetSelectedItemPlayerOffer(TextListboxWidget.Cast(widget));
 		return UpdatePreview(item);
 	}
 	

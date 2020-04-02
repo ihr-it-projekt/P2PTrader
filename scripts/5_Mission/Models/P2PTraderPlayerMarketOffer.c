@@ -25,6 +25,10 @@ class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer
 		
 	}
 	
+	string GetOfferType() {
+		return this.offerType;
+	}
+	
 	bool IsOfferType(string offerType) {
 	    if (!this.offerType || this.offerType == "") {
 	        this.offerType = this.TYPE_AUCTION;
@@ -79,14 +83,23 @@ class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer
 	    return ownerName;
 	}
 	
-	bool ContainsItemType(string search) {
+	bool Contains(string search) {
 		foreach(P2PTraderStockItem item: offerItems) {
-			if(item.GetTranslation().Contains(search)) {
+			if(item.Contains(search)) {
 				return true;
 			}
 		}
 		
 		return false;
+	}
+	
+	void ResetTranslation() {
+		foreach(P2PTraderStockItem offerItem: offerItems) {
+			offerItem.ResetTranslation();
+		}
+		foreach(P2PTraderStockItem wantedItem: wantedItems) {
+			wantedItem.ResetTranslation();
+		}
 	}
 
     array <ref P2PTraderStockItem> GetOfferItems() {

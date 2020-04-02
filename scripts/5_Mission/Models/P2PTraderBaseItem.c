@@ -12,8 +12,23 @@ class P2PTraderBaseItem {
 		return "";
 	}
 	
+	bool HasTranslation() {
+		return false;
+	}
+	
 	string UpdateTranslation() {
 		return "";
 	}
+
+    bool Contains(string search) {
+        return false;
+    }
 	
+	void SetTranslation(string translated) {
+		
+	}
+	
+	void ResetTranslation() {
+		
+	}
 }

@@ -1,15 +1,8 @@
 class P2PTraderItem extends P2PTraderBaseItem
 {
-	string name;
-	string translatedName;
-	string translatedNameLower;
-	string lowerCaseName;
-	ref P2PTraderStockItem item;
+	private ref P2PTraderStockItem item;
 	
 	void P2PTraderItem(string name, EntityAI item = null) {
-		this.name = name;
-		this.lowerCaseName = name;
-		this.lowerCaseName.ToLower();
 		this.item = new P2PTraderStockItem();
 		
 		if (item) {
@@ -19,21 +12,32 @@ class P2PTraderItem extends P2PTraderBaseItem
 		}
 	}
 	
-	void SetTranslation(string translated) {
-		this.translatedName = item.GetDisplayName(translated);
-		this.translatedNameLower = translated;
-		this.translatedNameLower.ToLower();
+	override void SetTranslation(string translated) {
+	    item.SetTranslation(translated);
+	}
+
+	override bool Contains(string search) {
+	    search.ToLower();
+        string searchName = item.GetTranslatedNameLower();
+		DebugMessageP2PTrader("Search for: " + search + " Item is: " + searchName);
+
+	    if(search != "" && !searchName.Contains(search)) {
+			return false;
+		}
+
+		return true;
+    }
+	
+	override bool HasTranslation() {
+		return item.HasTranslation();
 	}
 	
 	override string GetTranslation() {
-		return this.translatedName;
+		return item.GetTranslation();
 	}
 	
 	override string UpdateTranslation() {
-		if (item) {
-			this.translatedName = item.UpdateTranslation();
-		}
-		return this.translatedName;
+        return item.UpdateTranslation();
 	}
 	
 	override P2PTraderStockItem GetItem() {
@@ -43,5 +47,4 @@ class P2PTraderItem extends P2PTraderBaseItem
 	override string GetType() {
 		return this.item.GetType();
 	}
-
 }

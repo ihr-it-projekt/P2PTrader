@@ -270,7 +270,7 @@ FrameWidgetClass rootFrame {
        vexactsize 1
        style DayZDefaultPanel
        {
-        TextListboxWidgetClass playerWhantToHaveOffer {
+        TextListboxWidgetClass playerWantToHaveOffer {
          color 1 1 1 0.651
          position -0.00002 -1.23299
          size 485.69699 200
@@ -470,7 +470,7 @@ FrameWidgetClass rootFrame {
        scaled 1
        style DayZDefaultPanel
        {
-        TextListboxWidgetClass tradeableItemsOffer {
+        TextListboxWidgetClass tradableItemsOffer {
          color 1 1 1 0.651
          position 25.707 -69.9055
          size 582.276 760
