@@ -365,7 +365,7 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass bidManagementBidHint {
          ignorepointer 1
-         position -125.738 -176.64101
+         position -15.981 -50.7783
          size 556.50598 42.0747
          halign center_ref
          valign center_ref

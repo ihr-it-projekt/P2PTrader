@@ -1,7 +1,7 @@
 class P2PTakeOfferValidator extends P2PBaseValidator
 {
-    private P2PTraderPlayerMarketOffer playerMarketOffer;
-    private P2PTraderPlayerPlayerOffer playerPlayerOffer;
+    private ref P2PTraderPlayerMarketOffer playerMarketOffer;
+    private ref P2PTraderPlayerPlayerOffer playerPlayerOffer;
     private string playerId;
 
     void P2PTakeOfferValidator(P2PTraderPlayerMarketOffer playerMarketOffer, P2PTraderPlayerPlayerOffer playerPlayerOffer, string playerId) {

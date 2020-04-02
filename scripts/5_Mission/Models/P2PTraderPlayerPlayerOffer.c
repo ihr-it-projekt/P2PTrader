@@ -82,4 +82,10 @@ class P2PTraderPlayerPlayerOffer extends P2PTraderBaseOffer
 		return allItems;
 	}
 	
+	void ResetTranslation() {
+		foreach(P2PTraderStockItem offerItem: offerItems) {
+			offerItem.ResetTranslation();
+		}
+	}
+	
 }

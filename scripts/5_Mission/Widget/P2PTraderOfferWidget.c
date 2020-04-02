@@ -45,7 +45,7 @@ class P2PTraderOfferWidget extends P2PTraderBaseSubWidget
         buttonMoveToWillCreateMarketOffer = uIItemCreator.GetButtonWidget("buttonMoveToWillCreateMarketOffer");
         buttonMoveFromWillCreateMarketOffer = uIItemCreator.GetButtonWidget("buttonMoveFromWillCreateMarketOffer");
 
-        offerTypeCreateOffer.AddItem("#direct_offer");
+        offerTypeCreateOffer.AddItem("#instant_buy");
         offerTypeCreateOffer.AddItem("#auction");
         offerTypeCreateOffer.SetCurrentItem(1);
 

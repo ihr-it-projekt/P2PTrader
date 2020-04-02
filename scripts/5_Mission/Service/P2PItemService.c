@@ -21,26 +21,97 @@ class P2PItemService
 		DebugMessageP2PTrader("Has got Items from config: " + config.traderItemsConfig.items.Count().ToString());
 		
 		foreach (string itemName: config.traderItemsConfig.items){
-			//DebugMessageP2PTrader("Add tradeable item type " + itemName);
 			P2PTraderItem item = new P2PTraderItem(itemName);
 			item.SetTranslation(GetItemDisplayName(itemName));
 			itemsFromConfig.Insert(item);
 		}
 	}
 	
-	P2PTraderPlayerMarketOffer GetSelectedMarketOffer(TextListboxWidget source) {
+	void InitMarketItems(array<ref P2PTraderPlayerMarketOffer> marketItems) {
+		foreach(P2PTraderPlayerMarketOffer offer: marketItems) {
+			if (!offer) {
+				DebugMessageP2PTrader("Item i null");
+				continue;
+			}
+			
+			array <ref P2PTraderStockItem> offerItems = offer.GetOfferItems();
+			
+			if (!offerItems) {
+				DebugMessageP2PTrader("offerItems i null");
+				continue;
+			}
+			foreach(P2PTraderStockItem item: offerItems) {
+				if (item) {
+					item.SetTranslation(GetItemDisplayName(item.GetType()));
+				}
+			}
+			
+			if (offerItems.Count() == 0) {
+				array <ref P2PTraderStockItem> wantedItems = offer.GetWantedItems();
+				foreach(P2PTraderStockItem itemWanted: wantedItems) {
+					if (itemWanted) {
+						DebugMessageP2PTrader("add itemWanted translation");
+						itemWanted.SetTranslation(GetItemDisplayName(itemWanted.GetType()));
+					}
+				}
+			}
+		}
+	}
+	
+	ref array <ref P2PTraderPlayerPlayerOffer> GetPlayerOffersForMarketOffer(P2PTraderPlayerMarketOffer selectedMarketOffer, array<ref P2PTraderPlayerPlayerOffer> allActiveOffers) {
+		ref array <ref P2PTraderPlayerPlayerOffer> offers = new array <ref P2PTraderPlayerPlayerOffer>;
+		
+		if (!selectedMarketOffer) {
+			return offers;
+		}
+		
+		foreach(P2PTraderPlayerPlayerOffer offer: allActiveOffers) {
+			if (!offer) {
+				continue;
+			}
+			DebugMessageP2PTrader("selectedMarketOffer.GetId():" + selectedMarketOffer.GetId().ToString() + " offer.GetPlayerToMarketOfferId():" + offer.GetPlayerToMarketOfferId().ToString());
+			if (selectedMarketOffer.GetId() == offer.GetPlayerToMarketOfferId()) {
+				offers.Insert(offer);
+			}
+		}
+		
+		return offers;
+	}
+	
+	P2PTraderStockItem GetSelectedItemPlayerOffer(TextListboxWidget source) {
+		int markedPos = source.GetSelectedRow();
+		if (markedPos == -1) {
+		    return null;
+		}
+
+		P2PTraderStockItem item;
+		source.GetItemData(markedPos, 0, item);
+		
+		return item;
+	}
+	
+	P2PTraderPlayerPlayerOffer GetSelectedStockItem(TextListboxWidget source) {
 		int markedPos = source.GetSelectedRow();
 		
-		DebugMessageP2PTrader("has pos: " + markedPos.ToString());
+		if (-1 == markedPos) {
+			return null;
+		}
+		
+		P2PTraderPlayerPlayerOffer item;
+		source.GetItemData(markedPos, 0, item);
+		
+		return item;
+	}
+	
+	P2PTraderPlayerMarketOffer GetSelectedMarketOffer(TextListboxWidget source) {
+		int markedPos = source.GetSelectedRow();
 		
 		if (markedPos == -1) {
 			return null;
 		}
 		
 		P2PTraderPlayerMarketOffer item;
-		
 		source.GetItemData(markedPos, 0, item);
-		DebugMessageP2PTrader("has item from: " + item.GetOwnerName());
 		
 		return item;
 	}
@@ -88,37 +159,6 @@ class P2PItemService
 		return widget;
 	}
 	
-	void InitMarketItems(array<ref P2PTraderPlayerMarketOffer> marketItems) {
-		foreach(P2PTraderPlayerMarketOffer offer: marketItems) {
-			if (!offer) {
-				DebugMessageP2PTrader("Item i null");
-				continue;
-			}
-			
-			array <ref P2PTraderStockItem> offerItems = offer.GetOfferItems();
-			
-			if (!offerItems) {
-				DebugMessageP2PTrader("offerItems i null");
-				continue;
-			}
-			foreach(P2PTraderStockItem item: offerItems) {
-				if (item) {
-					item.SetTranslation(GetItemDisplayName(item.GetType()));
-				}
-			}
-			
-			if (offerItems.Count() == 0) {
-				array <ref P2PTraderStockItem> wantedItems = offer.GetWantedItems();
-				foreach(P2PTraderStockItem itemWanted: wantedItems) {
-					if (itemWanted) {
-						DebugMessageP2PTrader("add itemWanted translation");
-						itemWanted.SetTranslation(GetItemDisplayName(itemWanted.GetType()));
-					}
-				}
-			}
-		}
-	}
-	
 	TextListboxWidget GetMarketOfferItemList(TextListboxWidget widget, P2PTraderPlayerMarketOffer marketItem) {
 		widget.ClearItems();
 		
@@ -141,7 +181,6 @@ class P2PItemService
 				}
 				
 				widget.AddItem(item.GetTranslation(), item, 0);
-				
 			}
 		}
 
@@ -150,26 +189,6 @@ class P2PItemService
 		return widget;
 	}
 	
-	ref array <ref P2PTraderPlayerPlayerOffer> GetPlayerOffersForMarketOffer(P2PTraderPlayerMarketOffer selectedMarketOffer, array<ref P2PTraderPlayerPlayerOffer> allActiveOffers) {
-		ref array <ref P2PTraderPlayerPlayerOffer> offers = new array <ref P2PTraderPlayerPlayerOffer>;
-		
-		if (!selectedMarketOffer) {
-			return offers;
-		}
-		
-		foreach(P2PTraderPlayerPlayerOffer offer: allActiveOffers) {
-			if (!offer) {
-				continue;
-			}
-			DebugMessageP2PTrader("selectedMarketOffer.GetId():" + selectedMarketOffer.GetId().ToString() + " offer.GetPlayerToMarketOfferId():" + offer.GetPlayerToMarketOfferId().ToString());
-			if (selectedMarketOffer.GetId() == offer.GetPlayerToMarketOfferId()) {
-				offers.Insert(offer);
-			}
-		}
-		
-		return offers;
-	}
-
 	TextListboxWidget GetActiveOffersForStockItem(TextListboxWidget playerOffers, array <ref P2PTraderPlayerPlayerOffer> activeOffers) {
 		playerOffers.ClearItems();
         foreach(P2PTraderPlayerPlayerOffer activeOffer: activeOffers) {
@@ -191,7 +210,6 @@ class P2PItemService
 	}
 	
 	TextListboxWidget GetMarketOfferItemAttachmentList(TextListboxWidget widget, P2PTraderStockItem offerItem, bool clearWidget = true) {
-		
 		if (clearWidget) {
 			widget.ClearItems();
 		}
@@ -213,37 +231,30 @@ class P2PItemService
 		return widget;
 	}
 	
-	P2PTraderStockItem GetSelectedItemPlayerOffer(TextListboxWidget source) {
-		int markedPos = source.GetSelectedRow();
-		if (markedPos == -1) {
-		    return null;
-		}
-
-		P2PTraderStockItem item;
-		source.GetItemData(markedPos, 0, item);
-		
-		return item;
-	}
-	
-	P2PTraderPlayerPlayerOffer GetSelectedStockItem(TextListboxWidget source) {
-		int markedPos = source.GetSelectedRow();
-		
-		if (-1 == markedPos) {
-			return null;
-		}
-		
-		P2PTraderPlayerPlayerOffer item;
-		source.GetItemData(markedPos, 0, item);
-		
-		return item;
-	}
-	
 	TextListboxWidget GetPlayerItemList(TextListboxWidget widget, array<ref P2PTraderItem> playerItems) {
 		widget.ClearItems();
 		
 		foreach(P2PTraderItem item: playerItems) {
 			if (item) {
-				item.SetTranslation(GetItemDisplayName(item.GetName()));
+				if (!item.HasTranslation()) {
+					item.SetTranslation(GetItemDisplayName(item.GetType()));
+				}
+				widget.AddItem(item.GetTranslation(), item, 0);
+			}
+		}
+		
+		return widget;
+	}
+	
+	TextListboxWidget GetTraderStockItemList(TextListboxWidget widget, array <ref P2PTraderStockItem> offerItems) {
+		widget.ClearItems();
+				
+		foreach(P2PTraderStockItem item: offerItems) {
+			if (item) {
+				if (!item.HasTranslation()) {
+					item.SetTranslation(GetItemDisplayName(item.GetType()));
+				}
+				
 				widget.AddItem(item.GetTranslation(), item, 0);
 			}
 		}
@@ -282,7 +293,7 @@ class P2PItemService
 			item = null;
 			offer.GetItemData(x, 0, item);
 			if (item) {
-				DebugMessageP2PTrader("add offer" + item.GetName());
+				DebugMessageP2PTrader("add offer" + item.GetType());
 				offerItems.Insert(item);
 			}
 		}
@@ -341,23 +352,6 @@ class P2PItemService
 		DebugMessageP2PTrader("No bid from player found for market offer");
 		return null;
 	}
-	
-	TextListboxWidget GetTraderStockItemList(TextListboxWidget widget, array <ref P2PTraderStockItem> offerItems) {
-		widget.ClearItems();
-				
-		foreach(P2PTraderStockItem item: offerItems) {
-			if (item) {
-				if (!item.HasTranslation()) {
-					item.SetTranslation(GetItemDisplayName(item.GetType()));
-				}
-				
-				widget.AddItem(item.GetTranslation(), item, 0);
-			}
-		}
-		
-		return widget;
-	}
-	
 	
 	string GetItemDisplayName(string itemClassname){
 		string cfg;

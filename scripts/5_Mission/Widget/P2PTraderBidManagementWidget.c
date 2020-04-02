@@ -80,7 +80,6 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
         itemListenerManager.AddPreviewListener(previewWindow, bidManagementBidItems);
         itemListenerManager.AddPreviewListener(previewWindow, bidManagementBidItemAttachment);
         itemListenerManager.AddPreviewListener(previewWindow, bidManagementMarketOfferWantToHave);
-        itemListenerManager.AddPreviewListener(previewWindow, bidManagementMarketOfferDetailItemsBid);
         itemListenerManager.AddPreviewListener(previewWindow, bidManagementMarketOfferDetailAttachmentBid);
 
         layoutRoot.Show(false);
@@ -249,6 +248,14 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
             if (selectedBidItemBidManagement) {
                 itemService.GetMarketOfferItemAttachmentList(bidManagementBidItemAttachment, selectedBidItemBidManagement);
                 UpdatePreview(selectedBidItemBidManagement);
+            }
+            ShowHideBidManagementButtons();
+            return true;
+        } else if(w == bidManagementMarketOfferDetailItemsBid) {
+            P2PTraderStockItem selectedOfferBidItemBidManagement = itemService.GetSelectedItemPlayerOffer(bidManagementMarketOfferDetailItemsBid);
+            if (selectedOfferBidItemBidManagement) {
+                itemService.GetMarketOfferItemAttachmentList(bidManagementMarketOfferDetailAttachmentBid, selectedOfferBidItemBidManagement);
+                UpdatePreview(selectedOfferBidItemBidManagement);
             }
             ShowHideBidManagementButtons();
             return true;

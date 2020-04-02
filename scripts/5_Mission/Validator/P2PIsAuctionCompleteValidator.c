@@ -2,8 +2,8 @@ class P2PIsAuctionCompleteValidator extends P2PBaseValidator
 {
 	private ref map <int, P2PTraderStockItem> usedItems
 	private ref map <int, P2PTraderStockItem> unUsedItems
-	private array <ref P2PTraderStockItem> marketOfferItems;
-	private array <P2PTraderStockItem> playerOfferItems;
+	private ref array <ref P2PTraderStockItem> marketOfferItems;
+	private ref array <P2PTraderStockItem> playerOfferItems;
 	
 	void P2PIsAuctionCompleteValidator(P2PTraderPlayerMarketOffer marketOffer, P2PTraderPlayerPlayerOffer playerOffer) {
 		usedItems = new map <int, P2PTraderStockItem>;

@@ -21,6 +21,8 @@ modded class MissionServer {
 		}
 
 		traderStock = new P2PTraderStock();
+		DebugMessageP2PTrader("Has loaded stock:" + traderStock.GetStock().Count().ToString());
+		
 		offerCreateEventHandler = new P2PTraderOfferCreateEventHandler(traderStock, config.traderConfigParams);
 		marketOfferEventHandler = new P2PTraderMarketOfferEventHandler(traderStock);
 		playerOfferEventHandler = new P2PTraderPlayerOfferEventHandler(traderStock);

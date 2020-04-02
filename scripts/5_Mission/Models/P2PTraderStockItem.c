@@ -1,6 +1,5 @@
 class P2PTraderStockItem extends P2PTraderBaseItem
 {
-
 	float health
 	string type;
 	float quantity;
@@ -143,10 +142,15 @@ class P2PTraderStockItem extends P2PTraderBaseItem
 		return type;
 	}
 	
-	void SetTranslation(string translatedString) {
-	    this.translated = translatedString;
-		this.translatedName = GetDisplayName(translatedString);
-		this.translatedNameLower = translatedString;
+	override void ResetTranslation() {
+		this.translated = "";
+		this.translatedNameLower = "";
+	}
+	
+	override void SetTranslation(string translated) {
+	    this.translated = translated;
+		this.translatedName = GetDisplayName(translated);
+		this.translatedNameLower = translated;
 		this.translatedNameLower.ToLower();
 	}
 	
@@ -175,7 +179,7 @@ class P2PTraderStockItem extends P2PTraderBaseItem
 		return this.translatedNameLower;
 	}
 	
-	bool HasTranslation() {
+	override bool HasTranslation() {
 		return !!this.translatedName;
 	}
 	

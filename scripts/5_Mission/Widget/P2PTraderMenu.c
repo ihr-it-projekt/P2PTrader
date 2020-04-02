@@ -43,6 +43,8 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 	private MultilineTextWidget playerOfferMessageDetail;
 	private TextWidget playerNameOfferDetail;
 	private TextWidget offerPlayerLabel;
+	private TextWidget offerPlayerTypeLabel;
+	private TextWidget offerPlayerType;
 	private TextWidget offerMessageFromPlayerLabel;
 	private TextWidget offerItemLabel;
 	private TextWidget offerItemAttachmentLabel;
@@ -100,6 +102,8 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
         playerOfferItemAttachments = uIItemCreator.GetTextListboxWidget("playerOfferItemAttachments");
         playerNameOfferDetail = uIItemCreator.GetTextWidget("playerNameOfferDetail");
         offerPlayerLabel = uIItemCreator.GetTextWidget("offerPlayerLabel");
+        offerPlayerTypeLabel = uIItemCreator.GetTextWidget("offerPlayerTypeLabel");
+        offerPlayerType = uIItemCreator.GetTextWidget("offerPlayerType");
         marketOfferWantToHaveLabel = uIItemCreator.GetTextWidget("marketOfferWantToHaveLabel");
         playerOfferItemMessageLabel = uIItemCreator.GetTextWidget("playerOfferItemMessageLabel");
         offerItemAttachmentLabel = uIItemCreator.GetTextWidget("offerItemAttachmentLabel");
@@ -197,6 +201,7 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 			DebugMessageP2PTrader("config filds");
 			playerNameOfferDetail.SetText(selectedMarketOffer.GetOwnerName());
 			playerOfferMessageDetail.SetText(selectedMarketOffer.GetOfferMessage());
+			offerPlayerType.SetText("#" + selectedMarketOffer.GetOfferType());
 			
 			DebugMessageP2PTrader("try set items to list");
 			itemService.GetMarketOfferItemList(marketOfferItems, selectedMarketOffer);
@@ -223,6 +228,7 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 			playerOfferItemAttachments.ClearItems();
 			
 			offerMessageFromPlayerLabel.Show(true);
+			offerPlayerTypeLabel.Show(true);
 			offerPlayerLabel.Show(true);
 			marketOfferWantToHaveLabel.Show(true);
 			marketOfferItems.Show(true);
@@ -439,6 +445,7 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 		buttonDeleteMyOffer.Show(false);
 		buttonTakeOffer.Show(false);
 		marketOfferWantToHaveLabel.Show(false);
+		offerPlayerTypeLabel.Show(false);
 		offerPlayerLabel.Show(false);
 		marketOfferItems.Show(false);
 		marketOfferItemAttachments.Show(false);
@@ -491,6 +498,7 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 				array<ref P2PTraderPlayerMarketOffer> stock = parameterStock.param1;
 
 				if (stock && stock.Count()> 0){
+					DebugMessageP2PTrader("Has loaded stock: " + stock.Count().ToString());
 					foreach(P2PTraderPlayerMarketOffer marketOfferItems: stock) {
 						if (marketOfferItems.GetOwnerId() == playerId) {
 							DebugMessageP2PTrader("added to player list");

@@ -5,6 +5,7 @@ class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget
 
 	private TextListboxWidget playerInventoryItemsPlayerOffer;
 	private TextListboxWidget playerItemsOfferPlayerOffer;
+	private TextListboxWidget playerOfferWantToHave;
 	private EditBoxWidget playerTextPlayerOffer;
 	private ButtonWidget buttonCreateCreatePlayerOffer;
 	private ItemPreviewWidget bidMenuItemPreview;
@@ -24,6 +25,7 @@ class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget
 
         playerInventoryItemsPlayerOffer = uIItemCreator.GetTextListboxWidget("playerInventoryItemsPlayerOffer");
         playerItemsOfferPlayerOffer = uIItemCreator.GetTextListboxWidget("playerItemsOfferPlayerOffer");
+        playerOfferWantToHave = uIItemCreator.GetTextListboxWidget("playerOfferWantToHave");
         playerTextPlayerOffer = uIItemCreator.GetEditBoxWidget("playerTextPlayerOffer");
         bidMenuItemPreview = uIItemCreator.GetItemPreviewWidget("bidMenuItemPreview");
 		bidMenuItemPreviewText = uIItemCreator.GetMultilineTextWidget("bidMenuItemPreviewText");
@@ -39,8 +41,9 @@ class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget
         itemListenerManager.AddItemMoveListener(buttonMoveToGiveCreateCreatePlayerOffer, buttonMoveToInventoryCreatePlayerOffer, playerInventoryItemsPlayerOffer, playerItemsOfferPlayerOffer, true, bidMenuItemPreview, bidMenuItemPreviewText);
         
 		CreatePreview(bidMenuItemPreview, bidMenuItemPreviewText);
-		
+
 		itemListenerManager.AddPreviewListener(previewWindow, detailAttachmentBid);
+		itemListenerManager.AddPreviewListener(previewWindow, playerOfferWantToHave);
 
 		return layoutRoot;
     }
@@ -49,6 +52,13 @@ class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget
 		this.selectedMarketOffer = selectedMarketOffer;
         playerNameBidDetail.SetText(selectedMarketOffer.GetOwnerName());
         playerOfferMessageDetailBid.SetText(selectedMarketOffer.GetOfferMessage());
+		
+		playerOfferWantToHave.ClearItems();
+
+        if(this.selectedMarketOffer.GetWantedItems().Count() > 0) {
+            itemService.GetTraderStockItemList(playerOfferWantToHave, this.selectedMarketOffer.GetWantedItems());
+        }
+		
         itemService.GetMarketOfferItemList(offerDetailItemsBid, selectedMarketOffer);
     }
 
