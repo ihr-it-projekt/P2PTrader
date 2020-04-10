@@ -1,6 +1,6 @@
 FrameWidgetClass rootFrame {
- position 10.9341 6.03812
- size 1868.13 1045.42004
+ position 0.00058 0.00001
+ size 1904 1064
  halign center_ref
  valign center_ref
  hexactpos 1
@@ -12,8 +12,8 @@ FrameWidgetClass rootFrame {
   PanelWidgetClass PanelWidget0 {
    ignorepointer 1
    color 0 0 0 1
-   position 0.00093 0
-   size 1845.63 1022.92004
+   position -0.00122 0.00009
+   size 1888 1048
    halign center_ref
    valign center_ref
    hexactpos 1
@@ -25,9 +25,8 @@ FrameWidgetClass rootFrame {
     ImageWidgetClass ImageWidget1 {
      ignorepointer 1
      keepsafezone 1
-     color 1 1 1 0.3922
-     position 9.67503 7.895
-     size 1826.27991 1007.13
+     position 8 8
+     size 1872 1032
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -37,39 +36,12 @@ FrameWidgetClass rootFrame {
      stretch 1
      nocache 0
      {
-      PanelWidgetClass PanelWidget11 {
-       ignorepointer 1
-       color 0 0 0 0.651
-       position 881.62799 955.42804
-       size 43.0646 44.452
-       halign center_ref
-       valign bottom_ref
-       hexactpos 1
-       vexactpos 1
-       hexactsize 1
-       vexactsize 1
-       style UIDefaultPanel
-       {
-        ButtonWidgetClass buttonCreateClosePlayerOffer {
-         color 1 0 0 1
-         position 8.96266 8.96267
-         size 26.3356 30.1147
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-         style MenuDefault
-         text "x"
-         switch once
-        }
-       }
-      }
       PanelWidgetClass PanelWidget8 {
        ignorepointer 1
        keepsafezone 0
        color 0 0 0 0.651
-       position 0.47787 11.25
-       size 519.44897 65.569
+       position -12.6086 8
+       size 551.99707 65.569
        halign center_ref
        hexactpos 1
        vexactpos 1
@@ -80,8 +52,8 @@ FrameWidgetClass rootFrame {
        {
         TextWidgetClass TextWidget1 {
          ignorepointer 1
-         position -0.00003 0
-         size 496.94901 43.069
+         position 0.00002 0
+         size 535.99707 49.569
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -103,8 +75,8 @@ FrameWidgetClass rootFrame {
        ignorepointer 1
        keepsafezone 0
        color 0 0 0 0.651
-       position 11.2523 31.159
-       size 1166.08997 907.81
+       position 8 36.7845
+       size 1191.39001 942.43103
        valign center_ref
        hexactpos 1
        vexactpos 1
@@ -114,8 +86,10 @@ FrameWidgetClass rootFrame {
        {
         TextListboxWidgetClass playerInventoryItemsPlayerOffer {
          color 1 1 1 0.651
-         position 8.96266 8.96265
-         size 592.36401 884.68799
+         position -276.728 0.00003
+         size 621.93506 926.43103
+         halign center_ref
+         valign center_ref
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -126,8 +100,8 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass playerItemsOfferPlayerOffer {
          color 1 1 1 0.651
-         position 329.405 -294.91299
-         size 485.69601 300
+         position 314.96698 -313.21503
+         size 545.45599 300
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -139,8 +113,9 @@ FrameWidgetClass rootFrame {
          lines 18
         }
         EditBoxWidgetClass playerTextPlayerOffer {
-         position 652.01703 -64.1032
+         position 314.96698 -60.1032
          size 500.56201 47.4926
+         halign center_ref
          valign center_ref
          hexactpos 1
          vexactpos 1
@@ -150,8 +125,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass TextWidget2 {
          ignorepointer 1
-         position 317.44699 -113.384
-         size 496.94901 43.069
+         position 314.96698 -113.384
+         size 545.45599 43.069
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -165,8 +140,8 @@ FrameWidgetClass rootFrame {
         }
         ItemPreviewWidgetClass bidMenuItemPreview {
          ignorepointer 1
-         position 656.01703 488.35797
-         size 490 320.41998
+         position 637.93506 492.93298
+         size 545.45599 320.41998
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -175,8 +150,8 @@ FrameWidgetClass rootFrame {
         MultilineTextWidgetClass bidMenuItemPreviewText {
          visible 1
          ignorepointer 1
-         position 656.01703 820.09003
-         size 490 71.3998
+         position 637.93506 821.35297
+         size 545.45599 113.078
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -187,8 +162,10 @@ FrameWidgetClass rootFrame {
         }
         ButtonWidgetClass buttonCreateCreatePlayerOffer {
          color 0.502 1 0 1
-         position 802.84894 432.86798
+         position 314.96698 -7.31952
          size 226.06799 42.0747
+         halign center_ref
+         valign center_ref
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -227,7 +204,7 @@ FrameWidgetClass rootFrame {
       PanelWidgetClass PanelWidget4 {
        ignorepointer 1
        color 0 0 0 0.651
-       position 11.25 11.25
+       position 8 8
        size 631.39301 65.569
        hexactpos 1
        vexactpos 1
@@ -237,8 +214,8 @@ FrameWidgetClass rootFrame {
        {
         TextWidgetClass TextWidget0 {
          ignorepointer 1
-         position 0 0
-         size 608.89301 43.069
+         position 1.625 0
+         size 612.14294 49.569
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -258,8 +235,8 @@ FrameWidgetClass rootFrame {
        ignorepointer 1
        keepsafezone 0
        color 0 0 0 0.651
-       position 585.04797 83.9152
-       size 605.12 907
+       position 599.69501 81.569
+       size 656.60999 942.43103
        halign center_ref
        hexactpos 1
        vexactpos 1
@@ -270,8 +247,8 @@ FrameWidgetClass rootFrame {
        {
         TextWidgetClass offerMessageFromPlayerLabel {
          ignorepointer 1
-         position 0.00003 -298.86798
-         size 580 42.0747
+         position 0.0001 -340.263
+         size 640.60999 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -289,8 +266,8 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass playerOfferMessageDetailBid {
          ignorepointer 1
-         position 12.56 179.66901
-         size 580 124.267
+         position 7.99997 159.98999
+         size 640.60999 163.56799
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -303,8 +280,8 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass detailAttachmentBid {
          color 1 1 1 0.651
-         position 12.56 714.80798
-         size 580 160
+         position 8.00004 758.43103
+         size 640.60999 176
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -314,8 +291,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerItemAttachmentLabel {
          ignorepointer 1
-         position 0 236.27101
-         size 580 42.0747
+         position 0.00003 258.17801
+         size 640.60999 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -333,8 +310,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerItemLabel {
          ignorepointer 1
-         position 0.00001 25.5434
-         size 580 42.0747
+         position 0.00003 39.4502
+         size 640.60999 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -352,8 +329,8 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass offerDetailItemsBid {
          color 1 1 1 0.651
-         position 12.56 504.08099
-         size 580 160.65302
+         position 8.00004 539.703
+         size 640.60999 160.65302
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -363,8 +340,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerPlayerLabel {
          ignorepointer 1
-         position -0.00007 -418.53
-         size 580 42.0747
+         position -0 -442.17801
+         size 640.60999 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -382,8 +359,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass playerNameBidDetail {
          ignorepointer 1
-         position 8.73782 66.497
-         size 580 43.8403
+         position 7.99995 58.0748
+         size 640.60999 43.8403
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -393,8 +370,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass playerOfferWantToHaveLabel {
          ignorepointer 1
-         position 0 -124.529
-         size 580 42.07
+         position 0.00003 -118.62299
+         size 640.60999 42.07
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -412,14 +389,39 @@ FrameWidgetClass rootFrame {
         }
         TextListboxWidgetClass playerOfferWantToHave {
          color 1 1 1 0.651
-         position 12.56 354.00601
-         size 581.26898 100
+         position 7.99997 381.62799
+         size 640.60999 100
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style Default
          lines 6
+        }
+       }
+      }
+      ButtonWidgetClass buttonCreateClosePlayerOffer {
+       color 1 0 0 1
+       position 1824 8
+       size 40 40
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style Editor
+       switch once
+       {
+        ImageWidgetClass ImageWidget0 {
+         ignorepointer 1
+         position 0 0
+         size 40 40
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         image0 "set:dayz_gui image:Close"
+         mode additive
+         "src alpha" 1
         }
        }
       }

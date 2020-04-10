@@ -1,7 +1,7 @@
 FrameWidgetClass rootFrame {
  visible 1
- position -73.2039 -468.841
- size 516.17999 115.815
+ position -0.00002 -423.88998
+ size 738.09003 120
  halign center_ref
  valign center_ref
  hexactpos 1
@@ -12,8 +12,10 @@ FrameWidgetClass rootFrame {
   PanelWidgetClass background {
    ignorepointer 1
    color 0 0 0 0.651
-   position 13.2515 13.2515
-   size 489.677 89.312
+   position 64.214 0
+   size 500.17999 104
+   halign center_ref
+   valign center_ref
    hexactpos 1
    vexactpos 1
    hexactsize 1
@@ -25,8 +27,8 @@ FrameWidgetClass rootFrame {
     PanelWidgetClass boarder {
      ignorepointer 1
      color 0 0 0 0.7843
-     position 7.7473 7.3239
-     size 468.67801 68.7366
+     position 7.99999 7.3239
+     size 484.17999 88.67609
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -35,8 +37,8 @@ FrameWidgetClass rootFrame {
      {
       MultilineTextWidgetClass message {
        ignorepointer 1
-       position 13.2515 13.2515
-       size 450.22 42.2336
+       position 7.99997 8
+       size 468.17999 72.67609
        hexactpos 1
        vexactpos 1
        hexactsize 1
@@ -53,6 +55,19 @@ FrameWidgetClass rootFrame {
      }
     }
    }
+  }
+  ImageWidgetClass ImageWidget0 {
+   ignorepointer 1
+   position 58.304 8
+   size 116.865 104
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   imageTexture "{0B2BA90A675A002A}P2PTrader/layout/P2PTrade.edds"
+   mode additive
+   "src alpha" 1
+   stretch 1
   }
  }
 }
