@@ -2,7 +2,7 @@
 <modded_inputs>
 	<inputs>
 		<actions>
-			<input name="UAInputOpenP2PTrader" loc="Key to open Player 2 Player Trader" />
+			<input name="UAInputOpenP2PTrader" loc="Key to open Player 2 Player Trader (Key bind change works only on not Server configurated servers)" />
 		</actions>
 	</inputs>
 	<preset>

@@ -16,7 +16,10 @@ class P2PTraderConfigParams
 	ref array<vector> spawnPositionExceededOffers;
 	ref array<ref P2PTraderPosition> traderPositions;
 	bool useItemsConfigForPlayerInventory = false;
-	float versionConfig = 1.0;
+	int defaultKey = KeyCode.KC_B;
+	bool useServerKeyBind = false;
+	map <int, string> possibleKeyBindingsMap;
+	float versionConfig = 1.1;
 	
 
     void P2PTraderConfigParams()
@@ -30,12 +33,17 @@ class P2PTraderConfigParams
 			Save();
 		} else {
 			Load();
-			if (!versionConfig) {
-				useItemsConfigForPlayerInventory = true;
-				versionConfig = 1.0;
+			if (versionConfig < 1.1) {
+				defaultKey = KeyCode.KC_B;
+				useServerKeyBind = false;
+				P2PTraderKeyCodeMatch keyMatcher = new P2PTraderKeyCodeMatch;
+				
+				possibleKeyBindingsMap = keyMatcher.keyCodes;
+				versionConfig = 1.1;
 				Save();
 			}
 		}
+		
     }
 	
     private void Load(){

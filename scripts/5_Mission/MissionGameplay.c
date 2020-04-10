@@ -5,6 +5,7 @@ modded class MissionGameplay
 	private ref P2PTraderHint traderHintMenu;
 	private DayZPlayer player;
 	private UAInput localInput;
+	private P2PTraderConfigParams traderConfigParams;
 	
 	void MissionGameplay() {
 		DebugMessageP2PTrader("init Mission MissionGameplay");
@@ -27,6 +28,7 @@ modded class MissionGameplay
 			Param1 <ref P2PTraderConfig> configParam;
 			if (ctx.Read(configParam)){
 				config = configParam.param1;
+				traderConfigParams = config.traderConfigParams;
 				DebugMessageP2PTrader("player has load config");
 			}
 		}
@@ -37,27 +39,12 @@ modded class MissionGameplay
 		super.OnUpdate(timeslice);
 		player = GetGame().GetPlayer();
 		bool isInNear = isInNearOfTrader();
-		if(localInput.LocalClick() && player && player.IsAlive()) {
-			if (config && config.traderConfigParams.traderCanOpenFromEveryware || isInNear) {
-				DebugMessageP2PTrader("try open menu");
-				bool canTrade = config.traderConfigParams.playerCanTradeFromEveryware || isInNear;
-				
-				if (!traderMenu || !traderMenu.IsInitialized()) {
-					DebugMessageP2PTrader("Init trader menu");
-					traderMenu = new P2PTraderMenu();
-					traderMenu.SetConfig(config);
-					traderMenu.Init();
-				} 
-				
-				if (traderMenu && !traderMenu.layoutRoot.IsVisible()) {
-					DebugMessageP2PTrader("show trader menue");
-					traderMenu.SetCanTrade(canTrade);
-					traderMenu.OnShow();
-				}
-			}
+		if(traderConfigParams && !traderConfigParams.useServerKeyBind && localInput.LocalClick() && player && player.IsAlive()) {
+			OpenTrader(isInNear);
 		}
-		if (isInNear && !traderHintMenu){
+		if (traderConfigParams && isInNear && !traderHintMenu){
 			traderHintMenu = new P2PTraderHint;
+			traderHintMenu.SetConfigParams(traderConfigParams);
             traderHintMenu.Init();
             traderHintMenu.OnShow();
 		} else if (isInNear && traderHintMenu) {
@@ -66,21 +53,36 @@ modded class MissionGameplay
             traderHintMenu.OnHide();
 		}
 	}
+	
+	private void OpenTrader(bool isInNear) {
+		if (player && player.IsAlive() && traderConfigParams && traderConfigParams.traderCanOpenFromEveryware || isInNear) {
+			DebugMessageP2PTrader("try open menu");
+			bool canTrade = config.traderConfigParams.playerCanTradeFromEveryware || isInNear;
+			
+			if (!traderMenu || !traderMenu.IsInitialized()) {
+				DebugMessageP2PTrader("Init trader menu");
+				traderMenu = new P2PTraderMenu();
+				traderMenu.SetConfig(config);
+				traderMenu.Init();
+			} 
+			
+			if (traderMenu && !traderMenu.layoutRoot.IsVisible()) {
+				DebugMessageP2PTrader("show trader menue");
+				traderMenu.SetCanTrade(canTrade);
+				traderMenu.OnShow();
+			}
+		}
+	}
 
 	override void OnKeyRelease(int key)
 	{
 		super.OnKeyRelease(key);
 		
-		if (traderMenu && traderMenu.layoutRoot.IsVisible()){
-			switch (key){
-				case KeyCode.KC_ESCAPE:
-					DebugMessageP2PTrader("press esc");
-					traderMenu.CloseMenu();
-					
-					break;
-				default:
-					break;
-			}
+		if (traderMenu && traderMenu.layoutRoot.IsVisible() && key == KeyCode.KC_ESCAPE){
+		    DebugMessageP2PTrader("press esc");
+			traderMenu.CloseMenu();
+		} else if ((!traderMenu || !traderMenu.layoutRoot.IsVisible()) && traderConfigParams && traderConfigParams.useServerKeyBind && traderConfigParams.defaultKey == key) {
+			OpenTrader(isInNearOfTrader());	
 		}
 	}
 	
@@ -92,8 +94,8 @@ modded class MissionGameplay
 		if (!playerPosition) {
 			return false;
 		}
-		foreach(P2PTraderPosition position: config.traderConfigParams.traderPositions) {
-			if (vector.Distance(position.position, playerPosition) <= config.traderConfigParams.maxDistanceToTrader){
+		foreach(P2PTraderPosition position: traderConfigParams.traderPositions) {
+			if (vector.Distance(position.position, playerPosition) <= traderConfigParams.maxDistanceToTrader){
 				return true;
 			}
 		}	
