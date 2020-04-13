@@ -19,7 +19,7 @@ class P2PTraderConfigParams
 	int defaultKey = KeyCode.KC_B;
 	bool useServerKeyBind = false;
 	map <int, string> possibleKeyBindingsMap;
-	float versionConfig = 1.1;
+	string configVersion = "2";
 	
 
     void P2PTraderConfigParams()
@@ -33,13 +33,13 @@ class P2PTraderConfigParams
 			Save();
 		} else {
 			Load();
-			if (versionConfig < 1.1) {
+			if (configVersion.ToInt() < 2) {
 				defaultKey = KeyCode.KC_B;
 				useServerKeyBind = false;
 				P2PTraderKeyCodeMatch keyMatcher = new P2PTraderKeyCodeMatch;
 				
 				possibleKeyBindingsMap = keyMatcher.keyCodes;
-				versionConfig = 1.1;
+				configVersion = "2";
 				Save();
 			}
 		}
