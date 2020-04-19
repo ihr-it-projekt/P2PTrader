@@ -44,9 +44,10 @@ modded class MissionGameplay
 		}
 		if (traderConfigParams && isInNear && !traderHintMenu){
 			traderHintMenu = new P2PTraderHint;
-			traderHintMenu.SetConfigParams(traderConfigParams);
             traderHintMenu.Init();
-            traderHintMenu.OnShow();
+            traderHintMenu.SetMessage(keyName);
+			traderHintMenu.OnShow();
+			
 		} else if (isInNear && traderHintMenu) {
             traderHintMenu.OnShow();
 		} else if(!isInNear && traderHintMenu) {

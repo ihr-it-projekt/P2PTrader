@@ -2,8 +2,8 @@ class P2PTraderHint extends UIScriptedMenu
 {
     private bool isOpen  = false;
     private MultilineTextWidget messageField;
-	private P2PTraderConfigParams params;
-	private string message;
+	private string message = "#hint_can_open_trader";
+	
 	
 	override Widget Init()
     {
@@ -19,18 +19,12 @@ class P2PTraderHint extends UIScriptedMenu
 
         layoutRoot = GetGame().GetWorkspace().CreateWidgets("P2PTrader/layout/openHint.layout");
 		messageField = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("message"));
-		message = "#hint_can_open_trader";
-		
-		if (params.useServerKeyBind) {
-			message += " #key_to_open: " + params.possibleKeyBindingsMap.Get(params.defaultKey);
-		}
-		
 		messageField.SetText(message);
 
         isOpen = false;
-        toggleWidget();
-
-        return layoutRoot;
+		layoutRoot.Show(isOpen);
+        
+		return layoutRoot;
     }
 
     override void OnHide()
@@ -42,7 +36,7 @@ class P2PTraderHint extends UIScriptedMenu
         super.OnHide();
 
         isOpen = false;
-        toggleWidget();
+        layoutRoot.Show(isOpen);
     }
 
 
@@ -53,9 +47,8 @@ class P2PTraderHint extends UIScriptedMenu
         }
 
         super.OnShow();
-
-        isOpen = true;
-        toggleWidget();
+		isOpen = true;
+		layoutRoot.Show(isOpen);
     }
 
 
@@ -63,12 +56,10 @@ class P2PTraderHint extends UIScriptedMenu
         return !!layoutRoot;
     }
 	
-	void SetConfigParams(P2PTraderConfigParams params) {
-		this.params = params;
+	void SetMessage(string keyName) {
+		if (keyName) {
+			message = "#hint_can_open_trader" + " #key_to_open: " + keyName;
+			messageField.SetText(message);
+		}
 	}
-
-    private void toggleWidget() {
-        DebugMessageP2PTrader("toggle hint " + isOpen);
-        layoutRoot.Show(isOpen);
-    }
 };
