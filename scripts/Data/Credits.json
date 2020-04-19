@@ -1,0 +1,22 @@
+{
+	"Departments": [
+		{
+			"DepartmentName": "Player to Player Trader",
+			"Sections": [
+				{
+					"SectionName": "Developers",
+					"SectionLines": [
+						"TheBuster"
+					]
+				},
+				{
+					"SectionName": "Thank you to",
+					"SectionLines": [
+						"Sense",
+						"rasselbande-gaming.com"
+					]
+				}
+			]
+		}
+	]
+}

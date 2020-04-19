@@ -29,13 +29,18 @@ class CfgMods
 {
 	class P2PTrader
 	{
+	    dir = "P2PTrader";
+        picture = "";
+        action = "";
+        hideName = 0;
 		inputs = "P2PTrader\inputs.xml";
-		dir = "P2PTrader";
 		name = "P2PTrader";
 		credits = "TheBuster";
+		creditsJson = "P2PTrader/Scripts/Data/Credits.json";
+		versionPath = "P2PTrader/scripts/Data/Version.hpp";
 		author = "TheBuster";
-		authorID = "0";
-		version = "0.1";
+		authorID = "76561198196317725";
+		version = "1.0.32";
 		extra = 0;
 		type = "mod";
 		
