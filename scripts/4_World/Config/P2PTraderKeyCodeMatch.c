@@ -38,7 +38,7 @@ class P2PTraderKeyCodeMatch
         keyCodes.Set(KeyCode.KC_GRAVE,"`");    ///< accent grave
         keyCodes.Set(KeyCode.KC_LSHIFT,"LSHIFT");
         keyCodes.Set(KeyCode.KC_BACKSLASH,"BACKSLACH");
-        keyCodes.Set(KeyCode.KC_Z,"z");
+        keyCodes.Set(KeyCode.KC_Z,"Z");
         keyCodes.Set(KeyCode.KC_X,"X");
         keyCodes.Set(KeyCode.KC_C,"C");
         keyCodes.Set(KeyCode.KC_V,"V");
