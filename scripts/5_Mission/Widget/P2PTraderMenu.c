@@ -515,7 +515,7 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 		} else if (rpc_type == P2P_TRADER_EVENT_GET_ALL_BID_OFFERS_RESPONSE) {
 			DebugMessageP2PTrader("receive P2P_TRADER_EVENT_GET_ALL_BID_OFFERS_RESPONSE");
             Param1<ref array<ref P2PTraderPlayerPlayerOffer>> parameterPlayerBids;
-            buttonManageMyBids.Show(false);
+            
             if (ctx.Read(parameterPlayerBids)) {
                 allActiveOffers = parameterPlayerBids.param1;
 
@@ -527,8 +527,8 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
                     }
                 }
                 bidManagementWidget.OnGetAllBidOffers(playerActiveOffers);
+				buttonManageMyBids.Show(true);
 
-                buttonManageMyBids.Show(0 < playerActiveOffers.Count());
 			}
 			userListEventService.DownCountRefresh();
 		} else if (rpc_type == P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_RESPONSE || rpc_type == P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE || rpc_type == P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_NEW_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE) {
@@ -559,7 +559,9 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
           Param2<ref array<ref P2PTraderPlayerPlayerOffer>, ref array<ref P2PTraderPlayerPlayerOffer>> parameterOffers;
           if (ctx.Read(parameterOffers)) {
               bidManagementWidget.SetPlayerOffers(parameterOffers.param1, parameterOffers.param2);
+			  buttonManageMyBids.Show(true);
           }
+		  
           userListEventService.DownCountRefresh();
         }
 	}

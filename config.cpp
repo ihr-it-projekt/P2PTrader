@@ -40,7 +40,7 @@ class CfgMods
 		versionPath = "P2PTrader/scripts/Data/Version.hpp";
 		author = "TheBuster";
 		authorID = "76561198196317725";
-		version = "1.0.32";
+		version = "1.0.33";
 		extra = 0;
 		type = "mod";
 		
