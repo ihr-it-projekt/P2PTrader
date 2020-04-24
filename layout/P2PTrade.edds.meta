@@ -1,0 +1,16 @@
+MetaFileClass {
+ Name "{A2359DBC4988D738}P2PTrader/layout/smTrader.edds"
+ Author "desktop-en33qro"
+ ChangeDate 1948412038
+ Configurations {
+  PAAResourceClass PC {
+   SourceFile "smTrader.paa"
+  }
+  PAAResourceClass XBOX_ONE : PC {
+  }
+  PAAResourceClass PS4 : PC {
+  }
+  PAAResourceClass LINUX : PC {
+  }
+ }
+}
