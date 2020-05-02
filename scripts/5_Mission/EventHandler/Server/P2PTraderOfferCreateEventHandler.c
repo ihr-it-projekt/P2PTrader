@@ -1,10 +1,10 @@
 class P2PTraderOfferCreateEventHandler
 {
 	private ref P2PTraderPlayerInventory inventory;
-	private P2PTraderStock traderStock;
+	private P2PTraderStockWrapper traderStock;
 	private P2PTraderConfigParams config;
 	
-    void P2PTraderOfferCreateEventHandler(P2PTraderStock traderStock, P2PTraderConfigParams config) {
+    void P2PTraderOfferCreateEventHandler(P2PTraderStockWrapper traderStock, P2PTraderConfigParams config) {
 		this.traderStock = traderStock;
         DebugMessageP2PTrader("Register P2PTraderOfferCreateEventHandler");
         inventory = new P2PTraderPlayerInventory;

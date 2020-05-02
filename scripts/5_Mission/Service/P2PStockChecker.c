@@ -1,10 +1,10 @@
 class P2PStockChecker extends Managed
 {
-    private P2PTraderStock stock;
+    private P2PTraderStockWrapper stock;
 	private ref P2PTraderPlayerInventory inventory;
 	private P2PTraderConfigParams config;
 
-    void P2PStockChecker(P2PTraderStock stock, P2PTraderConfigParams config) {
+    void P2PStockChecker(P2PTraderStockWrapper stock, P2PTraderConfigParams config) {
         this.stock = stock;
 		this.inventory = new P2PTraderPlayerInventory;
 		this.config = config;

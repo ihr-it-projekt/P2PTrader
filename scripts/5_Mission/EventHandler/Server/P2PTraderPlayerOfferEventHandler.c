@@ -1,9 +1,9 @@
 class P2PTraderPlayerOfferEventHandler
 {
 	private ref P2PTraderPlayerInventory inventory;
-	private P2PTraderStock traderStock;
+	private P2PTraderStockWrapper traderStock;
 	
-    void P2PTraderPlayerOfferEventHandler(P2PTraderStock traderStock) {
+    void P2PTraderPlayerOfferEventHandler(P2PTraderStockWrapper traderStock) {
 		this.traderStock = traderStock;
         DebugMessageP2PTrader("Register P2PTraderPlayerOfferEventHandler");
         inventory = new P2PTraderPlayerInventory;

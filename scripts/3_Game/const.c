@@ -1,4 +1,5 @@
-static bool P2P_TRADER_DEBUG = false;
+static bool P2P_TRADER_DEBUG = true;
+static string API_SERVER_URL = "http://localhost/api/v1/";
 
 static int P2P_TRADER_EVENT_RESPONSE_ERROR = 77777755566605;
 static int P2P_TRADER_EVENT_GET_CONFIG = 777777555666001;

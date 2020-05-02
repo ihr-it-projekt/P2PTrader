@@ -47,19 +47,41 @@ class P2PTraderStock
 		Save();
 	}
 	
-	P2PTraderPlayerPlayerOffer AddPlayerToPlayerOffer(P2PTraderPlayerPlayerOffer newOffer) {
+	void AddPlayerToPlayerOffer(P2PTraderPlayerPlayerOffer newOffer) {
 		idCounter++;
 		newOffer.SetId(idCounter);
 		newOffer.ResetTranslation();
 		playerOffers.Insert(newOffer);
 		Save();
-		return newOffer;
 	}
 
     P2PTraderPlayerMarketOffer GetPlayerToMarketOfferById(int id) {
         foreach(P2PTraderPlayerMarketOffer offer: stock) {
             if (id == offer.GetId()) {
                 return offer;
+            }
+        }
+
+        return null;
+    }
+
+    P2PTraderPlayerPlayerOffer GetPlayerOfferById(int id) {
+        foreach (P2PTraderPlayerPlayerOffer playerOffer: playerOffers) {
+            if (id == playerOffer.GetId()){
+
+                return playerOffer;
+            }
+        }
+        foreach (P2PTraderPlayerPlayerOffer playerOfferInacive: playerOffersInactive) {
+            if (id == playerOfferInacive.GetId()){
+
+                return playerOfferInacive;
+            }
+        }
+        foreach (P2PTraderPlayerPlayerOffer acceptedPlayerOffer: acceptedPlayerOffers) {
+            if (id == acceptedPlayerOffer.GetId()){
+
+                return acceptedPlayerOffer;
             }
         }
 
@@ -79,6 +101,42 @@ class P2PTraderStock
 				Save();
 				break;
 			}
+		}
+	}
+
+
+	void RemovePlayerToPlayerOffer(P2PTraderPlayerPlayerOffer offerToRemove, bool dontSave = false) {
+		bool mustSave = false;
+		foreach(int index, P2PTraderPlayerPlayerOffer playerOffer: playerOffers) {
+			if (offerToRemove.GetId() == playerOffer.GetId()) {
+				playerOffers.Remove(index);
+				mustSave = true;
+				break;
+			}
+		}
+
+		foreach(int indexI, P2PTraderPlayerPlayerOffer playerOfferInactive: playerOffersInactive) {
+			if (mustSave) {
+				break;
+			}
+			if (offerToRemove.GetId() == playerOfferInactive.GetId()) {
+				playerOffersInactive.Remove(indexI);
+				mustSave = true;
+			}
+		}
+
+		foreach(int indexA, P2PTraderPlayerPlayerOffer acceptedPlayerOffer: acceptedPlayerOffers) {
+			if (mustSave) {
+				break;
+			}
+			if (offerToRemove.GetId() == acceptedPlayerOffer.GetId()) {
+				acceptedPlayerOffers.Remove(indexA);
+				mustSave = true;
+			}
+		}
+
+		if (!dontSave && mustSave) {
+			Save();
 		}
 	}
 	
@@ -122,43 +180,8 @@ class P2PTraderStock
 			}
 		}
 	}
-	
-	void RemovePlayerToPlayerOffer(P2PTraderPlayerPlayerOffer offerToRemove, bool dontSave = false) {
-		bool mustSave = false;
-		foreach(int index, P2PTraderPlayerPlayerOffer playerOffer: playerOffers) {
-			if (offerToRemove.GetId() == playerOffer.GetId()) {
-				playerOffers.Remove(index);
-				mustSave = true;
-				break;
-			}
-		}
-		
-		foreach(int indexI, P2PTraderPlayerPlayerOffer playerOfferInactive: playerOffersInactive) {
-			if (mustSave) {
-				break;
-			}
-			if (offerToRemove.GetId() == playerOfferInactive.GetId()) {
-				playerOffersInactive.Remove(indexI);
-				mustSave = true;
-			}
-		}
-		
-		foreach(int indexA, P2PTraderPlayerPlayerOffer acceptedPlayerOffer: acceptedPlayerOffers) {
-			if (mustSave) {
-				break;
-			}
-			if (offerToRemove.GetId() == acceptedPlayerOffer.GetId()) {
-				acceptedPlayerOffers.Remove(indexA);
-				mustSave = true;
-			}
-		}
-		
-		if (!dontSave && mustSave) {
-			Save();
-		}
-	}
-	
-	array<P2PTraderPlayerPlayerOffer> GetPlayerPlayerOfferForPlayerMarkertOffers(P2PTraderPlayerMarketOffer offer) {
+
+	private array<P2PTraderPlayerPlayerOffer> GetPlayerPlayerOfferForPlayerMarkertOffers(P2PTraderPlayerMarketOffer offer) {
 		array<P2PTraderPlayerPlayerOffer> playerPlayerOffers = new array<P2PTraderPlayerPlayerOffer>;
 		
 		foreach(P2PTraderPlayerPlayerOffer playerPlayerOffer: playerOffers) {
@@ -237,28 +260,7 @@ class P2PTraderStock
 		return count;
 	}
 	
-	P2PTraderPlayerPlayerOffer GetPlayerOfferById(int id) {
-		foreach (P2PTraderPlayerPlayerOffer playerOffer: playerOffers) {
-			if (id == playerOffer.GetId()){
-				
-				return playerOffer;
-			}
-		}
-		foreach (P2PTraderPlayerPlayerOffer playerOfferInacive: playerOffersInactive) {
-			if (id == playerOfferInacive.GetId()){
-				
-				return playerOfferInacive;
-			}
-		}
-		foreach (P2PTraderPlayerPlayerOffer acceptedPlayerOffer: acceptedPlayerOffers) {
-			if (id == acceptedPlayerOffer.GetId()){
-				
-				return acceptedPlayerOffer;
-			}
-		}
-		
-		return null; 
-	}
+
 	
 	array<ref P2PTraderPlayerPlayerOffer> GetInactiveOffersFromPlayer(PlayerIdentity player) {
 		string playerId = player.GetId();

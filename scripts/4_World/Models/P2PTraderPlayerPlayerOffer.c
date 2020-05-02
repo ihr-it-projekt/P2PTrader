@@ -1,11 +1,15 @@
 class P2PTraderPlayerPlayerOffer extends P2PTraderBaseOffer
 {
+    static string ACTIVE = "active";
+    static string INACTIVE = "inactive";
+    static string ACCEPTED = "accepted";
 	private string ownerId;
 	private string ownerName;
 	private ref array <ref P2PTraderStockItem> offerItems;
 	private int id;
 	private int playerToMarketOfferId;
 	private string message;
+	private string state = P2PTraderPlayerPlayerOffer::ACTIVE;
 	
 	void P2PTraderPlayerPlayerOffer(string ownerId, string ownerName, int playerToMarketOfferId, string message = "") {
 		this.playerToMarketOfferId = playerToMarketOfferId;
@@ -37,6 +41,7 @@ class P2PTraderPlayerPlayerOffer extends P2PTraderBaseOffer
 	}
 	
 	void SetPlayerMarketOfferInactive() {
+	    state = P2PTraderPlayerPlayerOffer::INACTIVE;
 		playerToMarketOfferId = 0;
 	}
 

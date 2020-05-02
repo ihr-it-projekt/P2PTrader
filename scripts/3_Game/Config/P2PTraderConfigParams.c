@@ -2,7 +2,6 @@ class P2PTraderConfigParams
 {
     private const static string	SETTINGSFILE = "P2PTraderConfigParams.json";
 	private const static string	CONFIGSFOLDERP2P = "$profile:P2PTrader\\";
-	
 
     int maxMarketOffersPerPlayer = 3;
     int maxBidsPerPlayer = 3;
@@ -18,8 +17,9 @@ class P2PTraderConfigParams
 	bool useItemsConfigForPlayerInventory = false;
 	int defaultKey = KeyCode.KC_B;
 	bool useServerKeyBind = false;
+	bool useDBStock = false;
 	map <int, string> possibleKeyBindingsMap;
-	string configVersion = "3";
+	string configVersion = "4";
 	
 
     void P2PTraderConfigParams()
@@ -30,14 +30,15 @@ class P2PTraderConfigParams
 			traderPositions.Insert(new P2PTraderPosition("6571.0 6.0 2450", "49.000000 0.000000 0.000000", "not_spawn"));
 			spawnPositionExceededOffers = new array<vector>;
 			spawnPositionExceededOffers.Insert("6573.0 6.0 2450");
+			P2PTraderKeyCodeMatch keyMatcher = new P2PTraderKeyCodeMatch;
+			possibleKeyBindingsMap = keyMatcher.keyCodes;
 			Save();
 		} else {
 			Load();
-			if (configVersion.ToInt() < 3) {
-				P2PTraderKeyCodeMatch keyMatcher = new P2PTraderKeyCodeMatch;
-				
-				possibleKeyBindingsMap = keyMatcher.keyCodes;
-				configVersion = "3";
+			DebugMessageP2PTrader("Config Version " + configVersion);
+			if (configVersion.ToInt() < 4) {
+				useDBStock = true;
+				configVersion = "4";
 				Save();
 			}
 		}
