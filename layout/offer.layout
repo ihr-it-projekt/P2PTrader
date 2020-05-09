@@ -12,7 +12,7 @@ FrameWidgetClass rootFrame {
   PanelWidgetClass PanelWidget0 {
    ignorepointer 1
    color 0 0 0 1
-   position 0.12952 0
+   position 4.13004 0
    size 1887.73999 1048
    halign center_ref
    valign center_ref
@@ -305,12 +305,13 @@ FrameWidgetClass rootFrame {
         TextListboxWidgetClass playerInventoryItemsOffer {
          color 1 1 1 0.651
          position 8.96266 8.96265
-         size 614.43005 758.83099
+         size 577.10999 758.83099
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style Default
+         "title visible" 0
          lines 45
         }
         EditBoxWidgetClass playerTextOffer {
@@ -433,8 +434,8 @@ FrameWidgetClass rootFrame {
       PanelWidgetClass PanelWidget3 {
        ignorepointer 1
        color 0 0 0 0.651
-       position 607.15497 36.5
-       size 641.69 943
+       position 607.15497 25.876
+       size 641.69 964.24799
        halign center_ref
        valign center_ref
        hexactpos 1
@@ -446,8 +447,8 @@ FrameWidgetClass rootFrame {
        {
         TextListboxWidgetClass tradableItemsOffer {
          color 1 1 1 0.651
-         position 0.00007 -83.5
-         size 625.69 760
+         position 21.7701 -25.948
+         size 582.14996 634.94403
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -455,8 +456,9 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Default
+         "title visible" 0
          colums ""
-         lines 45
+         lines 40
         }
         ButtonWidgetClass buttonMoveToWillCreateMarketOffer {
          visible 0
@@ -540,7 +542,7 @@ FrameWidgetClass rootFrame {
         MultilineTextWidgetClass MultilineTextWidget0 {
          ignorepointer 1
          position 11.64 858.888
-         size 618.41602 72.64
+         size 618.41602 101.36
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -550,60 +552,30 @@ FrameWidgetClass rootFrame {
          "condense whitespace" 1
          "strip newlines" 1
         }
-       }
-      }
-      PanelWidgetClass PanelWidget2 {
-       ignorepointer 1
-       color 0 0 0 0.651
-       position 56.9701 8
-       size 592.72003 65
-       halign right_ref
-       hexactpos 1
-       vexactpos 1
-       hexactsize 1
-       vexactsize 1
-       style UIDefaultPanel
-       {
-        ImageWidgetClass ImageWidget0 {
-         visible 1
+        PanelWidgetClass boarderOffer {
          ignorepointer 1
-         keepsafezone 0
-         position 7.99996 0
-         size 49 49
-         halign right_ref
-         valign center_ref
+         color 0 0 0 0.7843
+         position 47.5401 3.99999
+         size 586.51599 62.484
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
-         imageTexture "{6A53660726F263A6}P2PTrader/layout/search.edds"
-         mode blend
-         "src alpha" 1
-         "no wrap" 0
-         stretch 1
-         "flip u" 0
-         "flip v" 0
-         nocache 0
+         style editor_selection
          {
-          ButtonWidgetClass buttonSearchOffer {
-           ignorepointer 0
-           keepsafezone 0
-           position -0.00004 0
-           size 49 49
-           halign right_ref
-           valign center_ref
+          XComboBoxWidgetClass categoryCreateMarketOffer {
+           position 8.26001 7.04008
+           size 568.396 51.4439
            hexactpos 1
            vexactpos 1
            hexactsize 1
            vexactsize 1
-           scaled 1
-           style Default
           }
          }
         }
         EditBoxWidgetClass inputSearchOffer {
-         position 7.99997 0.00001
-         size 519.72003 49
+         position 47.5401 -376.51602
+         size 586.51599 49
          valign center_ref
          hexactpos 1
          vexactpos 1

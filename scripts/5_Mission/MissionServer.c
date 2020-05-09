@@ -12,14 +12,11 @@ modded class MissionServer {
 	void MissionServer()
 	{
 		p2pTraderConfig = new P2PTraderConfig();
+		
+		DebugMessageP2PTrader("loade keys");
+		P2PTraderKeyCodeMatch keyMap = new P2PTraderKeyCodeMatch;
 
-		if (p2pTraderConfig.traderItemsConfig.items) {
-		    DebugMessageP2PTrader("Has load Items from p2pTraderConfig: " + p2pTraderConfig.traderItemsConfig.items.Count().ToString());
-		} else {
-		     GetGame().AdminLog("[P2PTrader] ERROR: You have to configure P2PTraderItemsConfig.json. Mod not successful loaded. See: https://steamcommunity.com/sharedfiles/filedetails/discussions/2012299152");
-		     return;
-		}
-
+		DebugMessageP2PTrader("load stock");
 		traderStock = new P2PTraderStock();
 		DebugMessageP2PTrader("Has loaded stock:" + traderStock.GetStock().Count().ToString());
 		

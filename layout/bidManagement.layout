@@ -264,7 +264,8 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Default
-         lines 6
+         "title visible" 0
+         lines 4
         }
         TextListboxWidgetClass bidManagementBidItemAttachment {
          color 1 1 1 0.651
@@ -275,7 +276,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Default
-         lines 8
+         "title visible" 0
         }
         TextWidgetClass bidManagementBidItemsLabel {
          ignorepointer 1
@@ -389,7 +390,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style Default
          "title visible" 0
-         lines 37
+         lines 25
         }
        }
       }

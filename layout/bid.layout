@@ -86,8 +86,8 @@ FrameWidgetClass rootFrame {
        {
         TextListboxWidgetClass playerInventoryItemsPlayerOffer {
          color 1 1 1 0.651
-         position -276.728 0.00003
-         size 621.93506 926.43103
+         position -293.35999 0.00003
+         size 588.67096 926.43103
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -96,21 +96,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style Default
          "title visible" 0
-         lines 55
-        }
-        TextListboxWidgetClass playerItemsOfferPlayerOffer {
-         color 1 1 1 0.651
-         position 314.96698 -313.21503
-         size 545.45599 300
-         halign center_ref
-         valign center_ref
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-         style Default
-         colums ""
-         lines 18
+         lines 35
         }
         EditBoxWidgetClass playerTextPlayerOffer {
          position 314.96698 -60.1032
@@ -177,7 +163,7 @@ FrameWidgetClass rootFrame {
          visible 0
          disabled 0
          color 0.502 1 0 1
-         position 611.85297 27.9789
+         position 598.30096 27.9789
          size 36.1639 55
          hexactpos 1
          vexactpos 1
@@ -190,7 +176,7 @@ FrameWidgetClass rootFrame {
          visible 0
          disabled 0
          color 0.502 1 0 1
-         position 611.85297 100.592
+         position 599.53302 100.592
          size 36.1639 55
          hexactpos 1
          vexactpos 1
@@ -198,6 +184,21 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style MenuDefault
          text "<-"
+        }
+        TextListboxWidgetClass playerItemsOfferPlayerOffer {
+         color 1 1 1 0.651
+         position 314.96698 -313.21503
+         size 545.45599 300
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Default
+         "title visible" 0
+         colums ""
+         lines 12
         }
        }
       }
@@ -287,7 +288,8 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Default
-         lines 16
+         "title visible" 0
+         lines 6
         }
         TextWidgetClass offerItemAttachmentLabel {
          ignorepointer 1
@@ -336,11 +338,12 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Default
-         lines 16
+         "title visible" 0
+         lines 6
         }
         TextWidgetClass offerPlayerLabel {
          ignorepointer 1
-         position -0 -442.17801
+         position 0 -442.17801
          size 640.60999 42.0747
          halign center_ref
          valign center_ref
@@ -396,7 +399,8 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Default
-         lines 6
+         "title visible" 0
+         lines 4
         }
        }
       }

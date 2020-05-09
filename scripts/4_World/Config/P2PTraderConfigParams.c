@@ -18,8 +18,8 @@ class P2PTraderConfigParams
 	bool useItemsConfigForPlayerInventory = false;
 	int defaultKey = KeyCode.KC_B;
 	bool useServerKeyBind = false;
-	map <int, string> possibleKeyBindingsMap;
-	string configVersion = "3";
+	ref TStringArray enabledOfferTypes;
+	string configVersion = "5";
 	
 
     void P2PTraderConfigParams()
@@ -30,14 +30,15 @@ class P2PTraderConfigParams
 			traderPositions.Insert(new P2PTraderPosition("6571.0 6.0 2450", "49.000000 0.000000 0.000000", "not_spawn"));
 			spawnPositionExceededOffers = new array<vector>;
 			spawnPositionExceededOffers.Insert("6573.0 6.0 2450");
+			enabledOfferTypes = new TStringArray;
+			enabledOfferTypes.Insert("instant_buy");
+			enabledOfferTypes.Insert("auction");
 			Save();
 		} else {
 			Load();
-			if (configVersion.ToInt() < 3) {
-				P2PTraderKeyCodeMatch keyMatcher = new P2PTraderKeyCodeMatch;
+			if (configVersion.ToInt() < 5) {
 				
-				possibleKeyBindingsMap = keyMatcher.keyCodes;
-				configVersion = "3";
+				configVersion = "5";
 				Save();
 			}
 		}
@@ -46,7 +47,7 @@ class P2PTraderConfigParams
 	
     private void Load(){
         if (IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGSFOLDERP2P + SETTINGSFILE)) {
-			DebugMessageP2PTrader("load file");
+			DebugMessageP2PTrader("load file" + SETTINGSFILE);
 			JsonFileLoader<P2PTraderConfigParams>.JsonLoadFile(CONFIGSFOLDERP2P + SETTINGSFILE, this);
         }
     }

@@ -1,4 +1,14 @@
-class P2PTraderBaseItem {
+class P2PTraderBaseItem
+{
+	string category = "";
+
+	void SetCategory(string category) {
+		this.category = category;
+	}
+
+	string GetCategory() {
+		return category;
+	}
 	
 	string GetType() {
 		return "";

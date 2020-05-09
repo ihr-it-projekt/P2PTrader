@@ -1,23 +1,29 @@
-class P2PTraderItemsConfig
+class P2PTraderItemsInventoryConfig
 {
-    private const static string	SETTINGSFILE = "P2PTraderItemsConfig.json";
+    private const static string	SETTINGSFILE = "P2PTraderItemsInventoryConfig.json";
 	private const static string	CONFIGSFOLDERP2P = "$profile:P2PTrader\\";
 	ref TStringArray items;
 	
-	void P2PTraderItemsConfig()
+
+    void P2PTraderItemsInventoryConfig()
     {
   		if (!FileExist(CONFIGSFOLDERP2P + SETTINGSFILE))
 		{
 			Save();
 		} else {
 			Load();
+			
 		}
     }
 	
 	private void Load(){
         if (IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGSFOLDERP2P + SETTINGSFILE)) {
 			DebugMessageP2PTrader("load file");
-			JsonFileLoader<P2PTraderItemsConfig>.JsonLoadFile(CONFIGSFOLDERP2P + SETTINGSFILE, this);
+			JsonFileLoader<P2PTraderItemsInventoryConfig>.JsonLoadFile(CONFIGSFOLDERP2P + SETTINGSFILE, this);
+        } else {
+            P2PTraderItemsConfig config = new P2PTraderItemsConfig();
+            items = config.items;
+            Save();
         }
     }
 
@@ -28,7 +34,7 @@ class P2PTraderItemsConfig
                 DebugMessageP2PTrader("create folder");
             }
 			DebugMessageP2PTrader("save file");
-			JsonFileLoader<P2PTraderItemsConfig>.JsonSaveFile(CONFIGSFOLDERP2P + SETTINGSFILE, this);
+			JsonFileLoader<P2PTraderItemsInventoryConfig>.JsonSaveFile(CONFIGSFOLDERP2P + SETTINGSFILE, this);
 		}
     }
 	

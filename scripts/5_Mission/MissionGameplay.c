@@ -5,8 +5,8 @@ modded class MissionGameplay
 	private ref P2PTraderHint traderHintMenu;
 	private DayZPlayer player;
 	private UAInput localInput;
-	private P2PTraderConfigParams traderConfigParams;	
 	private string keyName = "";
+	private ref P2PTraderKeyCodeMatch keyMap;
 	
 	void MissionGameplay() {
 		DebugMessageP2PTrader("init Mission MissionGameplay");
@@ -16,6 +16,7 @@ modded class MissionGameplay
 	    GetGame().RPCSingleParam(paramGetConfig.param1, P2P_TRADER_EVENT_GET_CONFIG, paramGetConfig, true);
 		
 		localInput = GetUApi().GetInputByName("UAInputOpenP2PTrader");
+		keyMap = new P2PTraderKeyCodeMatch;
 	}
 	
 	void ~MissionGameplay() {
@@ -29,9 +30,8 @@ modded class MissionGameplay
 			Param1 <ref P2PTraderConfig> configParam;
 			if (ctx.Read(configParam)){
 				p2pTraderConfig = configParam.param1;
-				traderConfigParams = p2pTraderConfig.traderConfigParams;
-				if (traderConfigParams && traderConfigParams.useServerKeyBind && traderConfigParams.defaultKey) {
-					keyName = traderConfigParams.possibleKeyBindingsMap.Get(traderConfigParams.defaultKey);
+				if (p2pTraderConfig.traderConfigParams && keyMap && p2pTraderConfig.traderConfigParams.defaultKey) {
+					keyName = keyMap.keyCodes.Get(p2pTraderConfig.traderConfigParams.defaultKey);
 					GetGame().AdminLog("[P2PTrader] Use serverside keybind: " + keyName);
 					
 					if (keyName) {
@@ -53,7 +53,7 @@ modded class MissionGameplay
 		if(localInput.LocalClick() && player && player.IsAlive()) {
 			OpenTrader(isInNear);
 		}
-		if (traderConfigParams && isInNear && !traderHintMenu){
+		if (p2pTraderConfig && p2pTraderConfig.traderConfigParams && isInNear && !traderHintMenu){
 			traderHintMenu = new P2PTraderHint;
             traderHintMenu.Init();
             traderHintMenu.SetMessage(keyName);
@@ -67,7 +67,7 @@ modded class MissionGameplay
 	}
 	
 	private void OpenTrader(bool isInNear) {
-		if (player && player.IsAlive() && traderConfigParams && traderConfigParams.traderCanOpenFromEveryware || isInNear) {
+		if (player && player.IsAlive() && p2pTraderConfig.traderConfigParams && p2pTraderConfig.traderConfigParams.traderCanOpenFromEveryware || isInNear) {
 			DebugMessageP2PTrader("try open menu");
 			bool canTrade = p2pTraderConfig.traderConfigParams.playerCanTradeFromEveryware || isInNear;
 			
@@ -88,7 +88,9 @@ modded class MissionGameplay
 
 	override void OnKeyRelease(int key)
 	{
-		super.OnKeyRelease(key);
+		if(traderMenu && !traderMenu.layoutRoot.IsVisible()) {
+			super.OnKeyRelease(key);
+		}
 		
 		if (traderMenu && traderMenu.layoutRoot.IsVisible() && key == KeyCode.KC_ESCAPE){
 		    DebugMessageP2PTrader("press esc");
@@ -104,8 +106,8 @@ modded class MissionGameplay
 		if (!playerPosition) {
 			return false;
 		}
-		foreach(P2PTraderPosition position: traderConfigParams.traderPositions) {
-			if (vector.Distance(position.position, playerPosition) <= traderConfigParams.maxDistanceToTrader){
+		foreach(P2PTraderPosition position: p2pTraderConfig.traderConfigParams.traderPositions) {
+			if (vector.Distance(position.position, playerPosition) <= p2pTraderConfig.traderConfigParams.maxDistanceToTrader){
 				return true;
 			}
 		}	

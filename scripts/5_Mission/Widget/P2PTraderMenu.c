@@ -132,15 +132,15 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
         userListEventService = new P2PTraderUserListEventService(player);
 
 		offerWidget = new P2PTraderOfferWidget();
-		offerWidget.SetInitDependencies(player, itemListenerManager, itemService, message);
+		offerWidget.SetInitDependencies(player, itemListenerManager, itemService, message, config);
         layoutRoot.AddChild(offerWidget.Init());
 
 		playerBidWidget = new P2PTraderPlayerBidWidget();
-		playerBidWidget.SetInitDependencies(player, itemListenerManager, itemService, message);
+		playerBidWidget.SetInitDependencies(player, itemListenerManager, itemService, message, config);
 		layoutRoot.AddChild(playerBidWidget.Init());
 
 		bidManagementWidget = new P2PTraderBidManagementWidget();
-		bidManagementWidget.SetInitDependencies(player, itemListenerManager, itemService, message);
+		bidManagementWidget.SetInitDependencies(player, itemListenerManager, itemService, message, config);
 		bidManagementWidget.SetExtraInitDependencies(userListEventService, marketItems);
 		layoutRoot.AddChild(bidManagementWidget.Init());
 

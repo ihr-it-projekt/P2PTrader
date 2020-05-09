@@ -2,11 +2,10 @@ class P2PItemService
 {
 	private ref P2PTraderPlayerInventory inventory;
 	private ref TStringArray configs;
-	private P2PTraderConfig config;
 	private ref array<ref P2PTraderItem> itemsFromConfig;
-	
+	private map<string, ref TStringArray> categoryItems
+
 	void P2PItemService(P2PTraderConfig config) {
-		this.config = config;
 		inventory = new P2PTraderPlayerInventory;
 		
 		configs = new TStringArray;
@@ -17,14 +16,25 @@ class P2PItemService
 		configs.Insert( "CfgAmmo" );
 		
 		itemsFromConfig = new array<ref P2PTraderItem>;
-		
-		DebugMessageP2PTrader("Has got Items from config: " + config.traderItemsConfig.items.Count().ToString());
-		
-		foreach (string itemName: config.traderItemsConfig.items){
-			P2PTraderItem item = new P2PTraderItem(itemName);
-			item.SetTranslation(GetItemDisplayName(itemName));
-			itemsFromConfig.Insert(item);
-		}
+		categoryItems = config.traderItemsConfig.GetItems();
+				
+		if (categoryItems) {
+			TStringArray catKeys = categoryItems.GetKeyArray();
+			foreach (string category: catKeys){
+				DebugMessageP2PTrader("Current Category " + category); 
+				TStringArray items;
+				if(categoryItems.Find(category, items) && items && items.Count() > 0) {
+					DebugMessageP2PTrader("Have items in category: " + items.Count().ToString());
+					foreach(string itemName: items) {
+						P2PTraderItem item = new P2PTraderItem(itemName, category);
+						item.SetTranslation(GetItemDisplayName(itemName));
+						itemsFromConfig.Insert(item);
+					}
+				}
+			}
+		} else {
+			DebugMessageP2PTrader("categoryItems is null");
+		}	
 	}
 	
 	void InitMarketItems(array<ref P2PTraderPlayerMarketOffer> marketItems) {
@@ -260,6 +270,25 @@ class P2PItemService
 		}
 		
 		return widget;
+	}
+	
+	void AddTradableItemsToWidgetByCategory(TextListboxWidget widget, string search, string cat) {
+		widget.ClearItems();
+
+        int addedItems = 0;
+		foreach (P2PTraderItem item: itemsFromConfig){
+			if (item.GetCategory() != cat) {
+				continue;
+			}
+			
+			if (!item.Contains(search)){
+				continue;
+			}
+			
+			widget.AddItem(item.GetTranslation(), item, 0);
+			addedItems = addedItems + 1;
+		}
+		DebugMessageP2PTrader("Has added tradable items count: " + addedItems.ToString());
 	}
 	
 	void AddTradableItemsToWidget(TextListboxWidget widget, string search) {

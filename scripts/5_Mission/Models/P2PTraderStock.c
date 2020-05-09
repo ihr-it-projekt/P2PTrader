@@ -16,6 +16,7 @@ class P2PTraderStock
 
     void P2PTraderStock()
     {
+		DebugMessageP2PTrader("Initialize Stock");
 		if (!IsServerP2PTrader()){
 			return;
 		}
