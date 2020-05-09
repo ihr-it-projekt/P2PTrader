@@ -527,7 +527,7 @@ FrameWidgetClass rootFrame {
          "text valign" center
         }
         EditBoxWidgetClass minQuantityCreateMarketOffer {
-         position 348.93298 359.40298
+         position 348.92999 359.39999
          size 189.82301 31.2686
          valign center_ref
          hexactpos 1
@@ -535,7 +535,20 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Editor
-         text "1"
+         text "0"
+        }
+        MultilineTextWidgetClass MultilineTextWidget0 {
+         ignorepointer 1
+         position 11.64 858.888
+         size 618.41602 72.64
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         text "#hint_min_quantity"
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
         }
        }
       }
