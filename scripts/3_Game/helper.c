@@ -1,6 +1,12 @@
 static void DebugMessageP2PTrader(string message) {
-    if (P2P_TRADER_DEBUG) {
-        Print("[P2PTrader] " + message);
+	if (P2P_TRADER_DEBUG) {
+		int hour;
+	    int minute;
+	    int second;
+		int inSeconds;
+	
+		GetHourMinuteSecondUTC(hour, minute, second);
+        Print("[P2PTrader] " + hour.ToString() + ":" + minute.ToString() + ":" + second.ToString() + ": " + message);
         GetGame().AdminLog("[P2PTrader] " + message);
     }
 }

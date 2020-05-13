@@ -9,11 +9,11 @@ class P2PTraderPlayerItemEventHandler
 		this.config = config;
 		itemsMap = new map<string, string>();
 		itemsCategoryMap = new map<string, string>();
-		map<string, ref TStringArray> itemsInventory = itemConfig.GetItemsInventory();
-		itemsInventory.Begin();
-		foreach(string categoryName, TStringArray itemsFromConfig: itemsInventory) {
+		array<ref TStringArray> itemsInventory = itemConfig.GetItemsInventory();
+		foreach(int categoryIndex, TStringArray itemsFromConfig: itemsInventory) {
 			foreach(string itemName: itemsFromConfig) {
 				itemsMap.Insert(itemName, itemName);
+				string categoryName = itemConfig.GetCategoryName(categoryIndex);
 				itemsCategoryMap.Insert(itemName, categoryName);
 			}
 		}

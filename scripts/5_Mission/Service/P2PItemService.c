@@ -3,7 +3,7 @@ class P2PItemService
 	private ref P2PTraderPlayerInventory inventory;
 	private ref TStringArray configs;
 	private ref array<ref P2PTraderItem> itemsFromConfig;
-	private map<string, ref TStringArray> categoryItems
+	private array<ref TStringArray> categoryItems
 
 	void P2PItemService(P2PTraderConfig config) {
 		inventory = new P2PTraderPlayerInventory;
@@ -19,18 +19,17 @@ class P2PItemService
 		categoryItems = config.traderItemsConfig.GetItems();
 				
 		if (categoryItems) {
-			TStringArray catKeys = categoryItems.GetKeyArray();
-			foreach (string category: catKeys){
-				DebugMessageP2PTrader("Current Category " + category); 
-				TStringArray items;
-				if(categoryItems.Find(category, items) && items && items.Count() > 0) {
-					DebugMessageP2PTrader("Have items in category: " + items.Count().ToString());
-					foreach(string itemName: items) {
-						P2PTraderItem item = new P2PTraderItem(itemName, category);
-						item.SetTranslation(GetItemDisplayName(itemName));
-						itemsFromConfig.Insert(item);
-					}
+			foreach (int categoryIndex, TStringArray items: categoryItems){
+				string categoryName = config.traderItemsConfig.GetCategoryName(categoryIndex);
+				
+				DebugMessageP2PTrader("Current Category " + categoryName); 
+				
+				foreach(string itemName: items) {
+					P2PTraderItem item = new P2PTraderItem(itemName, categoryName);
+					item.SetTranslation(GetItemDisplayName(itemName));
+					itemsFromConfig.Insert(item);
 				}
+				
 			}
 		} else {
 			DebugMessageP2PTrader("categoryItems is null");

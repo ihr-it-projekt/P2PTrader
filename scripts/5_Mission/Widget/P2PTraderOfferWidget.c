@@ -66,10 +66,11 @@ class P2PTraderOfferWidget extends P2PTraderBaseSubWidget
             offerTypeCreateOffer.AddItem("#auction");
         }
 		
-		map<string, ref TStringArray> catItems = config.traderItemsConfig.GetItems();
+		array<ref TStringArray> catItems = config.traderItemsConfig.GetItems();
 		
-		foreach(string category, TStringArray items: catItems) {
-			categoryCreateMarketOffer.AddItem("#" + category);
+		foreach(int categoryIndex, TStringArray items: catItems) {
+			string categoryName = config.traderItemsConfig.GetCategoryName(categoryIndex);
+			categoryCreateMarketOffer.AddItem("#" + categoryName);
 		}
 
         offerTypeCreateOffer.SetCurrentItem(0);
@@ -127,10 +128,10 @@ class P2PTraderOfferWidget extends P2PTraderBaseSubWidget
 	
 	void refrechShearch() {
 		if(rememberedSearch != inputSearchOffer.GetText() || rememberedCategory != categoryCreateMarketOffer.GetCurrentItem()) {
-			int currentCategory = categoryCreateMarketOffer.GetCurrentItem();
-			string cat = config.traderItemsConfig.GetItems().GetKey(currentCategory);
+			int categoryIndex = categoryCreateMarketOffer.GetCurrentItem();
+			string categoryName =  config.traderItemsConfig.GetCategoryName(categoryIndex);
 		
-        	itemService.AddTradableItemsToWidgetByCategory(tradableItemsOffer, inputSearchOffer.GetText(), cat);
+        	itemService.AddTradableItemsToWidgetByCategory(tradableItemsOffer, inputSearchOffer.GetText(), categoryName);
 	        
 			rememberedSearch = inputSearchOffer.GetText();
 			rememberedCategory = categoryCreateMarketOffer.GetCurrentItem();
