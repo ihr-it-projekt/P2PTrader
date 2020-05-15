@@ -5,7 +5,6 @@ class P2PTraderStock
 	const static string OPEN_OFFER = "open";
 	
     private const static string	SETTINGSFILE = "P2PTraderStock.json";
-	private const static string	CONFIGSFOLDERP2P = "$profile:P2PTrader\\";
 	private const static string	CONFIGSBACKUPFOLDERP2P = "$profile:P2PTrader\\Backup\\";
 
 	private ref array<ref P2PTraderPlayerMarketOffer> stock;
@@ -20,7 +19,7 @@ class P2PTraderStock
 		if (!IsServerP2PTrader()){
 			return;
 		}
-  		if (!FileExist(CONFIGSFOLDERP2P + SETTINGSFILE)){
+  		if (!FileExist(CONFIGS_FOLDER_P2P + SETTINGSFILE)){
 			stock = new array<ref P2PTraderPlayerMarketOffer>;
 			playerOffers = new array<ref P2PTraderPlayerPlayerOffer>;
 			playerOffersInactive = new array<ref P2PTraderPlayerPlayerOffer>;
@@ -289,22 +288,22 @@ class P2PTraderStock
 	
     private void Load() 
     {
-        if (IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGSFOLDERP2P + SETTINGSFILE)) {
+        if (IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGS_FOLDER_P2P + SETTINGSFILE)) {
 			DebugMessageP2PTrader("load stock file");
-			JsonFileLoader<P2PTraderStock>.JsonLoadFile(CONFIGSFOLDERP2P + SETTINGSFILE, this);
+			JsonFileLoader<P2PTraderStock>.JsonLoadFile(CONFIGS_FOLDER_P2P + SETTINGSFILE, this);
         }
     }
 
     void Save(){
         if (IsServerAndMultiplayerP2PTrader()) {
-			if (!FileExist(CONFIGSFOLDERP2P)) {
-                MakeDirectory(CONFIGSFOLDERP2P);
+			if (!FileExist(CONFIGS_FOLDER_P2P)) {
+                MakeDirectory(CONFIGS_FOLDER_P2P);
                 DebugMessageP2PTrader("create folder");
             }
 			
 			
-			DebugMessageP2PTrader("save stock file: " + CONFIGSFOLDERP2P +  SETTINGSFILE);
-			JsonFileLoader<P2PTraderStock>.JsonSaveFile(CONFIGSFOLDERP2P +  SETTINGSFILE, this);
+			DebugMessageP2PTrader("save stock file: " + CONFIGS_FOLDER_P2P +  SETTINGSFILE);
+			JsonFileLoader<P2PTraderStock>.JsonSaveFile(CONFIGS_FOLDER_P2P +  SETTINGSFILE, this);
 		}
     }
 	
@@ -329,7 +328,7 @@ class P2PTraderStock
         }
 
 		string fileName = suffix + date + "-" + time +"-";	
-		CopyFile(CONFIGSFOLDERP2P + SETTINGSFILE , CONFIGSBACKUPFOLDERP2P + fileName + SETTINGSFILE);
+		CopyFile(CONFIGS_FOLDER_P2P + SETTINGSFILE , CONFIGSBACKUPFOLDERP2P + fileName + SETTINGSFILE);
 	}
 	
 }

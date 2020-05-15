@@ -1,22 +1,12 @@
 class P2PTraderPlayerItemEventHandler
 {
 	private ref P2PTraderPlayerInventory inventory;
-	private ref map<string, string> itemsMap;
-	private ref map<string, string> itemsCategoryMap;
+	private P2PTraderCategoryCollection itemsInventory
 	private P2PTraderConfigParams config;
 	
     void P2PTraderPlayerItemEventHandler(P2PTraderConfigParams config, P2PTraderItemsCategoryConfig itemConfig) {
 		this.config = config;
-		itemsMap = new map<string, string>();
-		itemsCategoryMap = new map<string, string>();
-		array<ref TStringArray> itemsInventory = itemConfig.GetItemsInventory();
-		foreach(int categoryIndex, TStringArray itemsFromConfig: itemsInventory) {
-			foreach(string itemName: itemsFromConfig) {
-				itemsMap.Insert(itemName, itemName);
-				string categoryName = itemConfig.GetCategoryName(categoryIndex);
-				itemsCategoryMap.Insert(itemName, categoryName);
-			}
-		}
+		itemsInventory = itemConfig.GetItemsInventory();
 		
 		DebugMessageP2PTrader("Register OfferEventHandler");
         inventory = new P2PTraderPlayerInventory;
@@ -47,11 +37,13 @@ class P2PTraderPlayerItemEventHandler
 							continue;
 						}
 						
-						if (config.useItemsConfigForPlayerInventory && item && !itemsMap.Get(item.GetType())) {
+						int categoryId = itemsInventory.GetCategoryIdByItemName(item.GetType());
+						
+						if (categoryId == -1) {
 							continue;
 						}
 
-						P2PTraderItem traderItem = new P2PTraderItem(item.GetType(), itemsCategoryMap.Get(item.GetType()), item);
+						P2PTraderItem traderItem = new P2PTraderItem(item.GetType(), categoryId, item);
 						playerItems.Insert(traderItem);
 					}
 				}

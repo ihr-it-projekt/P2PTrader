@@ -63,7 +63,7 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 
 	void SetConfig(P2PTraderConfig configExt) {
         this.config = configExt;
-		itemService = new P2PItemService(configExt);
+		itemService = new P2PItemService(this.config);
 		player = GetGame().GetPlayer();
 		playerId = player.GetIdentity().GetId();
 		itemListenerManager = new P2PTraderItemListenerManger(itemService);

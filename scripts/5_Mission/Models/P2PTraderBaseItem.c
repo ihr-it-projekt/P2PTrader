@@ -1,12 +1,12 @@
 class P2PTraderBaseItem
 {
-	string category = "";
+	int category = 0;
 
-	void SetCategory(string category) {
+	void SetCategory(int category) {
 		this.category = category;
 	}
 
-	string GetCategory() {
+	int GetCategory() {
 		return category;
 	}
 	

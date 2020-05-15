@@ -1,166 +1,142 @@
 class P2PTraderItemsCategoryConfig
 {
-    private ref array<string> categoryArray;
-    private const static string	SETTINGSFILE1 = "P2PTraderItemsCategoryConfig.json";
-    private const static string	SETTINGSFILE2 = "P2PTraderItemsCategoryConfigInventory.json";
-	private const static string	CONFIGSFOLDERP2P = "$profile:P2PTrader\\";
-    private ref array<ref array<string>> items;
-    private ref array<ref array<string>> itemsInventory;
+    private const static string	ITEM_CATEGORY_PREFIX = "offer";
+    private const static string	ITEM_INVENTORY_CATEGORY_PREFIX = "inventory";
+    private ref P2PTraderCategoryCollection items;
+    private ref P2PTraderCategoryCollection itemsInventory;
 
     void P2PTraderItemsCategoryConfig() {
-		categoryArray = new array<string>;
-        categoryArray.Insert("no_category");
-        categoryArray.Insert("transmitter");
-        categoryArray.Insert("clothes");
-        categoryArray.Insert("pelt");
-        categoryArray.Insert("ammo");
-        categoryArray.Insert("lights");
-        categoryArray.Insert("mag");
-        categoryArray.Insert("navigation");
-        categoryArray.Insert("weapon");
-        categoryArray.Insert("build_items");
-        categoryArray.Insert("car");
-        categoryArray.Insert("store_items");
-        categoryArray.Insert("medicine");
-        categoryArray.Insert("transport");
-        categoryArray.Insert("food");
-        categoryArray.Insert("tent");
-        categoryArray.Insert("fireplace");
-        categoryArray.Insert("weapon_part");
-        categoryArray.Insert("meleeWeapon");
-		
-
-		loadItem(SETTINGSFILE1);
-		loadItemInventory(SETTINGSFILE2);
+		loadItem(ITEM_CATEGORY_PREFIX);
+		loadItemInventory(ITEM_INVENTORY_CATEGORY_PREFIX);
     }
 	
-	array<ref TStringArray> GetItems() {
+	P2PTraderCategoryCollection GetItems() {
 		return items;
 	}
 	
-	array<ref TStringArray> GetItemsInventory() {
+	P2PTraderCategoryCollection GetItemsInventory() {
 		return itemsInventory;
 	}
 	
-	string GetCategoryName(int index) {
-		return categoryArray[index];
+	string GetCategoryItemName(int index) {
+		P2PTraderCategory category = items.GetCategories().Get(index);
+		if(category) {
+		    return category.GetName();
+		}
+
+		return "";
 	}
 	
-	private void loadItem(string filename) {
-		if (false && IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGSFOLDERP2P + filename)) {
-            DebugMessageP2PTrader("load file" + filename);
-			
-            JsonFileLoader<ref array<ref array<string>>>.JsonLoadFile(CONFIGSFOLDERP2P + filename, items);
-        } else if(IsServerAndMultiplayerP2PTrader()) {
-			items = new array<ref array<string>>;
-            P2PTraderItemsConfig itemsConfig = new P2PTraderItemsConfig;
+	string GetCategoryItemInventoryName(int index) {
+		P2PTraderCategory category = itemsInventory.GetCategories().Get(index);
+        if(category) {
+            return category.GetName();
+        }
+
+        return "";
+	}
+	
+	private void loadItem(string fileNameSuffix) {
+        string fileName = fileNameSuffix + "0" + P2PTraderCategory.SETTINGSFILE;
+		bool configExists = !FileExist(CONFIGS_CATEGORY_FOLDER_P2P + fileName);
+        items = new P2PTraderCategoryCollection(fileNameSuffix);
+		if (IsServerAndMultiplayerP2PTrader() && configExists) {
+			P2PTraderItemsConfig itemsConfig = new P2PTraderItemsConfig;
 			array<string> itemsFromConfig = itemsConfig.items;
-			
-			DebugMessageP2PTrader("category array has item count: " + categoryArray.Count());
-			
-			foreach(string category: categoryArray) {
-				DebugMessageP2PTrader("create category " + category);
-				items.Insert(new array<string>);
-			}
-			
-			DebugMessageP2PTrader("category items array has item count: " + items.Count());
+			DebugMessageP2PTrader("category array has item count: " + items.GetCategories().Count());
+			P2PTraderConfiguredCategory configuredCategory = new P2PTraderConfiguredCategory;
             foreach(string item: itemsFromConfig) {
-				int index = GetCategory(item);
+				string name = GetCategory(item);
 				
+                if (name == "") {
+                    DebugMessageP2PTrader("Did not find category");
+                    continue;
+                }
+                
+				int index = configuredCategory.categoryNames.Find(name);
+
 				if (index == -1) {
-					DebugMessageP2PTrader("Did not find category");
-					continue;
+					index = 0;
 				}
 					
-				array<string> subItemCollection = items.Get(index);
-			
-				
-				subItemCollection.Insert(item);
-				items.Set(index, subItemCollection);
+				items.AddItemToCategory(item, index);
             }
-			DebugMessageP2PTrader("Has added category items: " + items.Count().ToString());
-			SaveFile(items, filename);
         }
 	}
 	
-	private void loadItemInventory(string filename) {
-		if (IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGSFOLDERP2P + filename)) {
-            DebugMessageP2PTrader("load file" + filename);
-			
-            JsonFileLoader<ref array<ref array<string>>>.JsonLoadFile(CONFIGSFOLDERP2P + filename, itemsInventory);
-        } else if(IsServerAndMultiplayerP2PTrader()) {
-			itemsInventory = new array<ref array<string>>;
+	private void loadItemInventory(string fileNameSuffix) {
+		string fileName = fileNameSuffix + "0" + P2PTraderCategory.SETTINGSFILE;
+		bool configExists = !FileExist(CONFIGS_CATEGORY_FOLDER_P2P + fileName);
+        itemsInventory = new P2PTraderCategoryCollection(fileNameSuffix);
+        if (IsServerAndMultiplayerP2PTrader() && configExists) {
             P2PTraderItemsConfig itemsConfig = new P2PTraderItemsConfig;
-			array<string> itemsFromConfig = itemsConfig.items;
-			
-			foreach(string category: categoryArray) {
-				DebugMessageP2PTrader("create category " + category);
-				itemsInventory.Insert(new array<string>);
-			}
-			
+            array<string> itemsFromConfig = itemsConfig.items;
+            DebugMessageP2PTrader("category array has item count: " + itemsInventory.GetCategories().Count());
+            P2PTraderConfiguredCategory configuredCategory = new P2PTraderConfiguredCategory;
             foreach(string item: itemsFromConfig) {
-				int index = GetCategory(item);
-				
-				if (index == -1) {
-					DebugMessageP2PTrader("Did not find category");
-					continue;
-				}
-					
-				array<string> subItemCollection = itemsInventory.Get(index);
-			
-				subItemCollection.Insert(item);
-				itemsInventory.Set(index, subItemCollection);
+                string name = GetCategory(item);
+
+                if (name == "") {
+                    DebugMessageP2PTrader("Did not find category");
+                    continue;
+                }
+
+                int index = configuredCategory.categoryNames.Find(name);
+
+                if (index == -1) {
+                    index = 0;
+                }
+
+                itemsInventory.AddItemToCategory(item, index);
             }
-			DebugMessageP2PTrader("Has added category items: " + itemsInventory.Count().ToString());
-			SaveFile(itemsInventory, filename);
         }
 	}
 
-    private int GetCategory(string item) {
-		int category = 0;
+    private string GetCategory(string item) {
+		string category = "#no_category";
         Object object = GetGame().CreateObject(item, "0 0 0", true);
 		ItemBase itemObject = ItemBase.Cast(object);
 		
         if (!itemObject) {
-            category = 0;
+            category = "#no_category";
         } else if (itemObject.IsTransmitter()){
-			category = 1;
+			category = "#transmitter";
 		} else if (itemObject.IsClothing()){
-			category = 2;
+			category = "#clothes";
 		} else if (itemObject.IsPeltBase()){
-			category = 3;
+			category = "#pelt";
 		} else if (itemObject.IsAmmoPile() || itemObject.IsKindOf("Box_Base") || "AmmoBox" == item){
-			category = 4;
+			category = "#ammo";
 		} else if (itemObject.IsKindOf("Chemlight_ColorBase")){
-			category = 5;
+			category = "#lights";
 		} else if (itemObject.IsMagazine()){
-			category = 6;
+			category = "#mag";
 		} else if (itemObject.IsKindOf("BaseBuildingBase")){
-			category = -1;
+			category = "";
 		} else if (itemObject.IsKindOf("ItemCompass") || itemObject.IsKindOf("ItemGPS")){
-			category = 7;
+			category = "#navigation";
 		} else if (itemObject.IsKindOf("Grenade_Base") || itemObject.IsWeapon()){
-			category = 8;
+			category = "#weapon";
 		} else if (itemObject.IsKindOf("WoodenPlank") || itemObject.IsKindOf("Nail") || itemObject.IsKindOf("MetalWire") || itemObject.IsKindOf("Spotlight") || itemObject.IsKindOf("Bark_ColorBase")){
-			category = 9;
+			category = "#build_items";
 		} else if (itemObject.IsKindOf("PowerGenerator") || itemObject.IsKindOf("CarWheel") || itemObject.IsKindOf("Car") || itemObject.IsKindOf("CarDoor") || itemObject.IsKindOf("CarRadiator") || itemObject.IsKindOf("EngineBelt") || itemObject.IsKindOf("BrakeFluid") || itemObject.IsKindOf("EngineOil") || itemObject.IsKindOf("TireRepairKit")){
-			category = 10;
+			category = "#car";
 		} else if (itemObject.IsKindOf("StartKitIV") || itemObject.IsKindOf("Container_Base") || itemObject.IsKindOf("Barrel_ColorBase")){
-			category = 11;
+			category = "#store_items";
 		} else if (itemObject.IsBloodContainer() || itemObject.IsKindOf("Splint") || itemObject.IsKindOf("SalineBag") || itemObject.IsKindOf("SalineBagIV") || itemObject.IsKindOf("InjectionVial") || itemObject.IsKindOf("ClearSyringe") || itemObject.IsKindOf("CigarettePack_ColorBase") || itemObject.IsKindOf("Morphine") || itemObject.IsKindOf("Epinephrine") || itemObject.IsKindOf("DisinfectantAlcohol") || itemObject.IsKindOf("BloodTestKit")){
-			category = 12;
+			category = "#medicine";
 		} else if (itemObject.IsTransport()){
-			category = 13;
+			category = "#transport";
 		} else if (itemObject.IsFood() || itemObject.IsKindOf("AntiPestsSpray") || itemObject.IsKindOf("PlantBase") || itemObject.IsKindOf("SeedBase") || itemObject.IsKindOf("Edible_Base") || itemObject.IsKindOf("SodaCan_ColorBase") || itemObject.IsKindOf("SeedPackBase") || itemObject.IsKindOf("Edible_Base")){
-			category = 14;
+			category = "#food";
 		} else if (itemObject.IsItemTent()){
-			category = 15;
+			category = "#tent";
 		} else if (itemObject.IsFireplace()){
-			category = 16;
+			category = "#fireplace";
 		} else if (itemObject.IsKindOf("SuppressorBase") || itemObject.IsKindOf("ButtstockBase") || itemObject.IsKindOf("ItemOptics") || item.Contains("AK") || item.Contains("MP5") || item.Contains("M4")){
-			category = 17;
+			category = "#weapon_part";
 		} else if (itemObject.IsMeleeWeapon()){
-			category = 18;
+			category = "#meleeWeapon";
 		}
 
 		GetGame().ObjectDelete(object);
@@ -185,15 +161,4 @@ class P2PTraderItemsCategoryConfig
 
 		return false;
 	}
-
-    private void SaveFile(array<ref TStringArray> mapping, string fileName ){
-        if (IsServerAndMultiplayerP2PTrader()) {
-            if (!FileExist(CONFIGSFOLDERP2P)) {
-                MakeDirectory(CONFIGSFOLDERP2P);
-                DebugMessageP2PTrader("create folder");
-            }
-            DebugMessageP2PTrader("save file: " + fileName);
-            JsonFileLoader<array<ref TStringArray>>.JsonSaveFile(CONFIGSFOLDERP2P + fileName, mapping);
-        }
-    }
 }

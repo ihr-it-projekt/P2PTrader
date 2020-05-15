@@ -2,7 +2,6 @@ class P2PTraderOfferWidget extends P2PTraderBaseSubWidget
 {
     private ref array<ref P2PTraderItem> playerItems;
 
-	private ButtonWidget buttonSearchOffer;
 	private ButtonWidget buttonCreateCreateOffer;
 	private ButtonWidget buttonMoveToGiveCreateMarketOffer;
 	private ButtonWidget buttonMoveToInventoryCreateMarketOffer;
@@ -46,7 +45,6 @@ class P2PTraderOfferWidget extends P2PTraderBaseSubWidget
         offerMenuMenuItemPreview = uIItemCreator.GetItemPreviewWidget("offerMenuMenuItemPreview");
         offerMenuItemPreviewText = uIItemCreator.GetMultilineTextWidget("offerMenuItemPreviewText");
         buttonCreateCreateOffer = uIItemCreator.GetButtonWidget("buttonCreateCreateOffer", this, "OnClick");
-        buttonSearchOffer = uIItemCreator.GetButtonWidget("buttonSearchOffer", this, "OnClick");
         buttonCloseCreateOffer = uIItemCreator.GetButtonWidget("buttonCloseCreateOffer", this, "OnClick");
         buttonMoveToGiveCreateMarketOffer = uIItemCreator.GetButtonWidget("buttonMoveToGiveCreateMarketOffer");
         buttonMoveToInventoryCreateMarketOffer = uIItemCreator.GetButtonWidget("buttonMoveToInventoryCreateMarketOffer");
@@ -66,11 +64,12 @@ class P2PTraderOfferWidget extends P2PTraderBaseSubWidget
             offerTypeCreateOffer.AddItem("#auction");
         }
 		
-		array<ref TStringArray> catItems = config.traderItemsConfig.GetItems();
+		array<ref P2PTraderCategory> categories = config.traderItemsConfig.GetItems().GetCategories();
+
+		DebugMessageP2PTrader("categoryItems is null");
 		
-		foreach(int categoryIndex, TStringArray items: catItems) {
-			string categoryName = config.traderItemsConfig.GetCategoryName(categoryIndex);
-			categoryCreateMarketOffer.AddItem("#" + categoryName);
+		foreach(P2PTraderCategory category: categories) {
+			categoryCreateMarketOffer.AddItem(category.GetName());
 		}
 
         offerTypeCreateOffer.SetCurrentItem(0);
@@ -86,7 +85,7 @@ class P2PTraderOfferWidget extends P2PTraderBaseSubWidget
         itemService.GetPlayerItemList(playerInventoryItemsOffer, playerItems);
         itemService.AddTradableItemsToWidget(tradableItemsOffer, inputSearchOffer.GetText());
         layoutRoot.Show(true);
-		searchTimer.Run(1, this, "refrechShearch", null, true);
+		searchTimer.Run(1, this, "RefreshSearch", null, true);
 	}
 
     bool IsWidgetVisible() {
@@ -126,15 +125,11 @@ class P2PTraderOfferWidget extends P2PTraderBaseSubWidget
 		return false;
 	}
 	
-	void refrechShearch() {
+	void RefreshSearch() {
 		if(rememberedSearch != inputSearchOffer.GetText() || rememberedCategory != categoryCreateMarketOffer.GetCurrentItem()) {
-			int categoryIndex = categoryCreateMarketOffer.GetCurrentItem();
-			string categoryName =  config.traderItemsConfig.GetCategoryName(categoryIndex);
-		
-        	itemService.AddTradableItemsToWidgetByCategory(tradableItemsOffer, inputSearchOffer.GetText(), categoryName);
-	        
 			rememberedSearch = inputSearchOffer.GetText();
 			rememberedCategory = categoryCreateMarketOffer.GetCurrentItem();
+        	itemService.AddTradableItemsToWidgetByCategory(tradableItemsOffer, rememberedSearch, rememberedCategory);
 	    }
 	}
 }

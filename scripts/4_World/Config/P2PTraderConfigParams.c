@@ -1,8 +1,6 @@
 class P2PTraderConfigParams
 {
     private const static string	SETTINGSFILE = "P2PTraderConfigParams.json";
-	private const static string	CONFIGSFOLDERP2P = "$profile:P2PTrader\\";
-	
 
     int maxMarketOffersPerPlayer = 3;
     int maxBidsPerPlayer = 3;
@@ -24,7 +22,7 @@ class P2PTraderConfigParams
 
     void P2PTraderConfigParams()
     {
-  		if (!FileExist(CONFIGSFOLDERP2P + SETTINGSFILE))
+  		if (!FileExist(CONFIGS_FOLDER_P2P + SETTINGSFILE))
 		{
 			traderPositions = new array<ref P2PTraderPosition>;
 			traderPositions.Insert(new P2PTraderPosition("6571.0 6.0 2450", "49.000000 0.000000 0.000000", "not_spawn"));
@@ -46,20 +44,20 @@ class P2PTraderConfigParams
     }
 	
     private void Load(){
-        if (IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGSFOLDERP2P + SETTINGSFILE)) {
+        if (IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGS_FOLDER_P2P + SETTINGSFILE)) {
 			DebugMessageP2PTrader("load file" + SETTINGSFILE);
-			JsonFileLoader<P2PTraderConfigParams>.JsonLoadFile(CONFIGSFOLDERP2P + SETTINGSFILE, this);
+			JsonFileLoader<P2PTraderConfigParams>.JsonLoadFile(CONFIGS_FOLDER_P2P + SETTINGSFILE, this);
         }
     }
 
     private void Save(){
         if (IsServerAndMultiplayerP2PTrader()) {
-			if (!FileExist(CONFIGSFOLDERP2P)) {
-                MakeDirectory(CONFIGSFOLDERP2P);
+			if (!FileExist(CONFIGS_FOLDER_P2P)) {
+                MakeDirectory(CONFIGS_FOLDER_P2P);
                 DebugMessageP2PTrader("create folder");
             }
 			DebugMessageP2PTrader("save file");
-			JsonFileLoader<P2PTraderConfigParams>.JsonSaveFile(CONFIGSFOLDERP2P + SETTINGSFILE, this);
+			JsonFileLoader<P2PTraderConfigParams>.JsonSaveFile(CONFIGS_FOLDER_P2P + SETTINGSFILE, this);
 		}
     }
 	

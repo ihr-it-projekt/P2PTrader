@@ -1,7 +1,6 @@
 class P2PTraderKeyCodeMatch
 {
 	private const static string	SETTINGSFILE = "P2PTraderKeyCodeMatch.json";
-	private const static string	CONFIGSFOLDERP2P = "$profile:P2PTrader\\";
     ref map<int, string> keyCodes;
 
     void P2PTraderKeyCodeMatch() {
@@ -110,12 +109,12 @@ class P2PTraderKeyCodeMatch
         keyCodes.Set(KeyCode.KC_INSERT,"INSERT");    ///< Insert on arrow keypad
         keyCodes.Set(KeyCode.KC_DELETE,"DELETE");    ///< Delete on arrow keypad
 		
-		if (IsServerAndMultiplayerP2PTrader() && !FileExist(CONFIGSFOLDERP2P + SETTINGSFILE)) {
-			if (!FileExist(CONFIGSFOLDERP2P)) {
-				MakeDirectory(CONFIGSFOLDERP2P);
+		if (IsServerAndMultiplayerP2PTrader() && !FileExist(CONFIGS_FOLDER_P2P + SETTINGSFILE)) {
+			if (!FileExist(CONFIGS_FOLDER_P2P)) {
+				MakeDirectory(CONFIGS_FOLDER_P2P);
 			}
 			DebugMessageP2PTrader("save file");
-			JsonFileLoader<P2PTraderKeyCodeMatch>.JsonSaveFile(CONFIGSFOLDERP2P + SETTINGSFILE, this);
+			JsonFileLoader<P2PTraderKeyCodeMatch>.JsonSaveFile(CONFIGS_FOLDER_P2P + SETTINGSFILE, this);
 		}
     }
 }
