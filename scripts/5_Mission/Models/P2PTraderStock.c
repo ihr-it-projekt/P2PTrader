@@ -12,6 +12,7 @@ class P2PTraderStock
 	private ref array<ref P2PTraderPlayerPlayerOffer> playerOffersInactive;
 	private ref array<ref P2PTraderPlayerPlayerOffer> acceptedPlayerOffers;
 	private int idCounter = 1;
+	private string version = "1";
 
     void P2PTraderStock()
     {
@@ -28,6 +29,7 @@ class P2PTraderStock
 			Save();
 		} else {
 			CreateBackup("backup-start-");
+					
 			Load();
 		}
     }

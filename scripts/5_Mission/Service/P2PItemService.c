@@ -3,9 +3,12 @@ class P2PItemService
 	private ref P2PTraderPlayerInventory inventory;
 	private ref TStringArray configs;
 	private ref array<ref P2PTraderItem> itemsFromConfig;
+	private P2PTraderCategoryCollection categoryItemsInventory;
+	P2PTraderConfigParams configParams;
 
 	void P2PItemService(P2PTraderConfig config) {
 		inventory = new P2PTraderPlayerInventory;
+		configParams = config.traderConfigParams;
 		
 		configs = new TStringArray;
 		configs.Insert( CFG_VEHICLESPATH );
@@ -16,6 +19,7 @@ class P2PItemService
 		
 		itemsFromConfig = new array<ref P2PTraderItem>;
 		P2PTraderCategoryCollection categoryItems = config.traderItemsConfig.GetItems();
+		categoryItemsInventory = config.traderItemsConfig.GetItems();
 				
 		if (categoryItems) {
 		    array<ref P2PTraderCategory> categories = categoryItems.GetCategories();
@@ -27,7 +31,7 @@ class P2PItemService
 				
 				foreach(P2PTraderCategoryItem itemCat: catItems) {
 					P2PTraderItem item = new P2PTraderItem(itemCat.GetName(), categoryId);
-					item.SetTranslation(GetItemDisplayName(itemCat.GetName()));
+					item.SetTranslation(GetItemDisplayName(itemCat.GetName()), config.traderConfigParams.enableOrigenItemsNameInView);
 					itemsFromConfig.Insert(item);
 				}
 			}
@@ -51,7 +55,7 @@ class P2PItemService
 			}
 			foreach(P2PTraderStockItem item: offerItems) {
 				if (item) {
-					item.SetTranslation(GetItemDisplayName(item.GetType()));
+					item.SetTranslation(GetItemDisplayName(item.GetType()), configParams.enableOrigenItemsNameInView);
 				}
 			}
 			
@@ -60,7 +64,7 @@ class P2PItemService
 				foreach(P2PTraderStockItem itemWanted: wantedItems) {
 					if (itemWanted) {
 						DebugMessageP2PTrader("add itemWanted translation");
-						itemWanted.SetTranslation(GetItemDisplayName(itemWanted.GetType()));
+						itemWanted.SetTranslation(GetItemDisplayName(itemWanted.GetType()), configParams.enableOrigenItemsNameInView);
 					}
 				}
 			}
@@ -125,7 +129,7 @@ class P2PItemService
 		return item;
 	}
 	
-	TextListboxWidget GetMarketItemList(TextListboxWidget widget, array<ref P2PTraderPlayerMarketOffer> marketItems, string search, string offerType) {
+	TextListboxWidget GetMarketItemList(TextListboxWidget widget, array<ref P2PTraderPlayerMarketOffer> marketItems, string search, string offerType, int categoryIndex) {
 		widget.ClearItems();
 		string itemNames;
 		foreach(P2PTraderPlayerMarketOffer offer: marketItems) {
@@ -137,6 +141,10 @@ class P2PItemService
 			bool isOfferType = P2PTraderPlayerMarketOffer.TYPE_ALL == offerType;
 			if(!isOfferType) {
 				isOfferType = offer.IsOfferType(offerType);
+			}
+			
+			if (categoryIndex != -1 && !offer.IsCategory(categoryIndex)) {
+				continue;
 			}
 			
 			DebugMessageP2PTrader("offer.IsOfferType(offerType): " + isOfferType.ToString());
@@ -186,7 +194,7 @@ class P2PItemService
 		foreach(P2PTraderStockItem item: offerItems) {
 			if (item) {
 				if (!item.HasTranslation()) {
-					item.SetTranslation(GetItemDisplayName(item.GetType()));
+					item.SetTranslation(GetItemDisplayName(item.GetType()), configParams.enableOrigenItemsNameInView);
 				}
 				
 				widget.AddItem(item.GetTranslation(), item, 0);
@@ -206,7 +214,7 @@ class P2PItemService
 			array <ref P2PTraderStockItem> offerItems = activeOffer.GetOfferItems();
 			foreach(P2PTraderStockItem item: offerItems) {
 				if (!item.HasTranslation()) {
-					item.SetTranslation(GetItemDisplayName(item.GetType()));
+					item.SetTranslation(GetItemDisplayName(item.GetType()), configParams.enableOrigenItemsNameInView);
 				}
 				
 				name += item.GetTranslation() + "; ";
@@ -228,7 +236,7 @@ class P2PItemService
 		foreach(P2PTraderStockItem item: attachedItems) {
 			if (item) {
 				if (!item.HasTranslation()) {
-					item.SetTranslation(GetItemDisplayName(item.GetType()));
+					item.SetTranslation(GetItemDisplayName(item.GetType()), configParams.enableOrigenItemsNameInView);
 				}
 				
 				int pos = widget.AddItem(item.GetTranslation(), item, 0);
@@ -246,7 +254,7 @@ class P2PItemService
 		foreach(P2PTraderItem item: playerItems) {
 			if (item) {
 				if (!item.HasTranslation()) {
-					item.SetTranslation(GetItemDisplayName(item.GetType()));
+					item.SetTranslation(GetItemDisplayName(item.GetType()), configParams.enableOrigenItemsNameInView);
 				}
 				widget.AddItem(item.GetTranslation(), item, 0);
 			}
@@ -261,7 +269,7 @@ class P2PItemService
 		foreach(P2PTraderStockItem item: offerItems) {
 			if (item) {
 				if (!item.HasTranslation()) {
-					item.SetTranslation(GetItemDisplayName(item.GetType()));
+					item.SetTranslation(GetItemDisplayName(item.GetType()), configParams.enableOrigenItemsNameInView);
 				}
 				
 				widget.AddItem(item.GetTranslation(), item, 0);
@@ -276,7 +284,7 @@ class P2PItemService
 
         int addedItems = 0;
 		foreach (P2PTraderItem item: itemsFromConfig){
-			if (item.GetCategory() != catId) {
+			if (catId != -1 && item.GetCategory() != catId) {
 				continue;
 			}
 			
@@ -402,5 +410,9 @@ class P2PItemService
 		}
 	
 	    return displayName;
+	}
+	
+	P2PTraderCategoryCollection GetCategoryItemsInventory() {
+		return categoryItemsInventory;
 	}
 }

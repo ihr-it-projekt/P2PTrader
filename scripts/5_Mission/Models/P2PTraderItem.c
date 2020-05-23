@@ -15,8 +15,8 @@ class P2PTraderItem extends P2PTraderBaseItem
 		SetCategory(categoryId);
 	}
 	
-	override void SetTranslation(string translated) {
-	    item.SetTranslation(translated);
+	override void SetTranslation(string translated, bool addType) {
+	    item.SetTranslation(translated, addType);
 	}
 
 	override bool Contains(string search) {
@@ -39,8 +39,8 @@ class P2PTraderItem extends P2PTraderBaseItem
 		return item.GetTranslation();
 	}
 	
-	override string UpdateTranslation() {
-        return item.UpdateTranslation();
+	override string UpdateTranslation(bool addType) {
+        return item.UpdateTranslation(addType);
 	}
 	
 	override P2PTraderStockItem GetItem() {

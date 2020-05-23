@@ -147,15 +147,15 @@ class P2PTraderStockItem extends P2PTraderBaseItem
 		this.translatedNameLower = "";
 	}
 	
-	override void SetTranslation(string translated) {
+	override void SetTranslation(string translated, bool addType) {
 	    this.translated = translated;
-		this.translatedName = GetDisplayName(translated);
+		this.translatedName = GetDisplayName(translated, addType);
 		this.translatedNameLower = translated;
 		this.translatedNameLower.ToLower();
 	}
 	
-	override string UpdateTranslation() {
-		this.translatedName = GetDisplayName(this.translated);
+	override string UpdateTranslation(bool addType) {
+		this.translatedName = GetDisplayName(this.translated, addType);
 		this.translatedNameLower = this.translatedName;
         this.translatedNameLower.ToLower();
 		return this.translatedName;
@@ -170,9 +170,12 @@ class P2PTraderStockItem extends P2PTraderBaseItem
         return true;
     }
 	
-	string GetDisplayName(string translated) {
+	string GetDisplayName(string translated, bool addType) {
 		this.translated = translated;
-		return translated + " (" + type + ")" + " #health " + this.GetHealth().ToString() + " #quantity: " + this.GetQuantity().ToString();
+		if (addType) {
+			return translated + " (" + type + ")" + " #health " + this.GetHealth().ToString() + " #quantity: " + this.GetQuantity().ToString();
+		} 
+		return translated + " #health " + this.GetHealth().ToString() + " #quantity: " + this.GetQuantity().ToString();
 	}
 	
 	string GetTranslatedNameLower() {

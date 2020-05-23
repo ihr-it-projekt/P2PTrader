@@ -65,9 +65,9 @@ class P2PTraderOfferWidget extends P2PTraderBaseSubWidget
         }
 		
 		array<ref P2PTraderCategory> categories = config.traderItemsConfig.GetItems().GetCategories();
-
-		DebugMessageP2PTrader("categoryItems is null");
 		
+		categoryCreateMarketOffer.AddItem("#all");
+
 		foreach(P2PTraderCategory category: categories) {
 			categoryCreateMarketOffer.AddItem(category.GetName());
 		}
@@ -128,7 +128,7 @@ class P2PTraderOfferWidget extends P2PTraderBaseSubWidget
 	void RefreshSearch() {
 		if(rememberedSearch != inputSearchOffer.GetText() || rememberedCategory != categoryCreateMarketOffer.GetCurrentItem()) {
 			rememberedSearch = inputSearchOffer.GetText();
-			rememberedCategory = categoryCreateMarketOffer.GetCurrentItem();
+			rememberedCategory = categoryCreateMarketOffer.GetCurrentItem() - 1;
         	itemService.AddTradableItemsToWidgetByCategory(tradableItemsOffer, rememberedSearch, rememberedCategory);
 	    }
 	}

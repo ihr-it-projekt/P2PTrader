@@ -3,6 +3,7 @@ class P2PTraderMainMenuFilterListener extends Managed
 	private ButtonWidget buttonSearchMarket;
 	private XComboBoxWidget filterOfferOwner;
 	private XComboBoxWidget filterOfferType;
+	private XComboBoxWidget filterCategoryType;
 	private EditBoxWidget inputSearchMarket;
 	private P2PItemService itemService;
 	private TextListboxWidget marketOffers;
@@ -17,6 +18,8 @@ class P2PTraderMainMenuFilterListener extends Managed
         inputSearchMarket = EditBoxWidget.Cast(layout.FindAnyWidget("inputSearchMarket"));
         filterOfferOwner = XComboBoxWidget.Cast(layout.FindAnyWidget("filterOfferOwner"));
         filterOfferType = XComboBoxWidget.Cast(layout.FindAnyWidget("filterOfferType"));
+        filterCategoryType = XComboBoxWidget.Cast(layout.FindAnyWidget("filterCategoryType"));
+		filterCategoryType.AddItem("#all");
 
 		filterOfferType.AddItem("#show_all_offers_types");
 		filterOfferType.AddItem("#show_only_direct_offers");
@@ -24,6 +27,12 @@ class P2PTraderMainMenuFilterListener extends Managed
 
 		filterOfferOwner.AddItem("#all_offers");
 		filterOfferOwner.AddItem("#my_offers");
+		
+		array<ref P2PTraderCategory> catItemsInventory = itemService.GetCategoryItemsInventory().GetCategories();
+		
+		foreach(P2PTraderCategory category: catItemsInventory) {
+			filterCategoryType.AddItem(category.GetName());
+		}
 
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(buttonSearchMarket, this, "OnClickFilterOwner");
     }
@@ -45,10 +54,12 @@ class P2PTraderMainMenuFilterListener extends Managed
             offerType = P2PTraderPlayerMarketOffer.TYPE_AUCTION;
         }
 		
+		int catIndex = filterCategoryType.GetCurrentItem() - 1;
+		
 		if (1 == filterOfferOwner.GetCurrentItem()) {
-			itemService.GetMarketItemList(marketOffers, marketPlayerItems, inputSearchMarket.GetText(), offerType);
+			itemService.GetMarketItemList(marketOffers, marketPlayerItems, inputSearchMarket.GetText(), offerType, catIndex);
 		} else {
-			itemService.GetMarketItemList(marketOffers, marketItems, inputSearchMarket.GetText(), offerType);
+			itemService.GetMarketItemList(marketOffers, marketItems, inputSearchMarket.GetText(), offerType, catIndex);
 		}
         
         return true;

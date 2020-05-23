@@ -26,7 +26,7 @@ class P2PTraderBaseItem
 		return false;
 	}
 	
-	string UpdateTranslation() {
+	string UpdateTranslation(bool addType) {
 		return "";
 	}
 
@@ -34,7 +34,7 @@ class P2PTraderBaseItem
         return false;
     }
 	
-	void SetTranslation(string translated) {
+	void SetTranslation(string translated, bool addType) {
 		
 	}
 	

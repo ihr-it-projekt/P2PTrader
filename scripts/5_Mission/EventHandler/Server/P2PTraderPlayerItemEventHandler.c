@@ -6,7 +6,7 @@ class P2PTraderPlayerItemEventHandler
 	
     void P2PTraderPlayerItemEventHandler(P2PTraderConfigParams config, P2PTraderItemsCategoryConfig itemConfig) {
 		this.config = config;
-		itemsInventory = itemConfig.GetItemsInventory();
+		itemsInventory = itemConfig.GetItems();
 		
 		DebugMessageP2PTrader("Register OfferEventHandler");
         inventory = new P2PTraderPlayerInventory;
@@ -39,10 +39,10 @@ class P2PTraderPlayerItemEventHandler
 						
 						int categoryId = itemsInventory.GetCategoryIdByItemName(item.GetType());
 						
-						if (categoryId == -1) {
+						if (config.useItemsConfigForPlayerInventory && categoryId == -1) {
 							continue;
 						}
-
+						
 						P2PTraderItem traderItem = new P2PTraderItem(item.GetType(), categoryId, item);
 						playerItems.Insert(traderItem);
 					}

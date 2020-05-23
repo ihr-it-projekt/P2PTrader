@@ -88,7 +88,7 @@ modded class MissionGameplay
 
 	override void OnKeyRelease(int key)
 	{
-		if(traderMenu && !traderMenu.layoutRoot.IsVisible()) {
+		if(!traderMenu || !traderMenu.layoutRoot.IsVisible()) {
 			super.OnKeyRelease(key);
 		}
 		

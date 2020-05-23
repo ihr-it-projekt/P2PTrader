@@ -17,7 +17,9 @@ class P2PTraderConfigParams
 	int defaultKey = KeyCode.KC_B;
 	bool useServerKeyBind = false;
 	ref TStringArray enabledOfferTypes;
-	string configVersion = "5";
+	ref array<string> adminIds;
+	bool enableOrigenItemsNameInView = false;
+	string configVersion = "7";
 	
 
     void P2PTraderConfigParams()
@@ -31,17 +33,25 @@ class P2PTraderConfigParams
 			enabledOfferTypes = new TStringArray;
 			enabledOfferTypes.Insert("instant_buy");
 			enabledOfferTypes.Insert("auction");
+			adminIds = new array<string>;
+			adminIds.Insert("Enter your GUID");
 			Save();
 		} else {
 			Load();
-			if (configVersion.ToInt() < 5) {
-				
-				configVersion = "5";
+			if (configVersion.ToInt() < 7) {
+				configVersion = "7";
+				enableOrigenItemsNameInView = false;
 				Save();
 			}
 		}
 		
     }
+	
+	bool IsAdmin(DayZPlayer player) {
+		string playerId = player.GetIdentity().GetId();
+		
+		 return -1 != adminIds.Find(playerId);
+	}
 	
     private void Load(){
         if (IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGS_FOLDER_P2P + SETTINGSFILE)) {

@@ -112,20 +112,20 @@ FrameWidgetClass rootFrame {
         TextListboxWidgetClass marketOffers {
          color 1 1 1 0.651
          position 8.26004 8.26004
-         size 502.914 461.27603
+         size 502.914 421.94501
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style Default
          "title visible" 0
-         lines 17
+         lines 20
         }
         PanelWidgetClass boarderType {
          ignorepointer 1
          color 0 0 0 0.7843
-         position 45.602 571.21204
-         size 400 46
+         position 47.6307 533.73901
+         size 400 44.6774
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -145,7 +145,7 @@ FrameWidgetClass rootFrame {
         PanelWidgetClass boarderOffer {
          ignorepointer 1
          color 0 0 0 0.7843
-         position 45.602 516.43207
+         position 47.6307 485.05899
          size 400 46
          hexactpos 1
          vexactpos 1
@@ -164,8 +164,8 @@ FrameWidgetClass rootFrame {
          }
         }
         EditBoxWidgetClass inputSearchMarket {
-         position 37.602 142.48399
-         size 422.42798 30.896
+         position 34.3792 110.863
+         size 422.42798 35.8123
          valign center_ref
          hexactpos 1
          vexactpos 1
@@ -176,7 +176,7 @@ FrameWidgetClass rootFrame {
         }
         ButtonWidgetClass buttonSearchMarket {
          color 0.502 1 0 1
-         position 63.1581 636.43207
+         position 65.1867 643.60095
          size 364.88797 42
          hexactpos 1
          vexactpos 1
@@ -185,6 +185,27 @@ FrameWidgetClass rootFrame {
          style MenuDefault
          text "#filter"
          text_proportion 0.8
+        }
+        PanelWidgetClass boarderType0 {
+         ignorepointer 1
+         color 0 0 0 0.7843
+         position 47.0088 583.58405
+         size 400 46
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style editor_selection
+         {
+          XComboBoxWidgetClass filterCategoryType {
+           position 8.26001 8.26005
+           size 382 30
+           hexactpos 1
+           vexactpos 1
+           hexactsize 1
+           vexactsize 1
+          }
+         }
         }
        }
       }
@@ -656,6 +677,18 @@ FrameWidgetClass rootFrame {
          wrap 1
          "condense whitespace" 1
          "strip newlines" 1
+        }
+        ButtonWidgetClass buttonAdminDeleteSelected {
+         color 0.502 1 0 1
+         position 8 57.4451
+         size 364.88998 42
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "delete Selected"
+         text_proportion 0.8
         }
        }
       }

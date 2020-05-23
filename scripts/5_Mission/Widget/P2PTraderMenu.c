@@ -33,6 +33,7 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 	private ButtonWidget buttonOpenCreateMyBid;
 	private ButtonWidget buttonOpenCreateOffer;
 	private ButtonWidget buttonManageMyBids;
+	private ButtonWidget buttonAdminDeleteSelected;
 	private TextListboxWidget marketOffers;
 	private TextListboxWidget marketOfferItems;
 	private TextListboxWidget marketOfferItemAttachments;
@@ -90,6 +91,7 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
         cancel = uIItemCreator.GetButtonWidget("cancel", this, "OnClick");
         buttonOpenCreateOffer = uIItemCreator.GetButtonWidget("buttonOpenCreateOffer", this, "OnClick");
         buttonManageMyBids = uIItemCreator.GetButtonWidget("buttonManageMyBids", this, "OnClick");
+        buttonAdminDeleteSelected = uIItemCreator.GetButtonWidget("buttonAdminDeleteSelected", this, "OnClick");
         buttonDeleteMyOffer = uIItemCreator.GetButtonWidget("buttonDeleteMyOffer", this, "OnClick");
         buttonTakeOffer = uIItemCreator.GetButtonWidget("buttonTakeOffer", this, "OnClick");
         buttonOpenCreateMyBid = uIItemCreator.GetButtonWidget("buttonOpenCreateMyBid", this, "OnClick");
@@ -143,6 +145,8 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 		bidManagementWidget.SetInitDependencies(player, itemListenerManager, itemService, message, config);
 		bidManagementWidget.SetExtraInitDependencies(userListEventService, marketItems);
 		layoutRoot.AddChild(bidManagementWidget.Init());
+		
+		buttonAdminDeleteSelected.Show(config.traderConfigParams.IsAdmin(player));
 
         layoutRoot.Show(false);
 		
@@ -309,6 +313,11 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
             bidManagementWidget.OnShow();
 
 			return true;
+		} else if(w == buttonAdminDeleteSelected && selectedMarketOffer) {
+			Param2<DayZPlayer, int> paramDeletePlayerToMarketOffer = new Param2<DayZPlayer, int>(GetGame().GetPlayer(), selectedMarketOffer.GetId());
+			GetGame().RPCSingleParam(paramDeletePlayerToMarketOffer.param1, P2P_TRADER_EVENT_ADMIN_DELETE_OFFER, paramDeletePlayerToMarketOffer, true);
+			
+			return true;
 		}
 		return false;
     }
@@ -467,6 +476,7 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 		playerOfferItemMessage.Show(false);
 		buttonOpenCreateOffer.Show(canTrade);
 		notInNearHint.Show(!canTrade);
+		
 
 		GetGame().GetMission().PlayerControlDisable(INPUT_EXCLUDE_INVENTORY);
 		GetGame().GetUIManager().ShowUICursor(true);
@@ -531,7 +541,7 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 
 			}
 			userListEventService.DownCountRefresh();
-		} else if (rpc_type == P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_RESPONSE || rpc_type == P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE || rpc_type == P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_NEW_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE) {
+		} else if (rpc_type == P2P_TRADER_EVENT_ADMIN_DELETE_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_RESPONSE || rpc_type == P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE || rpc_type == P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_NEW_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE) {
 			DebugMessageP2PTrader("receive EVENT and Refresh lists");
            	userListEventService.RefreshPlayerLists();
 			userListEventService.RefreshStockLists();

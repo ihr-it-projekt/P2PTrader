@@ -37,6 +37,26 @@ class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer
 		return this.offerType == offerType;
 	}
 	
+	
+	bool IsCategory(int categoryIndex) {
+	    foreach(P2PTraderStockItem item: offerItems) {
+			if (item.GetCategory() == categoryIndex) {
+				return true;
+			}
+			
+			array<ref P2PTraderStockItem> attacheds = item.GetAttached();
+			foreach(P2PTraderStockItem attached: attacheds) {
+				if (attached.GetCategory() == categoryIndex) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	
+	
 	void SetId(int id){
 		this.id = id;
 	}
