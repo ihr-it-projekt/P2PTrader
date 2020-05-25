@@ -11,24 +11,6 @@ class P2PTraderConfiguredCategory
         } else {
 			categoryNames = new array<string>;
             categoryNames.Insert("#no_category");
-            categoryNames.Insert("#transmitter");
-            categoryNames.Insert("#clothes");
-            categoryNames.Insert("#pelt");
-            categoryNames.Insert("#ammo");
-            categoryNames.Insert("#lights");
-            categoryNames.Insert("#mag",;
-            categoryNames.Insert("#navigation");
-            categoryNames.Insert("#weapon");
-            categoryNames.Insert("#build_items");
-            categoryNames.Insert("#car",;
-            categoryNames.Insert("#store_items");
-            categoryNames.Insert("#medicine");
-            categoryNames.Insert("#transport");
-            categoryNames.Insert("#food");
-            categoryNames.Insert("#tent");
-            categoryNames.Insert("#fireplace");
-            categoryNames.Insert("#weapon_part");
-            categoryNames.Insert("#meleeWeapon");
 			SaveFile();
 		}
 	}
