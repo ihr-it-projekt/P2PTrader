@@ -108,6 +108,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Editor
+         "exact text" 1
         }
         TextWidgetClass TextWidget2 {
          ignorepointer 1
@@ -132,6 +133,7 @@ FrameWidgetClass rootFrame {
          vexactpos 1
          hexactsize 1
          vexactsize 1
+         "exact text" 1
         }
         MultilineTextWidgetClass bidMenuItemPreviewText {
          visible 1

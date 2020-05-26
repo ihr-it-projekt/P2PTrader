@@ -126,7 +126,8 @@ class P2PTraderOfferWidget extends P2PTraderBaseSubWidget
 	}
 	
 	void RefreshSearch() {
-		if(rememberedSearch != inputSearchOffer.GetText() || rememberedCategory != categoryCreateMarketOffer.GetCurrentItem()) {
+		if(rememberedSearch != inputSearchOffer.GetText() || rememberedCategory != categoryCreateMarketOffer.GetCurrentItem() - 1) {
+			DebugMessageP2PTrader("Update Search");
 			rememberedSearch = inputSearchOffer.GetText();
 			rememberedCategory = categoryCreateMarketOffer.GetCurrentItem() - 1;
         	itemService.AddTradableItemsToWidgetByCategory(tradableItemsOffer, rememberedSearch, rememberedCategory);

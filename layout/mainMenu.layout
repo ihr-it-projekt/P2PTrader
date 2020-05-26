@@ -173,6 +173,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          scaled 1
          style Editor
+         "exact text" 1
         }
         ButtonWidgetClass buttonSearchMarket {
          color 0.502 1 0 1

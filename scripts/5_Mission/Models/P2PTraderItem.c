@@ -22,7 +22,6 @@ class P2PTraderItem extends P2PTraderBaseItem
 	override bool Contains(string search) {
 	    search.ToLower();
         string searchName = item.GetTranslatedNameLower();
-		DebugMessageP2PTrader("Search for: " + search + " Item is: " + searchName);
 
 	    if(search != "" && !searchName.Contains(search)) {
 			return false;
