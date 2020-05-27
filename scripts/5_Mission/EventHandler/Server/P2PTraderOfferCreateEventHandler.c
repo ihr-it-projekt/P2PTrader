@@ -57,18 +57,11 @@ class P2PTraderOfferCreateEventHandler
 				DebugMessageP2PTrader("have offer items" + offerItems.Count().ToString());
 				DebugMessageP2PTrader("have wanted items" + wantedItems.Count().ToString());
 
-				foreach(EntityAI item: items) {
-					ItemBase itemCast = ItemBase.Cast(item);
-					foreach(int pos, P2PTraderItem offerItem: offerItems) {
-						if (itemCast && offerItem && offerItem.GetItem().IsItem(itemCast)) {
-							offer.AddOfferItem(offerItem.GetItem());
-							inventory.Remove(itemCast);
-							offerItems.Remove(pos);
-							break;
-						}
-					}
+				while(offerItems != null && 0 < offerItems.Count()) {
+					offerItems = removeItem(offer, items, offerItems);
+					items = inventory.GetPlayerItems(player);
 				}
-				
+								
 				foreach(P2PTraderItem itemWantToHave: wantedItems) {
 					offer.AddWantedItem(itemWantToHave.GetItem());
 				}
@@ -122,18 +115,11 @@ class P2PTraderOfferCreateEventHandler
 				
 				bool isAuction = playerMarketOffer.IsOfferType(P2PTraderPlayerMarketOffer.TYPE_AUCTION);
 
-				foreach(EntityAI itemX: itemsPlayer) {
-					foreach(int posX, P2PTraderItem offerItemX: offerPlayerItems) {
-						ItemBase itemPlayerCast = ItemBase.Cast(itemX);
-						if (itemPlayerCast && offerItemX.GetItem().IsItem(itemPlayerCast)) {
-                            offerFromPlayer.AddOfferItem(offerItemX.GetItem());
-							inventory.Remove(itemPlayerCast);
-							
-							offerPlayerItems.Remove(posX);
-							break;
-                        }
-                    }
-                }
+				while(offerPlayerItems != null && 0 < offerPlayerItems.Count()) {
+					offerPlayerItems = removeItemPlayer(offerFromPlayer, itemsPlayer, offerPlayerItems);
+					itemsPlayer = inventory.GetPlayerItems(offerPlayer);
+				}
+				
 				
 				if (offerFromPlayer.IsEmpty()) {
                     GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE_ERROR, new Param1<string>("#you_can_not_make_an_empty_offer"), true, player.GetIdentity());
@@ -179,4 +165,34 @@ class P2PTraderOfferCreateEventHandler
             }
         }
     }
+	
+	private array<ref P2PTraderItem> removeItem(P2PTraderPlayerMarketOffer offer, array<EntityAI> items, array<ref P2PTraderItem> offerItems) {
+		foreach(EntityAI item: items) {
+			ItemBase itemCast = ItemBase.Cast(item);
+			foreach(int pos, P2PTraderItem offerItem: offerItems) {
+				if (itemCast && offerItem && offerItem.GetItem().IsItem(itemCast)) {
+					offer.AddOfferItem(offerItem.GetItem());
+					inventory.Remove(itemCast);
+					offerItems.Remove(pos);
+					return offerItems;
+				}
+			}
+		}
+		return null;
+	}
+	private array<ref P2PTraderItem> removeItemPlayer(P2PTraderPlayerPlayerOffer offer, array<EntityAI> items, array<ref P2PTraderItem> offerItems) {
+		foreach(EntityAI item: items) {
+			ItemBase itemCast = ItemBase.Cast(item);
+			foreach(int pos, P2PTraderItem offerItem: offerItems) {
+				if (itemCast && offerItem && offerItem.GetItem().IsItem(itemCast)) {
+					offer.AddOfferItem(offerItem.GetItem());
+					inventory.Remove(itemCast);
+					offerItems.Remove(pos);
+					return offerItems;
+				}
+			}
+		}
+		
+		return null;
+	}
 };
