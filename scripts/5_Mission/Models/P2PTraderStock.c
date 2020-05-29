@@ -6,12 +6,13 @@ class P2PTraderStock
 	
     private const static string	SETTINGSFILE = "P2PTraderStock.json";
 	private const static string	CONFIGSBACKUPFOLDERP2P = "$profile:P2PTrader\\Backup\\";
+	
 
-	private ref array<ref P2PTraderPlayerMarketOffer> stock;
-	private ref array<ref P2PTraderPlayerPlayerOffer> playerOffers;
-	private ref array<ref P2PTraderPlayerPlayerOffer> playerOffersInactive;
-	private ref array<ref P2PTraderPlayerPlayerOffer> acceptedPlayerOffers;
-	private int idCounter = 1;
+	ref array<ref P2PTraderPlayerMarketOffer> stock;
+	ref array<ref P2PTraderPlayerPlayerOffer> playerOffers;
+	ref array<ref P2PTraderPlayerPlayerOffer> playerOffersInactive;
+	ref array<ref P2PTraderPlayerPlayerOffer> acceptedPlayerOffers;
+	int idCounter = 1;
 	private string version = "1";
 
     void P2PTraderStock()
@@ -20,23 +21,23 @@ class P2PTraderStock
 		if (!IsServerP2PTrader()){
 			return;
 		}
-  		if (!FileExist(CONFIGS_FOLDER_P2P + SETTINGSFILE)){
-			stock = new array<ref P2PTraderPlayerMarketOffer>;
-			playerOffers = new array<ref P2PTraderPlayerPlayerOffer>;
-			playerOffersInactive = new array<ref P2PTraderPlayerPlayerOffer>;
-            acceptedPlayerOffers = new array<ref P2PTraderPlayerPlayerOffer>;
-			DebugMessageP2PTrader("Create stock file");
-			Save();
+		
+		stock = new array<ref P2PTraderPlayerMarketOffer>;
+		playerOffers = new array<ref P2PTraderPlayerPlayerOffer>;
+		playerOffersInactive = new array<ref P2PTraderPlayerPlayerOffer>;
+        acceptedPlayerOffers = new array<ref P2PTraderPlayerPlayerOffer>;
+		
+  		if(IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGS_FOLDER_P2P + SETTINGSFILE)) {
+			DebugMessageP2PTrader("load stock file");
+			JsonFileLoader<P2PTraderStock>.JsonLoadFile(CONFIGS_FOLDER_P2P + SETTINGSFILE, this);
+			DeleteFile(CONFIGS_FOLDER_P2P + SETTINGSFILE);
 		} else {
-			CreateBackup("backup-start-");
-					
 			Load();
 		}
     }
 	
 	void ~P2PTraderStock(){
 		Save();
-		CreateBackup("backup-shout-down-");
 	}
 	
 	void AddPlayerToMarketOffer(ref P2PTraderPlayerMarketOffer newOffer) {
@@ -78,6 +79,7 @@ class P2PTraderStock
 					playerOffersInactive.Insert(playerPlayerOffer);
 				}
 				stock.Remove(index);
+				P2PStockStore.RemoveById(offerToRemove.GetId());
 				Save();
 				break;
 			}
@@ -103,6 +105,7 @@ class P2PTraderStock
 					}
 				}
 				stock.Remove(index);
+				P2PStockStore.RemoveById(marketOfferItems.GetId());
 				Save();
 				break;
 			}
@@ -118,6 +121,7 @@ class P2PTraderStock
 				acceptedOffer.SetOfferItems(playerOffer.GetOfferItems());
 				acceptedPlayerOffers.Insert(acceptedOffer);
 				RemovePlayerToPlayerOffer(playerOffer, true);
+				P2PStockStore.RemoveById(marketOffer.GetId());
 				stock.Remove(index);
 				Save();
 				break;
@@ -130,6 +134,7 @@ class P2PTraderStock
 		foreach(int index, P2PTraderPlayerPlayerOffer playerOffer: playerOffers) {
 			if (offerToRemove.GetId() == playerOffer.GetId()) {
 				playerOffers.Remove(index);
+				P2PStockStore.RemoveById(offerToRemove.GetId());
 				mustSave = true;
 				break;
 			}
@@ -141,6 +146,7 @@ class P2PTraderStock
 			}
 			if (offerToRemove.GetId() == playerOfferInactive.GetId()) {
 				playerOffersInactive.Remove(indexI);
+				P2PStockStore.RemoveById(offerToRemove.GetId());
 				mustSave = true;
 			}
 		}
@@ -151,6 +157,7 @@ class P2PTraderStock
 			}
 			if (offerToRemove.GetId() == acceptedPlayerOffer.GetId()) {
 				acceptedPlayerOffers.Remove(indexA);
+				P2PStockStore.RemoveById(offerToRemove.GetId());
 				mustSave = true;
 			}
 		}
@@ -290,22 +297,22 @@ class P2PTraderStock
 	
     private void Load() 
     {
-        if (IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGS_FOLDER_P2P + SETTINGSFILE)) {
+        if (IsServerAndMultiplayerP2PTrader()) {
 			DebugMessageP2PTrader("load stock file");
-			JsonFileLoader<P2PTraderStock>.JsonLoadFile(CONFIGS_FOLDER_P2P + SETTINGSFILE, this);
+			P2PStockStore store = new P2PStockStore();
+			store.LoadStock(this);
         }
     }
-
+	
     void Save(){
         if (IsServerAndMultiplayerP2PTrader()) {
-			if (!FileExist(CONFIGS_FOLDER_P2P)) {
-                MakeDirectory(CONFIGS_FOLDER_P2P);
+			if (!FileExist(CONFIGS_STOCK_FOLDER_P2P)) {
+                MakeDirectory(CONFIGS_STOCK_FOLDER_P2P);
                 DebugMessageP2PTrader("create folder");
             }
 			
-			
-			DebugMessageP2PTrader("save stock file: " + CONFIGS_FOLDER_P2P +  SETTINGSFILE);
-			JsonFileLoader<P2PTraderStock>.JsonSaveFile(CONFIGS_FOLDER_P2P +  SETTINGSFILE, this);
+			P2PStockStore store = new P2PStockStore();
+			store.SaveStock(this);
 		}
     }
 	

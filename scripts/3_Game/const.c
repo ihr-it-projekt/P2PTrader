@@ -38,3 +38,4 @@ static int P2P_TRADER_EVENT_ADMIN_DELETE_OFFER_RESPONSE = 77777755566636;
 
 static string CONFIGS_FOLDER_P2P = "$profile:P2PTrader\\";
 static string CONFIGS_CATEGORY_FOLDER_P2P = "$profile:P2PTrader\\Category\\";
+static string CONFIGS_STOCK_FOLDER_P2P = "$profile:P2PTrader\\Stock\\";

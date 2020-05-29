@@ -3,11 +3,8 @@ class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer
     static string TYPE_ALL = "all";
     static string TYPE_INSTANT_BUY = "instant_buy";
     static string TYPE_AUCTION = "auction";
-	private string ownerId;
-	private string ownerName;
-	private string offerMessage;
-	private int id;
-	private ref array <ref P2PTraderStockItem> offerItems;
+
+    private string offerMessage;
 	private ref array <ref P2PTraderStockItem> wantedItems;
 	private ref array <int> otherPlayerOffersIds;
 	private string offerType;
@@ -55,20 +52,6 @@ class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer
 		return false;
 	}
 	
-	
-	
-	void SetId(int id){
-		this.id = id;
-	}
-	
-	int GetId() {
-		return id;
-	}
-	
-	void AddOfferItem(ref P2PTraderStockItem item) {
-		offerItems.Insert(item);
-	}
-	
 	void AddWantedItem(ref P2PTraderStockItem item) {
 		wantedItems.Insert(item);
 	}
@@ -95,14 +78,6 @@ class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer
 	    return offerItems.Count() == 0 && wantedItems.Count() == 0;
 	}
 
-	string GetOwnerId() {
-	    return ownerId;
-	}
-	
-	string GetOwnerName() {
-	    return ownerName;
-	}
-	
 	bool Contains(string search) {
 		foreach(P2PTraderStockItem item: offerItems) {
 			if(item.Contains(search)) {
@@ -122,10 +97,6 @@ class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer
 		}
 	}
 
-    array <ref P2PTraderStockItem> GetOfferItems() {
-	   return offerItems;
-	}
-
     array <ref P2PTraderStockItem> GetWantedItems() {
 	   return wantedItems;
 	}
@@ -133,5 +104,4 @@ class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer
 	string GetOfferMessage() {
 	    return offerMessage;
 	}
-	
 }
