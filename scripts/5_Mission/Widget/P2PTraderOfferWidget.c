@@ -58,10 +58,6 @@ class P2PTraderOfferWidget extends P2PTraderBaseSubWidget
                 DebugMessageP2PTrader("add offer type item: " + offerType);
                 offerTypeCreateOffer.AddItem("#" + offerType);
             }
-        } else {
-            DebugMessageP2PTrader("fallback to all");
-            offerTypeCreateOffer.AddItem("#instant_buy");
-            offerTypeCreateOffer.AddItem("#auction");
         }
 		
 		array<ref P2PTraderCategory> categories = config.traderItemsConfig.GetItems().GetCategories();

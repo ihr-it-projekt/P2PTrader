@@ -45,6 +45,12 @@ class P2PTraderConfigParams
 			}
 		}
 		
+		if (enabledOfferTypes.Count() == 0) {
+			P2PLog("enabledOfferTypes not configured. Use default values. See Readme file in mod folder for more information.");
+			enabledOfferTypes.Insert("instant_buy");
+			enabledOfferTypes.Insert("auction");
+		}
+		
     }
 	
 	bool IsAdmin(DayZPlayer player) {

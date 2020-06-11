@@ -30,7 +30,7 @@ modded class MissionGameplay
 			Param1 <ref P2PTraderConfig> configParam;
 			if (ctx.Read(configParam)){
 				p2pTraderConfig = configParam.param1;
-				if (p2pTraderConfig.traderConfigParams && keyMap && p2pTraderConfig.traderConfigParams.defaultKey) {
+				if (p2pTraderConfig.traderConfigParams && p2pTraderConfig.traderConfigParams.useServerKeyBind && keyMap && p2pTraderConfig.traderConfigParams.defaultKey) {
 					keyName = keyMap.keyCodes.Get(p2pTraderConfig.traderConfigParams.defaultKey);
 					GetGame().AdminLog("[P2PTrader] Use serverside keybind: " + keyName);
 					

@@ -31,6 +31,7 @@ class P2PTraderStock
 			DebugMessageP2PTrader("load stock file");
 			JsonFileLoader<P2PTraderStock>.JsonLoadFile(CONFIGS_FOLDER_P2P + SETTINGSFILE, this);
 			DeleteFile(CONFIGS_FOLDER_P2P + SETTINGSFILE);
+			Save();
 		} else {
 			Load();
 		}
