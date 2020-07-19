@@ -2,9 +2,11 @@ class P2PTraderUserListEventService
 {
 	private DayZPlayer player;
 	private int refreshRuns = 0;
+	private ref Timer refreshTimeOut;
 	
 	void P2PTraderUserListEventService(DayZPlayer player) {
 		this.player = player;
+		refreshTimeOut = new Timer();
 	}
 
 	void RefreshPlayerLists() {
@@ -13,6 +15,7 @@ class P2PTraderUserListEventService
 	    GetGame().RPCSingleParam(paramGetPlayerItems.param1, P2P_TRADER_EVENT_GET_ALL_BID_OFFERS, paramGetPlayerItems, true);
 	    GetGame().RPCSingleParam(paramGetPlayerItems.param1, P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS, paramGetPlayerItems, true);
 		refreshRuns = 3;
+		refreshTimeOut.Run(2, this, "ResetRefresh");
 	}
 
 	void RefreshStockLists() {
@@ -30,5 +33,6 @@ class P2PTraderUserListEventService
 
 	void ResetRefresh() {
 		refreshRuns = 0;
+		refreshTimeOut.Stop();
 	}
 }
