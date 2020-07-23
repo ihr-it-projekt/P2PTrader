@@ -12,15 +12,6 @@ modded class MissionServer {
 	
 	void MissionServer()
 	{
-		string fileName = P2PTraderItemsCategoryConfig.ITEM_CATEGORY_PREFIX + "0" + P2PTraderCategory.SETTINGSFILE;
-		bool configExists = FileExist(CONFIGS_CATEGORY_FOLDER_P2P + fileName);
-        
-		if (!configExists) {
-			GetGame().AdminLog("[P2PTrader] NOT SUCCESSFUL LOADED. Please visit https:\/\/dayz-p2ptrader.com/category-editor/add-items and create your category config. Alternative you can copy all files and folders from '##paste_content_to_server_profiles_folder' into your server profiles folder. There are all items in the will came from basic game.");
-			Print("[P2PTrader] NOT SUCCESSFUL LOADED. Please visit https:\/\/dayz-p2ptrader.com/category-editor/add-items and create your category config. Alternative you can copy all files and folders from '##paste_content_to_server_profiles_folder' into your server profiles folder. There are all items in the will came from basic game.");
-			return;
-        }
-		
 		p2pTraderConfig = new P2PTraderConfig();
 		
 		DebugMessageP2PTrader("loade keys");
@@ -29,6 +20,15 @@ modded class MissionServer {
 		DebugMessageP2PTrader("load stock");
 		traderStock = new P2PTraderStock();
 		DebugMessageP2PTrader("Has loaded stock:" + traderStock.GetStock().Count().ToString());
+
+		string fileName = P2PTraderItemsCategoryConfig.ITEM_CATEGORY_PREFIX + "0" + P2PTraderCategory.SETTINGSFILE;
+        bool configExists = FileExist(CONFIGS_CATEGORY_FOLDER_P2P + fileName);
+
+        if (!configExists) {
+            GetGame().AdminLog("[P2PTrader] NOT SUCCESSFUL LOADED. Please visit https:\/\/dayz-p2ptrader.com/category-editor/add-items and create your category config. Alternative you can copy all files and folders from '##paste_content_to_server_profiles_folder' into your server profiles folder. There are all items in the will came from basic game.");
+            Print("[P2PTrader] NOT SUCCESSFUL LOADED. Please visit https:\/\/dayz-p2ptrader.com/category-editor/add-items and create your category config. Alternative you can copy all files and folders from '##paste_content_to_server_profiles_folder' into your server profiles folder. There are all items in the will came from basic game.");
+            return;
+        }
 		
 		adminEventHandler = new P2PTraderAdminEventHandler(traderStock, p2pTraderConfig.traderConfigParams);
 		offerCreateEventHandler = new P2PTraderOfferCreateEventHandler(traderStock, p2pTraderConfig.traderConfigParams);
