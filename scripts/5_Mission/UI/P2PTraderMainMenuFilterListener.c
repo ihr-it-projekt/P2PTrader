@@ -44,8 +44,6 @@ class P2PTraderMainMenuFilterListener extends Managed
     }
 
 	bool OnClickFilterOwner() {
-	    DebugMessageP2PTrader("click OnClickFilterOwner");
-
 	    if (!marketItems || !marketPlayerItems) return false;
 
 		int current = filterOfferType.GetCurrentItem();

@@ -14,8 +14,6 @@ class P2PJsonFileLoader<Class T>
 		if ( handle == 0 )
 			return;
 		
-		DebugMessageP2PTrader("Length of data" + file_content.Length());
-		
 		FPrint( handle, file_content );
 		
 		CloseFile( handle );

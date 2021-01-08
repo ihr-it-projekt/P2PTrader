@@ -17,7 +17,6 @@ class P2PTraderStock
 
     void P2PTraderStock()
     {
-		DebugMessageP2PTrader("Initialize Stock");
 		if (!IsServerP2PTrader()){
 			return;
 		}
@@ -28,7 +27,6 @@ class P2PTraderStock
         acceptedPlayerOffers = new array<ref P2PTraderPlayerPlayerOffer>;
 		
   		if(IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGS_FOLDER_P2P + SETTINGSFILE)) {
-			DebugMessageP2PTrader("load stock file");
 			JsonFileLoader<P2PTraderStock>.JsonLoadFile(CONFIGS_FOLDER_P2P + SETTINGSFILE, this);
 			DeleteFile(CONFIGS_FOLDER_P2P + SETTINGSFILE);
 			Save();
@@ -235,13 +233,10 @@ class P2PTraderStock
 		
 		int count = 0;
 		
-		DebugMessageP2PTrader("Check OPEN_OFFER");
 		count = count + this.GetOffersFromPlayer(playerIdent, OPEN_OFFER).Count();
 		
-		DebugMessageP2PTrader("Check INACTIVE_OFFER count is: " + count.ToString());
 		count = count + this.GetOffersFromPlayer(playerIdent, INACTIVE_OFFER).Count();
 		
-		DebugMessageP2PTrader("Check ACCEPTED_OFFER count is: " + count.ToString());
 		count = count + this.GetOffersFromPlayer(playerIdent, ACCEPTED_OFFER).Count();
 		
 		return count;
@@ -299,7 +294,6 @@ class P2PTraderStock
     private void Load() 
     {
         if (IsServerAndMultiplayerP2PTrader()) {
-			DebugMessageP2PTrader("load stock file");
 			P2PStockStore store = new P2PStockStore();
 			store.LoadStock(this);
         }
@@ -309,7 +303,6 @@ class P2PTraderStock
         if (IsServerAndMultiplayerP2PTrader()) {
 			if (!FileExist(CONFIGS_STOCK_FOLDER_P2P)) {
                 MakeDirectory(CONFIGS_STOCK_FOLDER_P2P);
-                DebugMessageP2PTrader("create folder");
             }
 			
 			P2PStockStore store = new P2PStockStore();
@@ -334,7 +327,6 @@ class P2PTraderStock
 		
 		if (!FileExist(CONFIGSBACKUPFOLDERP2P)) {
             MakeDirectory(CONFIGSBACKUPFOLDERP2P);
-            DebugMessageP2PTrader("create backup folder");
         }
 
 		string fileName = suffix + date + "-" + time +"-";	

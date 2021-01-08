@@ -18,6 +18,34 @@ class P2PTraderDate
 		GetYearMonthDay(year, month, day);
 		GetHourMinuteSecondUTC(hour, minute, second);
 	}
+
+	bool IsAfter(P2PTraderDate expiredDate) {
+	    if (expiredDate.year > year) {
+	        return false;
+	    }
+
+	    if (expiredDate.year == year && expiredDate.month > month) {
+	        return false;
+	    }
+
+	    if (expiredDate.year == year && expiredDate.month == month && expiredDate.day > day) {
+	        return false;
+	    }
+
+	    if (expiredDate.year == year && expiredDate.month == month && expiredDate.day == day && expiredDate.hour > hour) {
+	        return false;
+	    }
+
+	    if (expiredDate.year == year && expiredDate.month == month && expiredDate.day == day && expiredDate.hour == hour && expiredDate.minute > minute) {
+	        return false;
+	    }
+
+	    if (expiredDate.year == year && expiredDate.month == month && expiredDate.day == day && expiredDate.hour == hour && expiredDate.minute == minute && expiredDate.second > second) {
+	        return false;
+	    }
+
+	    return true;
+	}
 	
 	void SetInSeconds() {
 		inSeconds = month * MONTH_IN_SECONDS + day * DAY_IN_SECONDS + hour * HOUR_IN_SECONDS + minute * MINUTE_IN_SECONDS + second;

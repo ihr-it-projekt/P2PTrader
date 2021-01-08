@@ -66,7 +66,6 @@ class P2PStockStore
 	
 	private void SaveMarketOffer(array<ref P2PTraderPlayerMarketOffer> marketOffers, array<ref P2POfferFileMatch> fileMatchCollection) {
 		foreach(P2PTraderPlayerMarketOffer offer: marketOffers) {
-			DebugMessageP2PTrader("Save some item");
 			ref P2POfferFileMatch match = new P2POfferFileMatch(offer.GetId(), offer.getAllItemTypes(), offer.getAllCategoryIds());
 			
 			RemoveById(offer.GetId());
@@ -88,7 +87,6 @@ class P2PStockStore
 				
 				offer.UpdateCategories(match.types, match.categoryIds);
 				
-				DebugMessageP2PTrader("Add some item to store");
 				offers.Insert(offer);
 			}
 		}
@@ -98,7 +96,6 @@ class P2PStockStore
 	
 	private void SavePlayerOffer(array<ref P2PTraderPlayerPlayerOffer> offers, array<ref P2POfferFileMatch> fileMatchCollection) {
 		foreach(P2PTraderPlayerPlayerOffer offer: offers) {
-			DebugMessageP2PTrader("Save some item");
 			ref P2POfferFileMatch match = new P2POfferFileMatch(offer.GetId(), offer.getAllItemTypes(), offer.getAllCategoryIds());
 			
 			RemoveById(offer.GetId());
@@ -119,7 +116,6 @@ class P2PStockStore
 					currentId = offer.GetId();
 				}
 				offer.UpdateCategories(match.types, match.categoryIds);
-				DebugMessageP2PTrader("Add some item to store");
 				offers.Insert(offer);
 			}
 		}

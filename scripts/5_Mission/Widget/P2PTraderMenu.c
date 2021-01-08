@@ -58,10 +58,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 	private MultilineTextWidget notInNearHint;
 	private MultilineTextWidget playerOfferItemMessage;
 
-    void ~P2PTraderMenu() {
-        DebugMessageP2PTrader("destroy trader menu");
-    }
-
 	void SetConfig(P2PTraderConfig configExt) {
         this.config = configExt;
 		itemService = new P2PItemService(this.config);
@@ -75,7 +71,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
     override Widget Init()
     {
 		if (IsServerP2PTrader()){
-            DebugMessageP2PTrader("can not init, is server");
             return null;
         }
 
@@ -165,7 +160,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
         if (actionRuns) {
             return actionRuns;
         } else if (w == cancel){
-            DebugMessageP2PTrader("click cancel");
             CloseMenu();
             return true;
         } else if(w == buttonOpenCreateMyBid && selectedMarketOffer) {
@@ -173,7 +167,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 				message.SetText("#you_reach_max_market_offers_per_player");
 				return true;
 			}
-			DebugMessageP2PTrader("click buttonOpenCreateMyBid");
 
             playerBidWidget.SetMarketOfferDetails(selectedMarketOffer);
             playerBidWidget.OnShow();
@@ -183,7 +176,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 
 			return true;
 		} else if(w == buttonOpenCreateOffer) {
-			DebugMessageP2PTrader("click buttonOpenCreateOffer");
 			if (config.traderConfigParams.maxMarketOffersPerPlayer == marketPlayerItems.Count()) {
 				message.SetText("#you_reach_max_bid_offers_per_player");
 			} else {
@@ -193,7 +185,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 			}
 			return true;
 		} else if(w == marketOffers) {
-			DebugMessageP2PTrader("click marketOffers");
 			selectedMarketOffer = itemService.GetSelectedMarketOffer(marketOffers);
 			
 			if (!selectedMarketOffer) {
@@ -202,12 +193,10 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 			
 			playerOfferForSelectedStockItem = itemService.GetPlayerSingleOffersForMarketOffer(selectedMarketOffer, playerActiveOffers);
 			
-			DebugMessageP2PTrader("config filds");
 			playerNameOfferDetail.SetText(selectedMarketOffer.GetOwnerName());
 			playerOfferMessageDetail.SetText(selectedMarketOffer.GetOfferMessage());
 			offerPlayerType.SetText("#" + selectedMarketOffer.GetOfferType());
 			
-			DebugMessageP2PTrader("try set items to list");
 			itemService.GetMarketOfferItemList(marketOfferItems, selectedMarketOffer);
 			selectedPlayerOffers = itemService.GetPlayerOffersForMarketOffer(selectedMarketOffer, allActiveOffers);
 			
@@ -217,10 +206,7 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 			playerOfferItems.ClearItems();
 			playerOfferItemAttachments.ClearItems();
 			if (selectedPlayerOffers && selectedPlayerOffers.Count() > 0) {
-				DebugMessageP2PTrader("offer is selected");
 				itemService.GetActiveOffersForStockItem(playerOffers, selectedPlayerOffers);
-			} else {
-				DebugMessageP2PTrader("no offer found offer is selected");
 			}
 			
 			marketOfferWantToHave.ClearItems();
@@ -241,11 +227,9 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 			
 			marketOfferItemAttachments.ClearItems();
 			offerItemAttachmentLabel.Show(true);
-			DebugMessageP2PTrader("try ShowHideMyOfferForItem");
 			ShowHideMyOfferForItem();
 			return true;
 		} else if(w == marketOfferItems) {
-			DebugMessageP2PTrader("click marketOfferItems");
 			P2PTraderStockItem currentStockItem = itemService.GetSelectedItemPlayerOffer(marketOfferItems);
 			if (!currentStockItem) {
 				return true;
@@ -254,7 +238,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 			itemService.GetMarketOfferItemAttachmentList(marketOfferItemAttachments, currentStockItem);
 			return true;
 		} else if(w == playerOffers) {
-			DebugMessageP2PTrader("click playerOffers");
 			selectedPlayerOffer = itemService.GetSelectedStockItem(playerOffers);
 			if (!selectedPlayerOffer) {
 				return true;
@@ -264,7 +247,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 			ShowHideMyOfferForItem();
 			return true;
 		} else if(w == playerOfferItems) {
-			DebugMessageP2PTrader("click playerOfferItems");
 			P2PTraderStockItem currentMyBidItem = itemService.GetSelectedItemPlayerOffer(playerOfferItems);
 			if (!currentMyBidItem) {
 				return true;
@@ -274,9 +256,7 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 			
 			return true;
 		} else if(w == buttonDeleteMyOffer) {
-			DebugMessageP2PTrader("click buttonDeleteMyOffer");
 			if (!selectedMarketOffer) {
-				DebugMessageP2PTrader("no selected selectedMarketOffer");
 				return true;
 			}
 			
@@ -295,7 +275,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 			return true;
 			
 		} else if(w == buttonTakeOffer && selectedPlayerOffer && selectedMarketOffer && selectedPlayerOffer.GetOwnerId() != selectedMarketOffer.GetOwnerId()) {
-			DebugMessageP2PTrader("click buttonTakeOffer");
 			marketOfferItems.ClearItems();
 			marketOfferItemAttachments.ClearItems();
 			playerOffers.ClearItems();
@@ -395,7 +374,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 			return;
 		}
 		
-		DebugMessageP2PTrader("hide action");
 		super.OnHide();
 
 		PPEffects.SetBlurMenu(0);
@@ -424,14 +402,12 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 		selectedPlayerOffer = null;
 		ShowHideMyOfferForItem();
 		buttonOpenCreateMyBid.Show(false);
-		DebugMessageP2PTrader("hide action done");
 	}
 	
 		
 	override void OnShow()
 	{
 		if (layoutRoot.IsVisible()) {
-			DebugMessageP2PTrader("Menu is already open");
 			return;
 		}
 		userListEventService.ResetRefresh();
@@ -443,8 +419,7 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 		
 		super.OnShow();
 				
-		DebugMessageP2PTrader("show action");
-		
+
 		PPEffects.SetBlurMenu(0.5);
 
 		SetFocus(layoutRoot);
@@ -490,7 +465,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
             return;
         } 
 		if (rpc_type == P2P_TRADER_EVENT_GET_PLAYER_ITEMS_RESPONSE) {
-			DebugMessageP2PTrader("receive P2P_TRADER_EVENT_GET_PLAYER_ITEMS_RESPONSE");
             Param1<ref array<ref P2PTraderItem>> parameterPlayerItems;
             if (ctx.Read(parameterPlayerItems)) {
                 offerWidget.OnGetPlayerItems(parameterPlayerItems.param1);
@@ -498,20 +472,16 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 			}
 			userListEventService.DownCountRefresh();
 		} else if (rpc_type == P2P_TRADER_EVENT_GET_STOCK_RESPONSE) {
-			DebugMessageP2PTrader("receive P2P_TRADER_EVENT_GET_STOCK_RESPONSE");
             Param1<ref array<ref P2PTraderPlayerMarketOffer>> parameterStock;
             if (ctx.Read(parameterStock)) {
-				DebugMessageP2PTrader("got market items: " + parameterStock.param1.Count().ToString());
-				
+
 				marketItems.Clear();
 				marketPlayerItems.Clear();
 				array<ref P2PTraderPlayerMarketOffer> stock = parameterStock.param1;
 
 				if (stock && stock.Count()> 0){
-					DebugMessageP2PTrader("Has loaded stock: " + stock.Count().ToString());
 					foreach(P2PTraderPlayerMarketOffer marketOfferItems: stock) {
 						if (marketOfferItems.GetOwnerId() == playerId) {
-							DebugMessageP2PTrader("added to player list");
 							marketPlayerItems.Insert(marketOfferItems);
 						}
 						marketItems.Insert(marketOfferItems);
@@ -523,7 +493,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 				mainMenuFilterListener.OnGetStockEvent(marketItems, marketPlayerItems);
 			}
 		} else if (rpc_type == P2P_TRADER_EVENT_GET_ALL_BID_OFFERS_RESPONSE) {
-			DebugMessageP2PTrader("receive P2P_TRADER_EVENT_GET_ALL_BID_OFFERS_RESPONSE");
             Param1<ref array<ref P2PTraderPlayerPlayerOffer>> parameterPlayerBids;
             
             if (ctx.Read(parameterPlayerBids)) {
@@ -542,7 +511,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 			}
 			userListEventService.DownCountRefresh();
 		} else if (rpc_type == P2P_TRADER_EVENT_ADMIN_DELETE_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_RESPONSE || rpc_type == P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER_RESPONSE || rpc_type == P2P_TRADER_EVENT_TAKE_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_NEW_OFFER_RESPONSE || rpc_type == P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE) {
-			DebugMessageP2PTrader("receive EVENT and Refresh lists");
            	userListEventService.RefreshPlayerLists();
 			userListEventService.RefreshStockLists();
 			if (rpc_type == P2P_TRADER_EVENT_REMOVE_OFFER_RESPONSE) {
@@ -557,7 +525,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 			ShowHideMyOfferForItem();
 			
 		} else if (rpc_type == P2P_TRADER_EVENT_RESPONSE_ERROR) {
-			DebugMessageP2PTrader("receive P2P_TRADER_EVENT_RESPONSE_ERROR");
             Param1<string> parameterError;
             if (ctx.Read(parameterError)) {
 				message.SetText(parameterError.param1);
@@ -565,7 +532,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 				createPlayerOfferWidget.Show(false);
 			}
 		} if (rpc_type == P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS_RESPONSE) {
-          DebugMessageP2PTrader("receive P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS_RESPONSE");
           Param2<ref array<ref P2PTraderPlayerPlayerOffer>, ref array<ref P2PTraderPlayerPlayerOffer>> parameterOffers;
           if (ctx.Read(parameterOffers)) {
               bidManagementWidget.SetPlayerOffers(parameterOffers.param1, parameterOffers.param2);
@@ -577,7 +543,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 	}
 	
 	void CloseMenu(){
-		DebugMessageP2PTrader("check is open");
 		if(layoutRoot.IsVisible() && userListEventService.RefreshFinished()){
 			if (offerWidget.IsWidgetVisible()) {
 				offerWidget.OnHide();
@@ -586,7 +551,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 			} else if(bidManagementWidget.IsWidgetVisible()) {
 				bidManagementWidget.OnHide();
 			} else {
-				DebugMessageP2PTrader("try close menu");
 				SetFocus(NULL);
 				OnHide();
 				layoutRoot.Show(false);

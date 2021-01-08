@@ -26,7 +26,6 @@ class P2PIsAuctionCompleteValidator extends P2PBaseValidator
 				}
 				
 				if (itemM.GetType() == itemP.GetType() && itemM.GetHealth() <= itemP.GetHealth() && itemM.GetQuantity() <= itemP.GetQuantity()) {
-					DebugMessageP2PTrader("has found one item: " + itemP.GetType());
 					usedItems.Set(posP, itemP);
 				}
 			}
@@ -51,7 +50,6 @@ class P2PIsAuctionCompleteValidator extends P2PBaseValidator
 	array <P2PTraderStockItem> GetUsedItems() {
 		array <P2PTraderStockItem> collection = new array <P2PTraderStockItem>;
 		foreach(P2PTraderStockItem item: usedItems) {
-			DebugMessageP2PTrader("used item: " + item.GetType());
 			collection.Insert(item);
 		}
 		return collection;
@@ -60,7 +58,6 @@ class P2PIsAuctionCompleteValidator extends P2PBaseValidator
 	array <P2PTraderStockItem> GetUnUsedItems() {
 		array <P2PTraderStockItem> collection = new array <P2PTraderStockItem>;
 		foreach(P2PTraderStockItem item: unUsedItems) {
-			DebugMessageP2PTrader("unused item: " + item.GetType());
 			collection.Insert(item);
 		}
 		return collection;

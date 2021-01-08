@@ -113,7 +113,6 @@ class P2PTraderKeyCodeMatch
 			if (!FileExist(CONFIGS_FOLDER_P2P)) {
 				MakeDirectory(CONFIGS_FOLDER_P2P);
 			}
-			DebugMessageP2PTrader("save file");
 			JsonFileLoader<P2PTraderKeyCodeMatch>.JsonSaveFile(CONFIGS_FOLDER_P2P + SETTINGSFILE, this);
 		}
     }

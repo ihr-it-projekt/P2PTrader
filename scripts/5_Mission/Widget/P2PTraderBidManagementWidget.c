@@ -198,12 +198,9 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
             bidManagementBidItemAttachment.ClearItems();
             return true;
         } else if(w == buttonDeleteMyBid || w == buttonTakeBid) {
-             DebugMessageP2PTrader("click buttonDeleteMyBid 1");
              if (!selectedPlayerOfferBidManagement) {
-                 DebugMessageP2PTrader("no selected offer");
                  return true;
              }
-             DebugMessageP2PTrader("click buttonDeleteMyBid 2");
              Param2<DayZPlayer, int> paramRemovePlayerToPlayerOffer = new Param2<DayZPlayer, int>(GetGame().GetPlayer(), selectedPlayerOfferBidManagement.GetId());
              GetGame().RPCSingleParam(paramRemovePlayerToPlayerOffer.param1, P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS, paramRemovePlayerToPlayerOffer, true);
              buttonDeleteMyBid.Show(false);

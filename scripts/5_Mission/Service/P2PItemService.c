@@ -25,32 +25,26 @@ class P2PItemService
 		    array<ref P2PTraderCategory> categories = categoryItems.GetCategories();
 			foreach (P2PTraderCategory category: categories){
 				int categoryId = category.GetId();
-				DebugMessageP2PTrader("Current Category " + category.GetName());
 				array<ref P2PTraderCategoryItem> catItems = category.GetItems();
-				DebugMessageP2PTrader("Current Category has count items: " + catItems.Count());
-				
+
 				foreach(P2PTraderCategoryItem itemCat: catItems) {
 					P2PTraderItem item = new P2PTraderItem(itemCat.GetName(), categoryId);
 					item.SetTranslation(GetItemDisplayName(itemCat.GetName()), config.traderConfigParams.enableOrigenItemsNameInView);
 					itemsFromConfig.Insert(item);
 				}
 			}
-		} else {
-			DebugMessageP2PTrader("categoryItems is null");
-		}	
+		}
 	}
 	
 	void InitMarketItems(array<ref P2PTraderPlayerMarketOffer> marketItems) {
 		foreach(P2PTraderPlayerMarketOffer offer: marketItems) {
 			if (!offer) {
-				DebugMessageP2PTrader("Item i null");
 				continue;
 			}
 			
 			array <ref P2PTraderStockItem> offerItems = offer.GetOfferItems();
 			
 			if (!offerItems) {
-				DebugMessageP2PTrader("offerItems i null");
 				continue;
 			}
 			foreach(P2PTraderStockItem item: offerItems) {
@@ -63,7 +57,6 @@ class P2PItemService
 				array <ref P2PTraderStockItem> wantedItems = offer.GetWantedItems();
 				foreach(P2PTraderStockItem itemWanted: wantedItems) {
 					if (itemWanted) {
-						DebugMessageP2PTrader("add itemWanted translation");
 						itemWanted.SetTranslation(GetItemDisplayName(itemWanted.GetType()), configParams.enableOrigenItemsNameInView);
 					}
 				}
@@ -82,7 +75,6 @@ class P2PItemService
 			if (!offer) {
 				continue;
 			}
-			DebugMessageP2PTrader("selectedMarketOffer.GetId():" + selectedMarketOffer.GetId().ToString() + " offer.GetPlayerToMarketOfferId():" + offer.GetPlayerToMarketOfferId().ToString());
 			if (selectedMarketOffer.GetId() == offer.GetPlayerToMarketOfferId()) {
 				offers.Insert(offer);
 			}
@@ -134,7 +126,6 @@ class P2PItemService
 		string itemNames;
 		foreach(P2PTraderPlayerMarketOffer offer: marketItems) {
 			if(!offer) {
-				DebugMessageP2PTrader("GetMarketItemList: offer was null");
 				continue;
 			}
 			
@@ -146,8 +137,6 @@ class P2PItemService
 			if (categoryIndex != -1 && !offer.IsCategory(categoryIndex)) {
 				continue;
 			}
-			
-			DebugMessageP2PTrader("offer.IsOfferType(offerType): " + isOfferType.ToString());
 			
 			if (isOfferType && (search == "" || offer.Contains(search))) {
 				itemNames = "";
@@ -164,7 +153,6 @@ class P2PItemService
 					array <ref P2PTraderStockItem> wantedItems = offer.GetWantedItems();
 					foreach(P2PTraderStockItem itemWanted: wantedItems) {
 						if (itemWanted) {
-							DebugMessageP2PTrader("use itemWanted translation");
 							itemNames = itemNames + itemWanted.GetTranslation();
 						}
 					}
@@ -183,14 +171,12 @@ class P2PItemService
 			return widget;
 		}
 		
-		DebugMessageP2PTrader("try GetOfferItems");
 		array <ref P2PTraderStockItem> offerItems = marketItem.GetOfferItems();
 		
 		if (!offerItems) {
 			return widget;
 		}
 		
-		DebugMessageP2PTrader("has offerItems, count" + offerItems.Count().ToString());
 		foreach(P2PTraderStockItem item: offerItems) {
 			if (item) {
 				if (!item.HasTranslation()) {
@@ -200,8 +186,6 @@ class P2PItemService
 				widget.AddItem(item.GetTranslation(), item, 0);
 			}
 		}
-
-		DebugMessageP2PTrader("done adding items to widget.");
 
 		return widget;
 	}
@@ -295,7 +279,6 @@ class P2PItemService
 			widget.AddItem(item.GetTranslation(), item, 0);
 			addedItems = addedItems + 1;
 		}
-		DebugMessageP2PTrader("Has added tradable items count: " + addedItems.ToString());
 	}
 	
 	void AddTradableItemsToWidget(TextListboxWidget widget, string search) {
@@ -310,30 +293,24 @@ class P2PItemService
 			widget.AddItem(item.GetTranslation(), item, 0);
 			addedItems = addedItems + 1;
 		}
-		DebugMessageP2PTrader("Has added tradable items count: " + addedItems.ToString());
 	}
 
 	string CreateOffer(DayZPlayer player, TextListboxWidget offer, TextListboxWidget wanted, string offerText, string offerType) {
 		int countOfferItems = offer.GetNumItems();
 		int countWantedItems = wanted.GetNumItems();
 		
-		DebugMessageP2PTrader("has count items" + countOfferItems.ToString() + " " + countWantedItems.ToString());
-		
 		ref array<ref P2PTraderItem> offerItems = new array<ref P2PTraderItem>;
 		ref array<ref P2PTraderItem> wantedItems = new array<ref P2PTraderItem>;
 		P2PTraderItem item;
 		int x;
 		
-		DebugMessageP2PTrader("iterate offer");
 		for(x = 0; x < countOfferItems; x++) {
 			item = null;
 			offer.GetItemData(x, 0, item);
 			if (item) {
-				DebugMessageP2PTrader("add offer" + item.GetType());
 				offerItems.Insert(item);
 			}
 		}
-		DebugMessageP2PTrader("iterate wanted");
 		for(x = 0; x < countWantedItems; x++) {
 			item = null;
 			wanted.GetItemData(x, 0, item);
@@ -346,19 +323,15 @@ class P2PItemService
 		    return "#you_can_not_make_an_empty_offer";
 		}
 
-		DebugMessageP2PTrader("try send P2P_TRADER_EVENT_NEW_OFFER to server");
 		GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_NEW_OFFER, new Param5<DayZPlayer, ref array<ref P2PTraderItem>, ref array<ref P2PTraderItem>, string, string>(player, offerItems, wantedItems, offerText, offerType), true);
-		DebugMessageP2PTrader("try send P2P_TRADER_EVENT_NEW_OFFER to server");
 		return "";
 	}
 
 	string CreateOfferToPlayer(DayZPlayer player, TextListboxWidget offer, P2PTraderPlayerMarketOffer selectedMarketOffer, string offerText) {
 		int offerId = selectedMarketOffer.GetId();
         int countOfferItems = offer.GetNumItems();
-        DebugMessageP2PTrader("has count items" + countOfferItems.ToString());
 
         ref array<ref P2PTraderItem> offerItems = new array<ref P2PTraderItem>;
-        DebugMessageP2PTrader("iterate offer");
         for(int x = 0; x < countOfferItems; x++) {
             P2PTraderItem item = null;
             offer.GetItemData(x, 0, item);
@@ -371,9 +344,7 @@ class P2PItemService
             return "you_can_not_make_an_empty_offer";
         }
 		
-        DebugMessageP2PTrader("try send P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER to server");
         GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER, new Param4<DayZPlayer, ref array<ref P2PTraderItem>, int, string>(player, offerItems, offerId, offerText), true);
-        DebugMessageP2PTrader("try send P2P_TRADER_EVENT_NEW_OFFER_FOR_PLAYER to server");
 
 		return "";
 	}
@@ -381,11 +352,9 @@ class P2PItemService
 	ref P2PTraderPlayerPlayerOffer GetPlayerSingleOffersForMarketOffer(P2PTraderPlayerMarketOffer offer, array<ref P2PTraderPlayerPlayerOffer> playerOffers) {
 		foreach(P2PTraderPlayerPlayerOffer offerPlayer: playerOffers) {
 			if (offer.GetId() == offerPlayer.GetPlayerToMarketOfferId()) {
-				DebugMessageP2PTrader("Bid from player found for market offer");
 				return offerPlayer;
 			}
 		}
-		DebugMessageP2PTrader("No bid from player found for market offer");
 		return null;
 	}
 	

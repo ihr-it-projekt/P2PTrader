@@ -61,7 +61,6 @@ class P2PTraderConfigParams
 	
     private void Load(){
         if (IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGS_FOLDER_P2P + SETTINGSFILE)) {
-			DebugMessageP2PTrader("load file" + SETTINGSFILE);
 			JsonFileLoader<P2PTraderConfigParams>.JsonLoadFile(CONFIGS_FOLDER_P2P + SETTINGSFILE, this);
         }
     }
@@ -70,9 +69,7 @@ class P2PTraderConfigParams
         if (IsServerAndMultiplayerP2PTrader()) {
 			if (!FileExist(CONFIGS_FOLDER_P2P)) {
                 MakeDirectory(CONFIGS_FOLDER_P2P);
-                DebugMessageP2PTrader("create folder");
             }
-			DebugMessageP2PTrader("save file");
 			JsonFileLoader<P2PTraderConfigParams>.JsonSaveFile(CONFIGS_FOLDER_P2P + SETTINGSFILE, this);
 		}
     }

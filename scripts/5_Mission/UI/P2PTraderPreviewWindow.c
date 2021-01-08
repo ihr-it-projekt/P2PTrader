@@ -16,7 +16,6 @@ class P2PTraderPreviewWindow extends Managed
 	}
 	
 	bool OnClick(Widget widget, int x, int y, int button) {
-		DebugMessageP2PTrader("click on: " + widget.GetName());
 		if (previewItem) {
 			GetGame().ObjectDelete(previewItem);
 		}
@@ -27,7 +26,6 @@ class P2PTraderPreviewWindow extends Managed
 	
 	bool UpdatePreview(P2PTraderBaseItem item) {
 		if (!item) {
-			DebugMessageP2PTrader("hide preview, no stock item");
 			widget.Show(false);
 			description.Show(false);
 			return false;
@@ -36,14 +34,12 @@ class P2PTraderPreviewWindow extends Managed
 		Object itemObject = GetGame().CreateObject(item.GetType(), "0 0 0", true);
 		
 		if (!itemObject) {
-			DebugMessageP2PTrader("hide preview, can not create item");
 			return false;
 		}
 		
 		previewItem = EntityAI.Cast(itemObject);
 		
 		if (!previewItem) {
-			DebugMessageP2PTrader("hide preview, can not cast item");
 			widget.Show(false);
 			description.Show(false);
 			return false;
@@ -55,8 +51,7 @@ class P2PTraderPreviewWindow extends Managed
 	}
 	
 	private void Update(EntityAI previewItem, P2PTraderBaseItem item){
-		DebugMessageP2PTrader("show preview, item is there");
-		
+
 		widget.SetItem(previewItem);
 		widget.SetModelPosition(Vector(0,0,0.5));
 

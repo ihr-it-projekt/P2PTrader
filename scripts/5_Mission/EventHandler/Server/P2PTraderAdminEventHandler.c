@@ -6,7 +6,6 @@ class P2PTraderAdminEventHandler
 	
     void P2PTraderAdminEventHandler(P2PTraderStock traderStock, P2PTraderConfigParams config) {
 		this.traderStock = traderStock;
-        DebugMessageP2PTrader("Register P2PTraderAdminEventHandler");
         inventory = new P2PTraderPlayerInventory;
 		this.config = config;
 		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
@@ -22,7 +21,6 @@ class P2PTraderAdminEventHandler
         }
 
         if (rpc_type == P2P_TRADER_EVENT_ADMIN_DELETE_OFFER) {
-			DebugMessageP2PTrader("receive P2P_TRADER_EVENT_ADMIN_DELETE_OFFER");
             Param2<DayZPlayer, int> parameterOffer;
             if (ctx.Read(parameterOffer)) {
 				DayZPlayer player = parameterOffer.param1;
@@ -33,7 +31,6 @@ class P2PTraderAdminEventHandler
 					
 					traderStock.RemovePlayerToMarketOffer(offer);
 					GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_ADMIN_DELETE_OFFER_RESPONSE, new Param1<string>("#deleted"), true, player.GetIdentity());
-                	DebugMessageP2PTrader("send P2P_TRADER_EVENT_ADMIN_DELETE_OFFER_RESPONSE to player");				
 				}
             }
         }

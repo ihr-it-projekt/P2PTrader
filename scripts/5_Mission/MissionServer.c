@@ -14,12 +14,9 @@ modded class MissionServer {
 	{
 		p2pTraderConfig = new P2PTraderConfig();
 		
-		DebugMessageP2PTrader("loade keys");
 		P2PTraderKeyCodeMatch keyMap = new P2PTraderKeyCodeMatch;
 
-		DebugMessageP2PTrader("load stock");
 		traderStock = new P2PTraderStock();
-		DebugMessageP2PTrader("Has loaded stock:" + traderStock.GetStock().Count().ToString());
 
 		string fileName = P2PTraderItemsCategoryConfig.ITEM_CATEGORY_PREFIX + "0" + P2PTraderCategory.SETTINGSFILE;
         bool configExists = FileExist(CONFIGS_CATEGORY_FOLDER_P2P + fileName);
@@ -42,7 +39,6 @@ modded class MissionServer {
 		}
 
 		if (p2pTraderConfig.traderConfigParams.isEnabledExceededCheck) {
-			DebugMessageP2PTrader("create timer for exeeded check");
 			stockChecker = new P2PStockChecker(traderStock, p2pTraderConfig.traderConfigParams);
 			stockChecker.CheckForExpiredItems();
 			exceededTimer = new Timer;
@@ -67,20 +63,16 @@ modded class MissionServer {
 		} 
 		
 		if (rpc_type == P2P_TRADER_EVENT_GET_CONFIG) {
-			
-			DebugMessageP2PTrader("receive get p2pTraderConfig");
 			autoptr Param1<PlayerBase> paramGetConfig;
 			if (ctx.Read(paramGetConfig)){
                 GetGame().RPCSingleParam(paramGetConfig.param1, P2P_TRADER_EVENT_GET_CONFIG_RESPONSE, new Param1<ref P2PTraderConfig>(p2pTraderConfig), true, sender);
 			}
 		} else if (rpc_type == P2P_TRADER_EVENT_GET_STOCK) {
-			DebugMessageP2PTrader("receive get stock");
 			autoptr Param1<PlayerBase> paramGetStock;
 			if (ctx.Read(paramGetStock)){
                 GetGame().RPCSingleParam(paramGetStock.param1, P2P_TRADER_EVENT_GET_STOCK_RESPONSE, new Param1<ref array<ref P2PTraderPlayerMarketOffer>>(traderStock.GetStock()), true, sender);
 			}
 		} else if (rpc_type == P2P_TRADER_EVENT_GET_ALL_BID_OFFERS) {
-			DebugMessageP2PTrader("receive get stock");
 			autoptr Param1<PlayerBase> paramGetMyBidOffer;
 			if (ctx.Read(paramGetMyBidOffer)){
                 GetGame().RPCSingleParam(paramGetMyBidOffer.param1, P2P_TRADER_EVENT_GET_ALL_BID_OFFERS_RESPONSE, new Param1<ref array<ref P2PTraderPlayerPlayerOffer>>(traderStock.GetOffersFromAllPlayer()), true, sender);

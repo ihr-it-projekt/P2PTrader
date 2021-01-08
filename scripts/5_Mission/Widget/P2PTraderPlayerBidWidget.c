@@ -71,7 +71,6 @@ class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget
     }
 
     void OnGetPlayerItems(array<ref P2PTraderItem> playerItems) {
-        DebugMessageP2PTrader("player items was set, count: " + playerItems.Count().ToString());
         this.playerItems = playerItems;
     }
 
@@ -81,14 +80,12 @@ class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget
 
     override bool OnClick(Widget w, int x, int y, int button)	{
         if(w == buttonCreateCreatePlayerOffer) {
-            DebugMessageP2PTrader("Click on create player offer");
             string messageText = itemService.CreateOfferToPlayer(player, playerItemsOfferPlayerOffer, selectedMarketOffer, playerTextPlayerOffer.GetText());
             message.SetText(messageText);
 
             layoutRoot.Show(false);
             return true;
         } else if(w == offerDetailItemsBid) {
-            DebugMessageP2PTrader("click offerDetailItemsBid");
             P2PTraderStockItem currentOfferDetailItem = itemService.GetSelectedItemPlayerOffer(offerDetailItemsBid);
             if (!currentOfferDetailItem) {
                 return true;
@@ -99,7 +96,6 @@ class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget
             itemService.GetMarketOfferItemAttachmentList(detailAttachmentBid, currentOfferDetailItem);
             return true;
         } else if(w == buttonCreateClosePlayerOffer) {
-            DebugMessageP2PTrader("click buttonCreateClosePlayerOffer");
             OnHide();
             return true;
         }

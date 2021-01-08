@@ -10,9 +10,7 @@ class P2PTraderCategory
 		fileName = fileNameSuffix + id.ToString() + SETTINGSFILE;
 		
 		if (IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGS_CATEGORY_FOLDER_P2P + fileName)) {
-            DebugMessageP2PTrader("load file" + id.ToString() + SETTINGSFILE);
 			JsonFileLoader<P2PTraderCategory>.JsonLoadFile(CONFIGS_CATEGORY_FOLDER_P2P + fileName, this);
-			DebugMessageP2PTrader("Has category items loaded count: " + items.Count());
         } else {
 			this.name = name;
 			this.id = id;
@@ -58,9 +56,7 @@ class P2PTraderCategory
         if (IsServerAndMultiplayerP2PTrader()) {
             if (!FileExist(CONFIGS_CATEGORY_FOLDER_P2P)) {
                 MakeDirectory(CONFIGS_CATEGORY_FOLDER_P2P);
-                DebugMessageP2PTrader("create folder");
             }
-            DebugMessageP2PTrader("save file: " + fileName);
             JsonFileLoader<P2PTraderCategory>.JsonSaveFile(CONFIGS_CATEGORY_FOLDER_P2P + fileName, this);
         }
     }

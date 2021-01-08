@@ -11,7 +11,6 @@ class P2PTraderItemMoveListener extends Managed
 	bool addTypeToTranslation;
 	
 	void P2PTraderItemMoveListener(ButtonWidget buttonSourceToTarget, ButtonWidget buttonTargetToSource, TextListboxWidget source, TextListboxWidget target, bool move, ItemPreviewWidget peviewWidget, MultilineTextWidget description, P2PItemService itemService, EditBoxWidget minQuantity = null, EditBoxWidget minHealth = null) {
-		DebugMessageP2PTrader("Create Move listener: " + buttonSourceToTarget.GetName());
 		this.buttonSourceToTarget = buttonSourceToTarget;
 		this.buttonTargetToSource = buttonTargetToSource;
 		this.source = source;
@@ -54,7 +53,6 @@ class P2PTraderItemMoveListener extends Managed
 	}
 	
 	private P2PTraderItem CheckButton(TextListboxWidget widget, ButtonWidget button) {
-		DebugMessageP2PTrader("Click on " + widget.GetName());
 		int pos = widget.GetSelectedRow();
 		
 		if (pos == -1) {
@@ -74,10 +72,8 @@ class P2PTraderItemMoveListener extends Managed
 	}
 	
 	private void MoveItemFromListWidgetToListWidget(TextListboxWidget sourceWidget, TextListboxWidget targetWidget, ButtonWidget button, bool mustMove, bool addTypeToTranslation) {
-		DebugMessageP2PTrader("Move item from: " + sourceWidget.GetName() + " to: " + targetWidget.GetName());
 		int pos = sourceWidget.GetSelectedRow();
 		if (pos == -1) {
-			DebugMessageP2PTrader("Pos is not valid!");
 			return;
 		}
 		P2PTraderItem item;
@@ -94,12 +90,10 @@ class P2PTraderItemMoveListener extends Managed
 			item.UpdateTranslation(addTypeToTranslation);
 			
 			if (targetWidget) {
-				DebugMessageP2PTrader("Add item to target");
 				targetWidget.AddItem(item.GetTranslation(), item, 0);
 			}
 			
 			if (mustMove) {
-				DebugMessageP2PTrader("Remove item from source!");
 				sourceWidget.RemoveRow(pos);
 				
 				int countItems = sourceWidget.GetNumItems();
@@ -122,7 +116,6 @@ class P2PTraderItemMoveListener extends Managed
 				}
 			}
 		} else {
-			DebugMessageP2PTrader("No item found to move!");
 			button.Show(false);
 		}
 		

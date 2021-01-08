@@ -26,8 +26,6 @@ class P2PTraderStockItem extends P2PTraderBaseItem
 		
 		if (itemCast) {
 			quantity = itemCast.GetQuantity();
-		} else {
-			DebugMessageP2PTrader("P2PTraderStockItem: Can not cast " + item.GetType());
 		}
 		
 		if(item.IsMagazine()) {
@@ -82,7 +80,6 @@ class P2PTraderStockItem extends P2PTraderBaseItem
 		}
 		
 		if (item.GetHealth() == this.GetHealth() && item.GetType() == this.GetType() && compareQuantity == this.GetQuantity()) {
-			DebugMessageP2PTrader("Is item at base level check now attachmends");
 			return CompareAttached(this, item);
 		}
 		
@@ -111,16 +108,13 @@ class P2PTraderStockItem extends P2PTraderBaseItem
 				}
 
 				if (itemAtteched && stockItem && stockItem != itemAtteched && itemAtteched.GetHealth() == stockItem.GetHealth() && itemAtteched.GetType() == stockItem.GetType() && compareQuantity == stockItem.GetQuantity()) {
-					DebugMessageP2PTrader("Is item at deeper level check now attachmends for attachmend: " + stockItem.GetType() + itemAtteched.GetType());
 					hasFound = CompareAttached(stockItem, itemCast);
-					DebugMessageP2PTrader("has found in deeper: " + hasFound.ToString());
 					break;
 				}
 				
 			}
 			hasAllFound = hasAllFound && hasFound;
 		}
-		DebugMessageP2PTrader("has attached found " + hasAllFound.ToString());
 		return hasAllFound;
 	}
 	

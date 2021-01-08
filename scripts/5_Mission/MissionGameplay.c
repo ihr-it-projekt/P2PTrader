@@ -21,12 +21,10 @@ modded class MissionGameplay
 	
 	void ~MissionGameplay() {
 		GetDayZGame().Event_OnRPC.Remove(HandleEventsTrader);
-		DebugMessageP2PTrader("destroy MissionGameplay");
 	}
 	
 	void HandleEventsTrader(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
 		if (rpc_type == P2P_TRADER_EVENT_GET_CONFIG_RESPONSE) {
-			DebugMessageP2PTrader("player receive p2pTraderConfig");
 			Param1 <ref P2PTraderConfig> configParam;
 			if (ctx.Read(configParam)){
 				p2pTraderConfig = configParam.param1;
@@ -39,8 +37,6 @@ modded class MissionGameplay
 						localInput.BindCombo("k" + keyName);
 					}
 				}
-				
-				DebugMessageP2PTrader("player has load p2pTraderConfig");
 			}
 		}
 	}
@@ -72,14 +68,12 @@ modded class MissionGameplay
 			bool canTrade = p2pTraderConfig.traderConfigParams.playerCanTradeFromEveryware || isInNear;
 			
 			if (!traderMenu || !traderMenu.IsInitialized()) {
-				DebugMessageP2PTrader("Init trader menu");
 				traderMenu = new P2PTraderMenu();
 				traderMenu.SetConfig(p2pTraderConfig);
 				traderMenu.Init();
 			} 
 			
 			if (traderMenu && !traderMenu.layoutRoot.IsVisible()) {
-				DebugMessageP2PTrader("show trader menue");
 				traderMenu.SetCanTrade(canTrade);
 				traderMenu.OnShow();
 			}
@@ -93,7 +87,6 @@ modded class MissionGameplay
 		}
 		
 		if (traderMenu && traderMenu.layoutRoot.IsVisible() && key == KeyCode.KC_ESCAPE){
-		    DebugMessageP2PTrader("press esc");
 			traderMenu.CloseMenu();
 		}
 	}

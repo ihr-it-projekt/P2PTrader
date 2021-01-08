@@ -55,7 +55,6 @@ class P2PTraderOfferWidget extends P2PTraderBaseSubWidget
 
         if(enabledOfferTypes && enabledOfferTypes.Count() > 0) {
             foreach(string offerType: enabledOfferTypes) {
-                DebugMessageP2PTrader("add offer type item: " + offerType);
                 offerTypeCreateOffer.AddItem("#" + offerType);
             }
         }
@@ -103,7 +102,6 @@ class P2PTraderOfferWidget extends P2PTraderBaseSubWidget
 
     override bool OnClick(Widget w, int x, int y, int button)	{
         if(w == buttonCreateCreateOffer) {
-            DebugMessageP2PTrader("Click on create offer");
             string offerType = config.traderConfigParams.enabledOfferTypes.Get(offerTypeCreateOffer.GetCurrentItem());
 
       		string messageText = itemService.CreateOffer(player, playerItemsOfferOffer, playerWantToHaveOffer, playerTextOffer.GetText(), offerType);
@@ -114,7 +112,6 @@ class P2PTraderOfferWidget extends P2PTraderBaseSubWidget
             layoutRoot.Show(false);
             return true;
         } else if(w == buttonCloseCreateOffer) {
-	        DebugMessageP2PTrader("click buttonCloseCreateOffer");
 	        layoutRoot.Show(false);
 	        return true;
 	    }
@@ -123,7 +120,6 @@ class P2PTraderOfferWidget extends P2PTraderBaseSubWidget
 	
 	void RefreshSearch() {
 		if(rememberedSearch != inputSearchOffer.GetText() || rememberedCategory != categoryCreateMarketOffer.GetCurrentItem() - 1) {
-			DebugMessageP2PTrader("Update Search");
 			rememberedSearch = inputSearchOffer.GetText();
 			rememberedCategory = categoryCreateMarketOffer.GetCurrentItem() - 1;
         	itemService.AddTradableItemsToWidgetByCategory(tradableItemsOffer, rememberedSearch, rememberedCategory);

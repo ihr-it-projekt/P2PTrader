@@ -7,7 +7,6 @@ class P2PTraderCategoryCollection
 	    array<string> categoryNames = configuredConfig.categoryNames;
 	    categories = new array<ref P2PTraderCategory>;
 	    foreach(int index, string name: categoryNames) {
-	        DebugMessageP2PTrader("Add category: " + name + " to index " + index.ToString());
             categories.Insert(new P2PTraderCategory(name, index, suffix));
 	    }
 	}
