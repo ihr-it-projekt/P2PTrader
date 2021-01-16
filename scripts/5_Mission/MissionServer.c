@@ -84,7 +84,6 @@ modded class MissionServer {
 	    if ("not_spawn" == gameObjectName) {
 	        return null;
 	    }
-		position[1] = GetGame().SurfaceY(position[0], position[2]);
         House house = House.Cast(GetGame().CreateObject(gameObjectName, position));
         if (!house) {
             return house;
