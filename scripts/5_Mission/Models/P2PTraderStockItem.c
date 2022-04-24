@@ -17,7 +17,7 @@ class P2PTraderStockItem extends P2PTraderBaseItem
         return this;
     }
 	
-	void SetItem(EntityAI item, bool isAttached = false) {
+	void SetItem(EntityAI item) {
 		health = item.GetHealth();
 		SetType(item.GetType());
 		
@@ -43,20 +43,29 @@ class P2PTraderStockItem extends P2PTraderBaseItem
 			
 			quantity = ammo.GetAmmoCount();
 		}
-		
 
-		if (!isAttached) {
-			array<EntityAI> itemsArray = new array<EntityAI>;
-	        item.GetInventory().EnumerateInventory(InventoryTraversalType.INORDER, itemsArray);
+		if (item.GetInventory()) {
+            for(int i = 0; i < item.GetInventory().AttachmentCount(); i++ ) {
+                EntityAI attachment = item.GetInventory().GetAttachmentFromIndex(i);
+                if(attachment){
+                    P2PTraderStockItem stockItem = new P2PTraderStockItem();
+                    stockItem.SetItem(attachment);
+                    attached.Insert(stockItem);
+                }
+            }
+        }
 
-			foreach(EntityAI itemAtteched: itemsArray) {
-				if (itemAtteched !=item) {
-					P2PTraderStockItem stockItem = new P2PTraderStockItem();
-					stockItem.SetItem(itemAtteched, true);
-					attached.Insert(stockItem);
-				}
-			}
-		}
+		CargoBase cargo = item.GetInventory().GetCargo();
+        if (cargo) {
+            for(int z = 0; z < cargo.GetItemCount(); z++) {
+                EntityAI inventoryItem = cargo.GetItem(z);
+                if(inventoryItem){
+                    P2PTraderStockItem storeItemCargo = new P2PTraderStockItem();
+                    storeItemCargo.SetItem(inventoryItem);
+                    attached.Insert(storeItemCargo);
+                }
+            }
+        }
 	}
 	
 	bool IsItem(ItemBase item) {
