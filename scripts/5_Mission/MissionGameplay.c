@@ -3,7 +3,7 @@ modded class MissionGameplay
 	private ref P2PTraderConfig p2pTraderConfig;
 	private ref P2PTraderMenu traderMenu;
 	private ref P2PTraderHint traderHintMenu;
-	private DayZPlayer player;
+	private DayZPlayer p2pPlayer;
 	private UAInput localInput;
 	private string keyName = "";
 	private ref P2PTraderKeyCodeMatch keyMap;
@@ -44,9 +44,9 @@ modded class MissionGameplay
 	override void OnUpdate(float timeslice)
 	{
 		super.OnUpdate(timeslice);
-		player = GetGame().GetPlayer();
+		p2pPlayer = PlayerBase.Cast(GetGame().GetPlayer());
 		bool isInNear = isInNearOfTrader();
-		if(localInput.LocalClick() && player && player.IsAlive()) {
+		if(localInput.LocalClick() && p2pPlayer && p2pPlayer.IsAlive()) {
 			OpenTrader(isInNear);
 		}
 		if (p2pTraderConfig && p2pTraderConfig.traderConfigParams && isInNear && !traderHintMenu){
@@ -63,7 +63,7 @@ modded class MissionGameplay
 	}
 	
 	private void OpenTrader(bool isInNear) {
-		if (player && player.IsAlive() && p2pTraderConfig.traderConfigParams && p2pTraderConfig.traderConfigParams.traderCanOpenFromEveryware || isInNear) {
+		if (p2pPlayer && p2pPlayer.IsAlive() && p2pTraderConfig.traderConfigParams && p2pTraderConfig.traderConfigParams.traderCanOpenFromEveryware || isInNear) {
 			DebugMessageP2PTrader("try open menu");
 			bool canTrade = p2pTraderConfig.traderConfigParams.playerCanTradeFromEveryware || isInNear;
 			
@@ -92,10 +92,10 @@ modded class MissionGameplay
 	}
 	
 	private bool isInNearOfTrader() {
-		if (!player) {
+		if (!p2pPlayer) {
 			return false;
 		}
-		vector playerPosition = player.GetPosition();
+		vector playerPosition = p2pPlayer.GetPosition();
 		if (!playerPosition) {
 			return false;
 		}
