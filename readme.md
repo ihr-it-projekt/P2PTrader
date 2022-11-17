@@ -1,10 +1,15 @@
 [h1]Welcome to Player To Player Trader (P2PTrader)[/h1]
 
-This traders does not need any money. Here players can create offers to other players. 
+[h2]It is not allowed to publish the mod in any other way without my permission.[/h2]
+
+This traders does not need any money. Here players can create offers to other players.
+
+[h2]Discord[/h2]
+https://discord.gg/mUZsvup3Sx
 
 [h2]How it works:[/h2]
 
-There are tow kinds of offer. 
+There are tow kinds of offer.
 
 [h3]Auction:[/h3]
 
@@ -15,14 +20,12 @@ There are tow kinds of offer.
 
 [h3]Instant buy: [/h3]
 
-1. A player create a offer from type "Instant buy". 
-2. One other player has now to bet to the offer the wanted items. If all wanted items are in the bet then the transaction happen instantly. 
+1. A player create a offer from type "Instant buy".
+2. One other player has now to bet to the offer the wanted items. If all wanted items are in the bet then the transaction happen instantly.
 3. The player who created the "Instant buy" will find the items that he has searched in "my bid" -> "accepted" menu.
 
 [h2]Donate:[/h2]
-I investigate a lot of time in modding of DayZ. If you want to support me, write a review of the mod and give me positive rating. You can also donate some money via paypal https://www.paypal.com/pools/c/8idQvmteIO .
-
-In case the link above does not work, you can also use: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=75EW5TD8HJ6YU&source=url
+I investigate a lot of time in modding of DayZ. If you want to support me, write a review of the mod and give me positive rating. You can also donate some money over https://www.paypal.me/TheBuster0815
 
 [h2]Special thanks:[/h2]
 
@@ -31,7 +34,7 @@ Many thanks to Sense². He helped me to make my first steps in mod development a
 Thanks to the community of https://rasselbande-gaming.com . Here I was able to publish and test my mods.
 
 [h2]Discord[/h2]
-TheBuster#5301
+https://discord.gg/mUZsvup3Sx
 
 [h1]Admin Infos:[/h1]
 
