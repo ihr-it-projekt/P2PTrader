@@ -156,7 +156,7 @@ FrameWidgetClass rootFrame {
        style UIDefaultPanel
        {
         ButtonWidgetClass buttonCreateCreateOffer {
-         color 0.502 1 0 1
+         color 0.9961 1 0.9922 1
          position 8.96266 8.96264
          size 226.06799 42.0747
          hexactpos 1
@@ -165,6 +165,8 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style MenuDefault
          text "#create"
+         text_proportion 0.75
+         "text color" 1 0 0 1
         }
        }
       }
@@ -183,6 +185,7 @@ FrameWidgetClass rootFrame {
        {
         TextWidgetClass TextWidget2 {
          ignorepointer 1
+         color 1 0.749 0 1
          position -0.00001 -0.00001
          size 492.19601 44
          halign center_ref
@@ -193,6 +196,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style None
          text "#i_will"
+         text_proportion 0.8
          "text halign" center
          "text valign" center
         }
@@ -214,6 +218,7 @@ FrameWidgetClass rootFrame {
        {
         TextWidgetClass TextWidget1 {
          ignorepointer 1
+         color 1 0.749 0 1
          position -0.00011 0
          size 492 44
          halign center_ref
@@ -224,6 +229,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style None
          text "#i_give"
+         text_proportion 0.8
          "text halign" center
          "text valign" center
         }
@@ -327,6 +333,7 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass TextWidget4 {
          ignorepointer 1
+         color 0.502 0 1 1
          position -0.00001 383.39798
          size 615.39301 47.6359
          halign center_ref
@@ -337,6 +344,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style None
          text "#desc"
+         text_proportion 0.46
          "text halign" center
          "text valign" center
         }
@@ -351,7 +359,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style MenuDefault
-         text "->"
+         text ">"
         }
         ButtonWidgetClass buttonMoveToInventoryCreateMarketOffer {
          visible 0
@@ -364,7 +372,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style MenuDefault
-         text "<-"
+         text "<"
         }
         PanelWidgetClass boarderType {
          ignorepointer 1
@@ -397,6 +405,7 @@ FrameWidgetClass rootFrame {
            vexactsize 1
            style None
            text "#offer_type"
+           text_proportion 0.9
            "text halign" center
            "text valign" center
           }
@@ -427,6 +436,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style None
          text "#my_inventory"
+         text_proportion 0.8
          "text halign" center
          "text valign" center
         }
@@ -472,7 +482,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style MenuDefault
-         text "<-"
+         text "<"
         }
         ButtonWidgetClass buttonMoveFromWillCreateMarketOffer {
          visible 0
@@ -485,11 +495,11 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style MenuDefault
-         text "->"
+         text ">"
         }
         EditBoxWidgetClass minHealthCreateMarketOffer {
-         position 348.93298 320.134
-         size 189.82301 31.2686
+         position 441.836 322.62201
+         size 191.48199 42.8815
          valign center_ref
          hexactpos 1
          vexactpos 1
@@ -501,8 +511,9 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass TextWidget5 {
          ignorepointer 1
-         position -104.912 319.27502
-         size 250 29.549
+         color 1 0 0 1
+         position -97.95701 323.91202
+         size 423.42999 39.8745
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -511,12 +522,15 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style None
          text "#min_health"
+         text_proportion 0.58
+         "text halign" center
          "text valign" center
         }
         TextWidgetClass TextWidget6 {
          ignorepointer 1
-         position -104.912 358.543
-         size 250 29.549
+         color 1 0 0 1
+         position -99.24239 374.108
+         size 425.95297 41.4117
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -526,13 +540,15 @@ FrameWidgetClass rootFrame {
          style None
          text "#min_quantity"
          "exact text" 0
+         text_proportion 0.58
          "size to text h" 0
          "size to text v" 0
+         "text halign" center
          "text valign" center
         }
         EditBoxWidgetClass minQuantityCreateMarketOffer {
-         position 348.92999 359.39999
-         size 189.82301 31.2686
+         position 442.53299 374.48398
+         size 190.74199 42.7016
          valign center_ref
          hexactpos 1
          vexactpos 1
@@ -544,8 +560,9 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass MultilineTextWidget0 {
          ignorepointer 1
-         position 11.64 858.888
-         size 618.41602 101.36
+         color 0.3725 0.4667 0.749 1
+         position 4.89301 887.052
+         size 619.82202 58.863
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -557,9 +574,9 @@ FrameWidgetClass rootFrame {
         }
         PanelWidgetClass boarderOffer {
          ignorepointer 1
-         color 0 0 0 0.7843
-         position 47.5401 3.99999
-         size 586.51599 62.484
+         color 0.1922 0.1922 0.1922 0.651
+         position 96.5546 12.4507
+         size 535.81201 62.484
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -567,8 +584,8 @@ FrameWidgetClass rootFrame {
          style editor_selection
          {
           XComboBoxWidgetClass categoryCreateMarketOffer {
-           position 8.26001 7.04008
-           size 568.396 51.4439
+           position 4.136 5.34994
+           size 528.57501 51.4439
            hexactpos 1
            vexactpos 1
            hexactsize 1

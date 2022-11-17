@@ -65,8 +65,8 @@ FrameWidgetClass rootFrame {
        ignorepointer 1
        keepsafezone 0
        color 0 0 0 0.651
-       position -668.02301 119.74
-       size 376 60
+       position -668.02301 71.62939
+       size 376 108.11
        halign center_ref
        hexactpos 1
        vexactpos 1
@@ -77,7 +77,7 @@ FrameWidgetClass rootFrame {
        {
         TextWidgetClass TextWidget1 {
          ignorepointer 1
-         position -0.00004 0.00001
+         position 3.31794 -21.5668
          size 342.07501 42.0747
          halign center_ref
          valign center_ref
@@ -88,6 +88,28 @@ FrameWidgetClass rootFrame {
          style None
          text "#market_offers"
          "exact text" 0
+         text_proportion 0.8
+         "size to text h" 1
+         "size to text v" 1
+         "text halign" center
+         "text valign" center
+        }
+        TextWidgetClass TextWidget2 {
+         ignorepointer 1
+         color 1 0.3843 0 1
+         position -0.00004 21.5668
+         size 342.07501 42.0747
+         halign center_ref
+         valign center_ref
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style None
+         text "#quantity_hint"
+         "text color" 0.8745 0.8745 0.8745 1
+         "exact text" 0
+         text_proportion 0.6
          "size to text h" 1
          "size to text v" 1
          "text halign" center
@@ -99,7 +121,7 @@ FrameWidgetClass rootFrame {
        inheritalpha 0
        ignorepointer 1
        keepsafezone 0
-       color 0 0 0 0.651
+       color 0.1922 0.1922 0.1922 0.651
        position 8.26004 22.37
        size 519.17401 701
        valign center_ref
@@ -110,7 +132,7 @@ FrameWidgetClass rootFrame {
        style DayZDefaultPanel
        {
         TextListboxWidgetClass marketOffers {
-         color 1 1 1 0.651
+         color 1 0.749 0 1
          position 8.26004 8.26004
          size 502.914 421.94501
          hexactpos 1
@@ -120,11 +142,13 @@ FrameWidgetClass rootFrame {
          style Default
          "title visible" 0
          lines 20
+         "text color" 1 0.749 0 1
+         "disabled text color" 1 0.749 0 1
         }
         PanelWidgetClass boarderType {
          ignorepointer 1
          color 0 0 0 0.7843
-         position 47.6307 533.73901
+         position 45.9717 566.91901
          size 400 44.6774
          hexactpos 1
          vexactpos 1
@@ -145,7 +169,7 @@ FrameWidgetClass rootFrame {
         PanelWidgetClass boarderOffer {
          ignorepointer 1
          color 0 0 0 0.7843
-         position 47.6307 485.05899
+         position 45.9717 503.30798
          size 400 46
          hexactpos 1
          vexactpos 1
@@ -164,7 +188,7 @@ FrameWidgetClass rootFrame {
          }
         }
         EditBoxWidgetClass inputSearchMarket {
-         position 34.3792 110.863
+         position 7.83542 110.863
          size 422.42798 35.8123
          valign center_ref
          hexactpos 1
@@ -177,20 +201,20 @@ FrameWidgetClass rootFrame {
         }
         ButtonWidgetClass buttonSearchMarket {
          color 0.502 1 0 1
-         position 65.1867 643.60095
-         size 364.88797 42
+         position 436.79999 444.52298
+         size 72.90639 33.7051
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style MenuDefault
          text "#filter"
-         text_proportion 0.8
+         text_proportion 0.7
         }
         PanelWidgetClass boarderType0 {
          ignorepointer 1
          color 0 0 0 0.7843
-         position 47.0088 583.58405
+         position 45.3498 633.354
          size 400 46
          hexactpos 1
          vexactpos 1
@@ -260,6 +284,7 @@ FrameWidgetClass rootFrame {
        {
         TextWidgetClass offerMessageFromPlayerLabel {
          ignorepointer 1
+         color 1 0.4314 0 1
          position -455.74503 -264
          size 400 25
          halign center_ref
@@ -303,8 +328,9 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerItemAttachmentLabel {
          ignorepointer 1
-         position -2.5149 -199
-         size 400 25
+         color 1 0.8941 0.0745 1
+         position 226.425 -199
+         size 857.88 31.636
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -312,17 +338,20 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          scaled 1
-         style Normal
+         style None
          text "#attachments"
+         "text color" 1 0.749 0 1
          "exact text" 0
+         text_proportion 0.85
          "size to text h" 0
          "size to text v" 0
          "text valign" center
         }
         TextWidgetClass offerItemLabel {
          ignorepointer 1
-         position -2.51498 -330
-         size 400 25
+         color 1 0.8941 0.0745 1
+         position 231.40199 -333.31799
+         size 867.83405 38.2719
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -333,12 +362,13 @@ FrameWidgetClass rootFrame {
          style Normal
          text "#items"
          "exact text" 0
+         text_proportion 0.7
          "size to text h" 0
          "size to text v" 0
          "text valign" center
         }
         TextListboxWidgetClass marketOfferItems {
-         color 1 1 1 0.651
+         color 1 0.8941 0.0745 1
          position 226.485 -264.5
          size 858 90
          halign center_ref
@@ -352,6 +382,7 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerPlayerLabel {
          ignorepointer 1
+         color 1 0.349 0 1
          position -455.74503 -330
          size 400 25
          halign center_ref
@@ -380,8 +411,9 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerMyBidsLabel {
          ignorepointer 1
-         position -2.51505 -68
-         size 400 25
+         color 1 0.8941 0.0745 1
+         position 226.42599 -68
+         size 857.88 31.636
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -391,7 +423,9 @@ FrameWidgetClass rootFrame {
          scaled 1
          style Normal
          text "#bids"
+         "text color" 1 0.749 0 1
          "exact text" 0
+         text_proportion 0.68
          "size to text h" 0
          "size to text v" 0
          "text valign" center
@@ -425,8 +459,9 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerMyBidAttachmentLabel {
          ignorepointer 1
-         position -2.51504 194
-         size 400 25
+         color 1 0.8941 0.0745 1
+         position 226.42599 194
+         size 857.88 31.636
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -437,6 +472,7 @@ FrameWidgetClass rootFrame {
          style Normal
          text "#attachments"
          "exact text" 0
+         text_proportion 0.85
          "size to text h" 0
          "size to text v" 0
          "text valign" center
@@ -456,8 +492,9 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass offerMyBidLabel {
          ignorepointer 1
-         position -2.51504 63
-         size 400 25
+         color 1 0.8941 0.0745 1
+         position 226.42599 63
+         size 857.88 31.636
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -467,7 +504,9 @@ FrameWidgetClass rootFrame {
          scaled 1
          style Normal
          text "#bid"
+         "text color" 1 0.749 0 1
          "exact text" 0
+         text_proportion 0.85
          "size to text h" 0
          "size to text v" 0
          "text valign" center
@@ -485,6 +524,7 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass marketOfferWantToHaveLabel {
          ignorepointer 1
+         color 1 0.4824 0 1
          position -455.74503 -145.474
          size 400 25
          halign center_ref
@@ -517,6 +557,7 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass playerOfferItemMessageLabel {
          ignorepointer 1
+         color 1 0.4314 0 1
          position -455.48499 243.315
          size 400 25
          halign center_ref
@@ -567,7 +608,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style None
-         text "#offer_type"
+         text "交易方式"
         }
         TextWidgetClass offerPlayerType {
          ignorepointer 1
@@ -594,7 +635,7 @@ FrameWidgetClass rootFrame {
        style UIDefaultPanel
        {
         ButtonWidgetClass buttonTakeOffer {
-         color 0.502 1 0 1
+         color 0.3882 0.3412 0.3412 1
          position 1480.62 8.00002
          size 352.72601 42
          hexactpos 1
@@ -603,11 +644,11 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style MenuDefault
          text "#take_offer"
-         text_proportion 0.8
+         text_proportion 0.7
          switch normal
         }
         ButtonWidgetClass buttonOpenCreateMyBid {
-         color 0.502 1 0 1
+         color 0.3882 0.3373 0.3765 1
          position 1173.52002 8.00001
          size 299.10001 42
          hexactpos 1
@@ -616,12 +657,12 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style MenuDefault
          text "#create_bid"
-         text_proportion 0.8
+         text_proportion 0.7
          switch normal
         }
         ButtonWidgetClass buttonOpenCreateOffer {
-         color 0.502 1 0 1
-         position 8 7.99998
+         color 1 0 0.7059 1
+         position 8 12.9769
          size 364.88998 42
          hexactpos 1
          vexactpos 1
@@ -629,7 +670,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style MenuDefault
          text "#create_offers"
-         text_proportion 0.8
+         text_proportion 0.7
         }
         ButtonWidgetClass buttonDeleteMyOffer {
          color 0.502 0 0 1
@@ -641,11 +682,11 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style MenuDefault
          text "#delete_my_offer"
-         text_proportion 0.8
+         text_proportion 0.7
          switch normal
         }
         ButtonWidgetClass buttonManageMyBids {
-         color 0.502 1 0 1
+         color 0.3882 0.3373 0.3373 1
          position 1173.52002 76.4426
          size 299.10001 42
          hexactpos 1
@@ -654,7 +695,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style MenuDefault
          text "#manage_my_bid"
-         text_proportion 0.8
+         text_proportion 0.7
          switch normal
         }
         MultilineTextWidgetClass notInNearHint {
@@ -680,8 +721,8 @@ FrameWidgetClass rootFrame {
          "strip newlines" 1
         }
         ButtonWidgetClass buttonAdminDeleteSelected {
-         color 0.502 1 0 1
-         position 8 57.4451
+         color 1 0 0.6863 1
+         position 8 70.7169
          size 364.88998 42
          hexactpos 1
          vexactpos 1
@@ -689,7 +730,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style MenuDefault
          text "delete Selected"
-         text_proportion 0.8
+         text_proportion 0.7
         }
        }
       }
@@ -730,7 +771,7 @@ FrameWidgetClass rootFrame {
       PanelWidgetClass PanelWidget4 {
        ignorepointer 1
        keepsafezone 0
-       color 0 0 0 1
+       color 0.1255 0.1098 0.1216 1
        position 0.00001 8
        size 557.90002 60
        halign center_ref
@@ -753,6 +794,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style None
          text "#main_menu"
+         text_proportion 0.8
          "text halign" center
          "text valign" center
         }

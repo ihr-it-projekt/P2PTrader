@@ -63,6 +63,7 @@ FrameWidgetClass rootFrame {
          style None
          text "#i_give"
          "exact text" 0
+         text_proportion 0.8
          "size to text h" 0
          "size to text v" 0
          "text halign" center
@@ -122,6 +123,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style None
          text "#desc"
+         text_proportion 0.8
          "text halign" center
          "text valign" center
         }
@@ -133,7 +135,6 @@ FrameWidgetClass rootFrame {
          vexactpos 1
          hexactsize 1
          vexactsize 1
-         "exact text" 1
         }
         MultilineTextWidgetClass bidMenuItemPreviewText {
          visible 1
@@ -160,6 +161,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style MenuDefault
          text "#create"
+         text_proportion 0.8
         }
         ButtonWidgetClass buttonMoveToGiveCreateCreatePlayerOffer {
          visible 0
@@ -172,7 +174,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style MenuDefault
-         text "->"
+         text ">"
         }
         ButtonWidgetClass buttonMoveToInventoryCreatePlayerOffer {
          visible 0
@@ -185,7 +187,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style MenuDefault
-         text "<-"
+         text "<"
         }
         TextListboxWidgetClass playerItemsOfferPlayerOffer {
          color 1 1 1 0.651
@@ -227,6 +229,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style None
          text "#my_inventory"
+         text_proportion 0.8
          "size to text h" 0
          "size to text v" 0
          "text halign" center
@@ -262,6 +265,7 @@ FrameWidgetClass rootFrame {
          style Normal
          text "#message_from_player"
          "exact text" 0
+         text_proportion 0.8
          "size to text h" 0
          "size to text v" 0
          "text halign" center
@@ -307,6 +311,7 @@ FrameWidgetClass rootFrame {
          style Normal
          text "#attachments"
          "exact text" 0
+         text_proportion 0.8
          "size to text h" 0
          "size to text v" 0
          "text halign" center
@@ -326,6 +331,7 @@ FrameWidgetClass rootFrame {
          style Normal
          text "#items"
          "exact text" 0
+         text_proportion 0.8
          "size to text h" 0
          "size to text v" 0
          "text halign" center
@@ -357,6 +363,7 @@ FrameWidgetClass rootFrame {
          style Normal
          text "#player"
          "exact text" 0
+         text_proportion 0.8
          "size to text h" 0
          "size to text v" 0
          "text halign" center
@@ -387,6 +394,7 @@ FrameWidgetClass rootFrame {
          style Normal
          text "#player_want_to_have"
          "exact text" 0
+         text_proportion 0.8
          "size to text h" 0
          "size to text v" 0
          "text halign" center

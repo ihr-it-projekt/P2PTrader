@@ -62,6 +62,7 @@ FrameWidgetClass rootFrame {
          style Normal
          text "#message_from_player"
          "exact text" 0
+         text_proportion 0.8
          "size to text h" 0
          "size to text v" 0
          "text halign" center
@@ -92,8 +93,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass bidManagementMarketItemAttachmentLabel {
          ignorepointer 1
-         position 0.00002 231.114
-         size 342.07501 42.0747
+         position 2.48853 231.114
+         size 519.586 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -104,6 +105,7 @@ FrameWidgetClass rootFrame {
          style Normal
          text "#attachments"
          "exact text" 0
+         text_proportion 0.75
          "size to text h" 0
          "size to text v" 0
          "text halign" center
@@ -111,8 +113,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass bidManagementMarketOfferItemsLabel {
          ignorepointer 1
-         position 8.00011 58.6236
-         size 342.07501 42.0747
+         position 1.36416 58.6236
+         size 517.92706 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -123,6 +125,7 @@ FrameWidgetClass rootFrame {
          style Normal
          text "#items"
          "exact text" 0
+         text_proportion 0.75
          "size to text h" 0
          "size to text v" 0
          "text halign" center
@@ -164,6 +167,7 @@ FrameWidgetClass rootFrame {
          style Normal
          text "#player"
          "exact text" 0
+         text_proportion 0.8
          "size to text h" 0
          "size to text v" 0
          "text halign" center
@@ -181,8 +185,8 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass bidManagementMarketOfferWantToHaveLabel {
          ignorepointer 1
-         position 8.00015 -74.1534
-         size 342.07501 42.0747
+         position 0.53466 -74.1534
+         size 519.586 42.0747
          halign center_ref
          valign center_ref
          hexactpos 1
@@ -193,6 +197,7 @@ FrameWidgetClass rootFrame {
          style Normal
          text "#player_want_to_have"
          "exact text" 0
+         text_proportion 0.75
          "size to text h" 0
          "size to text v" 0
          "text halign" center
@@ -215,7 +220,7 @@ FrameWidgetClass rootFrame {
        "no focus" 0
        {
         ButtonWidgetClass buttonAcceptedBids {
-         color 0.502 1 0 1
+         color 1 0.749 0 1
          position 8 8
          size 400 42.0747
          hexactpos 1
@@ -224,11 +229,11 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style MenuDefault
          text "#accepted"
-         text_proportion 0.8
+         text_proportion 0.7
          switch normal
         }
         ButtonWidgetClass buttonCanceledBids {
-         color 0.502 1 0 1
+         color 1 0.749 0 1
          position 416 8.00001
          size 400 42.0747
          hexactpos 1
@@ -237,11 +242,11 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style MenuDefault
          text "#not_accepted"
-         text_proportion 0.8
+         text_proportion 0.7
          switch normal
         }
         ButtonWidgetClass buttonOpenBids {
-         color 0.502 1 0 1
+         color 1 0.749 0 1
          position 903.40002 8.00001
          size 400 42.0747
          hexactpos 1
@@ -250,7 +255,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style MenuDefault
          text "#open"
-         text_proportion 0.8
+         text_proportion 0.7
          switch normal
         }
         TextListboxWidgetClass bidManagementBidItems {
@@ -280,7 +285,7 @@ FrameWidgetClass rootFrame {
         }
         TextWidgetClass bidManagementBidItemsLabel {
          ignorepointer 1
-         position 204 -271.38797
+         position 204 -269.729
          size 887.73999 42.0747
          halign center_ref
          valign center_ref
@@ -292,6 +297,7 @@ FrameWidgetClass rootFrame {
          style Normal
          text "#items"
          "exact text" 0
+         text_proportion 0.8
          "size to text h" 0
          "size to text v" 0
          "text halign" center
@@ -311,6 +317,7 @@ FrameWidgetClass rootFrame {
          style Normal
          text "#attachments"
          "exact text" 0
+         text_proportion 0.8
          "size to text h" 0
          "size to text v" 0
          "text halign" center
@@ -330,6 +337,7 @@ FrameWidgetClass rootFrame {
          style Normal
          text "#no_bids"
          "exact text" 0
+         text_proportion 0.8
          "size to text h" 0
          "size to text v" 0
          "text halign" center
@@ -448,7 +456,7 @@ FrameWidgetClass rootFrame {
          switch normal
         }
         ButtonWidgetClass buttonTakeBid {
-         color 0.502 1 0 1
+         color 0.1255 0.1098 0.1098 1
          position 8 8.00003
          size 364.88998 42.0747
          hexactpos 1
@@ -478,6 +486,7 @@ FrameWidgetClass rootFrame {
        {
         TextWidgetClass TextWidget0 {
          ignorepointer 1
+         color 1 0.749 0 1
          position 0.00013 0.00001
          size 759.59204 44
          halign center_ref
@@ -488,6 +497,7 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style None
          text "#bid_management"
+         text_proportion 0.8
          "text halign" center
          "text valign" center
         }
