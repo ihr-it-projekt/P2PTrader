@@ -46,7 +46,7 @@ class P2PTraderOfferCreateEventHandler
 
 				array<EntityAI> items = inventory.GetPlayerItems(player);
 				P2PTraderPlayerMarketOffer offer = new P2PTraderPlayerMarketOffer(player, offerType, offerMessage);
-				
+			
 				while(offerItems != null && 0 < offerItems.Count()) {
 					offerItems = removeItem(offer, items, offerItems);
 					items = inventory.GetPlayerItems(player);
