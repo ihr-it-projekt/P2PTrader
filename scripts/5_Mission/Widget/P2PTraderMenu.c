@@ -57,6 +57,7 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 	private MultilineTextWidget message;
 	private MultilineTextWidget notInNearHint;
 	private MultilineTextWidget playerOfferItemMessage;
+	private bool isOpen;
 
 	void SetConfig(P2PTraderConfig configExt) {
         this.config = configExt;
@@ -370,10 +371,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 	
 	override void OnHide()
 	{
-		if (!layoutRoot.IsVisible()) {
-			return;
-		}
-		
 		super.OnHide();
 
 		PPEffects.SetBlurMenu(0);
@@ -402,12 +399,13 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 		selectedPlayerOffer = null;
 		ShowHideMyOfferForItem();
 		buttonOpenCreateMyBid.Show(false);
+		isOpen = false;
 	}
 	
 		
 	override void OnShow()
 	{
-		if (layoutRoot.IsVisible()) {
+		if (isOpen) {
 			return;
 		}
 		userListEventService.ResetRefresh();
@@ -445,7 +443,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
         bidManagementWidget.OnHide();
         playerBidWidget.OnHide();
 		marketOfferWantToHave.Show(false);
-		layoutRoot.Show(true);
 		buttonManageMyBids.Show(false);
 		playerOfferItemMessageLabel.Show(false);
 		playerOfferItemMessage.Show(false);
@@ -552,11 +549,18 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 				bidManagementWidget.OnHide();
 			} else {
 				SetFocus(NULL);
-				OnHide();
-				layoutRoot.Show(false);
+				GetGame().GetUIManager().HideScriptedMenu(this);
 			}
 		}
 	}
+
+
+    override void Update(float timeslice) {
+        super.Update(timeslice);
+        if (GetUApi() && GetUApi().GetInputByName("UAUIBack").LocalPress()) {
+            GetGame().GetUIManager().HideScriptedMenu(this);
+        }
+    }
 	
 	bool IsInitialized() {
 		return !!layoutRoot;

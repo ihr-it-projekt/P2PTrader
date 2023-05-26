@@ -75,22 +75,11 @@ modded class MissionGameplay
 			
 			if (traderMenu && !traderMenu.layoutRoot.IsVisible()) {
 				traderMenu.SetCanTrade(canTrade);
-				traderMenu.OnShow();
+				GetGame().GetUIManager().ShowScriptedMenu(traderMenu, NULL);
 			}
 		}
 	}
 
-	override void OnKeyRelease(int key)
-	{
-		if(!traderMenu || !traderMenu.layoutRoot.IsVisible()) {
-			super.OnKeyRelease(key);
-		}
-		
-		if (traderMenu && traderMenu.layoutRoot.IsVisible() && key == KeyCode.KC_ESCAPE){
-			traderMenu.CloseMenu();
-		}
-	}
-	
 	private bool isInNearOfTrader() {
 		if (!p2pPlayer) {
 			return false;
