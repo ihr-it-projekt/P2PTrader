@@ -16,7 +16,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
 	private ref P2PTraderBidManagementWidget bidManagementWidget;
 	private ref P2PTraderUserListEventService userListEventService;
 
-	private Widget createPlayerOfferWidget;
 	private bool canTrade = false;
 	private EntityAI mainMenuPreviewItem;
 	private ref P2PTraderItemListenerManger itemListenerManager;
@@ -526,7 +525,6 @@ class P2PTraderMenu extends P2PTraderScriptedMenu
             if (ctx.Read(parameterError)) {
 				message.SetText(parameterError.param1);
 				offerWidget.OnHide();
-				createPlayerOfferWidget.Show(false);
 			}
 		} if (rpc_type == P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS_RESPONSE) {
           Param2<ref array<ref P2PTraderPlayerPlayerOffer>, ref array<ref P2PTraderPlayerPlayerOffer>> parameterOffers;

@@ -70,7 +70,6 @@ FrameWidgetClass rootFrame {
          style None
          text "#duration"
          "exact text" 0
-         text_proportion 0.7
          "size to text h" 0
          "size to text v" 0
          "text halign" center
@@ -95,7 +94,6 @@ FrameWidgetClass rootFrame {
            hexactsize 1
            vexactsize 1
            text "<<"
-           text_proportion 0.5
           }
           ButtonWidgetClass add10Number {
            position 171.17401 8.4375
@@ -105,7 +103,6 @@ FrameWidgetClass rootFrame {
            hexactsize 1
            vexactsize 1
            text ">>"
-           text_proportion 0.5
           }
           ButtonWidgetClass sub1Number {
            position 57.8439 9.84375
@@ -115,7 +112,6 @@ FrameWidgetClass rootFrame {
            hexactsize 1
            vexactsize 1
            text "<"
-           text_proportion 0.5
           }
           ButtonWidgetClass add1Number {
            position 135.83 8.4375
@@ -125,7 +121,6 @@ FrameWidgetClass rootFrame {
            hexactsize 1
            vexactsize 1
            text ">"
-           text_proportion 0.5
           }
           TextWidgetClass number {
            ignorepointer 1
@@ -165,7 +160,6 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style MenuDefault
          text "#create"
-         text_proportion 0.75
          "text color" 1 0 0 1
         }
        }
@@ -196,7 +190,6 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style None
          text "#i_will"
-         text_proportion 0.8
          "text halign" center
          "text valign" center
         }
@@ -229,7 +222,6 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style None
          text "#i_give"
-         text_proportion 0.8
          "text halign" center
          "text valign" center
         }
@@ -344,7 +336,6 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style None
          text "#desc"
-         text_proportion 0.46
          "text halign" center
          "text valign" center
         }
@@ -405,7 +396,6 @@ FrameWidgetClass rootFrame {
            vexactsize 1
            style None
            text "#offer_type"
-           text_proportion 0.9
            "text halign" center
            "text valign" center
           }
@@ -436,7 +426,6 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style None
          text "#my_inventory"
-         text_proportion 0.8
          "text halign" center
          "text valign" center
         }
@@ -522,7 +511,6 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style None
          text "#min_health"
-         text_proportion 0.58
          "text halign" center
          "text valign" center
         }
@@ -540,7 +528,6 @@ FrameWidgetClass rootFrame {
          style None
          text "#min_quantity"
          "exact text" 0
-         text_proportion 0.58
          "size to text h" 0
          "size to text v" 0
          "text halign" center
