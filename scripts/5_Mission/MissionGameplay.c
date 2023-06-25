@@ -4,7 +4,7 @@ modded class MissionGameplay
 	private ref P2PTraderMenu traderMenu;
 	private ref P2PTraderHint traderHintMenu;
 	private DayZPlayer p2pPlayer;
-	private UAInput localInput;
+	private UAInput localInputP2PTrader
 	private string keyName = "";
 	private ref P2PTraderKeyCodeMatch keyMap;
 	
@@ -15,7 +15,7 @@ modded class MissionGameplay
         Param1<DayZPlayer> paramGetConfig = new Param1<DayZPlayer>(GetGame().GetPlayer());
 	    GetGame().RPCSingleParam(paramGetConfig.param1, P2P_TRADER_EVENT_GET_CONFIG, paramGetConfig, true);
 		
-		localInput = GetUApi().GetInputByName("UAInputOpenP2PTrader");
+		localInputP2PTrader = GetUApi().GetInputByName("UAInputOpenP2PTrader");
 		keyMap = new P2PTraderKeyCodeMatch;
 	}
 	
@@ -33,8 +33,8 @@ modded class MissionGameplay
 					GetGame().AdminLog("[P2PTrader] Use serverside keybind: " + keyName);
 					
 					if (keyName) {
-						localInput.ClearDeviceBind(EUAINPUT_DEVICE_KEYBOARDMOUSE);
-						localInput.BindCombo("k" + keyName);
+						localInputP2PTrader.ClearDeviceBind(EUAINPUT_DEVICE_KEYBOARDMOUSE);
+						localInputP2PTrader.BindCombo("k" + keyName);
 					}
 				}
 			}
@@ -46,7 +46,7 @@ modded class MissionGameplay
 		super.OnUpdate(timeslice);
 		p2pPlayer = PlayerBase.Cast(GetGame().GetPlayer());
 		bool isInNear = isInNearOfTrader();
-		if(localInput.LocalClick() && p2pPlayer && p2pPlayer.IsAlive()) {
+		if(localInputP2PTrader.LocalClick() && p2pPlayer && p2pPlayer.IsAlive()) {
 			OpenTrader(isInNear);
 		}
 		if (p2pTraderConfig && p2pTraderConfig.traderConfigParams && isInNear && !traderHintMenu){
