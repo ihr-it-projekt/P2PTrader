@@ -1,19 +1,19 @@
 class P2PTraderUIItemCreator {
 
-	Widget layoutRoot;
-	
-    void P2PTraderUIItemCreator(string layoutRootPath) {
-		this.layoutRoot = GetGame().GetWorkspace().CreateWidgets(layoutRootPath);
-	}
+    Widget layoutRoot;
 
-	Widget GetLayoutRoot() {
-	    return this.layoutRoot;
-	}
+    void P2PTraderUIItemCreator(string layoutRootPath) {
+        this.layoutRoot = GetGame().GetWorkspace().CreateWidgets(layoutRootPath);
+    }
+
+    Widget GetLayoutRoot() {
+        return this.layoutRoot;
+    }
 
     TextListboxWidget GetTextListboxWidget(string name, Managed eventHandler = null, string functionName = "") {
         TextListboxWidget widget = TextListboxWidget.Cast(layoutRoot.FindAnyWidget(name));
 
-        if (eventHandler && functionName != "") {
+        if(eventHandler && functionName != "") {
             WidgetEventHandler.GetInstance().RegisterOnMouseButtonUp(widget, eventHandler, functionName);
         }
 
@@ -41,9 +41,9 @@ class P2PTraderUIItemCreator {
     }
 
     ButtonWidget GetButtonWidget(string name, Managed eventHandler = null, string functionName = "") {
-        ButtonWidget button =  ButtonWidget.Cast(layoutRoot.FindAnyWidget(name));
+        ButtonWidget button = ButtonWidget.Cast(layoutRoot.FindAnyWidget(name));
 
-        if (eventHandler && functionName != "") {
+        if(eventHandler && functionName != "") {
             WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(button, eventHandler, functionName);
         }
 

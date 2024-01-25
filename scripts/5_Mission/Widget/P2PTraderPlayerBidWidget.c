@@ -1,22 +1,21 @@
-class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget
-{
-	private P2PTraderPlayerMarketOffer selectedMarketOffer;
-	private ref array<ref P2PTraderItem> playerItems;
+class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget {
+    private P2PTraderPlayerMarketOffer selectedMarketOffer;
+    private ref array<ref P2PTraderItem> playerItems;
 
-	private TextListboxWidget playerInventoryItemsPlayerOffer;
-	private TextListboxWidget playerItemsOfferPlayerOffer;
-	private TextListboxWidget playerOfferWantToHave;
-	private EditBoxWidget playerTextPlayerOffer;
-	private ButtonWidget buttonCreateCreatePlayerOffer;
-	private ItemPreviewWidget bidMenuItemPreview;
-	private MultilineTextWidget bidMenuItemPreviewText;
-	private TextWidget playerNameBidDetail;
-	private MultilineTextWidget playerOfferMessageDetailBid;
-	private TextListboxWidget offerDetailItemsBid;
-	private TextListboxWidget detailAttachmentBid;
-	private ButtonWidget buttonMoveToGiveCreateCreatePlayerOffer;
-	private ButtonWidget buttonMoveToInventoryCreatePlayerOffer;
-	private ButtonWidget buttonCreateClosePlayerOffer;
+    private TextListboxWidget playerInventoryItemsPlayerOffer;
+    private TextListboxWidget playerItemsOfferPlayerOffer;
+    private TextListboxWidget playerOfferWantToHave;
+    private EditBoxWidget playerTextPlayerOffer;
+    private ButtonWidget buttonCreateCreatePlayerOffer;
+    private ItemPreviewWidget bidMenuItemPreview;
+    private MultilineTextWidget bidMenuItemPreviewText;
+    private TextWidget playerNameBidDetail;
+    private MultilineTextWidget playerOfferMessageDetailBid;
+    private TextListboxWidget offerDetailItemsBid;
+    private TextListboxWidget detailAttachmentBid;
+    private ButtonWidget buttonMoveToGiveCreateCreatePlayerOffer;
+    private ButtonWidget buttonMoveToInventoryCreatePlayerOffer;
+    private ButtonWidget buttonCreateClosePlayerOffer;
 
     override Widget Init() {
         super.Init();
@@ -28,7 +27,7 @@ class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget
         playerOfferWantToHave = uIItemCreator.GetTextListboxWidget("playerOfferWantToHave");
         playerTextPlayerOffer = uIItemCreator.GetEditBoxWidget("playerTextPlayerOffer");
         bidMenuItemPreview = uIItemCreator.GetItemPreviewWidget("bidMenuItemPreview");
-		bidMenuItemPreviewText = uIItemCreator.GetMultilineTextWidget("bidMenuItemPreviewText");
+        bidMenuItemPreviewText = uIItemCreator.GetMultilineTextWidget("bidMenuItemPreviewText");
         playerNameBidDetail = uIItemCreator.GetTextWidget("playerNameBidDetail");
         playerOfferMessageDetailBid = uIItemCreator.GetMultilineTextWidget("playerOfferMessageDetailBid");
         offerDetailItemsBid = uIItemCreator.GetTextListboxWidget("offerDetailItemsBid", this, "OnClick");
@@ -39,26 +38,26 @@ class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget
         buttonCreateClosePlayerOffer = uIItemCreator.GetButtonWidget("buttonCreateClosePlayerOffer", this, "OnClick");
 
         itemListenerManager.AddItemMoveListener(buttonMoveToGiveCreateCreatePlayerOffer, buttonMoveToInventoryCreatePlayerOffer, playerInventoryItemsPlayerOffer, playerItemsOfferPlayerOffer, true, bidMenuItemPreview, bidMenuItemPreviewText);
-        
-		CreatePreview(bidMenuItemPreview, bidMenuItemPreviewText);
 
-		itemListenerManager.AddPreviewListener(previewWindow, detailAttachmentBid);
-		itemListenerManager.AddPreviewListener(previewWindow, playerOfferWantToHave);
+        CreatePreview(bidMenuItemPreview, bidMenuItemPreviewText);
 
-		return layoutRoot;
+        itemListenerManager.AddPreviewListener(previewWindow, detailAttachmentBid);
+        itemListenerManager.AddPreviewListener(previewWindow, playerOfferWantToHave);
+
+        return layoutRoot;
     }
 
     void SetMarketOfferDetails(P2PTraderPlayerMarketOffer selectedMarketOffer) {
-		this.selectedMarketOffer = selectedMarketOffer;
+        this.selectedMarketOffer = selectedMarketOffer;
         playerNameBidDetail.SetText(selectedMarketOffer.GetOwnerName());
         playerOfferMessageDetailBid.SetText(selectedMarketOffer.GetOfferMessage());
-		
-		playerOfferWantToHave.ClearItems();
+
+        playerOfferWantToHave.ClearItems();
 
         if(this.selectedMarketOffer.GetWantedItems().Count() > 0) {
             itemService.GetTraderStockItemList(playerOfferWantToHave, this.selectedMarketOffer.GetWantedItems());
         }
-		
+
         itemService.GetMarketOfferItemList(offerDetailItemsBid, selectedMarketOffer);
     }
 
@@ -87,7 +86,7 @@ class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget
             return true;
         } else if(w == offerDetailItemsBid) {
             P2PTraderStockItem currentOfferDetailItem = itemService.GetSelectedItemPlayerOffer(offerDetailItemsBid);
-            if (!currentOfferDetailItem) {
+            if(!currentOfferDetailItem) {
                 return true;
             }
 
@@ -99,12 +98,12 @@ class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget
             OnHide();
             return true;
         }
-		return false;
+        return false;
     }
 
     override void OnHide() {
-		playerInventoryItemsPlayerOffer.ClearItems();
-		playerItemsOfferPlayerOffer.ClearItems();
+        playerInventoryItemsPlayerOffer.ClearItems();
+        playerItemsOfferPlayerOffer.ClearItems();
         layoutRoot.Show(false);
     }
 }

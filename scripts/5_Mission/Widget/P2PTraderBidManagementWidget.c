@@ -1,13 +1,12 @@
-class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
-{
+class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget {
     private bool canTrade = false;
     private ref array<ref P2PTraderPlayerPlayerOffer> playerActiveOffers;
-	private string bidFilterBidManagement = P2PTraderStock.OPEN_OFFER;
-	private P2PTraderPlayerPlayerOffer selectedPlayerOfferBidManagement;
-	private ref array<ref P2PTraderPlayerPlayerOffer> playerAcceptedOffers;
-	private ref array<ref P2PTraderPlayerPlayerOffer> playerInactiveOffers;
-	private ref array<ref P2PTraderPlayerMarketOffer> marketItems;
-	private P2PTraderUserListEventService userListEventService;
+    private string bidFilterBidManagement = P2PTraderStock.OPEN_OFFER;
+    private P2PTraderPlayerPlayerOffer selectedPlayerOfferBidManagement;
+    private ref array<ref P2PTraderPlayerPlayerOffer> playerAcceptedOffers;
+    private ref array<ref P2PTraderPlayerPlayerOffer> playerInactiveOffers;
+    private ref array<ref P2PTraderPlayerMarketOffer> marketItems;
+    private P2PTraderUserListEventService userListEventService;
 
     private ButtonWidget buttonAcceptedBids;
     private ButtonWidget buttonCanceledBids;
@@ -15,7 +14,7 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
     private ButtonWidget buttonDeleteMyBid;
     private ButtonWidget buttonTakeBid;
     private ButtonWidget bidManagementCloseButton;
-	private TextWidget bidManagementBidHint;
+    private TextWidget bidManagementBidHint;
     private TextWidget bidManagementBidItemsLabel;
     private TextWidget bidManagementBidItemAttachmentLabel;
     private TextWidget bidManagementMarketOfferPlayerLabel;
@@ -28,21 +27,21 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
 
     private MultilineTextWidget bidManagementMenuItemPreviewText;
     private MultilineTextWidget bidManagementMarketOfferMessage;
-	private MultilineTextWidget bidManagementNotInNearHint;
+    private MultilineTextWidget bidManagementNotInNearHint;
 
-	private TextListboxWidget bidManagementBids;
+    private TextListboxWidget bidManagementBids;
     private TextListboxWidget bidManagementMarketOfferWantToHave;
     private TextListboxWidget bidManagementMarketOfferDetailItemsBid;
     private TextListboxWidget bidManagementMarketOfferDetailAttachmentBid;
     private TextListboxWidget bidManagementBidItems;
     private TextListboxWidget bidManagementBidItemAttachment;
 
-	void SetExtraInitDependencies(P2PTraderUserListEventService userListEventService, array<ref P2PTraderPlayerMarketOffer> marketItems) {
-	    this.userListEventService = userListEventService;
+    void SetExtraInitDependencies(P2PTraderUserListEventService userListEventService, array<ref P2PTraderPlayerMarketOffer> marketItems) {
+        this.userListEventService = userListEventService;
         this.marketItems = marketItems;
-	}
+    }
 
-     override Widget Init() {
+    override Widget Init() {
         super.Init();
         P2PTraderUIItemCreator uIItemCreator = new P2PTraderUIItemCreator("P2PTrader/layout/bidManagement.layout");
         layoutRoot = uIItemCreator.GetLayoutRoot();
@@ -76,7 +75,7 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
         bidManagementMenuItemPreviewText = uIItemCreator.GetMultilineTextWidget("bidManagementMenuItemPreviewText");
         bidManagementMenuMenuItemPreview = uIItemCreator.GetItemPreviewWidget("bidManagementMenuMenuItemPreview");
 
-		CreatePreview(bidManagementMenuMenuItemPreview, bidManagementMenuItemPreviewText);
+        CreatePreview(bidManagementMenuMenuItemPreview, bidManagementMenuItemPreviewText);
         itemListenerManager.AddPreviewListener(previewWindow, bidManagementBidItems);
         itemListenerManager.AddPreviewListener(previewWindow, bidManagementBidItemAttachment);
         itemListenerManager.AddPreviewListener(previewWindow, bidManagementMarketOfferWantToHave);
@@ -89,7 +88,7 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
 
     void SetCanTrade(bool canTrade) {
         this.canTrade = canTrade;
-		bidManagementNotInNearHint.Show(!canTrade);
+        bidManagementNotInNearHint.Show(!canTrade);
     }
 
     void OnGetAllBidOffers(array<ref P2PTraderPlayerPlayerOffer> playerActiveOffers) {
@@ -113,12 +112,12 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
         if(layoutRoot.IsVisible() && playerActiveOffers.Count() == 0 && P2PTraderStock.INACTIVE_OFFER == bidFilterBidManagement) {
             bidManagementBidHint.Show(true);
             bidManagementBids.Show(false);
-        } else if(layoutRoot.IsVisible() && playerActiveOffers.Count() > 0 && P2PTraderStock.INACTIVE_OFFER == bidFilterBidManagement){
+        } else if(layoutRoot.IsVisible() && playerActiveOffers.Count() > 0 && P2PTraderStock.INACTIVE_OFFER == bidFilterBidManagement) {
             itemService.GetActiveOffersForStockItem(bidManagementBids, playerActiveOffers);
             bidManagementBidHint.Show(false);
             bidManagementBids.Show(true);
         }
-		buttonDeleteMyBid.Show(false);
+        buttonDeleteMyBid.Show(false);
 
         layoutRoot.Show(true);
     }
@@ -198,25 +197,25 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
             bidManagementBidItemAttachment.ClearItems();
             return true;
         } else if(w == buttonDeleteMyBid || w == buttonTakeBid) {
-             if (!selectedPlayerOfferBidManagement) {
-                 return true;
-             }
-             Param2<DayZPlayer, int> paramRemovePlayerToPlayerOffer = new Param2<DayZPlayer, int>(GetGame().GetPlayer(), selectedPlayerOfferBidManagement.GetId());
-             GetGame().RPCSingleParam(paramRemovePlayerToPlayerOffer.param1, P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS, paramRemovePlayerToPlayerOffer, true);
-             buttonDeleteMyBid.Show(false);
-             buttonTakeBid.Show(false);
-             selectedPlayerOfferBidManagement = null;
-             bidManagementBidItems.ClearItems();
-             bidManagementBidItemAttachment.ClearItems();
-             bidManagementBids.ClearItems();
-             userListEventService.RefreshPlayerLists();
-             return true;
+            if(!selectedPlayerOfferBidManagement) {
+                return true;
+            }
+            Param2<DayZPlayer, int> paramRemovePlayerToPlayerOffer = new Param2<DayZPlayer, int>(GetGame().GetPlayer(), selectedPlayerOfferBidManagement.GetId());
+            GetGame().RPCSingleParam(paramRemovePlayerToPlayerOffer.param1, P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS, paramRemovePlayerToPlayerOffer, true);
+            buttonDeleteMyBid.Show(false);
+            buttonTakeBid.Show(false);
+            selectedPlayerOfferBidManagement = null;
+            bidManagementBidItems.ClearItems();
+            bidManagementBidItemAttachment.ClearItems();
+            bidManagementBids.ClearItems();
+            userListEventService.RefreshPlayerLists();
+            return true;
         } else if(w == bidManagementBids) {
             selectedPlayerOfferBidManagement = itemService.GetSelectedStockItem(bidManagementBids);
             P2PTraderPlayerMarketOffer selectedMarketOfferBidManagement;
-            if (selectedPlayerOfferBidManagement) {
+            if(selectedPlayerOfferBidManagement) {
                 foreach(P2PTraderPlayerMarketOffer marketOfferItems: marketItems) {
-                    if (selectedPlayerOfferBidManagement.GetPlayerToMarketOfferId() == marketOfferItems.GetId()) {
+                    if(selectedPlayerOfferBidManagement.GetPlayerToMarketOfferId() == marketOfferItems.GetId()) {
                         selectedMarketOfferBidManagement = marketOfferItems;
                         break;
                     }
@@ -225,7 +224,7 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
                 itemService.GetTraderStockItemList(bidManagementBidItems, selectedPlayerOfferBidManagement.GetOfferItems());
             }
 
-            if (selectedMarketOfferBidManagement) {
+            if(selectedMarketOfferBidManagement) {
                 bidManagementMarketOfferPlayer.SetText(selectedMarketOfferBidManagement.GetOwnerName());
                 bidManagementMarketOfferMessage.SetText(selectedMarketOfferBidManagement.GetOfferMessage());
 
@@ -242,7 +241,7 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
             return true;
         } else if(w == bidManagementBidItems) {
             P2PTraderStockItem selectedBidItemBidManagement = itemService.GetSelectedItemPlayerOffer(bidManagementBidItems);
-            if (selectedBidItemBidManagement) {
+            if(selectedBidItemBidManagement) {
                 itemService.GetMarketOfferItemAttachmentList(bidManagementBidItemAttachment, selectedBidItemBidManagement);
                 UpdatePreview(selectedBidItemBidManagement);
             }
@@ -250,15 +249,15 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
             return true;
         } else if(w == bidManagementMarketOfferDetailItemsBid) {
             P2PTraderStockItem selectedOfferBidItemBidManagement = itemService.GetSelectedItemPlayerOffer(bidManagementMarketOfferDetailItemsBid);
-            if (selectedOfferBidItemBidManagement) {
+            if(selectedOfferBidItemBidManagement) {
                 itemService.GetMarketOfferItemAttachmentList(bidManagementMarketOfferDetailAttachmentBid, selectedOfferBidItemBidManagement);
                 UpdatePreview(selectedOfferBidItemBidManagement);
             }
             ShowHideBidManagementButtons();
             return true;
         }
-		
-		return false;
+
+        return false;
     }
 
     int GetCountPlayerOffers() {
@@ -269,24 +268,24 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
         this.playerInactiveOffers = playerInactiveOffers;
         this.playerAcceptedOffers = playerAcceptedOffers;
 
-        if (layoutRoot.IsVisible()) {
-          if((!playerInactiveOffers || playerInactiveOffers.Count() == 0) && P2PTraderStock.INACTIVE_OFFER == bidFilterBidManagement) {
-              bidManagementBidHint.Show(true);
-              bidManagementBids.Show(false);
-          } else if(playerInactiveOffers && playerInactiveOffers.Count() > 0 && P2PTraderStock.INACTIVE_OFFER == bidFilterBidManagement){
-              itemService.GetActiveOffersForStockItem(bidManagementBids, playerInactiveOffers);
-              bidManagementBidHint.Show(false);
-              bidManagementBids.Show(true);
-          }else if((!playerAcceptedOffers || playerAcceptedOffers.Count() == 0) && P2PTraderStock.ACCEPTED_OFFER == bidFilterBidManagement) {
-              bidManagementBidHint.Show(true);
-              bidManagementBids.Show(false);
-          } else if(playerAcceptedOffers && playerAcceptedOffers.Count() > 0 && P2PTraderStock.ACCEPTED_OFFER == bidFilterBidManagement){
-              itemService.GetActiveOffersForStockItem(bidManagementBids, playerAcceptedOffers);
-              bidManagementBidHint.Show(false);
-              bidManagementBids.Show(true);
-          }
-          ShowHideBidManagementButtons();
-      }
+        if(layoutRoot.IsVisible()) {
+            if((!playerInactiveOffers || playerInactiveOffers.Count() == 0) && P2PTraderStock.INACTIVE_OFFER == bidFilterBidManagement) {
+                bidManagementBidHint.Show(true);
+                bidManagementBids.Show(false);
+            } else if(playerInactiveOffers && playerInactiveOffers.Count() > 0 && P2PTraderStock.INACTIVE_OFFER == bidFilterBidManagement) {
+                itemService.GetActiveOffersForStockItem(bidManagementBids, playerInactiveOffers);
+                bidManagementBidHint.Show(false);
+                bidManagementBids.Show(true);
+            } else if((!playerAcceptedOffers || playerAcceptedOffers.Count() == 0) && P2PTraderStock.ACCEPTED_OFFER == bidFilterBidManagement) {
+                bidManagementBidHint.Show(true);
+                bidManagementBids.Show(false);
+            } else if(playerAcceptedOffers && playerAcceptedOffers.Count() > 0 && P2PTraderStock.ACCEPTED_OFFER == bidFilterBidManagement) {
+                itemService.GetActiveOffersForStockItem(bidManagementBids, playerAcceptedOffers);
+                bidManagementBidHint.Show(false);
+                bidManagementBids.Show(true);
+            }
+            ShowHideBidManagementButtons();
+        }
 
     }
 
@@ -296,22 +295,22 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
     }
 
     private void ShowHideBidManagementButtons() {
-        if (P2PTraderStock.OPEN_OFFER == bidFilterBidManagement) {
+        if(P2PTraderStock.OPEN_OFFER == bidFilterBidManagement) {
             buttonAcceptedBids.Show(true);
             buttonCanceledBids.Show(true);
             buttonOpenBids.Show(false);
-        } else if (P2PTraderStock.ACCEPTED_OFFER == bidFilterBidManagement) {
+        } else if(P2PTraderStock.ACCEPTED_OFFER == bidFilterBidManagement) {
             buttonAcceptedBids.Show(false);
             buttonCanceledBids.Show(true);
             buttonOpenBids.Show(true);
-        } else if (P2PTraderStock.INACTIVE_OFFER == bidFilterBidManagement) {
+        } else if(P2PTraderStock.INACTIVE_OFFER == bidFilterBidManagement) {
             buttonAcceptedBids.Show(true);
             buttonCanceledBids.Show(false);
             buttonOpenBids.Show(true);
         }
 
-        if (selectedPlayerOfferBidManagement) {
-            if (P2PTraderStock.OPEN_OFFER == bidFilterBidManagement) {
+        if(selectedPlayerOfferBidManagement) {
+            if(P2PTraderStock.OPEN_OFFER == bidFilterBidManagement) {
                 bidManagementMarketOfferPlayerLabel.Show(true);
                 bidManagementMarketOfferPlayer.Show(true);
                 bidManagementMessageFromPlayerLabel.Show(true);
@@ -323,7 +322,7 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
                 bidManagementMarketItemAttachmentLabel.Show(true);
                 bidManagementMarketOfferDetailAttachmentBid.Show(true);
                 buttonTakeBid.Show(false);
-                if (!canTrade) {
+                if(!canTrade) {
                     buttonDeleteMyBid.Show(false);
                 } else {
                     buttonDeleteMyBid.Show(true);
@@ -339,7 +338,7 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget
                 bidManagementMarketOfferDetailItemsBid.Show(false);
                 bidManagementMarketItemAttachmentLabel.Show(false);
                 bidManagementMarketOfferDetailAttachmentBid.Show(false);
-                if (!canTrade) {
+                if(!canTrade) {
                     buttonTakeBid.Show(false);
                 } else {
                     buttonTakeBid.Show(true);

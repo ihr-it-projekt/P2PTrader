@@ -1,12 +1,11 @@
-class P2PTraderPlayerOfferEventHandler
-{
-	private ref P2PTraderPlayerInventory inventory;
-	private P2PTraderStock traderStock;
-	
+class P2PTraderPlayerOfferEventHandler {
+    private ref P2PTraderPlayerInventory inventory;
+    private P2PTraderStock traderStock;
+
     void P2PTraderPlayerOfferEventHandler(P2PTraderStock traderStock) {
-		this.traderStock = traderStock;
+        this.traderStock = traderStock;
         inventory = new P2PTraderPlayerInventory;
-		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
+        GetDayZGame().Event_OnRPC.Insert(HandleEvents);
     }
 
     void ~P2PTraderPlayerOfferEventHandler() {
@@ -14,39 +13,39 @@ class P2PTraderPlayerOfferEventHandler
     }
 
     void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
-        if (!IsServerP2PTrader()) {
+        if(!IsServerP2PTrader()) {
             return;
         }
-				
-        if (rpc_type == P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS) {
-            Param2<DayZPlayer, int> parameterRemoveOffer;
-            if (ctx.Read(parameterRemoveOffer)) {
-                DayZPlayer player = parameterRemoveOffer.param1;
-				int offerId = parameterRemoveOffer.param2;
-				
-				P2PTraderPlayerPlayerOffer playerOffer = traderStock.GetPlayerOfferById(offerId);
 
-                if (playerOffer == null) {
+        if(rpc_type == P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS) {
+            Param2<DayZPlayer, int> parameterRemoveOffer;
+            if(ctx.Read(parameterRemoveOffer)) {
+                DayZPlayer player = parameterRemoveOffer.param1;
+                int offerId = parameterRemoveOffer.param2;
+
+                P2PTraderPlayerPlayerOffer playerOffer = traderStock.GetPlayerOfferById(offerId);
+
+                if(playerOffer == null) {
                     GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_ERROR, new Param1<string>("#offer_not_exists"), true, player.GetIdentity());
                     return;
-                } else if (playerOffer.GetOwnerId() != player.GetIdentity().GetId()) {
+                } else if(playerOffer.GetOwnerId() != player.GetIdentity().GetId()) {
                     GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_ERROR, new Param1<string>("#you_can_only_remove_your_own_offer"), true, player.GetIdentity());
                     return;
                 }
 
-				inventory.AddCollection(player, playerOffer.GetOfferItems());
-				
-				traderStock.RemovePlayerToPlayerOffer(playerOffer);
-				
-				GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_RESPONSE, new Param1<string>(""), true, player.GetIdentity());
+                inventory.AddCollection(player, playerOffer.GetOfferItems());
+
+                traderStock.RemovePlayerToPlayerOffer(playerOffer);
+
+                GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_DELETE_MY_BID_OFFERS_RESPONSE, new Param1<string>(""), true, player.GetIdentity());
             }
-        } else if (rpc_type == P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS) {
+        } else if(rpc_type == P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS) {
             Param1<DayZPlayer> parameterGetAIOffers;
-            if (ctx.Read(parameterGetAIOffers)) {
+            if(ctx.Read(parameterGetAIOffers)) {
                 DayZPlayer playerAllAI = parameterGetAIOffers.param1;
-				
-				ref array<ref P2PTraderPlayerPlayerOffer> playerAcceptedOffer = traderStock.GetOffersFromPlayer(playerAllAI.GetIdentity(), P2PTraderStock.ACCEPTED_OFFER);
-				ref array<ref P2PTraderPlayerPlayerOffer> playerInactiveOffer = traderStock.GetOffersFromPlayer(playerAllAI.GetIdentity(), P2PTraderStock.INACTIVE_OFFER);
+
+                ref array<ref P2PTraderPlayerPlayerOffer> playerAcceptedOffer = traderStock.GetOffersFromPlayer(playerAllAI.GetIdentity(), P2PTraderStock.ACCEPTED_OFFER);
+                ref array<ref P2PTraderPlayerPlayerOffer> playerInactiveOffer = traderStock.GetOffersFromPlayer(playerAllAI.GetIdentity(), P2PTraderStock.INACTIVE_OFFER);
 
                 GetGame().RPCSingleParam(player, P2P_TRADER_EVENT_GET_PLAYER_ACCEPTED_INACTIVE_OFFERS_RESPONSE, new Param2<ref array<ref P2PTraderPlayerPlayerOffer>, ref array<ref P2PTraderPlayerPlayerOffer>>(playerInactiveOffer, playerAcceptedOffer), true, playerAllAI.GetIdentity());
             }

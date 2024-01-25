@@ -1,23 +1,22 @@
-class P2PBaseValidator
-{
+class P2PBaseValidator {
     protected string errorMessage = "";
     private bool wasValidated = false;
     private bool isValid = false;
 
     string GetErrorMessage() {
-		return errorMessage;
-	}
+        return errorMessage;
+    }
 
-	protected bool DoValidate() {
+    protected bool DoValidate() {
         return false;
-	}
+    }
 
-	bool IsValid() {
-	    if (!wasValidated) {
-	        isValid = DoValidate();
-	    }
-	    wasValidated = true;
+    bool IsValid() {
+        if(!wasValidated) {
+            isValid = DoValidate();
+        }
+        wasValidated = true;
 
-	    return isValid;
-	}
+        return isValid;
+    }
 }
