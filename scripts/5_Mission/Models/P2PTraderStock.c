@@ -37,7 +37,7 @@ class P2PTraderStock {
         Save();
     }
 
-    void AddPlayerToMarketOffer(ref P2PTraderPlayerMarketOffer newOffer) {
+    void AddPlayerToMarketOffer(P2PTraderPlayerMarketOffer newOffer) {
         idCounter++;
 
         newOffer.SetId(idCounter);

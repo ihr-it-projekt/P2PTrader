@@ -47,8 +47,8 @@ class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget {
         return layoutRoot;
     }
 
-    void SetMarketOfferDetails(P2PTraderPlayerMarketOffer selectedMarketOffer) {
-        this.selectedMarketOffer = selectedMarketOffer;
+    void SetMarketOfferDetails(P2PTraderPlayerMarketOffer _selectedMarketOffer) {
+        this.selectedMarketOffer = _selectedMarketOffer;
         playerNameBidDetail.SetText(selectedMarketOffer.GetOwnerName());
         playerOfferMessageDetailBid.SetText(selectedMarketOffer.GetOfferMessage());
 
@@ -69,8 +69,8 @@ class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget {
         layoutRoot.Show(true);
     }
 
-    void OnGetPlayerItems(array<ref P2PTraderItem> playerItems) {
-        this.playerItems = playerItems;
+    void OnGetPlayerItems(array<ref P2PTraderItem> _playerItems) {
+        this.playerItems = _playerItems;
     }
 
     bool IsWidgetVisible() {

@@ -21,7 +21,7 @@ class P2PStockStore {
         P2PJsonFileLoader<array<ref P2POfferFileMatch>>.JsonSaveFile(CONFIGS_STOCK_FOLDER_P2P + "fileMatchCollectionOffersAccepted.json", fileMatchCollectionOffersAccepted);
     }
 
-    P2PTraderStock LoadStock(ref P2PTraderStock stockFile) {
+    P2PTraderStock LoadStock(P2PTraderStock stockFile) {
         int id = 0;
 
         if(FileExist(CONFIGS_STOCK_FOLDER_P2P + "fileMatchCollectionStock.json")) {
@@ -74,7 +74,7 @@ class P2PStockStore {
         }
     }
 
-    private int LoadMarketOffer(int currentId, ref array<ref P2PTraderPlayerMarketOffer> offers, array<ref P2POfferFileMatch> fileMatchCollection) {
+    private int LoadMarketOffer(int currentId, array<ref P2PTraderPlayerMarketOffer> offers, array<ref P2POfferFileMatch> fileMatchCollection) {
         foreach(P2POfferFileMatch match: fileMatchCollection) {
             ref P2PTraderPlayerMarketOffer offer;
             JsonFileLoader<P2PTraderPlayerMarketOffer>.JsonLoadFile(match.fileName, offer);
@@ -105,7 +105,7 @@ class P2PStockStore {
     }
 
 
-    private int LoadPlayerOffer(int currentId, notnull ref array<ref P2PTraderPlayerPlayerOffer> offers, notnull array<ref P2POfferFileMatch> fileMatchCollection) {
+    private int LoadPlayerOffer(int currentId, notnull array<ref P2PTraderPlayerPlayerOffer> offers, notnull array<ref P2POfferFileMatch> fileMatchCollection) {
         foreach(P2POfferFileMatch match: fileMatchCollection) {
             ref P2PTraderPlayerPlayerOffer offer;
             JsonFileLoader<P2PTraderPlayerPlayerOffer>.JsonLoadFile(match.fileName, offer);
@@ -129,10 +129,10 @@ class P2POfferFileMatch {
     ref array<int> categoryIds;
     string fileName;
 
-    void P2POfferFileMatch(int id, ref array<string> types, ref array<int> categoryIds) {
-        this.id = id;
-        this.types = types;
-        this.categoryIds = categoryIds;
+    void P2POfferFileMatch(int _id, array<string> _types, array<int> _categoryIds) {
+        this.id = _id;
+        this.types = _types;
+        this.categoryIds = _categoryIds;
 
         this.fileName = CONFIGS_STOCK_FOLDER_P2P + id.ToString() + ".json";
     }

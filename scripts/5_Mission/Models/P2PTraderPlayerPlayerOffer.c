@@ -2,12 +2,12 @@ class P2PTraderPlayerPlayerOffer extends P2PTraderBaseOffer {
     private int playerToMarketOfferId;
     private string message;
 
-    void P2PTraderPlayerPlayerOffer(string ownerId, string ownerName, int playerToMarketOfferId, string message = "") {
-        this.playerToMarketOfferId = playerToMarketOfferId;
-        this.ownerId = ownerId;
-        this.ownerName = ownerName;
+    void P2PTraderPlayerPlayerOffer(string _ownerId, string _ownerName, int _playerToMarketOfferId, string _message = "") {
+        this.playerToMarketOfferId = _playerToMarketOfferId;
+        this.ownerId = _ownerId;
+        this.ownerName = _ownerName;
         this.offerItems = new array<ref P2PTraderStockItem>;
-        this.message = message;
+        this.message = _message;
         this.SetCreationDate();
     }
 
@@ -27,8 +27,8 @@ class P2PTraderPlayerPlayerOffer extends P2PTraderBaseOffer {
         return offerItems.Count() == 0;
     }
 
-    void SetOfferItems(ref array <ref P2PTraderStockItem> offerItems) {
-        this.offerItems = offerItems;
+    void SetOfferItems(array <ref P2PTraderStockItem> _offerItems) {
+        this.offerItems = _offerItems;
     }
 
     string GetMessage() {

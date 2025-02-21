@@ -2,8 +2,8 @@ class P2PTraderMarketOfferEventHandler {
     private ref P2PTraderPlayerInventory inventory;
     private P2PTraderStock traderStock;
 
-    void P2PTraderMarketOfferEventHandler(P2PTraderStock traderStock) {
-        this.traderStock = traderStock;
+    void P2PTraderMarketOfferEventHandler(P2PTraderStock _traderStock) {
+        this.traderStock = _traderStock;
         inventory = new P2PTraderPlayerInventory;
         GetDayZGame().Event_OnRPC.Insert(HandleEvents);
     }

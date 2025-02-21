@@ -146,8 +146,8 @@ class P2PTraderMenu extends P2PTraderScriptedMenu {
         return layoutRoot;
     }
 
-    void SetCanTrade(bool canTrade) {
-        this.canTrade = canTrade;
+    void SetCanTrade(bool _canTrade) {
+        this.canTrade = _canTrade;
         bidManagementWidget.SetCanTrade(canTrade);
     }
 
@@ -472,11 +472,11 @@ class P2PTraderMenu extends P2PTraderScriptedMenu {
                 array<ref P2PTraderPlayerMarketOffer> stock = parameterStock.param1;
 
                 if(stock && stock.Count() > 0) {
-                    foreach(P2PTraderPlayerMarketOffer marketOfferItems: stock) {
-                        if(marketOfferItems.GetOwnerId() == playerId) {
-                            marketPlayerItems.Insert(marketOfferItems);
+                    foreach(P2PTraderPlayerMarketOffer stockMarketOfferItems: stock) {
+                        if(stockMarketOfferItems.GetOwnerId() == playerId) {
+                            marketPlayerItems.Insert(stockMarketOfferItems);
                         }
-                        marketItems.Insert(marketOfferItems);
+                        marketItems.Insert(stockMarketOfferItems);
                     }
                 }
 

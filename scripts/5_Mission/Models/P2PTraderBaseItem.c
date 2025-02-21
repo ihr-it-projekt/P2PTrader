@@ -1,8 +1,8 @@
 class P2PTraderBaseItem {
     int category = 0;
 
-    void SetCategory(int category) {
-        this.category = category;
+    void SetCategory(int _category) {
+        this.category = _category;
     }
 
     int GetCategory() {
@@ -33,7 +33,7 @@ class P2PTraderBaseItem {
         return false;
     }
 
-    void SetTranslation(string translated, bool addType) {
+    void SetTranslation(string _translated, bool _addType) {
 
     }
 

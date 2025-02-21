@@ -36,9 +36,9 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget {
     private TextListboxWidget bidManagementBidItems;
     private TextListboxWidget bidManagementBidItemAttachment;
 
-    void SetExtraInitDependencies(P2PTraderUserListEventService userListEventService, array<ref P2PTraderPlayerMarketOffer> marketItems) {
-        this.userListEventService = userListEventService;
-        this.marketItems = marketItems;
+    void SetExtraInitDependencies(P2PTraderUserListEventService _userListEventService, array<ref P2PTraderPlayerMarketOffer> _marketItems) {
+        this.userListEventService = _userListEventService;
+        this.marketItems = _marketItems;
     }
 
     override Widget Init() {
@@ -86,13 +86,13 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget {
         return layoutRoot;
     }
 
-    void SetCanTrade(bool canTrade) {
-        this.canTrade = canTrade;
+    void SetCanTrade(bool _canTrade) {
+        this.canTrade = _canTrade;
         bidManagementNotInNearHint.Show(!canTrade);
     }
 
-    void OnGetAllBidOffers(array<ref P2PTraderPlayerPlayerOffer> playerActiveOffers) {
-        this.playerActiveOffers = playerActiveOffers;
+    void OnGetAllBidOffers(array<ref P2PTraderPlayerPlayerOffer> _playerActiveOffers) {
+        this.playerActiveOffers = _playerActiveOffers;
     }
 
     override void OnShow() {
@@ -264,9 +264,9 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget {
         return playerInactiveOffers.Count() + playerAcceptedOffers.Count();
     }
 
-    void SetPlayerOffers(array<ref P2PTraderPlayerPlayerOffer> playerInactiveOffers, ref array<ref P2PTraderPlayerPlayerOffer> playerAcceptedOffers) {
-        this.playerInactiveOffers = playerInactiveOffers;
-        this.playerAcceptedOffers = playerAcceptedOffers;
+    void SetPlayerOffers(array<ref P2PTraderPlayerPlayerOffer> _playerInactiveOffers, array<ref P2PTraderPlayerPlayerOffer> _playerAcceptedOffers) {
+        this.playerInactiveOffers = _playerInactiveOffers;
+        this.playerAcceptedOffers = _playerAcceptedOffers;
 
         if(layoutRoot.IsVisible()) {
             if((!playerInactiveOffers || playerInactiveOffers.Count() == 0) && P2PTraderStock.INACTIVE_OFFER == bidFilterBidManagement) {

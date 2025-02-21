@@ -4,11 +4,11 @@ class P2PTraderBaseSubWidget extends P2PTraderScriptedMenu {
     protected P2PTraderItemListenerManger itemListenerManager;
     protected P2PTraderConfig config;
 
-    void SetInitDependencies(DayZPlayer player, P2PTraderItemListenerManger itemListenerManager, P2PItemService itemService, MultilineTextWidget message, P2PTraderConfig config) {
-        this.player = player;
-        this.itemListenerManager = itemListenerManager;
-        this.itemService = itemService;
-        this.message = message;
-        this.config = config;
+    void SetInitDependencies(DayZPlayer _player, P2PTraderItemListenerManger _itemListenerManager, P2PItemService _itemService, MultilineTextWidget _message, P2PTraderConfig _config) {
+        this.player = _player;
+        this.itemListenerManager = _itemListenerManager;
+        this.itemService = _itemService;
+        this.message = _message;
+        this.config = _config;
     }
 }

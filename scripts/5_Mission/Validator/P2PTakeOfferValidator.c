@@ -3,10 +3,10 @@ class P2PTakeOfferValidator extends P2PBaseValidator {
     private ref P2PTraderPlayerPlayerOffer playerPlayerOffer;
     private string playerId;
 
-    void P2PTakeOfferValidator(P2PTraderPlayerMarketOffer playerMarketOffer, P2PTraderPlayerPlayerOffer playerPlayerOffer, string playerId) {
-        this.playerMarketOffer = playerMarketOffer;
-        this.playerPlayerOffer = playerPlayerOffer;
-        this.playerId = playerId;
+    void P2PTakeOfferValidator(P2PTraderPlayerMarketOffer _playerMarketOffer, P2PTraderPlayerPlayerOffer _playerPlayerOffer, string _playerId) {
+        this.playerMarketOffer = _playerMarketOffer;
+        this.playerPlayerOffer = _playerPlayerOffer;
+        this.playerId = _playerId;
     }
 
     protected override bool DoValidate() {

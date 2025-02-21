@@ -9,15 +9,15 @@ class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer {
     private string offerType;
 
 
-    void P2PTraderPlayerMarketOffer(DayZPlayer owner, string offerType, string offerMessage = "") {
+    void P2PTraderPlayerMarketOffer(DayZPlayer owner, string _offerType, string _offerMessage = "") {
         this.ownerId = owner.GetIdentity().GetId();
         this.ownerName = owner.GetIdentity().GetName();
-        this.offerMessage = offerMessage;
+        this.offerMessage = _offerMessage;
         this.offerItems = new array<ref P2PTraderStockItem>;
         this.wantedItems = new array<ref P2PTraderStockItem>;
         this.otherPlayerOffersIds = new array<int>;
         this.SetCreationDate();
-        this.offerType = offerType;
+        this.offerType = _offerType;
 
     }
 
@@ -25,12 +25,12 @@ class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer {
         return this.offerType;
     }
 
-    bool IsOfferType(string offerType) {
+    bool IsOfferType(string _offerType) {
         if(!this.offerType || this.offerType == "") {
             this.offerType = this.TYPE_AUCTION;
         }
 
-        return this.offerType == offerType;
+        return this.offerType == _offerType;
     }
 
 
@@ -51,7 +51,7 @@ class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer {
         return false;
     }
 
-    void AddWantedItem(ref P2PTraderStockItem item) {
+    void AddWantedItem(P2PTraderStockItem item) {
         wantedItems.Insert(item);
     }
 
@@ -67,8 +67,8 @@ class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer {
         }
     }
 
-    bool HasPlayerOfferId(int id) {
-        int index = otherPlayerOffersIds.Find(id);
+    bool HasPlayerOfferId(int _id) {
+        int index = otherPlayerOffersIds.Find(_id);
 
         return -1 != index;
     }

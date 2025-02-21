@@ -1,11 +1,11 @@
 class P2PTraderItem extends P2PTraderBaseItem {
     private ref P2PTraderStockItem item;
 
-    void P2PTraderItem(string name, int categoryId, EntityAI item = null) {
+    void P2PTraderItem(string name, int categoryId, EntityAI _item = null) {
         this.item = new P2PTraderStockItem();
 
-        if(item) {
-            this.item.SetItem(item);
+        if(_item) {
+            this.item.SetItem(_item);
         } else {
             this.item.SetType(name);
         }
@@ -14,8 +14,8 @@ class P2PTraderItem extends P2PTraderBaseItem {
         SetCategory(categoryId);
     }
 
-    override void SetTranslation(string translated, bool addType) {
-        item.SetTranslation(translated, addType);
+    override void SetTranslation(string _translated, bool _addType) {
+        item.SetTranslation(_translated, _addType);
     }
 
     override bool Contains(string search) {

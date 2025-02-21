@@ -9,16 +9,16 @@ class P2PTraderItemMoveListener extends Managed {
     bool move;
     bool addTypeToTranslation;
 
-    void P2PTraderItemMoveListener(ButtonWidget buttonSourceToTarget, ButtonWidget buttonTargetToSource, TextListboxWidget source, TextListboxWidget target, bool move, ItemPreviewWidget peviewWidget, MultilineTextWidget description, P2PItemService itemService, EditBoxWidget minQuantity = null, EditBoxWidget minHealth = null) {
-        this.buttonSourceToTarget = buttonSourceToTarget;
-        this.buttonTargetToSource = buttonTargetToSource;
-        this.source = source;
-        this.target = target;
-        this.move = move;
-        this.minQuantity = minQuantity;
-        this.minHealth = minHealth;
+    void P2PTraderItemMoveListener(ButtonWidget _buttonSourceToTarget, ButtonWidget _buttonTargetToSource, TextListboxWidget _source, TextListboxWidget _target, bool _move, ItemPreviewWidget _peviewWidget, MultilineTextWidget _description, P2PItemService itemService, EditBoxWidget _minQuantity = null, EditBoxWidget _minHealth = null) {
+        this.buttonSourceToTarget = _buttonSourceToTarget;
+        this.buttonTargetToSource = _buttonTargetToSource;
+        this.source = _source;
+        this.target = _target;
+        this.move = _move;
+        this.minQuantity = _minQuantity;
+        this.minHealth = _minHealth;
         this.addTypeToTranslation = itemService.configParams.enableOrigenItemsNameInView;
-        previewWindow = new P2PTraderPreviewWindow(peviewWidget, description, itemService);
+        previewWindow = new P2PTraderPreviewWindow(_peviewWidget, _description, itemService);
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonSourceToTarget, this, "MoveSourceToTarget");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonTargetToSource, this, "MoveTargetToSource");
 
@@ -70,7 +70,7 @@ class P2PTraderItemMoveListener extends Managed {
         return null;
     }
 
-    private void MoveItemFromListWidgetToListWidget(TextListboxWidget sourceWidget, TextListboxWidget targetWidget, ButtonWidget button, bool mustMove, bool addTypeToTranslation) {
+    private void MoveItemFromListWidgetToListWidget(TextListboxWidget sourceWidget, TextListboxWidget targetWidget, ButtonWidget button, bool mustMove, bool _addTypeToTranslation) {
         int pos = sourceWidget.GetSelectedRow();
         if(pos == -1) {
             return;
@@ -86,7 +86,7 @@ class P2PTraderItemMoveListener extends Managed {
                 item.GetItem().quantity = minQuantity.GetText().ToFloat();
             }
 
-            item.UpdateTranslation(addTypeToTranslation);
+            item.UpdateTranslation(_addTypeToTranslation);
 
             if(targetWidget) {
                 targetWidget.AddItem(item.GetTranslation(), item, 0);

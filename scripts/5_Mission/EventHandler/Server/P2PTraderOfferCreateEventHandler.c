@@ -3,10 +3,10 @@ class P2PTraderOfferCreateEventHandler {
     private P2PTraderStock traderStock;
     private P2PTraderConfigParams config;
 
-    void P2PTraderOfferCreateEventHandler(P2PTraderStock traderStock, P2PTraderConfigParams config) {
-        this.traderStock = traderStock;
+    void P2PTraderOfferCreateEventHandler(P2PTraderStock _traderStock, P2PTraderConfigParams _config) {
+        this.traderStock = _traderStock;
         inventory = new P2PTraderPlayerInventory;
-        this.config = config;
+        this.config = _config;
         GetDayZGame().Event_OnRPC.Insert(HandleEvents);
     }
 

@@ -15,15 +15,15 @@ class P2PTraderBaseOffer {
         return id;
     }
 
-    void SetId(int id) {
-        this.id = id;
+    void SetId(int _id) {
+        this.id = _id;
     }
 
     array <ref P2PTraderStockItem> GetOfferItems() {
         return offerItems;
     }
 
-    void AddOfferItem(ref P2PTraderStockItem item) {
+    void AddOfferItem(P2PTraderStockItem item) {
         offerItems.Insert(item);
     }
 

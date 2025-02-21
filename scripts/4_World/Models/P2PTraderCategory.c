@@ -5,14 +5,14 @@ class P2PTraderCategory {
     private ref array<ref P2PTraderCategoryItem> items;
     private string fileName;
 
-    void P2PTraderCategory(string name, int id, string fileNameSuffix = "") {
-        fileName = fileNameSuffix + id.ToString() + SETTINGSFILE;
+    void P2PTraderCategory(string _name, int _id, string fileNameSuffix = "") {
+        fileName = fileNameSuffix + _id.ToString() + SETTINGSFILE;
 
         if(IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGS_CATEGORY_FOLDER_P2P + fileName)) {
             JsonFileLoader<P2PTraderCategory>.JsonLoadFile(CONFIGS_CATEGORY_FOLDER_P2P + fileName, this);
         } else {
-            this.name = name;
-            this.id = id;
+            this.name = _name;
+            this.id = _id;
             items = new array<ref P2PTraderCategoryItem>;
             SaveFile();
         }
