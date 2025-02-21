@@ -16,7 +16,7 @@ class P2PTraderBaseOffer {
     }
 
     void SetId(int _id) {
-        this.id = _id;
+        id = _id;
     }
 
     array <ref P2PTraderStockItem> GetOfferItems() {

@@ -231,11 +231,11 @@ class P2PTraderStock {
 
         int count = 0;
 
-        count = count + this.GetOffersFromPlayer(playerIdent, OPEN_OFFER).Count();
+        count = count + GetOffersFromPlayer(playerIdent, OPEN_OFFER).Count();
 
-        count = count + this.GetOffersFromPlayer(playerIdent, INACTIVE_OFFER).Count();
+        count = count + GetOffersFromPlayer(playerIdent, INACTIVE_OFFER).Count();
 
-        count = count + this.GetOffersFromPlayer(playerIdent, ACCEPTED_OFFER).Count();
+        count = count + GetOffersFromPlayer(playerIdent, ACCEPTED_OFFER).Count();
 
         return count;
     }

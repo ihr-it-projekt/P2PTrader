@@ -10,14 +10,14 @@ class P2PTraderItemMoveListener extends Managed {
     bool addTypeToTranslation;
 
     void P2PTraderItemMoveListener(ButtonWidget _buttonSourceToTarget, ButtonWidget _buttonTargetToSource, TextListboxWidget _source, TextListboxWidget _target, bool _move, ItemPreviewWidget _peviewWidget, MultilineTextWidget _description, P2PItemService itemService, EditBoxWidget _minQuantity = null, EditBoxWidget _minHealth = null) {
-        this.buttonSourceToTarget = _buttonSourceToTarget;
-        this.buttonTargetToSource = _buttonTargetToSource;
-        this.source = _source;
-        this.target = _target;
-        this.move = _move;
-        this.minQuantity = _minQuantity;
-        this.minHealth = _minHealth;
-        this.addTypeToTranslation = itemService.configParams.enableOrigenItemsNameInView;
+        buttonSourceToTarget = _buttonSourceToTarget;
+        buttonTargetToSource = _buttonTargetToSource;
+        source = _source;
+        target = _target;
+        move = _move;
+        minQuantity = _minQuantity;
+        minHealth = _minHealth;
+        addTypeToTranslation = itemService.configParams.enableOrigenItemsNameInView;
         previewWindow = new P2PTraderPreviewWindow(_peviewWidget, _description, itemService);
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonSourceToTarget, this, "MoveSourceToTarget");
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(buttonTargetToSource, this, "MoveTargetToSource");

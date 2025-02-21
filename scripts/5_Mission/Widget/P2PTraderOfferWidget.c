@@ -96,7 +96,7 @@ class P2PTraderOfferWidget extends P2PTraderBaseSubWidget {
     }
 
     void OnGetPlayerItems(array<ref P2PTraderItem> _playerItems) {
-        this.playerItems = _playerItems;
+        playerItems = _playerItems;
     }
 
     override bool OnClick(Widget w, int x, int y, int button)	{

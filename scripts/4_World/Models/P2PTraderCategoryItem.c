@@ -3,8 +3,8 @@ class P2PTraderCategoryItem {
     private int categoryId;
 
     void P2PTraderCategoryItem(string _name, int _categoryId) {
-        this.name = _name;
-        this.categoryId = _categoryId;
+        name = _name;
+        categoryId = _categoryId;
     }
 
     string GetName() {

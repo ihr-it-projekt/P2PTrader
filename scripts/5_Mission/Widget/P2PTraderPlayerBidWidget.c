@@ -48,14 +48,14 @@ class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget {
     }
 
     void SetMarketOfferDetails(P2PTraderPlayerMarketOffer _selectedMarketOffer) {
-        this.selectedMarketOffer = _selectedMarketOffer;
+        selectedMarketOffer = _selectedMarketOffer;
         playerNameBidDetail.SetText(selectedMarketOffer.GetOwnerName());
         playerOfferMessageDetailBid.SetText(selectedMarketOffer.GetOfferMessage());
 
         playerOfferWantToHave.ClearItems();
 
-        if(this.selectedMarketOffer.GetWantedItems().Count() > 0) {
-            itemService.GetTraderStockItemList(playerOfferWantToHave, this.selectedMarketOffer.GetWantedItems());
+        if(selectedMarketOffer.GetWantedItems().Count() > 0) {
+            itemService.GetTraderStockItemList(playerOfferWantToHave, selectedMarketOffer.GetWantedItems());
         }
 
         itemService.GetMarketOfferItemList(offerDetailItemsBid, selectedMarketOffer);
@@ -70,7 +70,7 @@ class P2PTraderPlayerBidWidget extends P2PTraderBaseSubWidget {
     }
 
     void OnGetPlayerItems(array<ref P2PTraderItem> _playerItems) {
-        this.playerItems = _playerItems;
+        playerItems = _playerItems;
     }
 
     bool IsWidgetVisible() {

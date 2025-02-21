@@ -3,11 +3,11 @@ class P2PTraderUIItemCreator {
     Widget layoutRoot;
 
     void P2PTraderUIItemCreator(string layoutRootPath) {
-        this.layoutRoot = GetGame().GetWorkspace().CreateWidgets(layoutRootPath);
+        layoutRoot = GetGame().GetWorkspace().CreateWidgets(layoutRootPath);
     }
 
     Widget GetLayoutRoot() {
-        return this.layoutRoot;
+        return layoutRoot;
     }
 
     TextListboxWidget GetTextListboxWidget(string name, Managed eventHandler = null, string functionName = "") {

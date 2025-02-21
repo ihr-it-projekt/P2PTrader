@@ -4,9 +4,9 @@ class P2PStockChecker extends Managed {
     private P2PTraderConfigParams config;
 
     void P2PStockChecker(P2PTraderStock _stock, P2PTraderConfigParams _config) {
-        this.stock = _stock;
-        this.inventory = new P2PTraderPlayerInventory;
-        this.config = _config;
+        stock = _stock;
+        inventory = new P2PTraderPlayerInventory;
+        config = _config;
     }
 
     void CheckForExpiredItems() {

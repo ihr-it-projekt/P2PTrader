@@ -4,7 +4,7 @@ class P2PTraderPlayerItemEventHandler {
     private P2PTraderConfigParams config;
 
     void P2PTraderPlayerItemEventHandler(P2PTraderConfigParams _config, P2PTraderItemsCategoryConfig itemConfig) {
-        this.config = _config;
+        config = _config;
         itemsInventory = itemConfig.GetItems();
 
         inventory = new P2PTraderPlayerInventory;

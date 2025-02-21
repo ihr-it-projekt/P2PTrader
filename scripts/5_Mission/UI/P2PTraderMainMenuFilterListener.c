@@ -10,8 +10,8 @@ class P2PTraderMainMenuFilterListener extends Managed {
     private ref array<ref P2PTraderPlayerMarketOffer> marketItems;
 
     void P2PTraderMainMenuFilterListener(Widget layout, P2PItemService _itemService, TextListboxWidget _marketOffers) {
-        this.itemService = _itemService;
-        this.marketOffers = _marketOffers;
+        itemService = _itemService;
+        marketOffers = _marketOffers;
 
         buttonSearchMarket = ButtonWidget.Cast(layout.FindAnyWidget("buttonSearchMarket"));
         inputSearchMarket = EditBoxWidget.Cast(layout.FindAnyWidget("inputSearchMarket"));
@@ -37,8 +37,8 @@ class P2PTraderMainMenuFilterListener extends Managed {
     }
 
     void OnGetStockEvent(array<ref P2PTraderPlayerMarketOffer> _marketItems, array<ref P2PTraderPlayerMarketOffer> _marketPlayerItems) {
-        this.marketItems = _marketItems;
-        this.marketPlayerItems = _marketPlayerItems;
+        marketItems = _marketItems;
+        marketPlayerItems = _marketPlayerItems;
         OnClickFilterOwner();
     }
 

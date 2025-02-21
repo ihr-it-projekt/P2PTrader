@@ -130,10 +130,10 @@ class P2POfferFileMatch {
     string fileName;
 
     void P2POfferFileMatch(int _id, array<string> _types, array<int> _categoryIds) {
-        this.id = _id;
-        this.types = _types;
-        this.categoryIds = _categoryIds;
+        id = _id;
+        types = _types;
+        categoryIds = _categoryIds;
 
-        this.fileName = CONFIGS_STOCK_FOLDER_P2P + id.ToString() + ".json";
+        fileName = CONFIGS_STOCK_FOLDER_P2P + id.ToString() + ".json";
     }
 }

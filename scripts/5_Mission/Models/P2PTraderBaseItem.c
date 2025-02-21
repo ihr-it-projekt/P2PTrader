@@ -2,7 +2,7 @@ class P2PTraderBaseItem {
     int category = 0;
 
     void SetCategory(int _category) {
-        this.category = _category;
+        category = _category;
     }
 
     int GetCategory() {

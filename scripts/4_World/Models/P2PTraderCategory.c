@@ -11,8 +11,8 @@ class P2PTraderCategory {
         if(IsServerAndMultiplayerP2PTrader() && FileExist(CONFIGS_CATEGORY_FOLDER_P2P + fileName)) {
             JsonFileLoader<P2PTraderCategory>.JsonLoadFile(CONFIGS_CATEGORY_FOLDER_P2P + fileName, this);
         } else {
-            this.name = _name;
-            this.id = _id;
+            name = _name;
+            id = _id;
             items = new array<ref P2PTraderCategoryItem>;
             SaveFile();
         }
@@ -20,7 +20,7 @@ class P2PTraderCategory {
 
     void AddItem(string nameOfItem) {
         if(nameOfItem) {
-            items.Insert(new P2PTraderCategoryItem(nameOfItem, this.id));
+            items.Insert(new P2PTraderCategoryItem(nameOfItem, id));
             SaveFile();
         }
     }

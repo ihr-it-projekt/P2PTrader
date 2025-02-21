@@ -37,8 +37,8 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget {
     private TextListboxWidget bidManagementBidItemAttachment;
 
     void SetExtraInitDependencies(P2PTraderUserListEventService _userListEventService, array<ref P2PTraderPlayerMarketOffer> _marketItems) {
-        this.userListEventService = _userListEventService;
-        this.marketItems = _marketItems;
+        userListEventService = _userListEventService;
+        marketItems = _marketItems;
     }
 
     override Widget Init() {
@@ -87,12 +87,12 @@ class P2PTraderBidManagementWidget extends P2PTraderBaseSubWidget {
     }
 
     void SetCanTrade(bool _canTrade) {
-        this.canTrade = _canTrade;
+        canTrade = _canTrade;
         bidManagementNotInNearHint.Show(!canTrade);
     }
 
     void OnGetAllBidOffers(array<ref P2PTraderPlayerPlayerOffer> _playerActiveOffers) {
-        this.playerActiveOffers = _playerActiveOffers;
+        playerActiveOffers = _playerActiveOffers;
     }
 
     override void OnShow() {

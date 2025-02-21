@@ -1,12 +1,12 @@
 class P2PTraderExpiredDate extends P2PTraderDate {
 
     void P2PTraderExpiredDate(P2PTraderDate date, int maxDays) {
-        this.year = date.year;
-        this.month = date.month;
-        this.day = date.day;
-        this.hour = date.hour;
-        this.minute = date.minute;
-        this.second = date.second;
+        year = date.year;
+        month = date.month;
+        day = date.day;
+        hour = date.hour;
+        minute = date.minute;
+        second = date.second;
 
         if(maxDays > 364) {
             int yearAdd = Math.Floor(maxDays / 365);

@@ -8,12 +8,12 @@ class P2PTraderPlayerInventory {
 
     void AddCollection(DayZPlayer player, array <ref P2PTraderStockItem> stockPlayerOfferItems) {
         foreach(P2PTraderStockItem stockPlayerOfferItem: stockPlayerOfferItems) {
-            this.Add(player, stockPlayerOfferItem);
+            Add(player, stockPlayerOfferItem);
         }
     }
     void AddCollectionNoRef(DayZPlayer player, array <P2PTraderStockItem> stockPlayerOfferItems) {
         foreach(P2PTraderStockItem stockPlayerOfferItem: stockPlayerOfferItems) {
-            this.Add(player, stockPlayerOfferItem);
+            Add(player, stockPlayerOfferItem);
         }
     }
 
@@ -31,7 +31,7 @@ class P2PTraderPlayerInventory {
 
         if(itemInStock.attached.Count() > 0) {
             foreach(P2PTraderStockItem itemAttached: itemInStock.attached) {
-                this.Add(player, itemAttached);
+                Add(player, itemAttached);
             }
         }
     }

@@ -5,9 +5,9 @@ class P2PTraderPreviewWindow extends Managed {
     private P2PItemService itemService;
 
     void P2PTraderPreviewWindow(ItemPreviewWidget _widget, MultilineTextWidget _description, P2PItemService _itemService) {
-        this.widget = _widget;
-        this.description = _description;
-        this.itemService = _itemService;
+        widget = _widget;
+        description = _description;
+        itemService = _itemService;
     }
 
     void ListenOnClick(TextListboxWidget listBoxWidget) {
@@ -57,7 +57,7 @@ class P2PTraderPreviewWindow extends Managed {
         InventoryItem itemCast = InventoryItem.Cast(_previewItem);
 
         if(itemCast) {
-            this.description.SetText(item.GetTranslation() + " " + itemCast.GetTooltip());
+            description.SetText(item.GetTranslation() + " " + itemCast.GetTooltip());
         } else {
             this.description.SetText("");
         }

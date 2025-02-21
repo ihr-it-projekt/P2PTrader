@@ -4,9 +4,9 @@ class P2PTraderAdminEventHandler {
     private P2PTraderConfigParams config;
 
     void P2PTraderAdminEventHandler(P2PTraderStock _traderStock, P2PTraderConfigParams _config) {
-        this.traderStock = _traderStock;
+        traderStock = _traderStock;
         inventory = new P2PTraderPlayerInventory;
-        this.config = _config;
+        config = _config;
         GetDayZGame().Event_OnRPC.Insert(HandleEvents);
     }
 

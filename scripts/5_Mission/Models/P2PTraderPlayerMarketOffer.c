@@ -10,11 +10,11 @@ class P2PTraderPlayerMarketOffer extends P2PTraderBaseOffer {
 
 
     void P2PTraderPlayerMarketOffer(DayZPlayer owner, string _offerType, string _offerMessage = "") {
-        this.ownerId = owner.GetIdentity().GetId();
-        this.ownerName = owner.GetIdentity().GetName();
-        this.offerMessage = _offerMessage;
-        this.offerItems = new array<ref P2PTraderStockItem>;
-        this.wantedItems = new array<ref P2PTraderStockItem>;
+        ownerId = owner.GetIdentity().GetId();
+        ownerName = owner.GetIdentity().GetName();
+        offerMessage = _offerMessage;
+        offerItems = new array<ref P2PTraderStockItem>;
+        wantedItems = new array<ref P2PTraderStockItem>;
         this.otherPlayerOffersIds = new array<int>;
         this.SetCreationDate();
         this.offerType = _offerType;

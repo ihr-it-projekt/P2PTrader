@@ -58,8 +58,8 @@ class P2PTraderMenu extends P2PTraderScriptedMenu {
     private bool isOpen;
 
     void SetConfig(P2PTraderConfig configExt) {
-        this.config = configExt;
-        itemService = new P2PItemService(this.config);
+        config = configExt;
+        itemService = new P2PItemService(config);
         player = GetGame().GetPlayer();
         playerId = player.GetIdentity().GetId();
         itemListenerManager = new P2PTraderItemListenerManger(itemService);
@@ -147,7 +147,7 @@ class P2PTraderMenu extends P2PTraderScriptedMenu {
     }
 
     void SetCanTrade(bool _canTrade) {
-        this.canTrade = _canTrade;
+        canTrade = _canTrade;
         bidManagementWidget.SetCanTrade(canTrade);
     }
 

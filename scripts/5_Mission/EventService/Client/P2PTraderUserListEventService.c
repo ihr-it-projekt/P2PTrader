@@ -4,7 +4,7 @@ class P2PTraderUserListEventService {
     private ref Timer refreshTimeOut;
 
     void P2PTraderUserListEventService(DayZPlayer _player) {
-        this.player = _player;
+        player = _player;
         refreshTimeOut = new Timer();
     }
 

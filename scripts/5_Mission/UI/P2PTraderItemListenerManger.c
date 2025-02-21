@@ -6,7 +6,7 @@ class P2PTraderItemListenerManger {
     void P2PTraderItemListenerManger(P2PItemService _itemService) {
         moveListener = new array<ref P2PTraderItemMoveListener>;
         previewListener = new array<ref P2PTraderPreviewWindow>;
-        this.itemService = _itemService;
+        itemService = _itemService;
     }
 
     void AddItemMoveListener(ButtonWidget buttonSourceToTarget, ButtonWidget buttonTargetToSource, TextListboxWidget source, TextListboxWidget target, bool move, ItemPreviewWidget peviewWidget, MultilineTextWidget description, EditBoxWidget minQuantity = null, EditBoxWidget minHealth = null) {

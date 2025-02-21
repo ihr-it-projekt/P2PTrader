@@ -3,7 +3,7 @@ class P2PTraderConfig {
     ref P2PTraderConfigParams traderConfigParams
 
     void P2PTraderConfig() {
-        this.traderItemsConfig = new P2PTraderItemsCategoryConfig;
-        this.traderConfigParams = new P2PTraderConfigParams;
+        traderItemsConfig = new P2PTraderItemsCategoryConfig;
+        traderConfigParams = new P2PTraderConfigParams;
     }
 }
