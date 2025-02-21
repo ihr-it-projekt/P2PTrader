@@ -11,6 +11,11 @@ modded class MissionServer {
     private ref P2PStockChecker stockChecker;
 
     void MissionServer() {
+        for(int i = 0; i < 20; i++) {
+            Print("[P2PTrader] This mod is deprecated and will not maintained anymore. If you search for an alternative see here: https://youtu.be/YXXO2QezOUU");
+            GetGame().AdminLog("[P2PTrader] This mod is deprecated and will not maintained anymore. If you search for an alternative see here: https://youtu.be/YXXO2QezOUU");
+        }
+
         p2pTraderConfig = new P2PTraderConfig();
 
         P2PTraderKeyCodeMatch keyMap = new P2PTraderKeyCodeMatch;
