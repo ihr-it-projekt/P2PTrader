@@ -63,8 +63,8 @@ class P2PTraderMenu extends P2PTraderScriptedMenu {
         player = GetGame().GetPlayer();
         playerId = player.GetIdentity().GetId();
         itemListenerManager = new P2PTraderItemListenerManger(itemService);
-        marketItems = new ref array<ref P2PTraderPlayerMarketOffer>;
-        marketPlayerItems = new ref array<ref P2PTraderPlayerMarketOffer>;
+        marketItems = new array<ref P2PTraderPlayerMarketOffer>;
+        marketPlayerItems = new array<ref P2PTraderPlayerMarketOffer>;
     }
 
     override Widget Init() {
